@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/ic_item_background" >
+
+        <TextView
+            android:id="@+id/item_score_record_lessonName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:text="思想道德修养与法律基础"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/item_score_record_imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/item_score_record_lessonName"
+            android:layout_below="@+id/item_score_record_lessonName"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/ic_library_bookdetail_greeb" />
+
+        <TextView
+            android:id="@+id/item_score_record_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/item_score_record_imageView1"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/item_score_record_imageView1"
+            android:text="必修"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/item_score_record_imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/item_score_record_imageView1"
+            android:layout_marginLeft="60dp"
+            android:layout_toRightOf="@+id/item_score_record_imageView1"
+            android:src="@drawable/ic_library_bookdetail_purple" />
+
+        <TextView
+            android:id="@+id/item_score_record_lessonScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/item_score_record_imageView2"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/item_score_record_imageView2"
+            android:text="学分:1"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+        
+        <TextView
+            android:id="@+id/item_score_record_score1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/item_score_record_imageView3"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/item_score_record_imageView3"
+            android:text="94"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/item_score_record_imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/item_score_record_lessonScore"
+            android:layout_toRightOf="@+id/item_score_record_imageView2"
+            android:layout_marginLeft="80dp"
+            android:src="@drawable/ic_library_bookdetail_blue" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

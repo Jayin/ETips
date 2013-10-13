@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="40dp"
+    android:orientation="horizontal" 
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/item_course_allweek_classtime"
+        style="@style/textview_course_allweek_item"
+        android:layout_weight="0.5"
+        android:background="@null"
+        android:gravity="center"
+        android:text="1"
+        android:textColor="@color/blue" />
+
+    <TextView
+        android:id="@+id/item_course_allweek_first"
+        style="@style/textview_course_allweek_item" />
+
+    <TextView
+        android:id="@+id/item_course_allweek_second"
+        style="@style/textview_course_allweek_item" />
+
+    <TextView
+        android:id="@+id/item_course_allweek_third"
+        style="@style/textview_course_allweek_item" />
+
+    <TextView
+        android:id="@+id/item_course_allweek_forth"
+        style="@style/textview_course_allweek_item" />
+
+    <TextView
+        android:id="@+id/item_course_allweek_fifth"
+        style="@style/textview_course_allweek_item" />
+
+    <TextView
+        android:id="@+id/item_course_allweek_sixth"
+        style="@style/textview_course_allweek_item" />
+
+    <TextView
+        android:id="@+id/item_course_allweek_seventh"
+        style="@style/textview_course_allweek_item" />
+
+</LinearLayout>

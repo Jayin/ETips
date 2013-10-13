@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/grey" >
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/acty_course_settting_navigate" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <!-- 后面的添加直接复制 下面的RelativeLayout即可~ -->
+
+            <RelativeLayout
+                android:id="@+id/acty_course_setting_rely_reflush"
+                style="@style/Acty_Course_Setting.rely" >
+
+                <TextView
+                    style="@style/Acty_Course_Setting.textview"
+                    android:text="更新课表" />
+
+                <ImageView style="@style/Acty_Course_Setting.imageview" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/acty_course_setting_rely_currentWeek"
+                style="@style/Acty_Course_Setting.rely" >
+
+                <TextView
+                    style="@style/Acty_Course_Setting.textview"
+                    android:text="当前周数" />
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    style="@style/Acty_Course_Setting.imageview" />
+
+                <TextView
+                    android:id="@+id/acty_course_setting_tv_currentWeek"
+                    style="@style/Acty_Course_Setting.textview"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/imageView1"
+                    android:text="1周"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/acty_course_setting_rely_dailyAlarm"
+                style="@style/Acty_Course_Setting.rely" >
+
+                <TextView
+                    style="@style/Acty_Course_Setting.textview"
+                    android:text="每日课程预告" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    style="@style/Acty_Course_Setting.imageview" />
+
+                <TextView
+                    android:id="@+id/acty_course_setting_tv_dailyAlarm"
+                    style="@style/Acty_Course_Setting.textview"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/imageView2"
+                    android:text="开启"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/acty_course_settting_navigate"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/ic_navigate_bg_black" >
+
+        <Button
+            android:id="@+id/acty_course_setting_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/btn_back_grey" />
+
+        <Button
+            android:id="@+id/acty_course_setting_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/btn_edit_white"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/acty_course_setting_tv"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center_horizontal"
+            android:text="设置"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

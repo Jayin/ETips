@@ -1,0 +1,39 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/ic_bg_main"
+    tools:context=".GridViewMainActivity" >
+
+    <RelativeLayout
+        android:id="@+id/acty_relate"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <GridView
+            android:id="@+id/acty_main_gridview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_above="@+id/acty_main_btn_setting"
+            android:gravity="center"
+            android:horizontalSpacing="10dp"
+            android:numColumns="2"
+            android:scrollbars="vertical"
+            android:scrollbarStyle="outsideOverlay"
+            android:padding="20dp"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="10dp"
+            
+             >
+        </GridView>
+
+        <Button
+            android:id="@+id/acty_main_btn_setting"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/btn_settting_style_one" />
+    </RelativeLayout>
+
+</RelativeLayout>

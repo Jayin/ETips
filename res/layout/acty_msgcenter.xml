@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/acty_msgcenter_navigate"
+        android:background="@color/lightblue" >
+
+        <ProgressBar
+            android:id="@+id/acty_msgcenter_progressbar"
+            style="@style/ProgressBar_style_one"
+            android:layout_centerInParent="true"
+            android:visibility="visible" />
+
+        <ListView
+            android:id="@+id/acty_msgcenter_listview"
+            style="@style/ListView_Base"
+            android:divider="@null"
+            android:visibility="gone" >
+        </ListView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/acty_msgcenter_navigate"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/ic_navigate_bg_black" >
+
+        <Button
+            android:id="@+id/acty_msgcenter_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/btn_back_grey" />
+
+        <TextView
+            android:id="@+id/acty_msgcenter_page"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="消息中心"
+            android:textColor="@color/white"
+            android:textSize="15sp" >
+        </TextView>
+
+        <Button
+            android:id="@+id/acty_msgcenter_reflush"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="3dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/btn_back_black"
+            android:text="清 除"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="red">#FF0033</color>
+    <color name="black">#000000</color>
+    <color name="blue">#0000CC</color>
+    <color name="white">#ffffff</color>
+    <color name="grey">#FFE1E8EB</color>
+    <color name="lightblue">#ffccddff</color>
+    <color name="lucency_white">#00ffffff</color> <!-- 白色透明 -->
+    <color name="light_white">#ffeff3f6</color>
+    <color name="week_course_course_green">#FF339900</color>
+
+</resources>

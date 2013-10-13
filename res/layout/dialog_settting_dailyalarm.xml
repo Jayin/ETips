@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="240dp"
+    android:background="@drawable/ic_dlg_background" >
+
+    <TextView
+        android:id="@+id/dialog_setting_dailyalarm_title"
+        style="@style/Base_TextView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:text="每日提醒设置"
+        android:textSize="20sp" />
+
+    <RelativeLayout
+        android:id="@+id/dialog_setting_dailyalarm_middle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/dialog_setting_dailyalarm_bottom"
+        android:layout_below="@+id/dialog_setting_dailyalarm_title" >
+
+        <TextView
+            android:id="@+id/textView1"
+            style="@style/Base_TextView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="47dp"
+            android:layout_marginTop="20dp"
+            android:text="提醒时间：每日20:01:00"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/Base_TextView"
+            android:layout_alignLeft="@+id/textView1"
+            android:layout_below="@+id/textView1"
+            android:layout_marginTop="15dp"
+            android:text="提醒方式：铃声 + 震动"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            style="@style/Base_TextView"
+            android:layout_alignLeft="@+id/textView2"
+            android:layout_below="@+id/textView2"
+            android:layout_marginTop="15dp"
+            android:text="提醒内容：明日要上的课程"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/dialog_setting_dailyalarm_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true" >
+
+        <Button
+            android:id="@+id/dialog_setting_dailyalarm_cancle"
+            style="@style/Base_Button"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_base_blue"
+            android:text="关 闭" />
+
+        <Button
+            android:id="@+id/dialog_setting_dailyalarm_ok"
+            style="@style/Base_Button"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_base_blue"
+            android:text="开 启" />
+    </LinearLayout>
+
+</RelativeLayout>

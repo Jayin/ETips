@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <RelativeLayout
+        android:id="@+id/acty_schoolnews_detail_title"
+        style="@style/Base_Navigation_rely_top" >
+
+        <TextView
+            android:id="@+id/acty_schoolnews_detail_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:ellipsize="end"
+            android:ems="15"
+            android:gravity="center_horizontal"
+            android:singleLine="true"
+            android:text="Thinking in java"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/acty_schoolnews_detail_navigate"
+        android:layout_below="@+id/acty_schoolnews_detail_title"
+        android:background="@drawable/ic_bg_wood" >
+
+        <ProgressBar
+            android:id="@+id/acty_schoolnews_detail_progressBar"
+            style="@style/Base_ProgressBar"
+            android:layout_centerInParent="true"
+            android:visibility="visible" />
+
+        <WebView
+            android:id="@+id/acty_schoolnews_detail_webview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/acty_schoolnews_detail_navigate"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/ic_navigate_bg_black" >
+
+        <Button
+            android:id="@+id/acty_schoolnews_detail_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/btn_back_grey" />
+
+        <Button
+            android:id="@+id/acty_schoolnews_detail_reflush"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/ic_btn_reflush" />
+
+        <TextView
+            android:id="@+id/acty_schoolnews_detail_page"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_toLeftOf="@+id/acty_schoolnews_detail_reflush"
+            android:layout_toRightOf="@+id/acty_schoolnews_detail_back"
+            android:gravity="center"
+            android:text="ETips your life"
+            android:textColor="@color/white"
+            android:textSize="15sp" >
+        </TextView>
+    </RelativeLayout>
+
+</RelativeLayout>

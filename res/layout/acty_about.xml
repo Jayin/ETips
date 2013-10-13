@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <RelativeLayout
+        android:id="@+id/acty_about_navigate"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/ic_navigate_bg_black" >
+
+        <Button
+            android:id="@+id/acty_about_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/btn_back_grey" />
+
+        <TextView
+            android:id="@+id/acty_about_page"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:text="联袂追求卓越，技术设计未来"
+            android:textColor="@color/white"
+            android:textSize="12sp" >
+        </TextView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/acty_about_title"
+        style="@style/Base_Navigation_rely_top" >
+
+        <TextView
+            android:id="@+id/acty_about_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:ems="10"
+            android:gravity="center"
+            android:text="关于"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/acty_about_navigate"
+        android:layout_below="@+id/acty_about_title"
+        android:background="@drawable/ic_bg_about" >
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="20dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView5"
+                style="@style/Base_TextView"
+                android:layout_width="fill_parent"
+                android:layout_gravity="center"
+                android:text="反馈,产品建议:"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/textView6"
+                style="@style/Base_TextView"
+                android:layout_marginTop="10dp"
+                android:text="新浪微博：\n @邑点通_ETips  @袂卓移动开发工作室"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/textView7"
+                style="@style/Base_TextView"
+                android:layout_marginTop="10dp"
+                android:text="微信公众账号:邑点通"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/textView8"
+                style="@style/Base_TextView"
+                android:layout_marginTop="7dp"
+                android:text="版本：1.2" android:textColor="@color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

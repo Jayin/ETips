@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/ic_etips_main_window_toolbar_item_pressed" android:state_pressed="true"/>
+    <item android:drawable="@drawable/ic_etips_main_toolbar_bg" android:state_pressed="false"/>
+
+</selector>

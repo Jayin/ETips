@@ -1,0 +1,35 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="bottom"
+    tools:context=".ETipsMainActivity" 
+    android:background="@color/black">
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/start_activity_background" />
+
+    <TextView
+        android:id="@+id/acty_etips_start_tv_null"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+      />
+
+    <TextView
+        android:id="@+id/acty_etips_start_tv_saying"
+        style="@style/Base_TextView"
+        android:layout_alignLeft="@+id/acty_etips_start_tv_null"
+        android:layout_below="@+id/acty_etips_start_tv_null"
+        android:layout_marginTop="74dp"
+        android:textSize="18sp"
+        android:padding="5dp"
+        android:textColor="@color/white"
+        android:text="泰山不让土壤，故能成其大；河海不择细流，故能就其深。" 
+       />
+
+</RelativeLayout>

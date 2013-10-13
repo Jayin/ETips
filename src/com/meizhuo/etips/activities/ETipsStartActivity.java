@@ -8,9 +8,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,19 +23,26 @@ import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
+import com.meizhuo.etips.common.utils.AndroidUtils;
 import com.meizhuo.etips.common.utils.CalendarManager;
+import com.meizhuo.etips.common.utils.ETipsAlarmManager;
 import com.meizhuo.etips.common.utils.ETipsContants;
 import com.meizhuo.etips.common.utils.JPushManager;
+import com.meizhuo.etips.common.utils.SP;
 import com.meizhuo.etips.common.utils.SharedPreferenceHelper;
 import com.meizhuo.etips.db.CourseDAO;
 import com.meizhuo.etips.model.Lesson;
-
+/**
+ * Change Log:
+ * ETips 2.0 
+ *  1.移除每日一句saying, Has_Saying_load 将会在再后一个版本移除
+ * since 11.28
+ * @author Jayin Ton
+ *
+ */
 public class ETipsStartActivity extends BaseUIActivity {
 	private HashMap<String, String> property; // 用户偏好设置类
 	private ETipsApplication App;
-	private String saying = "";
-	private TextView tv_saying;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -51,13 +60,25 @@ public class ETipsStartActivity extends BaseUIActivity {
 				case ETipsContants.Start:
 					toast("首次加载需要稍等片刻");
 					break;
-				default:
+				case ETipsContants.Finish:
 					JPushManager.init(getApplicationContext());
 					// init
-					if (tv_saying != null && tv_saying.equals(""))
-						tv_saying.setText(saying);
-					startActivity(new Intent(ETipsStartActivity.this,
-							ETipsMainActivity.class));
+ 
+					SP sp  = null;
+				    try {
+				    	sp =new  SP(ETipsContants.SP_NAME_Version+AndroidUtils.getAppVersionName(getContext()), getContext());
+					} catch (NameNotFoundException e) {
+						e.printStackTrace();
+					}
+				    if(sp!=null && sp.getValue("First_Install").equals("YES")){
+				    	sp.add("First_Install", "NO");
+				    	//跳转到 导航
+				    	openActivity(ETipsGuidePage.class);
+				    }else{
+				    	startActivity(new Intent(ETipsStartActivity.this,
+								ETipsMainActivity.class));
+					    }
+					
 					ETipsStartActivity.this.finish();
 					break;
 				}
@@ -103,26 +124,23 @@ public class ETipsStartActivity extends BaseUIActivity {
 							App.setLessonList(course);
 						}
 						Message msg = handler.obtainMessage();
-						if (sp.getString("Has_Saying_load", "NO").equals("NO")) {
-							handler.sendEmptyMessage(ETipsContants.Start);
-							loadSaying();
-							SharedPreferenceHelper.set(sp, "Has_Saying_load",
-									"YES");
-							msg.what = ETipsContants.Finish;
-							handler.sendMessage(msg);
-							return;
-						}
+				//		initAlarm();
 						msg.what = ETipsContants.Finish;
-						handler.sendMessageDelayed(msg, 1000);
-
+						handler.sendMessageDelayed(msg, 200);
 					}
 				}).start();
 
 			}
 		});
-
 	}
-
+	private void initAlarm(){
+		PendingIntent operation = PendingIntent.getBroadcast(getContext(), ETipsContants.ID_Alarm_Course,
+				new Intent(ETipsContants.ACTION_Custom_Alarm), PendingIntent.FLAG_UPDATE_CURRENT);
+		ETipsAlarmManager eam = new ETipsAlarmManager(getContext());
+		long firstTime = eam.getFirstTime(20, 1);
+		eam.setRepeatAlarm(firstTime, 1000*60*60*24, operation);
+	}
+	
 	private void loadPreference() {
 		// 用户偏好设置加载
 		SharedPreferences sp = this.getSharedPreferences(
@@ -148,7 +166,7 @@ public class ETipsStartActivity extends BaseUIActivity {
 			SharedPreferenceHelper.set(sp, "First_Open_APP", "NO");
 			property.put("First_Open_APP", "NO");
 		}
-		if (sp.contains("Has_Saying_load")) { // 包含，说明用户基于新版本安装
+		if (sp.contains("Has_Saying_load")) { // 包含，说明用户基于新版本安装   
 
 		} else { // 不包含，说明用户基于就旧本升级
 			SharedPreferenceHelper.set(sp, "Has_Saying_load", "NO");
@@ -156,66 +174,53 @@ public class ETipsStartActivity extends BaseUIActivity {
 		}
 		App.setProperty(property);
 
-	}
-
-	private void loadSaying() {
-		BufferedReader br = new BufferedReader(new InputStreamReader(
-				getResources().openRawResource(R.raw.saying)));
-		String data;
-		try {
-			int count = 0;
-			SharedPreferences sp = getSharedPreferences(
-					ETipsContants.SharedPreference_NAME_Saying,
-					Context.MODE_PRIVATE);
-			while ((data = br.readLine()) != null) {
-				count++;
-				SharedPreferenceHelper.set(sp, String.valueOf(count), data);
-			}
-			SharedPreferenceHelper.set(sp, "SIZE", count);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (br != null)
-					br.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		// 设置校园资讯模块
+		SP msp = new SP(ETipsContants.SP_NAME_User, getContext());
+		if (msp.getSharedPreferences().getString("nickname", "").equals("")) {
+			msp.add("nickname", "null");
+			msp.add("account", "null");
+			msp.add("psw", "null");
+			msp.add("session", "null");
+			msp.add("id", "null");
+			msp.add("ReigstTimeout", 1000 * 60 * 5 + "");
+			msp.add("loginTimeout", 1000 * 60 * 60 * 24 * 7 + "");
+			msp.add("loginTime","null");
+			msp.add("shouldTopicListUpdata", "null");
+			msp.add("shouldStartBgUpdata", "null");
+			msp.add("shouldCurrentUpdata", "null");
+			msp.add("descrpiton", "null");
+			msp.add("SendCount", 0+"");  //sendCount就是控制每日可以发多少帖子
+			msp.add("Day_of_Year", CalendarManager.getCalendar().get(Calendar.DAY_OF_YEAR)+"");
+			msp.add("MaxSend", 3+"");// 一天最多能发的帖子数
 		}
-	}
+		//每日清0
+		if(CalendarManager.getCalendar().get(Calendar.DAY_OF_YEAR) != Integer.parseInt(msp.getValue("Day_of_Year"))){
+			msp.add("SendCount", 0+"");  //sendCount就是控制每日可以发多少帖子
+			msp.add("Day_of_Year", CalendarManager.getCalendar().get(Calendar.DAY_OF_YEAR)+"");
+		}
+		//版本控制；跳转时才判断是否应该跳转到导航 or MainActivity;
+		try {
+			SP vsp = new SP(ETipsContants.SP_NAME_Version+AndroidUtils.getAppVersionName(getContext()), getContext());
+			if(!vsp.getSharedPreferences().contains("First_Install")){
+				vsp.add("First_Install","YES");
+				SharedPreferenceHelper.set(sp, "Current_Week", CalendarManager
+						.getStartTermWeek());
+				//不断加入属性。。。
+			}
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+		}
 
+	}
 	@Override
 	protected void initLayout() {
-		tv_saying = (TextView) _getView(R.id.acty_etips_start_tv_saying);
-		tv_saying.setText(saying);
+ 
 	}
 
 	@Override
 	protected void initData() {
-		getSaying();
+	 
 	}
 
-	private String getSaying() {
-		SharedPreferences sp = getSharedPreferences(
-				ETipsContants.SharedPreference_NAME_Saying,
-				Context.MODE_PRIVATE);
-		if (sp.getString("SIZE", "0").equals("0")) {
-			// 不存在
-			// System.out.println("SIZE =0");
-		} else {
-			// 存在
-			int size = Integer.parseInt(sp.getString("SIZE", "1"));
-			// System.out.println("Size= " + size);
-			Random r = new Random(System.currentTimeMillis());
-			int randomNumber = r.nextInt(size) + 1;
-			while (!(randomNumber >= 1 && randomNumber <= size)) {
-				randomNumber = r.nextInt(size) + 1;
-			}
-			// System.out.println("randomNumber::" + randomNumber);
-			saying = sp.getString(String.valueOf(randomNumber), "");
-			// System.out.println("saying is:" + saying);
-		}
-		return saying;
-	}
-
+ 
 }

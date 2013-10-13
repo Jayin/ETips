@@ -17,8 +17,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.meizhuo.etips.common.utils.ETipsContants;
-import com.meizhuo.etips.model.BookInfo;
+import com.meizhuo.etips.model.*;
 import com.meizhuo.etips.net.utils.LibraryAPI;
 import com.meizhuo.etips.ui.LibSearchResultListViewAdapter;
 import com.meizhuo.etips.ui.WaittingDialog;
@@ -74,6 +75,11 @@ public class LibSearchResultActivity extends BaseUIActivity {
 				intent.putExtra("pressTime", list.get(position).PressTime);
 				intent.putExtra("press", list.get(position).Press);
 				intent.putExtra("bookID",list.get(position).BookID);
+				Bundle b = new Bundle();
+				b.putSerializable("BookInfo",list.get(position));
+				intent.putExtras(b);
+				intent.putExtra("from", "LibSearchResultActivity");
+				intent.putExtra("time", list.get(position).getCollectionTime()+"");
 				startActivity(intent);
 			}
 		});

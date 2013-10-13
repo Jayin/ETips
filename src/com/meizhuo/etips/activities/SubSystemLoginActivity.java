@@ -63,13 +63,13 @@ public class SubSystemLoginActivity extends BaseUIActivity {
 
 			@Override
 			public void onClick(View v) {
-				userID = et_userID.getText().toString().trim();
+				userID = et_userID.getText().toString();
 				if (userID == null || userID.equals("")) {
 					Toast.makeText(SubSystemLoginActivity.this, "学号不能为空",
 							Toast.LENGTH_SHORT).show();
 					return;
 				}
-				userPSW = et_userPSW.getText().toString().trim();
+				userPSW = et_userPSW.getText().toString();
 				if (userPSW == null || userPSW.equals("")) {
 					Toast.makeText(SubSystemLoginActivity.this, "密码不能为空",
 							Toast.LENGTH_SHORT).show();
@@ -136,6 +136,7 @@ public class SubSystemLoginActivity extends BaseUIActivity {
 							ETipsContants.SharedPreference_NAME,
 							Context.MODE_PRIVATE);
 					SharedPreferenceHelper.set(sp, "LessonDB_Has_Data", "YES");
+					dialog.setText("ETips正在跳转...");
 					dialog.dismiss();
 					dialog = null;
 					// startActivity.... finish..
@@ -154,6 +155,7 @@ public class SubSystemLoginActivity extends BaseUIActivity {
 					// finish
 			 	SubSystemLoginActivity.this.finish();
 				} else  if(tag == TAG_ScoreRecord){
+					dialog.setText("ETips正在跳转...");
 					Intent intent = new Intent(SubSystemLoginActivity.this,
 							ScoreRecordActivity.class);
 					intent.putExtra("userID", userID);
@@ -260,14 +262,14 @@ public class SubSystemLoginActivity extends BaseUIActivity {
 				} else {
 					Message msg = handler.obtainMessage();
 					msg.what = ETipsContants.Fail;
-					msg.obj = "登陆失败!";
+					msg.obj = "登陆信息不正确!";
 					handler.sendMessage(msg);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				Message msg = handler.obtainMessage();
 				msg.what = ETipsContants.Fail;
-				msg.obj = "登陆失败!";
+				msg.obj = "网络异常!";
 				handler.sendMessage(msg);
 			}
 		}

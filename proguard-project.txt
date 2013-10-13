@@ -107,13 +107,7 @@
 -keep interface org.jsoup.** { *; }
 -keep interface org.** {*;}
 
--libraryjars  libs/Baidu-SocialShare-SDK-Android-L3-1.4.1.jar
--keep class com.baidu.sharesdk.** {*;} 
--keep class  com.baidu.sharesdk.** { *; }
--keep interface com.baidu.sharesdk.** { *; }
--keep interface com.baidu.sharesdk.** {*;}
--keep class  com.sina.sso.** { *; }
--keep interface  com.sina.sso.** { *; }
+
 
 -libraryjars  libs/libammsdk.jar
 -keep class com.tencent.mm.algorithm.** {*;} 
@@ -124,6 +118,22 @@
 -libraryjars  libs/jpush-sdk-release1.4.2.jar
 -dontwarn cn.jpush.**
 -keep class cn.jpush.** { *; }
+
+#google gson
+-libraryjars libs/gson-2.2.4.jar
+-keep class com.google.gson.** {*;}
+-keep interface com.google.gson.** { *; }
+
+#umeng social shared sdk
+-dontwarn com.umeng.**
+-dontwarn org.apache.commons.**
+-keepattributes *Annotation*
+-keep class com.umeng*.** {*; }
+-keep public class com.meizhuo.etips.activities.R$*{
+    public static final int *;
+}
+
+
 
 
 -keep public class com.meizhuo.etips.activities.R$*{

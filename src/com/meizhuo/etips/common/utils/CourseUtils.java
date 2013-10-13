@@ -33,8 +33,10 @@ public class CourseUtils {
 	 */
 	public static int[] getCourseStatus(Context context, long milliseconds) {
 		int[] result = new int[] { 0, 0 };
-		Calendar c = Calendar.getInstance();
-		c.setTimeInMillis(milliseconds);
+		Calendar current = Calendar.getInstance();
+		current.setTimeInMillis(milliseconds);
+		
+	//	System.out.println("getCourseStatus-->"+milliseconds);
 		List<TimeLine> timeList = new ArrayList<TimeLine>();
 		String[] __start = context.getResources().getStringArray(
 				R.array.course_time_start);
@@ -54,7 +56,7 @@ public class CourseUtils {
 		timeList.add(new TimeLine(creatCalendar("21:06"),
 				creatCalendar("23:59")));
  
-		Calendar current = Calendar.getInstance();
+		//Calendar current = Calendar.getInstance();
 		for (int i = 0; i < timeList.size(); i++) {
 			Calendar start = timeList.get(i).getStart();
 			Calendar end = timeList.get(i).getEnd();
@@ -94,7 +96,12 @@ public class CourseUtils {
 		c.set(Calendar.MINUTE, Integer.parseInt(ms[1]));
 		return c;
 	}
-
+    /**
+     * 判断当前这节课程是否要上！ 本周
+     * @param context
+     * @param l
+     * @return
+     */
 	public static boolean isLessonStart(Context context, Lesson l) {
 		SharedPreferences sp = context.getSharedPreferences(
 				ETipsContants.SharedPreference_NAME, Context.MODE_PRIVATE);

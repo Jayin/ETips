@@ -194,8 +194,9 @@ public class CourseDetailActivity extends BaseUIActivity {
 	protected void initData() {
 		int week = getIntent().getIntExtra("week", 1);
 		int classtime = getIntent().getIntExtra("classtime", 1);
+		int positon = getIntent().getIntExtra("position",0);
 		App = (ETipsApplication) getApplication();
-		lesson = App.getLessonList().get(week - 1).get(classtime - 1).get(0);
+		lesson = App.getLessonList().get(week - 1).get(classtime - 1).get(positon);
 	}
 
 	private void change2edit() {

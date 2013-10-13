@@ -17,6 +17,7 @@ import org.jsoup.select.Elements;
 import com.meizhuo.etips.model.BookBorrowRecord;
 import com.meizhuo.etips.model.BookInfo;
 import com.meizhuo.etips.model.BookStatus;
+import com.meizhuo.etips.model.CourseQueryData;
 import com.meizhuo.etips.model.ElectricityInfo;
 import com.meizhuo.etips.model.Lesson;
 import com.meizhuo.etips.model.SchoolNews;
@@ -57,17 +58,37 @@ public class HtmlParser {
 			s = s.replaceAll("<br>", "&nbsp;");
 			String[] ms = s.split("&nbsp;");
 			int j = 0;
+			int count = 0;
+			Lesson l = null;
 			while (j < ms.length) {
-				Lesson l = new Lesson();
-				l.LessonName = ms[j++].trim();
-				l.Time = ms[j++].trim();
-				l.address = ms[j++].trim();
-				l.Teacher = ms[j++].trim();
+				while (ms[j].equals(""))
+					j++;
+				switch (count) {
+				case 0:
+					l = new Lesson();
+					l.LessonName = ms[j++].trim();
+					count++;
+					break;
 
-				mlist.add(l);
+				case 1:
+					l.Time = ms[j++].trim();
+					count++;
+					break;
+				case 2:
+					l.address = ms[j++].trim();
+					count++;
+					break;
+
+				case 3:
+					l.Teacher = ms[j++].trim();
+					mlist.add(l);
+					count = 0;
+					System.out.println(l.toString());
+					break;
+				}
 			}
 			if (ms.length == 0) {
-				Lesson l = new Lesson();
+				l = new Lesson();
 				mlist.add(l);
 			}
 			(map.get(day)).put(lessonTime, mlist);
@@ -579,4 +600,48 @@ public class HtmlParser {
 		}
 		return list;
 	}
+	
+	/**
+	 * 解析查询空课室页面
+	 * 
+	 * @param html
+	 * @return List of CourseQueryData
+	 */
+	public static List<CourseQueryData> parseHtmlForQueryEmptyClassroom(
+			String html) {
+		// System.out.println(html);
+		Document doc = Jsoup.parse(html);
+		Elements elements1 = doc.getElementsByAttributeValue("bgcolor",
+				"#F1F1F1");
+		Elements elements2 = doc.getElementsByAttributeValue("bgcolor",
+				"#FFFFEE");
+		// System.out.println(elements2.toString());
+		List<CourseQueryData> list = parseElements(elements1);
+		list.addAll(parseElements(elements2));
+		return list;
+	}
+    /**
+     * 接上，分开解析
+     * @param elements
+     * @return
+     */
+	private static List<CourseQueryData> parseElements(Elements elements) {
+		List<CourseQueryData> list = new ArrayList<CourseQueryData>();
+		for (Element e : elements) {
+			Elements mElements = e.getElementsByTag("td");
+			CourseQueryData mCourseQueryData = new CourseQueryData();
+			mCourseQueryData.setId(mElements.get(0).text());
+			mCourseQueryData.setName(mElements.get(1).text());
+			mCourseQueryData.setKind(mElements.get(3).text());
+			mCourseQueryData.setXuefen(mElements.get(4).text());
+			mCourseQueryData.setClasses(mElements.get(6).text());
+			mCourseQueryData.setTime(mElements.get(7).text());
+			mCourseQueryData.setAddress(mElements.get(8).text());
+			mCourseQueryData.setTeacher(mElements.get(9).text());
+		//	System.out.println(mCourseQueryData.toString());
+			list.add(mCourseQueryData);
+		}
+		return list;
+	}
+
 }

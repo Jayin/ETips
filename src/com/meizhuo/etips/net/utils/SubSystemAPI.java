@@ -92,6 +92,8 @@ public class SubSystemAPI {
 			parameters.add(new BasicNameValuePair("Submit", Submit));
 			HttpEntity entity = new UrlEncodedFormEntity(parameters, "utf-8");
 			post.setEntity(entity);
+			System.out.println(UserCode);
+			System.out.println(UserPwd);
 			client.getConnectionManager().shutdown();
 			// 设置httpClient参数，不自动重定向
 			HttpParams httpParams = new BasicHttpParams();
@@ -107,6 +109,8 @@ public class SubSystemAPI {
 
 			} else {
 				client.getConnectionManager().shutdown();
+				System.out.println("code:--"+response.getStatusLine().getStatusCode());
+			     System.out.println(EntityUtils.toString(response.getEntity()));
 				System.out.println("login faild!");
 				return false;
 			}
@@ -176,6 +180,7 @@ public class SubSystemAPI {
 		if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 			String html = EntityUtils.toString(response.getEntity(), "gb2312");
 			client.getConnectionManager().shutdown();
+			 
 			return HtmlParser.parseHtmlForScore(html, list);
 		}
 

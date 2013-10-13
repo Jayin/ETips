@@ -9,13 +9,12 @@ import java.util.List;
  * 
  */
 public class Lesson {
-
 	public String LessonName = null;
 	public String Teacher = null;
 	public String Time = null;
 	public String address = null;
-    public int classtime = 0;
-    public int week = 0;
+	public int classtime = 0; // 第几节
+	public int week = 0; // 星期几
 
 	/**
 	 * 默认的构造方法
@@ -29,7 +28,6 @@ public class Lesson {
 		week = 0;
 	}
 
-	 
 	@Override
 	public String toString() {
 		return "Lesson [LessonName=" + LessonName + ", Teacher=" + Teacher
@@ -37,6 +35,54 @@ public class Lesson {
 				+ classtime + ", week=" + week + "]";
 	}
 
-	 
+
+
+	public String getLessonName() {
+		return LessonName;
+	}
+
+	public void setLessonName(String lessonName) {
+		LessonName = lessonName;
+	}
+
+	public String getTeacher() {
+		return Teacher;
+	}
+
+	public void setTeacher(String teacher) {
+		Teacher = teacher;
+	}
+
+	public String getTime() {
+		return Time;
+	}
+
+	public void setTime(String time) {
+		Time = time;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public int getClasstime() {
+		return classtime;
+	}
+
+	public void setClasstime(int classtime) {
+		this.classtime = classtime;
+	}
+
+	public int getWeek() {
+		return week;
+	}
+
+	public void setWeek(int week) {
+		this.week = week;
+	}
 
 }

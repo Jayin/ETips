@@ -26,12 +26,15 @@ public class AlarmReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		this.context = context;
-		System.out.println("收到！！！！");
+		return;
+//		this.context = context;
+//		System.out.println("收到！！！！");
 		// 通知用户改天有多少节课需要上（弹出Dialog样式的Activity）。。。然后继续设置闹钟。。。
-		SharedPreferences sp = context.getSharedPreferences(
-				ETipsContants.SharedPreference_NAME, Context.MODE_APPEND);
-		if (sp.getString("Is_Open_Daily_Course_Alarm", "YES").equals("YES")) {
+//		SharedPreferences sp = context.getSharedPreferences(
+//				ETipsContants.SharedPreference_NAME, Context.MODE_APPEND);
+//		if (sp.getString("Is_Open_Daily_Course_Alarm", "YES").equals("YES")) {
+			//11.25 : ETips 2.0 change log :
+			/*
 			PendingIntent operation = PendingIntent.getBroadcast(context,
 					ETipsContants.ID_Alarm_Course, new Intent(
 							ETipsContants.ACTION_Custom_Alarm),
@@ -40,9 +43,9 @@ public class AlarmReceiver extends BroadcastReceiver {
 			Calendar c = CalendarManager.getCourseAlarmDaily();
 			am.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis() + 24 * 60 * 60
 					* 1000, operation);
-			showNotification();
-		}
-		
+					* */
+//			showNotification();
+//		}
 	}
 
 	private void showNotification() {
@@ -56,6 +59,10 @@ public class AlarmReceiver extends BroadcastReceiver {
 				ETipsContants.SharedPreference_NAME, Context.MODE_PRIVATE);
 		int startWeek = Integer.parseInt(sp.getString("Current_Week", String.valueOf(c.get(Calendar.WEEK_OF_YEAR))));
 		int currentWeek = c.get(Calendar.WEEK_OF_YEAR) - startWeek + 1;
+		if(course==null || course.size()==0){
+			System.out.println("AlarmReceiver: has no lesson");
+			return;
+		}
 		for (List<Lesson> l : course) {
 			for (Lesson ml : l) {
 				Set<Integer> set = null;

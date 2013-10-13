@@ -4,6 +4,7 @@ package com.meizhuo.etips.receiver;
 import com.meizhuo.etips.activities.MsgCenterActivity;
 import com.meizhuo.etips.common.utils.ETipsContants;
 import com.meizhuo.etips.common.utils.ETipsUtils;
+import com.meizhuo.etips.common.utils.Elog;
 import com.meizhuo.etips.common.utils.SharedPreferenceHelper;
 import com.meizhuo.etips.db.MsgCenterDAO;
 import com.meizhuo.etips.ui.utils.BaseNotificationCompat;
@@ -56,6 +57,7 @@ public class MsgReceiver extends BroadcastReceiver {
 //			Log.d(TAG, "接收到推送下来的自定义json: " + JSONstring);
 //			System.out.println("content:" + content);
 //			System.out.println("接收到推送下来的自定义json: " + JSONstring);
+//			Elog.i("接收到推送下来的自定义json: " + JSONstring);
 			if (JSONstring != null) {
 				//get content of notify/push/system
 				String notify = ETipsUtils.parseJSON(JSONstring,

@@ -144,7 +144,7 @@ public class LifeElectricityActivity extends BaseUIActivity {
 					msg.obj = elc;
 				}else{
 					msg.what = ETipsContants.Fail;
-					msg.obj = "查询失败：请检查你的输入 or 网络环境 ";
+					msg.obj = "查询失败，原因可能是：1.请检查你的输入 and 网络环境 2.你宿舍不属于智能用电宿舍楼";
 				}
 				handler.sendMessage(msg);
 			} catch (ClientProtocolException e) {

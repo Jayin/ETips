@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.webkit.WebSettings;
 import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebView;
@@ -20,11 +21,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.meizhuo.etips.common.utils.ETipsContants;
+import com.meizhuo.etips.common.utils.Elog;
+import com.meizhuo.etips.common.utils.PathBuilder;
+import com.meizhuo.etips.common.utils.ShareManager;
 import com.meizhuo.etips.net.utils.WYUNewsAPI;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.bean.SocializeEntity;
+import com.umeng.socialize.controller.listener.SocializeListeners.SnsPostListener;
+import com.umeng.socialize.media.UMImage;
 
 public class SchoolNewsDetailActivity extends BaseUIActivity {
 	private String linkPath = null, title = null, content = null;
-	private Button backBtn, reflushBtn;
+	private Button backBtn, shareBtn;
 	private TextView tv_title;
 	private ProgressBar pb;
 	private WebView webview;
@@ -43,18 +51,17 @@ public class SchoolNewsDetailActivity extends BaseUIActivity {
 		WebSettings webSettings = webview.getSettings();
 		webSettings.setJavaScriptEnabled(true);
 		webSettings.setSupportZoom(true);
-		webSettings.setSavePassword(false);
 		webSettings.setAllowFileAccess(true);
-		webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK); 
+		webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 		webSettings.setDefaultTextEncodingName("utf-8");
 		webSettings.setSupportMultipleWindows(true);
 		webSettings.setLoadsImagesAutomatically(true); // 自动加载图片
 		webview.setBackgroundResource(R.color.lightblue);
-		webSettings.setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);  //自动适配图片大小
+		webSettings.setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN); // 自动适配图片大小
 		webview.setWebViewClient(new WebViewClient() {
 			@Override
 			public void onLoadResource(WebView view, String url) {
-                  
+
 			}
 
 			@Override
@@ -62,7 +69,7 @@ public class SchoolNewsDetailActivity extends BaseUIActivity {
 				Uri uri = Uri.parse(url);
 				Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 				startActivity(intent);
-				return true; 
+				return true;
 			}
 
 		});
@@ -82,8 +89,8 @@ public class SchoolNewsDetailActivity extends BaseUIActivity {
 	@Override
 	protected void initLayout() {
 		backBtn = (Button) this.findViewById(R.id.acty_schoolnews_detail_back);
-		reflushBtn = (Button) this
-				.findViewById(R.id.acty_schoolnews_detail_reflush);
+		shareBtn = (Button) this
+				.findViewById(R.id.acty_schoolnews_detail_share);
 		tv_title = (TextView) this
 				.findViewById(R.id.acty_schoolnews_detail_title_tv);
 
@@ -100,14 +107,30 @@ public class SchoolNewsDetailActivity extends BaseUIActivity {
 				SchoolNewsDetailActivity.this.finish();
 			}
 		});
-
-		reflushBtn.setOnClickListener(new View.OnClickListener() {
+		shareBtn.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				onWork();
+				String content = "#邑大新闻#" + title + " 详情："
+						+ PathBuilder.getSchoolNewsDetailPath(linkPath)
+						+ " (分享自ETips客户端)";
+				ShareManager sm = new ShareManager(content);	 
+				sm.shareToSina(getContext(), new SnsPostListener() {
+
+					@Override
+					public void onStart() {
+
+					}
+
+					@Override
+					public void onComplete(SHARE_MEDIA arg0, int arg1,
+							SocializeEntity arg2) {
+
+					}
+				});
 			}
 		});
+
 	}
 
 	@Override

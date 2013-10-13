@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.meizhuo.etips.activities.CourseDetailActivity;
+import com.meizhuo.etips.activities.CourseMainActivity;
 import com.meizhuo.etips.activities.ETipsApplication;
 import com.meizhuo.etips.activities.R;
 import com.meizhuo.etips.common.utils.Elog;
@@ -28,7 +31,7 @@ public class CourseSwitchDialog extends BaseDialog {
 	private ListView lv;
 	private List<Lesson> list;
 	private Context context;
-    private ETipsApplication App;
+	private ETipsApplication App;
 	private CourseSwitchDialogCallBack callback;
 
 	public CourseSwitchDialog(Context context, List<Lesson> list,
@@ -50,26 +53,40 @@ public class CourseSwitchDialog extends BaseDialog {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {				
-				if(position == 0){
-					CourseSwitchDialog.this.dismiss();
-					return;
-				}
-				CourseDAO dao = new CourseDAO(context); //A -> B 交换A版位置  C是temp 
-				ContentValues a = CourseDAO.getContentValuesByLesson(list.get(0));
-				ContentValues b = CourseDAO.getContentValuesByLesson(list.get(position));
-			    if(dao.update(CourseDAO.getUniqueContentValues(),CourseDAO.getWhere(), CourseDAO.getwhereArgsByLesson(list.get(0)))){//C覆盖A的位置	 
-			    	if(dao.update(a, CourseDAO.getWhere(), CourseDAO.getwhereArgsByLesson(list.get(position)))){  //A覆盖B的位置
-			    		if(dao.update(b, CourseDAO.getWhere(),CourseDAO.getwhereArgs() )){
-			    		  Lesson l = list.get(0);
-			    		  list.set(0, list.get(position));
-			    		  list.set(position, l);			    		  
-			    		  CourseSwitchDialog.this.dismiss();			    		 
-			    		  callback.SetText(list.get(0));
-			    	  }
-			    	}
-			    }
-			   
+					int position, long id) {
+//				if (position == 0) {
+//					CourseSwitchDialog.this.dismiss();
+//					return;
+//				}
+//				CourseDAO dao = new CourseDAO(context); // A -> B 交换A版位置 C是temp
+//				ContentValues a = CourseDAO.getContentValuesByLesson(list
+//						.get(0));
+//				ContentValues b = CourseDAO.getContentValuesByLesson(list
+//						.get(position));
+//				if (dao.update(CourseDAO.getUniqueContentValues(),
+//						CourseDAO.getWhere(),
+//						CourseDAO.getwhereArgsByLesson(list.get(0)))) {// C覆盖A的位置
+//					if (dao.update(a, CourseDAO.getWhere(),
+//							CourseDAO.getwhereArgsByLesson(list.get(position)))) {
+//						// A覆盖B的位置
+//						if (dao.update(b, CourseDAO.getWhere(),
+//								CourseDAO.getwhereArgs())) {
+//							Lesson l = list.get(0);
+//							list.set(0, list.get(position));
+//							list.set(position, l);
+//							CourseSwitchDialog.this.dismiss();
+//							callback.SetText(list.get(0));
+//						}
+//					}
+//				}
+				Intent intent = new Intent(context,
+						CourseDetailActivity.class);
+				intent.putExtra("week", list.get(position).week);
+				intent.putExtra("classtime", list.get(position).classtime); // classtime;
+				intent.putExtra("position", position);
+				context.startActivity(intent);
+				CourseSwitchDialog.this.dismiss();
+				callback.SetText(list.get(position));
 			}
 		});
 	}

@@ -13,6 +13,7 @@ import cn.jpush.android.api.JPushInterface;
 import com.meizhuo.etips.activities.R;
 /**
  * context 必须是application context
+ * 调试模式 ：在getTags() 不注释set.add("ETipsTestCase");
  * @author Jayin Ton
  *
  */
@@ -70,7 +71,7 @@ public class JPushManager {
 	public  static Set getTags(){
 		Set<String> set = new LinkedHashSet<String>();
 		set.add("邑大");
-	//	set.add("ETipsTestCase");
+	// 	set.add("ETipsTestCase");
 		return set;
 	}
 	

@@ -124,7 +124,7 @@ public class ScoreRecordActivity extends BaseUIActivity {
 				pb.setVisibility(View.GONE);
 				tv_error.setVisibility(View.VISIBLE);
 				lv.setVisibility(View.GONE);
-				tv_jidian.setText("null");
+				tv_jidian.setText("木有成绩记录!");
 				if(msg.obj != null && msg.obj instanceof String){
 					Toast.makeText(ScoreRecordActivity.this, (String)msg.obj, Toast.LENGTH_SHORT).show();
 				}
@@ -200,6 +200,12 @@ public class ScoreRecordActivity extends BaseUIActivity {
 			} catch (IOException e) {
 				e.printStackTrace();
 				handler.sendEmptyMessage(ETipsContants.Fail);
+			} catch (IndexOutOfBoundsException e) {
+				e.printStackTrace();
+				 Message msg = handler.obtainMessage();
+				 msg.obj = "学生子系统上无成绩记录！";
+				 msg.what = ETipsContants.Fail;
+				 handler.sendMessage(msg);
 			}
 		}
 

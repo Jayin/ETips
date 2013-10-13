@@ -73,7 +73,7 @@ public class WYUNewsAPI {
 	public   String getSchoolNewsDetails(String linkPath)
 			throws ClientProtocolException, IOException {
 		DefaultHttpClient client = new DefaultHttpClient();
-		Elog.i("linke path: "+linkPath);
+	//	Elog.i("linke path: "+linkPath);
 		HttpResponse response = client.execute(new HttpGet(PathBuilder
 				.getSchoolNewsDetailPath(linkPath)));
 		if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {

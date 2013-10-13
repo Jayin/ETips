@@ -1,5 +1,7 @@
 package com.meizhuo.etips.model;
 
+import java.io.Serializable;
+
 /**
  * 查阅一本书的详情
  * 
@@ -7,7 +9,11 @@ package com.meizhuo.etips.model;
  * @author Jayin Ton
  * 
  */
-public class BookStatus {
+public class BookStatus implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * 馆藏地
 	 */
@@ -32,6 +38,70 @@ public class BookStatus {
 	 * 年代
 	 */
 	public String age;
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getCollectionCode() {
+		return collectionCode;
+	}
+
+	public void setCollectionCode(String collectionCode) {
+		this.collectionCode = collectionCode;
+	}
+
+	public String getAskNum() {
+		return askNum;
+	}
+
+	public void setAskNum(String askNum) {
+		this.askNum = askNum;
+	}
+
+	public String getLoginNum() {
+		return loginNum;
+	}
+
+	public void setLoginNum(String loginNum) {
+		this.loginNum = loginNum;
+	}
+
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+
+	public String getAge() {
+		return age;
+	}
+
+	public void setAge(String age) {
+		this.age = age;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getBorrowKind() {
+		return borrowKind;
+	}
+
+	public void setBorrowKind(String borrowKind) {
+		this.borrowKind = borrowKind;
+	}
+
 	/**
 	 * 状态
 	 */

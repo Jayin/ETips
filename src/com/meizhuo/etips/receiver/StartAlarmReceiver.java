@@ -3,6 +3,7 @@ package com.meizhuo.etips.receiver;
 import java.util.Calendar;
 
 import com.meizhuo.etips.common.utils.CalendarManager;
+import com.meizhuo.etips.common.utils.ETipsAlarmManager;
 import com.meizhuo.etips.common.utils.ETipsContants;
 
 import android.app.AlarmManager;
@@ -28,10 +29,15 @@ public class StartAlarmReceiver extends BroadcastReceiver {
 		
 	}
 	private void startCourseAlarmReceiver(){
-		AlarmManager am = CalendarManager.getAlarmManager(context);
-		Calendar c =  CalendarManager.getCourseAlarmDaily();
-		PendingIntent operation = PendingIntent.getBroadcast(context, ETipsContants.ID_Alarm_Course,
-				new Intent(ETipsContants.ACTION_Custom_Alarm), PendingIntent.FLAG_UPDATE_CURRENT);
+//		AlarmManager am = CalendarManager.getAlarmManager(context);
+//		Calendar c =  CalendarManager.getCourseAlarmDaily();
+		return;
+//		PendingIntent operation = PendingIntent.getBroadcast(context, ETipsContants.ID_Alarm_Course,
+//				new Intent(ETipsContants.ACTION_Custom_Alarm), PendingIntent.FLAG_UPDATE_CURRENT);
+//		ETipsAlarmManager eam = new ETipsAlarmManager(context);
+//		long firstTime = eam.getFirstTime(20, 1);
+//		eam.setRepeatAlarm(firstTime, 1000*60*60*24, operation);
+		/*
 		//如果当前时间比闹钟时间迟（大），说明前该闹钟失效应该推到下一天
 		if(c.getTimeInMillis() < System.currentTimeMillis()){
 			am.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis()+24*60*60*1000, operation);
@@ -40,5 +46,6 @@ public class StartAlarmReceiver extends BroadcastReceiver {
 			am.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), operation);
 			System.out.println("StartAlarmReceiver:今天！！！");
 		}		
+		*/
 	}
 }

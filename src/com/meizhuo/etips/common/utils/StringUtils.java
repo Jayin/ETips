@@ -68,6 +68,7 @@ public class StringUtils {
 	 * @return 要上课的周数集合set
 	 */
 	public static Set<Integer> parseTimeOfLesson(String time) {
+
 		Set<Integer> set = new HashSet<Integer>();
 		String[] afterSplit = time.replace("第", "").replace("周", "").trim()
 				.split(",");
@@ -84,6 +85,7 @@ public class StringUtils {
 				}
 			}
 		}
+
 		return set;
 	}
 
@@ -160,4 +162,66 @@ public class StringUtils {
 		}
 		return sb.toString();
 	}
+
+	/**
+	 * 根据给出的时间 很格式 获取对应时间各个时期
+	 * 
+	 * @param milliseconds
+	 * @param format
+	 *            e.g.(yy-mm-dd) 有需要就在这里添加代码
+	 * @return
+	 */
+	public static String getDateFormat(long milliseconds, String format) {
+		Calendar c = Calendar.getInstance();
+		c.setTimeInMillis(milliseconds);
+		StringBuilder sb = new StringBuilder();
+		if (format.equals("yy-mm-dd")) {
+			sb.append(c.get(Calendar.YEAR)).append("-")
+					.append(c.get(Calendar.MONTH) + 1).append("-")
+					.append(c.get(Calendar.DAY_OF_MONTH));
+		} else if (format.equals("mm-dd")) {
+			sb.append(c.get(Calendar.MONTH)).append("-")
+					.append(c.get(Calendar.DAY_OF_MONTH));
+		}
+
+		return sb.toString();
+	}
+   /**
+    * 检测字符串中只能包含：中文、数字、下划线、横线,英文a-z A-Z
+    * @param sequence
+    * @return true if it's ok
+    */
+	public static boolean isNickname(String sequence) {
+		final String format = "[^\\u4E00-\\u9FA5\\uF900-\\uFA2D\\w-_a-zA-Z]";
+		Pattern pattern = Pattern.compile(format);
+		Matcher matcher = pattern.matcher(sequence);
+		return !matcher.find();
+	}
+	
+
+	/**
+	 * 判断是否是邮箱 
+	 * @param sequence
+	 * @return
+	 */
+	public static boolean isEmail(String sequence) {
+		Pattern pattern = Pattern.compile("^([a-z0-9A-Z]+[-_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$");
+		Matcher matcher = pattern.matcher(sequence);
+		return matcher.find();
+	}
+	/**
+	 * 判断密码格式是否ok
+	 * 长度8-16 , 英文+中文
+	 * @param sequence
+	 * @return
+	 */
+    public static boolean isPswVaild(String sequence){
+    	if(!(sequence.length()>=8 && sequence.length()<=16)){
+    		return false;
+    	}
+    	Pattern pattern = Pattern.compile("^([a-zA-Z0-9]){8,16}$");
+		Matcher matcher = pattern.matcher(sequence);  
+    	return matcher.find();
+    }
+
 }

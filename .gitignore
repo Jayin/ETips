@@ -28,5 +28,13 @@ proguard/
 *.iws
 .idea/
 
+#android ingnore
+res/
+*.png
+proguard/
+.settings/
+
+
+
 
 

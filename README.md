@@ -1,3 +1,5 @@
+ETips
+===
 
 ETips is an Android App for the students of Wuyi University.
 

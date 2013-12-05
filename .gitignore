@@ -28,10 +28,9 @@ proguard/
 *.iws
 .idea/
 
-#android ingnore
+#android ignore
 res/
 *.png
-proguard/
 .settings/
 
 

@@ -28,10 +28,5 @@ proguard/
 *.iws
 .idea/
 
-# Android assets
-assets/
-res/
-*.png
-
 
 

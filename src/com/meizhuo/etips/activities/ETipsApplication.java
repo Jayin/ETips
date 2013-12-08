@@ -39,7 +39,7 @@ public class ETipsApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-	 	//MobclickAgent.setDebugMode( true );
+	 	MobclickAgent.setDebugMode( true );
 	}
 	/**
 	 * 每次修改以后（写入到）SharedPreferences文件后，必须refreshProperty()

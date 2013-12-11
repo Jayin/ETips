@@ -1,8 +1,8 @@
 package com.meizhuo.etips.activities;
 
-import java.util.Calendar;
 import java.util.List;
 
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.os.Message;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -38,7 +39,7 @@ public class MsgCenterActivity extends BaseUIActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.acty_msgcenter);
-		initData();       //注意更新 用户查看消息的状态
+		initData(); // 注意更新 用户查看消息的状态
 		initLayout();
 		onWork();
 	}
@@ -82,7 +83,7 @@ public class MsgCenterActivity extends BaseUIActivity {
 							MsgCenterDAO dao = new MsgCenterDAO(
 									MsgCenterActivity.this);
 							if (dao.deleteAll()) {
-							    list.removeAll(list);
+								list.removeAll(list);
 								mHandler.sendEmptyMessage(ETipsContants.Finish);
 							}
 						}
@@ -95,9 +96,10 @@ public class MsgCenterActivity extends BaseUIActivity {
 
 	@Override
 	protected void initData() {
-       //注意更新 用户查看消息的状态
-		SharedPreferences sp =getSharedPreferences(ETipsContants.SharedPreference_NAME, Context.MODE_PRIVATE);
-		SharedPreferenceHelper.set(sp,"Has_Msg_To_Check", "NO");
+		// 注意更新 用户查看消息的状态
+		SharedPreferences sp = getSharedPreferences(
+				ETipsContants.SharedPreference_NAME, Context.MODE_PRIVATE);
+		SharedPreferenceHelper.set(sp, "Has_Msg_To_Check", "NO");
 	}
 
 	class MsgCenterHandler extends Handler {
@@ -178,11 +180,13 @@ public class MsgCenterActivity extends BaseUIActivity {
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
+
 			MsgRecord mr = list.get(position);
 			holder.tv_time.setText(ETipsUtils.getTimeForm(Long
 					.parseLong(mr.addTime)));
-			holder.tv_content.setText(StringUtils.wrapText(MsgCenterActivity.this, mr.content));
-		 
+			holder.tv_content.setText(StringUtils.wrapText(
+					MsgCenterActivity.this, mr.content));
+   
 			return convertView;
 		}
 

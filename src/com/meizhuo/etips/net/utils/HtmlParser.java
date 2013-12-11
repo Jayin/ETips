@@ -114,7 +114,7 @@ public class HtmlParser {
 	public static List<ScoreRecord> parseHtmlForScore(String html,
 			List<ScoreRecord> list) {
 
-		String regex = "<p class=MsoNormal align=center style='text-align:center'>([0-9]+)</p>"; // 课程代码
+		String regex = "<p class=MsoNormal align=center style='text-align:center'>([0-9a-zA-Z]+)</p>"; // 课程代码
 		Pattern p = Pattern.compile(regex);
 		Matcher m = p.matcher(html);
 		while (m.find()) {

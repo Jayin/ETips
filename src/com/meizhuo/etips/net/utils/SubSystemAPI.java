@@ -92,8 +92,7 @@ public class SubSystemAPI {
 			parameters.add(new BasicNameValuePair("Submit", Submit));
 			HttpEntity entity = new UrlEncodedFormEntity(parameters, "utf-8");
 			post.setEntity(entity);
-			System.out.println(UserCode);
-			System.out.println(UserPwd);
+			post.setHeader("Referer", "http://jwc.wyu.edu.cn/student/body.htm"); //12.9 学校坑了！
 			client.getConnectionManager().shutdown();
 			// 设置httpClient参数，不自动重定向
 			HttpParams httpParams = new BasicHttpParams();
@@ -110,7 +109,7 @@ public class SubSystemAPI {
 			} else {
 				client.getConnectionManager().shutdown();
 				System.out.println("code:--"+response.getStatusLine().getStatusCode());
-			     System.out.println(EntityUtils.toString(response.getEntity()));
+			  //  System.out.println(EntityUtils.toString(response.getEntity()));
 				System.out.println("login faild!");
 				return false;
 			}
@@ -174,9 +173,11 @@ public class SubSystemAPI {
 				"http://jwc.wyu.edu.cn/student/createsession_b.asp"));
 		client1.getConnectionManager().shutdown();
 		client2.getConnectionManager().shutdown();
-
-		response = client.execute(new HttpGet(
-				"http://jwc.wyu.edu.cn/student/f4_myscore.asp"));
+		HttpGet get = new HttpGet("http://jwc.wyu.edu.cn/student/f4_myscore.asp");
+		get.setHeader("Referer", "http://jwc.wyu.edu.cn/student/menu.asp");//12.9发现学校够坑的！
+		response = client.execute(get);
+//		response = client.execute(new HttpGet(
+//				"http://jwc.wyu.edu.cn/student/f4_myscore.asp"));
 		if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 			String html = EntityUtils.toString(response.getEntity(), "gb2312");
 			client.getConnectionManager().shutdown();

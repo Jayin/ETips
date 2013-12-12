@@ -103,13 +103,7 @@ public class Notes extends BaseUIActivity implements OnClickListener {
 		if (sp.isEmpty()) {
 			isEmpty = true;
 		} else {
-//			Map<String, ?> map = sp.getAll();
-//			for (String key : map.keySet()) {
-//				MNotes mNotes = new MNotes(Long.parseLong(key),
-//						(String) map.get(key));
-//				list.add(mNotes);
-//			}
-			list  = (List<MNotes>)sp.toEntityAll(ETipsContants.TYPE_SP_Notes);
+ 			list  = (List<MNotes>)sp.toEntityAll(ETipsContants.TYPE_SP_Notes);
 		}
 	}
 

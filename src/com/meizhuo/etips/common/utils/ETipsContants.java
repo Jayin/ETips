@@ -77,6 +77,7 @@ public class ETipsContants {
 	public final static String Action_Notes = "Action_Notes"; // Notes页面用于更新listview的Action
 	public final static String Action_CurrentWeekChange = "Action_CurrentWeekChange";
 	public final static String ACTION_Custom_Alarm = "ETips_Course_Alarm"; // 自定义闹钟的Action
+	public final static String Action_CourseChange = "Action_CourseChange"; //课表更新
 	
 	/**
      * TweetAPI 状态码

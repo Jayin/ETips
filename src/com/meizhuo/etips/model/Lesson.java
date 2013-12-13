@@ -1,5 +1,6 @@
 package com.meizhuo.etips.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,7 +9,8 @@ import java.util.List;
  * @author Jayin Ton
  * 
  */
-public class Lesson {
+@SuppressWarnings("serial")
+public class Lesson implements Serializable{
 	public String LessonName = null;
 	public String Teacher = null;
 	public String Time = null;

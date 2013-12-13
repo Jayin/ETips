@@ -4,8 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.app.Application;
+import android.content.Intent;
 
+import com.meizhuo.etips.common.utils.ETipsContants;
+import com.meizhuo.etips.common.utils.SP;
 import com.meizhuo.etips.common.utils.SharedPreferenceHelper;
+import com.meizhuo.etips.model.Course;
 import com.meizhuo.etips.model.Lesson;
 import com.meizhuo.etips.net.utils.LibraryAPI;
 import com.meizhuo.etips.net.utils.SubSystemAPI;
@@ -20,7 +24,7 @@ import com.umeng.analytics.MobclickAgent;
  */
 public class ETipsApplication extends Application {
 	private HashMap<String, String> property; // 用户偏好设置类
-	private List<List<List<Lesson>>> lessonList;
+	// private List<List<List<Lesson>>> lessonList;
 	/***
 	 * 用于任意Actvity间的数据传递 利用这个来传递数据时，必须有非常明白数据的生命周期 及时做好内存释放！！不然debug很难，有点破坏逻辑！
 	 */
@@ -64,15 +68,35 @@ public class ETipsApplication extends Application {
 	 * @return the lessonList
 	 */
 	public List<List<List<Lesson>>> getLessonList() {
-		return lessonList;
+		Course course = null;
+		
+		SP sp = new SP(ETipsContants.SP_NAME_Course,getApplicationContext());
+		String json = sp.getValue("course");
+		if(json == null || json.equals("null")){
+			return null;
+		}else{
+			Object obj = sp.toEntity(ETipsContants.TYPE_SP_Course, json);
+			if(obj instanceof Course){
+				course = (Course)obj;
+				return course.getCourse();
+			}else{
+				return null;
+			}
+			
+		}
+		 
 	}
 
 	/**
 	 * @param lessonList
-	 *            the lessonList to set
+	 *            把课程添加到sharedpreference;
 	 */
 	public void setLessonList(List<List<List<Lesson>>> lessonList) {
-		this.lessonList = lessonList;
+		 Course course = new Course(lessonList);
+    	 SP sp  = new SP(ETipsContants.SP_NAME_Course, getApplicationContext());
+    	 String json = sp.toJSON(ETipsContants.TYPE_SP_Course,course);
+    	 sp.add("course",json);
+    	 getApplicationContext().sendBroadcast(new Intent(ETipsContants.Action_CourseChange));
 	}
 
 	/**

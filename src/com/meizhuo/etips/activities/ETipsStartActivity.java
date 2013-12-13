@@ -31,12 +31,17 @@ import com.meizhuo.etips.common.utils.JPushManager;
 import com.meizhuo.etips.common.utils.SP;
 import com.meizhuo.etips.common.utils.SharedPreferenceHelper;
 import com.meizhuo.etips.db.CourseDAO;
+import com.meizhuo.etips.model.Course;
 import com.meizhuo.etips.model.Lesson;
 /**
  * Change Log:
  * ETips 2.0 
  *  1.移除每日一句saying, Has_Saying_load 将会在再后一个版本移除
- * since 11.28
+ *  2.根据版本来识别
+ * since 11.28 <br>
+ * 12.13 changelog<br>
+ * 除去Application中的courseList ,专用到保存在SharedPreference<br>
+ * since 2.1
  * @author Jayin Ton
  *
  */
@@ -121,7 +126,12 @@ public class ETipsStartActivity extends BaseUIActivity {
 								course.add(dao.getLessonList("week = ?",
 										new String[] { String.valueOf(i) }));
 							}
-							App.setLessonList(course);
+						//	App.setLessonList(course);
+							//把课程表保存到SharedPreference 更高效可靠
+							SP courseSP = new SP(ETipsContants.SP_NAME_Course, getContext());
+							Course courseObj = new Course(course);
+							String json  = courseSP.toJSON(ETipsContants.TYPE_SP_Course,courseObj);
+							courseSP.add("course", json);
 						}
 						Message msg = handler.obtainMessage();
 				//		initAlarm();

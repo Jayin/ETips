@@ -1,5 +1,11 @@
 package com.meizhuo.etips.common.utils;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.StreamCorruptedException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -8,9 +14,11 @@ import java.util.Map;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Base64;
 
 import com.google.gson.Gson;
 import com.meizhuo.etips.model.BookInfo;
+import com.meizhuo.etips.model.Course;
 import com.meizhuo.etips.model.MNotes;
 import com.meizhuo.etips.model.Topic;
 import com.meizhuo.etips.model.Tweet;
@@ -96,12 +104,13 @@ public class SP {
 	}
 
 	/**
-	 * 把一实体类转化为json
+	 * 把一实体类转化为json(字符串)
 	 * 
 	 * @param what
 	 * @param obj
 	 * @return
 	 */
+	@SuppressWarnings("finally")
 	public String toJSON(int what, Object obj) {
 		Gson gson = null;
 		switch (what) {
@@ -114,17 +123,21 @@ public class SP {
 		case ETipsContants.TYPE_SP_Tweet:
 			gson = new Gson();
 			return gson.toJson((Tweet) obj);
+		case ETipsContants.TYPE_SP_Course:
+		    gson = new Gson();
+		    return gson.toJson((Course)obj);
 		}
 		return null;
 	}
 
 	/**
-	 * 从一个json字符串构造一个对应的对象
+	 * 从一个json(字符串)构造一个对应的对象
 	 * 
 	 * @param what
 	 * @param json
 	 * @return
 	 */
+	@SuppressWarnings("finally")
 	public Object toEntity(int what, String json) {
 		Gson gson = null;
 		switch (what) {
@@ -142,12 +155,17 @@ public class SP {
 		case ETipsContants.TYPE_SP_Tweet:
 			gson = new Gson();
 			return gson.fromJson(json, Tweet.class);
+
+		case ETipsContants.TYPE_SP_Course:
+		    gson  = new Gson();
+		    return gson.fromJson(json, Course.class);
 		}
 		return null;
 	}
 
 	/**
-	 * 推荐这里用法，返回的列表是按一定规则排序的了
+	 * 推荐这里用法，返回的列表是按一定规则排序的了<br>
+	 * NOTE: ETipsContants.TYPE_SP_Course  只有1对 key-value,所以 toEntity() = toEntityAll()
 	 * 
 	 * @param what
 	 * @return
@@ -232,6 +250,15 @@ public class SP {
 			});
 
 			return tweetList;
+			
+		case ETipsContants.TYPE_SP_Course:
+		//	Course course = null;
+			if(this == null ||this.getValue("course").equals("null")){
+				return null;
+			}else{
+				return (Course)toEntity(ETipsContants.TYPE_SP_Course, this.getValue("course"));
+			}
+			
 		}
 
 		return null;

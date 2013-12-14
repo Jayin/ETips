@@ -158,7 +158,15 @@ public class SP {
 
 		case ETipsContants.TYPE_SP_Course:
 		    gson  = new Gson();
-		    return gson.fromJson(json, Course.class);
+		    Course c = null;
+		    try{
+		    	c = gson.fromJson(json, Course.class);
+		    	Elog.i(c.toString());
+		    }catch(Exception e){
+		    	e.printStackTrace();
+		        
+		    }
+		    return c;
 		}
 		return null;
 	}
@@ -256,7 +264,7 @@ public class SP {
 			if(this == null ||this.getValue("course").equals("null")){
 				return null;
 			}else{
-				return (Course)toEntity(ETipsContants.TYPE_SP_Course, this.getValue("course"));
+				return toEntity(ETipsContants.TYPE_SP_Course, this.getValue("course"));
 			}
 			
 		}

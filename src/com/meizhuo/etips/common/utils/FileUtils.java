@@ -12,10 +12,12 @@ import java.io.Serializable;
 import java.io.StreamCorruptedException;
 
 import android.content.Context;
+
 /**
  * 文件操作工具类
+ * 
  * @author Jayin Ton
- *
+ * 
  */
 public class FileUtils {
 	/**
@@ -59,12 +61,16 @@ public class FileUtils {
 		}
 
 	}
-    /**
-     * 读取对象
-     * @param context 上下文
-     * @param fileName 文件名
-     * @return  序列化对象
-     */
+
+	/**
+	 * 读取对象
+	 * 
+	 * @param context
+	 *            上下文
+	 * @param fileName
+	 *            文件名
+	 * @return 序列化对象
+	 */
 	public static Serializable readObject(Context context, String fileName) {
 		FileInputStream fis = null;
 		ObjectInputStream ois = null;
@@ -80,16 +86,18 @@ public class FileUtils {
 				data.delete();
 			}
 			return null;
-		}finally{
-			if(fis!=null){
+		} finally {
+			if (fis != null) {
 				try {
 					fis.close();
-				} catch (IOException e) { }
+				} catch (IOException e) {
+				}
 			}
-			if(ois !=null){
+			if (ois != null) {
 				try {
 					ois.close();
-				} catch (IOException e) { }
+				} catch (IOException e) {
+				}
 			}
 		}
 

@@ -50,6 +50,9 @@
 -keep public class com.android.vending.licensing.ILicensingService
 
 
+
+
+
 -keepclasseswithmembernames class * {
 
     native <methods>;  
@@ -93,6 +96,7 @@
   public static final android.os.Parcelable$Creator *;
 
 }
+
 
 -libraryjars   libs/android-support-v4.jar
 -dontwarn android.support.v4.**  
@@ -145,3 +149,7 @@
 -keepclassmembers class * {
    public <init>(org.json.JSONObject);
 }
+
+# android's entity
+-keep public class com.meizhuo.etips.model.** {*;}
+-keep public class com.meizhuo.etips.appwidget.** {*;}

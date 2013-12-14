@@ -9,8 +9,10 @@ import java.util.List;
  * @author Jayin Ton
  * 
  */
-@SuppressWarnings("serial")
+ 
 public class Lesson implements Serializable{
+ 
+	private static final long serialVersionUID = 1L;
 	public String LessonName = null;
 	public String Teacher = null;
 	public String Time = null;

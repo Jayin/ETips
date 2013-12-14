@@ -99,6 +99,10 @@ public class TopicList extends BaseUIActivity implements OnClickListener {
 					lv.clickRefresh();
 					return;
 				}
+				if(list.get(position-1).getName().equals( "邑大购购网")){
+					openActivity(Browser.class);
+					return;
+				}
 				Intent intent = new Intent(TopicList.this,TweetList.class);
 			    intent.putExtra("topic_id", list.get(position-1).getId());
 			    intent.putExtra("topic_name", list.get(position-1).getName());

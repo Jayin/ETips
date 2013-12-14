@@ -129,14 +129,14 @@ public class SubSystemLoginActivity extends BaseUIActivity {
 				}
 				dialog.setText("ETips解析数据中...");
 				if (tag == TAG_Lesson) {
-
+					dialog.setText("ETips正在跳转...");
+					//保存到数据库
 					List<List<List<Lesson>>> course = translateData(((Map<Integer, Map<Integer, List<Lesson>>>) msg.obj));
-					App.setLessonList(course);
 					SharedPreferences sp = getSharedPreferences(
 							ETipsContants.SharedPreference_NAME,
 							Context.MODE_PRIVATE);
 					SharedPreferenceHelper.set(sp, "LessonDB_Has_Data", "YES");
-					dialog.setText("ETips正在跳转...");
+					App.setLessonList(course);
 					dialog.dismiss();
 					dialog = null;
 					// startActivity.... finish..

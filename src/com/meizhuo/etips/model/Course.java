@@ -11,23 +11,28 @@ import java.util.List;
  * 
  */
 public class Course implements Serializable {
+	private List<List<List<Lesson>>> courseList;
 
 	public Course(List<List<List<Lesson>>> course) {
-		this.course = course;
+		this.courseList = course;
 	}
 
-	private List<List<List<Lesson>>> course;
-
-	public List<List<List<Lesson>>> getCourse() {
-		return course;
+	 
+	public List<List<List<Lesson>>> getCourseList() {
+		return courseList;
 	}
 
-	public void setCourse(List<List<List<Lesson>>> course) {
-		this.course = course;
+
+	public void setCourseList(List<List<List<Lesson>>> courseList) {
+		this.courseList = courseList;
 	}
+
 
 	@Override
 	public String toString() {
-		return "Course [course=" + course.toString() + "]";
+		return "Course [courseList=" + courseList.toString() + "]";
 	}
+
+
+	 
 }

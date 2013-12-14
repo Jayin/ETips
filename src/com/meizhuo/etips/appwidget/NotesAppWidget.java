@@ -25,7 +25,11 @@ import com.meizhuo.etips.common.utils.ETipsContants;
 import com.meizhuo.etips.common.utils.SP;
 import com.meizhuo.etips.common.utils.StringUtils;
 import com.meizhuo.etips.model.MNotes;
-
+/**
+ * 便签桌面小插件
+ * @author Jayin Ton
+ *
+ */
 public class NotesAppWidget extends AppWidgetProvider {
 	private List<MNotes> list = null;
 

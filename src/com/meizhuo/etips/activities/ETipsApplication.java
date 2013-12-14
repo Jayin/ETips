@@ -5,8 +5,10 @@ import java.util.List;
 
 import android.app.Application;
 import android.content.Intent;
+import android.util.Log;
 
 import com.meizhuo.etips.common.utils.ETipsContants;
+import com.meizhuo.etips.common.utils.Elog;
 import com.meizhuo.etips.common.utils.SP;
 import com.meizhuo.etips.common.utils.SharedPreferenceHelper;
 import com.meizhuo.etips.model.Course;
@@ -19,6 +21,7 @@ import com.umeng.analytics.MobclickAgent;
  * 1、application用于初始化，载入用户偏好设置 sharedpreference: 默认所有偏好设置为NO 后期自行修改~
  * 2、每当往sharedpreference中增加一个属性，Property也应该增加一个属性
  * 3、每次修改以后（写入到）SharedPreferences文件后，必须refreshProperty()
+ * 
  * @author Jayin Ton
  * 
  */
@@ -39,19 +42,22 @@ public class ETipsApplication extends Application {
 	private SubSystemAPI subSystemAPI;
 
 	// private ArrayList<Activity> activities;
-   //开启调试模式
+	// 开启调试模式
 	@Override
 	public void onCreate() {
 		super.onCreate();
-	 	MobclickAgent.setDebugMode( true );
+		// MobclickAgent.setDebugMode( true );
 	}
+
 	/**
 	 * 每次修改以后（写入到）SharedPreferences文件后，必须refreshProperty()
+	 * 
 	 * @return
 	 */
-    public HashMap<String, String> refreshProperty(){
-    	return this.property = (HashMap<String, String>)SharedPreferenceHelper.getSharedPreferences(this).getAll();
-    }
+	public HashMap<String, String> refreshProperty() {
+		return this.property = (HashMap<String, String>) SharedPreferenceHelper
+				.getSharedPreferences(this).getAll();
+	}
 
 	public HashMap<String, String> getProperty() {
 		if (property == null) {
@@ -67,37 +73,42 @@ public class ETipsApplication extends Application {
 	/**
 	 * @return the lessonList
 	 */
-	public List<List<List<Lesson>>> getLessonList() {
-		Course course = null;
-		
-		SP sp = new SP(ETipsContants.SP_NAME_Course,getApplicationContext());
-		String json = sp.getValue("course");
-		if(json == null || json.equals("null")){
-			return null;
-		}else{
-			Object obj = sp.toEntity(ETipsContants.TYPE_SP_Course, json);
-			if(obj instanceof Course){
-				course = (Course)obj;
-				return course.getCourse();
-			}else{
-				return null;
-			}
-			
-		}
-		 
-	}
+//	public List<List<List<Lesson>>> getLessonList() {
+//		Course course = null;
+//		SP sp = new SP(ETipsContants.SP_NAME_Course, getApplicationContext());
+//		String json = sp.getValue("course");
+//		if (json == null || json.equals("null")) {
+//			return null;
+//		} else {
+//			Object obj = sp.toEntity(ETipsContants.TYPE_SP_Course, json);
+//			try{
+//				course = (Course) obj;
+//			}catch(Exception e){
+//				e.printStackTrace();
+//			}
+//		
+//			Log.i("debug","getLessonList" );
+//			Elog.i(course.toString());
+//			return course.getCourseList();
+//		}
+//
+//	}
 
 	/**
 	 * @param lessonList
 	 *            把课程添加到sharedpreference;
 	 */
-	public void setLessonList(List<List<List<Lesson>>> lessonList) {
-		 Course course = new Course(lessonList);
-    	 SP sp  = new SP(ETipsContants.SP_NAME_Course, getApplicationContext());
-    	 String json = sp.toJSON(ETipsContants.TYPE_SP_Course,course);
-    	 sp.add("course",json);
-    	 getApplicationContext().sendBroadcast(new Intent(ETipsContants.Action_CourseChange));
-	}
+//	public void setLessonList(List<List<List<Lesson>>> lessonList) {
+//		Course course = new Course(lessonList);
+//		SP sp = new SP(ETipsContants.SP_NAME_Course, getApplicationContext());
+//		String json = sp.toJSON(ETipsContants.TYPE_SP_Course, course);
+//		sp.deleteAll();
+//		sp.add("course", json);
+//		Log.i("debug","setLessonList" );
+//		Elog.i(json);
+//		getApplicationContext().sendBroadcast(
+//				new Intent(ETipsContants.Action_CourseChange)); // 发送课表修改的广播！
+//	}
 
 	/**
 	 * @return the object
@@ -143,7 +154,5 @@ public class ETipsApplication extends Application {
 	public void setSubSystemAPI(SubSystemAPI subSystemAPI) {
 		this.subSystemAPI = subSystemAPI;
 	}
-
- 
 
 }

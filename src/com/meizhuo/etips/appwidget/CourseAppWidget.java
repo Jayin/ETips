@@ -9,16 +9,15 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.meizhuo.etips.activities.CourseMainActivity;
 import com.meizhuo.etips.activities.R;
+import com.meizhuo.etips.activities.SubSystemLoginActivity;
 import com.meizhuo.etips.common.utils.CourseUtils;
+import com.meizhuo.etips.common.utils.DataPool;
 import com.meizhuo.etips.common.utils.ETipsContants;
 import com.meizhuo.etips.common.utils.ETipsUtils;
-import com.meizhuo.etips.common.utils.Elog;
-import com.meizhuo.etips.common.utils.SP;
 import com.meizhuo.etips.common.utils.StringUtils;
 import com.meizhuo.etips.model.Course;
 import com.meizhuo.etips.model.Lesson;
@@ -62,11 +61,14 @@ public class CourseAppWidget extends AppWidgetProvider {
 			String time = StringUtils.getTimeFormat() + " 第"
 					+ ETipsUtils.getCurrentWeek(context) + "周";
 			String courseInfo = wrapData(context);
-
+			PendingIntent startCourseMain = getPendingIntent(context);  //刷新点击事件
+			
 			RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
 					R.layout.widget_course);
 			remoteViews.setTextViewText(R.id.widget_course_time, time);
 			remoteViews.setTextViewText(R.id.widget_course_content, courseInfo);
+			remoteViews.setOnClickPendingIntent(R.id.widget_course_main,
+					startCourseMain);
 
 			AppWidgetManager appWidgetManager = AppWidgetManager
 					.getInstance(context);
@@ -85,17 +87,10 @@ public class CourseAppWidget extends AppWidgetProvider {
 		String[] lessonName = new String[5];
 		StringBuilder sb = new StringBuilder("全日无课！");
 		boolean flag = true; // 用来判断是否全天无课,true 为是
-		SP sp = new SP(ETipsContants.SP_NAME_Course, context);
-		String json = sp.getValue("course");
-		if(json ==null || json.equals("null"))return "尚未导入课程";
-		Log.i("debug","course in sp:::");
-		Elog.i(json);
-		Course course = (Course) sp.toEntity(ETipsContants.TYPE_SP_Course, json);
+		DataPool dp  = new DataPool(ETipsContants.SP_NAME_Course, context);
+		Course course = (Course)dp.get("course");
+		if(course ==null )return "尚未导入课程";
 		List<List<List<Lesson>>> lessonList = course.getCourseList();
-		Log.i("debug","course obj --->");
-		Elog.i(lessonList.toString());
-		 
-		// int week = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
 		int week = Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == 1 ? 7
 				: Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 1;
 		int maxLength = 0;
@@ -153,9 +148,7 @@ public class CourseAppWidget extends AppWidgetProvider {
 	@Override
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager,
 			int[] appWidgetIds) {
-		PendingIntent startCourseMain = PendingIntent.getActivity(context, 0,
-				new Intent(context, CourseMainActivity.class), 0);
-
+		PendingIntent startCourseMain = getPendingIntent(context);
 		for (int i = 0; i < appWidgetIds.length; i++) {
 			RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
 					R.layout.widget_course);
@@ -166,6 +159,20 @@ public class CourseAppWidget extends AppWidgetProvider {
 		context.sendBroadcast(new Intent(ETipsContants.Action_CourseChange)); // 发送课表修改的广播！
 		super.onUpdate(context, appWidgetManager, appWidgetIds);
 
+	}
+	
+	private PendingIntent getPendingIntent(Context context){
+		PendingIntent startCourseMain = PendingIntent.getActivity(context, 0,
+				new Intent(context, CourseMainActivity.class), 0);
+        DataPool dp = new DataPool(ETipsContants.SP_NAME_Course, context);
+        Course c =(Course) dp.get("course");
+        if(c==null || c.getCourseList().size()==0){
+        	Intent intent = new Intent(context,
+					SubSystemLoginActivity.class);
+			intent.putExtra("toWhere", "CourseMainActivity");
+			startCourseMain = PendingIntent.getActivity(context, 0,intent , 0);
+        }
+        return startCourseMain;
 	}
 
 }

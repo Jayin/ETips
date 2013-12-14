@@ -25,8 +25,10 @@ import android.widget.TextView;
 
 import com.meizhuo.etips.common.utils.AndroidUtils;
 import com.meizhuo.etips.common.utils.CalendarManager;
+import com.meizhuo.etips.common.utils.DataPool;
 import com.meizhuo.etips.common.utils.ETipsAlarmManager;
 import com.meizhuo.etips.common.utils.ETipsContants;
+import com.meizhuo.etips.common.utils.Elog;
 import com.meizhuo.etips.common.utils.JPushManager;
 import com.meizhuo.etips.common.utils.SP;
 import com.meizhuo.etips.common.utils.SharedPreferenceHelper;
@@ -128,10 +130,14 @@ public class ETipsStartActivity extends BaseUIActivity {
 							}
 						//	App.setLessonList(course);
 							//把课程表保存到SharedPreference 更高效可靠
-							SP courseSP = new SP(ETipsContants.SP_NAME_Course, getContext());
-							Course courseObj = new Course(course);
-							String json  = courseSP.toJSON(ETipsContants.TYPE_SP_Course,courseObj);
-							courseSP.add("course", json);
+							DataPool dp  = new DataPool(ETipsContants.SP_NAME_Course, getContext());
+						    Course c = new Course(course);
+						    if(dp.add("course", c)){
+						    	Elog.i("ETipsStartActivity -Course add  successfully");
+						    }else{
+						    	Elog.i("ETipsStartActivity -Course add  faild");
+						    }
+ 
 						}
 						Message msg = handler.obtainMessage();
 				//		initAlarm();

@@ -314,10 +314,6 @@ public class ETipsMainActivity extends BaseUIActivity implements
 			openActivity(ETipsMainSettingActivity.class);
 
 			break;
-		// case R.id.frame_main_note_btn_add: //添加标签
-		// openActivity(NotesEdit.class);
-		// break;
-
 		case R.id.acty_etips_main_flipper_teweet:
 			openActivity(TopicList.class);
 			break;
@@ -347,9 +343,6 @@ public class ETipsMainActivity extends BaseUIActivity implements
 			int[] courseStatus = CourseUtils.getCourseStatus(
 					ETipsMainActivity.this, CalendarManager.getTimePart()
 							.getTimeInMillis());
-			// StringBuilder sb = new StringBuilder();
-//			System.out.println("status:" + courseStatus[0] + " perid:"
-//					+ courseStatus[1]);
 			if (courseStatus[1] == 1) {
 				timePart = "AM";
 			} else if (courseStatus[1] == 3) {

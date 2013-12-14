@@ -67,8 +67,6 @@ public class NotesAppWidget extends AppWidgetProvider {
 				new Intent(context, NotesEdit.class), 0);
 		reflush(context);
 		for (int i = 0; i < appWidgetIds.length; i++) {
-			// Log.i("debug", "onUpdata --");
-
 			RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
 					R.layout.widget_notes);
 			remoteViews.setOnClickPendingIntent(R.id.widget_notes_content,
@@ -84,7 +82,6 @@ public class NotesAppWidget extends AppWidgetProvider {
    private String wrapData(List<MNotes> res){
 	   StringBuffer sb =new StringBuffer();
 	   for( MNotes m : res){
-	 
 		   sb.append(StringUtils.getDateFormat(m.getTime(), "mm-dd")).append("\n\t").append(m.getContent()).append("\n");
 	   }
 	   return sb.toString();
@@ -94,18 +91,22 @@ public class NotesAppWidget extends AppWidgetProvider {
 		SP sp = new SP(ETipsContants.SP_NAME_Notes, context);
 		list = null;
 		list = new ArrayList<MNotes>();
+		String content = null;
 		if (!sp.isEmpty()) {
 			list = (List<MNotes>) sp
 					.toEntityAll(ETipsContants.TYPE_SP_Notes);
-		 
-			RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
-					R.layout.widget_notes);
-		
-			remoteViews.setTextViewText(R.id.widget_notes_tv_content, wrapData(list));
-			AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-			ComponentName componentName = new ComponentName(context, NotesAppWidget.class);
-			appWidgetManager.updateAppWidget(componentName, remoteViews);
+		    content = wrapData(list);
+			
+		}else{
+			content = "随时随地地，记录生活点滴";
 		}
+		RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
+				R.layout.widget_notes);
+	
+		remoteViews.setTextViewText(R.id.widget_notes_tv_content, content);
+		AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+		ComponentName componentName = new ComponentName(context, NotesAppWidget.class);
+		appWidgetManager.updateAppWidget(componentName, remoteViews);
    }
 
 }

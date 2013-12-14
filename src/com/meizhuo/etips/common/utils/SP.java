@@ -123,9 +123,7 @@ public class SP {
 		case ETipsContants.TYPE_SP_Tweet:
 			gson = new Gson();
 			return gson.toJson((Tweet) obj);
-		case ETipsContants.TYPE_SP_Course:
-		    gson = new Gson();
-		    return gson.toJson((Course)obj);
+	 
 		}
 		return null;
 	}
@@ -156,17 +154,7 @@ public class SP {
 			gson = new Gson();
 			return gson.fromJson(json, Tweet.class);
 
-		case ETipsContants.TYPE_SP_Course:
-		    gson  = new Gson();
-		    Course c = null;
-		    try{
-		    	c = gson.fromJson(json, Course.class);
-		    	Elog.i(c.toString());
-		    }catch(Exception e){
-		    	e.printStackTrace();
-		        
-		    }
-		    return c;
+	 
 		}
 		return null;
 	}
@@ -258,14 +246,6 @@ public class SP {
 			});
 
 			return tweetList;
-			
-		case ETipsContants.TYPE_SP_Course:
-		//	Course course = null;
-			if(this == null ||this.getValue("course").equals("null")){
-				return null;
-			}else{
-				return toEntity(ETipsContants.TYPE_SP_Course, this.getValue("course"));
-			}
 			
 		}
 

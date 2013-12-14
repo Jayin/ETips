@@ -24,7 +24,7 @@ import com.meizhuo.etips.net.utils.SubSystemAPI;
  * 
  */
 public class ETipsApplication extends Application {
-	private HashMap<String, String> property; // 用户偏好设置类
+	 private HashMap<String, String> property; // 用户偏好设置类
 	// private List<List<List<Lesson>>> lessonList;
 	/***
 	 * 用于任意Actvity间的数据传递 利用这个来传递数据时，必须有非常明白数据的生命周期 及时做好内存释放！！不然debug很难，有点破坏逻辑！

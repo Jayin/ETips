@@ -103,11 +103,14 @@ public class CourseAppWidget extends AppWidgetProvider {
 						if (CourseUtils.isLessonStart(context, t.get(j))) {
 							flag = false;
 							lessonName[i] = t.get(j).getLessonName();
+							break;
 						} else {
 							lessonName[i] = "无课";
 						}
 					}
 				} else {
+					System.out.println(todayLesson.get(i)
+					.get(0).toString());
 					if (CourseUtils.isLessonStart(context, todayLesson.get(i)
 							.get(0))) {
 						flag = false;

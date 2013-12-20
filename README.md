@@ -9,4 +9,7 @@ If you want to known more about it.Click http://www.wandoujia.com/apps/com.meizh
 <H1>ETips version 2.1 changelog</H1> 
   * support App Widget in your launcher (Person Note &  Course List) 
   * fix bugs (can't not login sub-system to get Course List & query personal score) 
+  
+ <H1>ETips version 2.1.1 changelog</H1> 
+  * Bugfix: incorrectly display the  course-list
 

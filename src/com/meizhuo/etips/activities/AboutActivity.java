@@ -17,6 +17,13 @@ public class AboutActivity extends BaseUIActivity {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.acty_about);
+		initData();
+		initLayout();
+	
+	}
+
+	@Override
+	protected void initLayout() {
 		backBtn = (Button) this.findViewById(R.id.acty_about_back);
 		backBtn.setOnClickListener(new View.OnClickListener() {
 
@@ -25,14 +32,11 @@ public class AboutActivity extends BaseUIActivity {
 				AboutActivity.this.finish();
 			}
 		});
-	}
-
-	@Override
-	protected void initLayout() {
 		tv_version = (TextView) _getView(R.id.textView8);
 		try {
 			tv_version
 					.setText("版本:" + AndroidUtils.getAppVersionName(getContext()));
+			toast(AndroidUtils.getAppVersionName(getContext()));
 		} catch (NameNotFoundException e) {
 			e.printStackTrace();
 		}

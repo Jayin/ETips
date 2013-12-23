@@ -3,9 +3,11 @@ package com.meizhuo.etips.ui.utils;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationCompat.Builder;
+import android.support.v4.widget.SlidingPaneLayout.PanelSlideListener;
 
 import com.meizhuo.etips.activities.R;
 
@@ -41,6 +43,7 @@ public class BaseNotification extends NotificationCompat.Builder {
 						Uri.parse("android.resource://"
 								+ context.getPackageName() + "/"
 								+ R.raw.msg_notification));
+		this.setContentIntent(PendingIntent.getActivity(context, 0, new Intent(), 0));  //Android 2.3.5必须添加一个ContentIntent?
 	}
 
 	/**

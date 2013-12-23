@@ -36,7 +36,6 @@ public class AboutActivity extends BaseUIActivity {
 		try {
 			tv_version
 					.setText("版本:" + AndroidUtils.getAppVersionName(getContext()));
-			toast(AndroidUtils.getAppVersionName(getContext()));
 		} catch (NameNotFoundException e) {
 			e.printStackTrace();
 		}

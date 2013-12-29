@@ -8,7 +8,8 @@ ETips
 * the source code and change log (or update infomation) will compose here and http://etipsweb.duapp.com/download/index.html  (not very in time at all)
 
 Knowning bugs
-* 部分童鞋图书收藏进入崩溃
+===
+* 部分同学图书收藏进入崩溃
 * 部分同学成绩显示，课程类型不对 、对于0.X学分显示不友好
 
 <H1>ETips version 2.1.2 changelog</H1> 

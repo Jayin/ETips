@@ -5,6 +5,9 @@ ETips is an Android App for the students of Wuyi University.
 
 If you want to known more about it.Click http://www.wandoujia.com/apps/com.meizhuo.etips.activities 
 
+Knowning bugs
+* 部分童鞋图书收藏进入崩溃
+* 部分同学成绩显示，课程类型不对 、对于0.X学分显示不友好
 
 <H1>ETips version 2.1.2 changelog</H1> 
   * Bugfix:  In Android 4.x having a null PendingIntent is not a problem for starting foreground services, however in earlier Android versions it is.

@@ -11,6 +11,7 @@ Knowning bugs
 ===
 * 部分同学图书收藏进入崩溃
 * 部分同学成绩显示，课程类型不对 、对于0.X学分显示不友好
+* 部分机型(如mx 2) 下拉查询周数显示有点异常，无法点击第19周
 
 <H1>ETips version 2.1.2 changelog</H1> 
   * Bugfix:  In Android 4.x having a null PendingIntent is not a problem for starting foreground services, however in earlier Android versions it is.

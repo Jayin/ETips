@@ -13,7 +13,10 @@ import com.meizhuo.etips.model.ResponseHandler;
 
 /**
  * 子系统API funcntion: 登录 获取课表 获取成绩
- * 
+ * <li>登录
+ * <li>获取课表
+ * <li>获取成绩列表
+ * <p>NOTE:</p>
  * 登录时： 注意：有时候使用API时，Android提供的Apache HttpClient 版本不同于my eclipse Lib导入的的版本
  * Android 的http client 会自动设置 重定向 ； 但my eclipse 中的lib 里的版本不会自动重定向！
  * 以302为判断标准，这是在my eclipse 中HttpClient 4.25版本 以200为判断标准，这是在Elipse（Android）原生提供的

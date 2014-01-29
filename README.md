@@ -1,11 +1,23 @@
 ETips
 ===
 
-* ETips is an Android App for the students of Wuyi University.
-
-* If you want to known more about it.Click http://www.wandoujia.com/apps/com.meizhuo.etips.activities 
-* For all new version of ETips, you can download in http://etipsweb.duapp.com/download/ETips.apk   
+* ETips is an Android App for the students of Wuyi University.  
+* If you want to known more about it.Click http://www.wandoujia.com/apps/com.meizhuo.etips.activities   
+* For all new version of ETips, you can download in http://etipsweb.duapp.com/download/ETips.apk     
 * the source code and change log (or update infomation) will compose here and http://etipsweb.duapp.com/download/index.html  (not very in time at all)
+
+ETips 2.2 Features preview
+===
+* bugs fixed 
+* redesign all head-navigation
+* redesign course widget 
+* add time notification
+* no time-out for School News
+* remove Login Library ,just to search/favourite books!
+* No more database.Every local IO will fater than before
+* homepage switch on special day
+
+
 
 Knowning bugs
 ===

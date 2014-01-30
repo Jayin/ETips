@@ -71,16 +71,9 @@ public class LibSearchResultActivity extends BaseUIActivity {
 					int position, long id) {
 				Intent intent = new Intent(LibSearchResultActivity.this,
 						LibBookDetailActivity.class);
-				intent.putExtra("bookName", list.get(position).BookName);
-				intent.putExtra("pressTime", list.get(position).PressTime);
-				intent.putExtra("press", list.get(position).Press);
-				intent.putExtra("bookID",list.get(position).BookID);
-				Bundle b = new Bundle();
-				b.putSerializable("BookInfo",list.get(position));
-				intent.putExtras(b);
 				intent.putExtra("from", "LibSearchResultActivity");
-				intent.putExtra("time", list.get(position).getCollectionTime()+"");
-				startActivity(intent);
+				intent.putExtra("BookInfo", list.get(position));
+				openActivity(intent);
 			}
 		});
 		tv_title.setText(keyword);

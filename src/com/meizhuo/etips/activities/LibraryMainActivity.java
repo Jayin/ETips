@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 public class LibraryMainActivity extends BaseUIActivity {
 	private EditText et_input;
-	private View loginBtn;
+	//private View loginBtn;
 	private RelativeLayout searchBtn, collectBtn;
 
 	@Override
@@ -30,23 +30,23 @@ public class LibraryMainActivity extends BaseUIActivity {
 		et_input = (EditText) this
 				.findViewById(R.id.acty_library_main_search_edit);
 		// backBtn = (Button) this.findViewById(R.id.acty_library_main_back);
-		loginBtn = this.findViewById(R.id.acty_library_main_login);
+	//	loginBtn = this.findViewById(R.id.acty_library_main_login);
 
 		searchBtn = (RelativeLayout) this
 				.findViewById(R.id.acty_library_main_commonSearch);
 		collectBtn = (RelativeLayout) this
 				.findViewById(R.id.acty_library_main_collections);
 
-		loginBtn.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// login .//
-				Intent intent = new Intent(LibraryMainActivity.this,
-						LibLoginActivity.class);
-				startActivity(intent);
-			}
-		});
+//		loginBtn.setOnClickListener(new OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+//				// login .//
+//				Intent intent = new Intent(LibraryMainActivity.this,
+//						LibLoginActivity.class);
+//				startActivity(intent);
+//			}
+//		});
 
 		searchBtn.setOnClickListener(new OnClickListener() {
 

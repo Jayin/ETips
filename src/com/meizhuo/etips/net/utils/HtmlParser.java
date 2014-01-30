@@ -14,6 +14,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.safety.Whitelist;
 import org.jsoup.select.Elements;
 
+import com.meizhuo.etips.common.utils.L;
 import com.meizhuo.etips.model.BookBorrowRecord;
 import com.meizhuo.etips.model.BookInfo;
 import com.meizhuo.etips.model.BookStatus;

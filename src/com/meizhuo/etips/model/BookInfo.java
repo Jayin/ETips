@@ -40,7 +40,6 @@ public class BookInfo implements Serializable {
 	 */
 	public String Totle; // 馆藏总数
 
-
 	/**
 	 * 可借数目
 	 */
@@ -49,23 +48,18 @@ public class BookInfo implements Serializable {
 	 * 书本在图书馆的编号 唯一
 	 */
 	public String BookID; // 书本在图书馆的编号
-    /**
-     * 收藏情况
-     */
+	/**
+	 * 收藏情况
+	 */
 	public List<BookStatus> status = new ArrayList<BookStatus>();
-	
-
-    /**
-     * 个人收藏时间
-     */
-	public long collectionTime = 0;
 
 	@Override
 	public String toString() {
 		return "BookInfo [BookName=" + BookName + ", Authors=" + Authors
 				+ ", Press=" + Press + ", PressTime=" + PressTime
 				+ ", ExactNumber=" + ExactNumber + ", Totle=" + Totle
-				+ ", Left=" + Left + ", BookID=" + BookID + ", status="+ status.toString()+", collectionTime="+ collectionTime+"]";
+				+ ", Left=" + Left + ", BookID=" + BookID + ", status="
+				+ status + "]";
 	}
 
 	public String getBookName() {
@@ -131,6 +125,7 @@ public class BookInfo implements Serializable {
 	public void setBookID(String bookID) {
 		BookID = bookID;
 	}
+
 	public List<BookStatus> getStatus() {
 		return status;
 	}
@@ -138,12 +133,4 @@ public class BookInfo implements Serializable {
 	public void setStatus(List<BookStatus> status) {
 		this.status = status;
 	}
-	public long getCollectionTime() {
-		return collectionTime;
-	}
-
-	public void setCollectionTime(long collectionTime) {
-		this.collectionTime = collectionTime;
-	}
-
 }

@@ -37,7 +37,7 @@ public class DataPool {
 		sp = context.getSharedPreferences(this.DataPoolName,
 				Context.MODE_PRIVATE);
 	}
-
+	
 	/**
 	 * add a key(String)-value(Serializable object) into SharedPreference
 	 * 
@@ -47,7 +47,7 @@ public class DataPool {
 	 *            value of this pair
 	 * @return true if add successfully
 	 */
-	public boolean add(String key, Serializable value) {
+	public boolean put(String key, Serializable value) {
 		boolean flag = false;
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		ObjectOutputStream oos = null;
@@ -80,8 +80,8 @@ public class DataPool {
 	 *            value of this pair ,with the defalut key="temp"
 	 * @return true if add successfully
 	 */
-	public boolean add(Serializable value) {
-		return add("temp", value);
+	public boolean put(Serializable value) {
+		return put("temp", value);
 	}
 
 	/**
@@ -184,7 +184,7 @@ public class DataPool {
 	public boolean set(String key, Serializable value) {
 		if (!contains(key))
 			return false;
-		return add(key, value);
+		return put(key, value);
 	}
 
 }

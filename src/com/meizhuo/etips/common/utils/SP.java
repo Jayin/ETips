@@ -181,13 +181,14 @@ public class SP {
 				bookInfos.add(bookInfo);
 			}
 			// 排序 (按时间排序，时间越大，越新)
-			Collections.sort(bookInfos, new Comparator<BookInfo>() {
-				@Override
-				public int compare(BookInfo l, BookInfo r) {
-					return (l.getCollectionTime() > r.getCollectionTime()) ? -1
-							: 1;
-				}
-			});
+			//remove to datapool
+//			Collections.sort(bookInfos, new Comparator<BookInfo>() {
+//				@Override
+//				public int compare(BookInfo l, BookInfo r) {
+//					return (l.getCollectionTime() > r.getCollectionTime()) ? -1
+//							: 1;
+//				}
+//			});
 			return bookInfos;
 
 		case ETipsContants.TYPE_SP_Notes:

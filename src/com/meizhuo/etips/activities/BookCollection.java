@@ -1,5 +1,6 @@
 package com.meizhuo.etips.activities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Intent;
@@ -10,11 +11,13 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.meizhuo.etips.common.utils.ETipsContants;
-import com.meizhuo.etips.common.utils.SP;
 import com.meizhuo.etips.model.BookInfo;
 import com.meizhuo.etips.ui.LibSearchResultListViewAdapter;
-
+/**
+ * 图书收藏页面
+ * @author Jayin Ton
+ * @version 2.2
+ */
 public class BookCollection extends BaseUIActivity {
 	private ListView lv;
 	private TextView count;
@@ -49,12 +52,9 @@ public class BookCollection extends BaseUIActivity {
 		deleteAll.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				SP sp = new SP(ETipsContants.SP_NAME_Book, getContext());
-				if (sp.deleteAll()) {
-					toast("清空完毕");
-				} else {
-					toast("清空失败");
-				}
+				ArrayList<BookInfo> bookInfos = AppInfo.getFavouriteBook(getContext());
+				bookInfos.clear();
+				AppInfo.setFavouriteBook(getContext(), bookInfos);
 				closeActivity();
 			}
 		});
@@ -63,42 +63,33 @@ public class BookCollection extends BaseUIActivity {
 		lv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> paremt, View view, int position,
-					long id) {
+			public void onItemClick(AdapterView<?> paremt, View view,
+					int position, long id) {
 				Intent intent = new Intent(getContext(),
 						LibBookDetailActivity.class);
-				intent.putExtra("bookName", list.get(position).BookName);
-				intent.putExtra("pressTime", list.get(position).PressTime);
-				intent.putExtra("press", list.get(position).Press);
-				intent.putExtra("bookID",list.get(position).BookID);
-				Bundle b = new Bundle();
-				b.putSerializable("BookInfo",list.get(position));
-				intent.putExtras(b);
+				BookInfo bookInfo = list.get(position);
 				intent.putExtra("from", "BookCollection");
-				intent.putExtra("time", list.get(position).getCollectionTime() +""); //加入收藏的时间
-				intent.putExtra("position", position); //用于确认是否要删除
-				startActivityForResult(intent, ETipsContants.RequestCode_BookCollection2Detail);
+				intent.putExtra("BookInfo", bookInfo);
+openActivity(intent);
 			}
 		});
 	}
 
 	@Override
-	protected void initData() {
-		SP sp = new SP(ETipsContants.SP_NAME_Book, getContext());
-		list = (List<BookInfo>) sp.toEntityAll(ETipsContants.TYPE_SP_Book);
+	protected void onResume() {
+		super.onResume();
+
+		List<BookInfo> newList = AppInfo.getFavouriteBook(getContext());
+		list.clear();
+		list.addAll(newList);
+		adapter.notifyDataSetChanged();
+		count.setText("总数:" + list.size());
 
 	}
-	
+
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-	    if(requestCode ==ETipsContants.RequestCode_BookCollection2Detail && resultCode ==RESULT_OK){
-	    	int positon = data.getIntExtra("position", -1);
-	    	if(positon != -1){
-	    		list.remove(positon);
-	    		adapter.notifyDataSetChanged();
-	    		count.setText("总数："+list.size());
-	    	}
-	    }
+	protected void initData() {
+		list = AppInfo.getFavouriteBook(getContext());
 	}
-
+ 
 }

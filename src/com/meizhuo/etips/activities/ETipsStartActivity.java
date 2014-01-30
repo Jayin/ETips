@@ -132,7 +132,7 @@ public class ETipsStartActivity extends BaseUIActivity {
 							//把课程表保存到SharedPreference 更高效可靠
 							DataPool dp  = new DataPool(ETipsContants.SP_NAME_Course, getContext());
 						    Course c = new Course(course);
-						    if(dp.add("course", c)){
+						    if(dp.put("course", c)){
 						    	Elog.i("ETipsStartActivity -Course add  successfully");
 						    }else{
 						    	Elog.i("ETipsStartActivity -Course add  faild");

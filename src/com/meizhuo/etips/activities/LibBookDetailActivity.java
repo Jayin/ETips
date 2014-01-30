@@ -1,6 +1,8 @@
 package com.meizhuo.etips.activities;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.http.client.ClientProtocolException;
@@ -25,17 +27,19 @@ import com.meizhuo.etips.common.utils.SP;
 import com.meizhuo.etips.model.BookInfo;
 import com.meizhuo.etips.model.BookStatus;
 import com.meizhuo.etips.net.utils.LibraryAPI;
-
+/**
+ * 图书详情页面
+ * @author Jayin Ton
+ *@version 2.2
+ */
 public class LibBookDetailActivity extends BaseUIActivity {
-	private String bookName, bookID, pressTime, press;
 	private Button backBtn, collect;
 	private ListView lv;
 	private TextView tv_title, tv_press, tv_pressTime, tv_words;
 	private ProgressBar progressBar;
 	private List<BookStatus> list;
 	private BookInfo bookInfo;
-	private String from,// 从哪个Activity跳转过来
-			time;// 收藏的时间
+	private String from;// 从哪个Activity跳转过来
 	private BDListViewAdapter adapter;
 
 	@Override
@@ -84,9 +88,9 @@ public class LibBookDetailActivity extends BaseUIActivity {
 		} else if (from.equals("BookCollection")) {
 			collect.setText("取消收藏");
 		}
-		tv_title.setText(bookName);
-		tv_press.setText(press);
-		tv_pressTime.setText(pressTime);
+		tv_title.setText(bookInfo.getBookName());
+		tv_press.setText(bookInfo.getPress());
+		tv_pressTime.setText(bookInfo.getPressTime());
 		backBtn.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -99,20 +103,40 @@ public class LibBookDetailActivity extends BaseUIActivity {
 			@Override
 			public void onClick(View v) {
 				SP sp = new SP(ETipsContants.SP_NAME_Book, getContext());
+				ArrayList<BookInfo> bookInfos = AppInfo
+						.getFavouriteBook(getContext());
 				if (from.equals("LibSearchResultActivity")) {
 					// 加入收藏信息
 					bookInfo.setStatus(list);
-					bookInfo.setCollectionTime(System.currentTimeMillis());
-					if (sp.add(System.currentTimeMillis() + "",
-							sp.toJSON(ETipsContants.TYPE_SP_Book, bookInfo))) {
-						toast("收藏成功");
+					// bookInfo.setCollectionTime(System.currentTimeMillis());
+					// if (sp.add(System.currentTimeMillis() + "",
+					// sp.toJSON(ETipsContants.TYPE_SP_Book, bookInfo))) {
+					// toast("收藏成功");
+					// } else {
+					// toast("收藏失败");
+					// }
+
+					if (bookInfos.contains(bookInfo)) {
+						toast("已收藏");
 					} else {
-						toast("收藏失败");
+						bookInfos.add(bookInfo);
+						if (AppInfo.setFavouriteBook(getContext(), bookInfos)) {
+							toast("收藏成功");
+						} else {
+							toast("收藏失败");
+						}
 					}
+
 				} else if (from.equals("BookCollection")) {
-					if (sp.delete(time)) {
+					for (int i = 0; i < bookInfos.size(); i++) {
+						if (bookInfos.get(i).getBookID()
+								.equals(bookInfo.getBookID())) {
+							bookInfos.remove(i);
+							break;
+						}
+					}
+					if (AppInfo.setFavouriteBook(getContext(), bookInfos)) {
 						toast("删除成功");
-						setResult(RESULT_OK,getIntent());
 					} else {
 						toast("删除失败");
 					}
@@ -126,15 +150,8 @@ public class LibBookDetailActivity extends BaseUIActivity {
 
 	@Override
 	protected void initData() {
-		bookName = getIntent().getStringExtra("bookName");
-		pressTime = getIntent().getStringExtra("pressTime");
-		press = getIntent().getStringExtra("press");
-		bookID = getIntent().getStringExtra("bookID");
-
 		bookInfo = (BookInfo) getIntent().getSerializableExtra("BookInfo");
 		from = getIntent().getStringExtra("from");
-		time = getIntent().getStringExtra("time");
-
 	}
 
 	class LibBDHandler extends Handler {
@@ -146,11 +163,16 @@ public class LibBookDetailActivity extends BaseUIActivity {
 				lv.setVisibility(View.VISIBLE);
 				adapter = new BDListViewAdapter();
 				lv.setAdapter(adapter);
-				//e.g:用户可能收藏时还没接受到收藏馆信息,但在这里更新了以后逻辑上是要保存下下来的
-				if(from.equals("BookCollection")){  
-					SP sp = new SP(ETipsContants.SP_NAME_Book,getContext());
-					bookInfo.setStatus(list);
-					sp.updata(time,sp.toJSON(ETipsContants.TYPE_SP_Book, bookInfo));
+				// e.g:用户可能收藏时还没接受到收藏馆信息,但在这里更新了以后逻辑上是要保存下下来的
+				if (from.equals("BookCollection")) {
+					ArrayList<BookInfo> bookInfos = AppInfo
+							.getFavouriteBook(getContext());
+					if (bookInfos.contains(bookInfo)) {
+						bookInfos.remove(bookInfo);
+						bookInfo.setStatus(list);
+						bookInfos.add(bookInfo);
+						AppInfo.setFavouriteBook(getContext(), bookInfos);
+					}
 				}
 			} else {
 				progressBar.setVisibility(View.GONE);
@@ -170,7 +192,7 @@ public class LibBookDetailActivity extends BaseUIActivity {
 		public void run() {
 			LibraryAPI api = new LibraryAPI();
 			try {
-				list = api.getBookStatus(bookID);
+				list = api.getBookStatus(bookInfo.getBookID());
 				if (list.size() > 0)
 					handler.sendEmptyMessage(ETipsContants.Finish);
 				else {

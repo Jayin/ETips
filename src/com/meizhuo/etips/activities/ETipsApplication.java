@@ -14,6 +14,7 @@ import com.meizhuo.etips.model.Course;
 import com.meizhuo.etips.model.Lesson;
 import com.meizhuo.etips.net.utils.LibraryAPI;
 import com.meizhuo.etips.net.utils.SubSystemAPI;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * 1、application用于初始化，载入用户偏好设置 sharedpreference: 默认所有偏好设置为NO 后期自行修改~
@@ -24,7 +25,7 @@ import com.meizhuo.etips.net.utils.SubSystemAPI;
  * 
  */
 public class ETipsApplication extends Application {
-	 private HashMap<String, String> property; // 用户偏好设置类
+	private HashMap<String, String> property; // 用户偏好设置类
 	// private List<List<List<Lesson>>> lessonList;
 	/***
 	 * 用于任意Actvity间的数据传递 利用这个来传递数据时，必须有非常明白数据的生命周期 及时做好内存释放！！不然debug很难，有点破坏逻辑！
@@ -44,7 +45,7 @@ public class ETipsApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		// MobclickAgent.setDebugMode( true );
+		MobclickAgent.setDebugMode(true);
 	}
 
 	/**
@@ -73,10 +74,12 @@ public class ETipsApplication extends Application {
 	 */
 	public List<List<List<Lesson>>> getLessonList() {
 		Course course = null;
-		DataPool dp = new DataPool(ETipsContants.SP_NAME_Course, getApplicationContext());
-		course = (Course)dp.get("course");
-		if(course==null)return null;
-		return course.getCourseList(); 
+		DataPool dp = new DataPool(ETipsContants.SP_NAME_Course,
+				getApplicationContext());
+		course = (Course) dp.get("course");
+		if (course == null)
+			return null;
+		return course.getCourseList();
 
 	}
 
@@ -86,12 +89,13 @@ public class ETipsApplication extends Application {
 	 */
 	public void setLessonList(List<List<List<Lesson>>> lessonList) {
 		Course course = new Course(lessonList);
-		DataPool dp = new DataPool(ETipsContants.SP_NAME_Course, getApplicationContext());
-		if(dp.add("course", course)){
+		DataPool dp = new DataPool(ETipsContants.SP_NAME_Course,
+				getApplicationContext());
+		if (dp.put("course", course)) {
 			Elog.i("App:setLessonList  successfully");
 			getApplicationContext().sendBroadcast(
 					new Intent(ETipsContants.Action_CourseChange)); // 发送课表修改的广播！
-		}else{
+		} else {
 			Elog.i("App:setLessonList  faild");
 		}
 	}

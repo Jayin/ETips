@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_bg_acty_notes"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/frame_main_head" >
+
+        <TextView
+            android:id="@+id/frame_main_note_title"
+            style="@style/TextView.Base"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:text="个人便签"
+            android:textColor="@color/white"
+            android:textSize="28sp" />
+
+        <Button
+            android:id="@+id/acty_notes_btn_add"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_add" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/acty_notes_lv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" 
+        android:listSelector="@color/lucency_white" >
+    </ListView>
+
+</LinearLayout>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/ic_etips_main_toolbar_bg" >
+
+    <RelativeLayout
+        android:layout_width="100dp"
+        android:layout_height="150dp" >
+
+        <Button
+            android:id="@+id/popwindow_etips_main_setting_about"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/popwindow_etips_main_setting_share"
+            android:background="@drawable/btn_common_black"
+            android:drawableLeft="@drawable/ic_menu_about"
+            android:layout_marginTop="5dp"
+            android:text=" 关 于 "
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/popwindow_etips_main_setting_exit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/popwindow_etips_main_setting_about"
+            android:background="@drawable/btn_common_black"
+            android:drawableLeft="@drawable/ic_menu_exit"
+            android:layout_marginTop="5dp"
+            android:text=" 退 出 "
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/popwindow_etips_main_setting_share"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/btn_common_black"
+            android:drawableLeft="@drawable/ic_menu_share_sinaweibo"
+            android:singleLine="true"
+            android:layout_marginTop="5dp"
+            android:text=" 分 享 "
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+</RelativeLayout>

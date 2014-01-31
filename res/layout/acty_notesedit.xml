@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/yellow"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/frame_main_head" >
+
+        <TextView
+            android:id="@+id/acty_notesedit_title"
+            style="@style/TextView.Base"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:text="个人便签"
+            android:textColor="@color/white"
+            android:textSize="28sp" />
+
+        <ImageView
+            android:id="@+id/acty_notesedit_share"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/ic_action_share" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/acty_notesedit_time"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="2013-11-9 23:00"
+        android:textColor="@color/orange_strong" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="8dp" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_above="@+id/acty_notesedit_font" >
+
+            <com.meizhuo.etips.widget.LinedEditText
+                android:id="@+id/acty_notesedit_et_content"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@null"
+                android:gravity="top"
+                android:textSize="18sp" >
+            </com.meizhuo.etips.widget.LinedEditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/acty_notesedit_font"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"  >
+
+            <Button
+                android:id="@+id/acty_notesedit_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/btn_back_orange" />
+
+            <Button
+                android:id="@+id/acty_notesedit_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/btn_save" />
+
+            <Button
+                android:id="@+id/acty_notesedit_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/btn_delete" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

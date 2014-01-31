@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue_strong"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:src="@drawable/ic_font_etips" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/acty_regist_identify_status"
+                style="@style/TextView.Base"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_horizontal"
+                android:text="用户验证"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/acty_regist_identity_id"
+                style="@style/Base_EditText"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:hint="学号" />
+
+            <EditText
+                android:id="@+id/acty_regist_identity_subSystemPsw"
+                style="@style/Base_EditText"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:hint="子系统密码"
+                android:inputType="textPassword" />
+
+            <Button
+                android:id="@+id/acty_regist_identity_ok"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/btn_base_blue_2"
+                android:text="验证并注册"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                style="@style/TextView.Base"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="30dp"
+                android:text="说明 : 用户验证，为了确保注册用户是真实的邑大学生，我们并不会保存用户的子系统的密码"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

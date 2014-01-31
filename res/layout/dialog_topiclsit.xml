@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/ic_dlg_background"
+    android:orientation="vertical"
+    android:layout_margin="18dp" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                style="@style/TextView.common"
+                android:layout_width="match_parent"
+                android:textSize="14sp"
+                android:text="免责声明\n 1.为了减轻服务器的压力,用户每日在校园资讯模块只能发布3条信息\n 2.一个学号只能注册一个邮箱\n 3。禁止在本应用发布任何政治、色情、暴力等敏感话题信息\n 4.ETips旨在方便邑大学生，并不保存用户的子系统密码和敏感信息\n 5.诚邀你提出宝贵意见\n 6.解释权归袂卓工作室所有" />
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal" 
+        android:layout_margin="6dp">
+
+        <Button
+            android:id="@+id/dialog_topiclist_ok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_base_blue"
+            android:text="已 阅 读" 
+            android:textColor="@color/white"
+            android:textSize="14sp"/>
+
+        <Button
+            android:id="@+id/dialog_topiclist_ok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_base_blue" />
+    </LinearLayout>
+
+</LinearLayout>

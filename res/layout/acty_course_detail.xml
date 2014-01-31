@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/acty_course_detail_navigate"
+        android:background="@color/light_white" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_item_course_detail_background" >
+
+                <TextView
+                    style="@style/acty_course_detail_textview"
+                    android:text="课程名称" />
+
+                <TextView
+                    android:id="@+id/acty_course_detail_lesson"
+                    style="@style/acty_course_detail_textview"
+                    android:text="电子技术基础实验（1）" />
+
+                <EditText
+                    android:id="@+id/acty_course_detail_lesson_et"
+                    style="@style/acty_course_detail_textview"
+                    android:layout_width="match_parent"
+                    android:text="电子技术基础实验（1）"
+                    android:visibility="gone" >
+
+                    <requestFocus />
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_item_course_detail_background" >
+
+                <TextView
+                    style="@style/acty_course_detail_textview"
+                    android:text="上课周数" />
+
+                <TextView
+                    android:id="@+id/acty_course_detail_time"
+                    style="@style/acty_course_detail_textview"
+                    android:text="第1-18周" />
+
+                <EditText
+                    android:id="@+id/acty_course_detail_time_et"
+                    style="@style/acty_course_detail_textview"
+                    android:layout_width="match_parent"
+                    android:text="第1-18周"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_item_course_detail_background" >
+
+                <TextView
+                    style="@style/acty_course_detail_textview"
+                    android:text="上课地点" />
+
+                <TextView
+                    android:id="@+id/acty_course_detail_address"
+                    style="@style/acty_course_detail_textview"
+                    android:text="黄浩川401" />
+
+                <EditText
+                    android:id="@+id/acty_course_detail_address_et"
+                    style="@style/acty_course_detail_textview"
+                    android:layout_width="match_parent"
+                    android:text="黄浩川401"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_item_course_detail_background" >
+
+                <TextView
+                    style="@style/acty_course_detail_textview"
+                    android:text="任课教师" />
+
+                <TextView
+                    android:id="@+id/acty_course_detail_teacher"
+                    style="@style/acty_course_detail_textview"
+                    android:text="陈以桐" />
+
+                <EditText
+                    android:id="@+id/acty_course_detail_teacher_et"
+                    style="@style/acty_course_detail_textview"
+                    android:layout_width="match_parent"
+                    android:text="陈以桐"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/acty_course_detail_tv_tips"
+                style="@style/TextView.Base"
+                android:layout_margin="10dp"
+                android:text="@string/Tips_Course_edit"
+                android:textSize="12sp"
+                android:visibility="gone" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/acty_course_detail_navigate"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/ic_bg_tweet" >
+
+        <Button
+            android:id="@+id/acty_course_detail_back"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/btn_back_round" />
+
+        <Button
+            android:id="@+id/acty_course_detail_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/btn_common_blue"
+            android:text="确 认"
+            android:textColor="@color/white"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/acty_course_detail_setting"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/btn_edit_white" />
+
+        <Button
+            android:id="@+id/acty_course_detail_cancle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/btn_common_blue"
+            android:text="取 消"
+            android:textColor="@color/white"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/acty_course_detail_tv"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/acty_course_detail_setting"
+            android:layout_toRightOf="@+id/acty_course_detail_back"
+            android:gravity="center_horizontal"
+            android:text="课程详情"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

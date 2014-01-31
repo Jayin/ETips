@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue_strong"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:src="@drawable/ic_font_etips" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/acty_regist_account"
+                style="@style/Base_EditText"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:hint="登录邮箱" />
+
+            <EditText
+                android:id="@+id/acty_regist_nickname"
+                style="@style/Base_EditText"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:hint="用户昵称(真实姓名,不可修改)" />
+
+            <EditText
+                android:id="@+id/acty_regist_psw"
+                style="@style/Base_EditText"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:hint="密码(英文+数字 8-16位)"
+                android:inputType="textPassword" />
+
+            <EditText
+                android:id="@+id/acty_regist_psw_confirm"
+                style="@style/Base_EditText"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:hint="再次确认密码" android:inputType="textPassword" />
+
+            <Button
+                android:id="@+id/acty_regist_ok"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/btn_base_blue_2"
+                android:text="注 册"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/ic_item_background" >
+
+    <TextView
+        android:id="@+id/item_manual_listview_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:text="五邑大学学生与外籍教师留学生友好往来的有关规定"
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
+</RelativeLayout>

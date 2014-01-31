@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="200dp"
+    android:descendantFocusability="blocksDescendants" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_item_background"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:layout_width="80dp"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/item_listview_lesson_textview_num"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="01"
+                android:textColor="@color/orange"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/item_listview_lesson_textview_ltime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/item_listview_lesson_textview_num"
+                android:layout_marginLeft="20dp"
+                android:text="08:00"
+                android:textColor="@color/blue"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent" >
+
+            <ImageView
+                android:id="@+id/item_listview_lesson_imageView2"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/item_listview_lesson_textView_lesson"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/ic_item_lesson_time" />
+
+            <ImageView
+                android:id="@+id/item_listview_lesson_imageView4"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/item_listview_lesson_imageView3"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/ic_item_lesson_address"
+             />
+
+            <ImageView
+                android:id="@+id/item_listview_lesson_imageView3"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/item_listview_lesson_imageView2"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/ic_item_lesson_teacher" />
+
+            <TextView
+                android:id="@+id/item_listview_lesson_textView_lesson"
+                style="@style/item_listview_lesson_textview"
+                android:layout_marginLeft="10dp"
+                android:text="电子技术基础（实验） "
+                android:textColor="@color/week_course_course_green"
+                
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/item_listview_lesson_textView_lesson_teacher"
+                style="@style/item_listview_lesson_textview"
+                android:layout_above="@+id/item_listview_lesson_imageView4"
+                android:layout_alignLeft="@+id/item_listview_lesson_textView_lesson_time"
+                android:text="于以彬" />
+
+            <TextView
+                android:id="@+id/item_listview_lesson_textView_lesson_address"
+                style="@style/item_listview_lesson_textview"
+                android:layout_alignBottom="@+id/item_listview_lesson_imageView4"
+                android:layout_alignLeft="@+id/item_listview_lesson_textView_lesson_teacher"
+                android:text="马兰芳教学楼302" />
+
+            <ImageView
+                android:id="@+id/item_listview_lesson_imageview_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/ic_item_right"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/item_listview_lesson_imageButton1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/ic_btn_down_nomal"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/item_listview_lesson_textView_lesson_time"
+                style="@style/item_listview_lesson_textview"
+                android:layout_above="@+id/item_listview_lesson_imageView3"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@+id/item_listview_lesson_imageView2"
+                android:text="1-18周" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

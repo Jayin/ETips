@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue_strong"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:src="@drawable/ic_font_etips" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/acty_tweetlogin_frame_toUser"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <RelativeLayout style="@style/Acty_Course_Setting.rely" >
+
+                    <TextView
+                        android:id="@+id/acty_tweetlogin_frame_nickname"
+                        style="@style/Acty_Course_Setting.textview"
+                        android:text="用户名:"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/acty_tweetlogin_frame_tv_nickname"
+                        style="@style/Acty_Course_Setting.textview"
+                        android:layout_toRightOf="@+id/acty_tweetlogin_frame_nickname"
+                        android:text="Jayin_Ton"
+                        android:textSize="14sp"
+                        android:ems="12" android:ellipsize="end"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+                <RelativeLayout style="@style/Acty_Course_Setting.rely" >
+
+                    <TextView
+                        android:id="@+id/acty_tweetlogin_frame_account"
+                        style="@style/Acty_Course_Setting.textview"
+                        android:text="登录账户:"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/acty_tweetlogin_frame_tv_account"
+                        style="@style/Acty_Course_Setting.textview"
+                        android:layout_toRightOf="@+id/acty_tweetlogin_frame_account"
+                        android:text="tonjayin@gmail.com"
+                        android:textSize="14sp"
+                        android:ems="12" android:ellipsize="end"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <RelativeLayout style="@style/Acty_Course_Setting.rely" >
+
+                    <TextView
+                        android:id="@+id/acty_tweetlogin_frame_loginTime"
+                        style="@style/Acty_Course_Setting.textview"
+                        android:text="登录日期:"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/acty_tweetlogin_frame_tv_loginTime"
+                        style="@style/Acty_Course_Setting.textview"
+                        android:layout_toRightOf="@+id/acty_tweetlogin_frame_loginTime"
+                        android:text="2013-11-2"
+                        android:textSize="14sp"   android:ems="12" android:ellipsize="end"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/acty_tweetlogin_loginOut"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/btn_base_blue_2"
+                    android:text="注 销"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/acty_tweetlogin_frame_tologin"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone" >
+
+                <EditText
+                    android:id="@+id/acty_tweetlogin_account"
+                    style="@style/Base_EditText"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:hint="登录邮箱" />
+
+                <EditText
+                    android:id="@+id/acty_tweetlogin_psw"
+                    style="@style/Base_EditText"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:hint="密码(英文+数字 8-16位)"
+                    android:inputType="textPassword" />
+
+                <Button
+                    android:id="@+id/acty_tweetlogin_ok"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/btn_base_blue_2"
+                    android:text="登  录"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+                <Button
+                    android:id="@+id/acty_tweetlogin_regist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/btn_base_blue_2"
+                    android:text="注 册"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <RelativeLayout
+                    android:id="@+id/acty_tweetlogin_rely_progressBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" >
+
+                    <ProgressBar
+                        android:id="@+id/acty_tweetlogin_progressBar"
+                        style="@style/loading_small_style_two"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerHorizontal="true" />
+
+                    <TextView
+                        android:id="@+id/acty_tweetlogin_tv_loginStatus"
+                        style="@style/TextView.common"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/acty_tweetlogin_progressBar"
+                        android:text="登录中....."
+                        android:textColor="@color/white" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

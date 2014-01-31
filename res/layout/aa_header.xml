@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <!-- 这里开始 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/blue_nav_bg_nomal"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:id="@+id/btn_back"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/btn_blue"
+            android:clickable="true" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_action_back" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="2px"
+            android:layout_height="match_parent"
+            android:background="@drawable/ic_head_line" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4" >
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/TextView.header_title"
+                android:layout_centerInParent="true"
+                android:text="title" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="2px"
+            android:layout_height="match_parent"
+            android:background="@drawable/ic_head_line" />
+
+        <RelativeLayout
+            android:id="@+id/btn_more"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/btn_blue"
+            android:clickable="true" >
+            <TextView
+                style="@style/TextView.header_title"
+                android:layout_centerInParent="true"
+                android:text="清空"
+                android:textSize="14sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

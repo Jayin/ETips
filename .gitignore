@@ -29,8 +29,6 @@ proguard/
 .idea/
 
 #android ignore
-res/
-assets/
 .settings/
 *.png
 .settings/

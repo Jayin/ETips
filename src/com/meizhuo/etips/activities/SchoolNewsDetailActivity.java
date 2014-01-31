@@ -32,8 +32,7 @@ import com.umeng.socialize.media.UMImage;
 
 public class SchoolNewsDetailActivity extends BaseUIActivity {
 	private String linkPath = null, title = null, content = null;
-	private Button backBtn, shareBtn;
-	private TextView tv_title;
+	private View backBtn, shareBtn;
 	private ProgressBar pb;
 	private WebView webview;
 
@@ -88,18 +87,14 @@ public class SchoolNewsDetailActivity extends BaseUIActivity {
 
 	@Override
 	protected void initLayout() {
-		backBtn = (Button) this.findViewById(R.id.acty_schoolnews_detail_back);
-		shareBtn = (Button) this
-				.findViewById(R.id.acty_schoolnews_detail_share);
-		tv_title = (TextView) this
-				.findViewById(R.id.acty_schoolnews_detail_title_tv);
+		backBtn = this.findViewById(R.id.acty_schoolnews_detail_back);
+		shareBtn = this.findViewById(R.id.acty_schoolnews_detail_share);
 
 		pb = (ProgressBar) this
 				.findViewById(R.id.acty_schoolnews_detail_progressBar);
 		webview = (WebView) this
 				.findViewById(R.id.acty_schoolnews_detail_webview);
 		initWebView(webview);
-		tv_title.setText(title);
 		backBtn.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -114,7 +109,7 @@ public class SchoolNewsDetailActivity extends BaseUIActivity {
 				String content = "#邑大新闻#" + title + " 详情："
 						+ PathBuilder.getSchoolNewsDetailPath(linkPath)
 						+ " (分享自ETips客户端)";
-				ShareManager sm = new ShareManager(content);	 
+				ShareManager sm = new ShareManager(content);
 				sm.shareToSina(getContext(), new SnsPostListener() {
 
 					@Override

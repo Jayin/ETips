@@ -30,7 +30,7 @@ import com.meizhuo.etips.ui.WaittingDialog;
 
 public class SchoolNewsMainActivity extends BaseUIActivity {
 	private int page = 1, totalPage = -1;
-	private Button backBtn, nextBtn, prevBtn;
+	private View backBtn, nextBtn, prevBtn;
 	private TextView tv_pageInfo;
 	private ListView lv;
 	private List<SchoolNews> list;
@@ -54,9 +54,9 @@ public class SchoolNewsMainActivity extends BaseUIActivity {
 
 	@Override
 	protected void initLayout() {
-		backBtn = (Button) this.findViewById(R.id.acty_schoolnews_main_back);
-		nextBtn = (Button) this.findViewById(R.id.acty_schoolnews_main_next);
-		prevBtn = (Button) this.findViewById(R.id.acty_schoolnews_main_prev);
+		backBtn = this.findViewById(R.id.acty_schoolnews_main_back);
+		nextBtn = this.findViewById(R.id.acty_schoolnews_main_next);
+		prevBtn = this.findViewById(R.id.acty_schoolnews_main_prev);
 		tv_pageInfo = (TextView) this
 				.findViewById(R.id.acty_schoolnews_main_page);
 		lv = (ListView) this.findViewById(R.id.acty_schoolnews_main_listview);
@@ -284,12 +284,13 @@ public class SchoolNewsMainActivity extends BaseUIActivity {
 		public LoadFileThread(Handler h) {
 			this.h = h;
 		}
+
 		@Override
 		public void run() {
-			Message msg = new Message() ;
-			msg.obj = (ArrayList<SchoolNews>) FileUtils
-					.readObject(SchoolNewsMainActivity.this,ETipsContants.File_NewsCache);
-		   h.sendMessage(msg);
+			Message msg = new Message();
+			msg.obj = (ArrayList<SchoolNews>) FileUtils.readObject(
+					SchoolNewsMainActivity.this, ETipsContants.File_NewsCache);
+			h.sendMessage(msg);
 		}
 	}
 

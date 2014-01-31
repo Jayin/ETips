@@ -7,7 +7,13 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
-
+/**
+ * Activity的基类 <br>
+ * 封装了常用的方法
+ * @author Jayin Ton
+ * @version 1.0
+ * @since version 1.0
+ */
 public abstract class BaseUIActivity extends Activity {
 	/**
 	 * 初始化Layout UI 等等

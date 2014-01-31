@@ -12,7 +12,8 @@ import android.widget.Toast;
 /**
  * 所有Activity的基类
  * @author Jayin Ton
- *
+ * @version 2.2
+ * @since 2014.1.31
  */
 public abstract class BaseActivity extends Activity implements OnClickListener {
 	 

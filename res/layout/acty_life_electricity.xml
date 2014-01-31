@@ -1,52 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
 
-    <RelativeLayout
-        android:id="@+id/acty_life_electricity_title"
-        style="@style/Base_Navigation_rely_top"
-        android:background="@drawable/ic_bg_tweet" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/blue_nav_bg_nomal"
+        android:orientation="horizontal" >
 
-        <Button
+        <RelativeLayout
             android:id="@+id/acty_life_electricity_back"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/btn_back_round" />
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/btn_blue"
+            android:clickable="true" >
 
-        <TextView
-            android:id="@+id/acty_life_electricity_title_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:ems="10"
-            android:gravity="center"
-            android:text="电费单"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_action_back" />
+        </RelativeLayout>
 
-        <Button
+        <ImageView
+            android:layout_width="2px"
+            android:layout_height="match_parent"
+            android:background="@drawable/ic_head_line" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4" >
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/TextView.header_title"
+                android:layout_centerInParent="true"
+                android:text="电费" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="2px"
+            android:layout_height="match_parent"
+            android:background="@drawable/ic_head_line" />
+
+        <RelativeLayout
             android:id="@+id/acty_life_electricity_check"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_margin="3dp"
-            android:background="@drawable/btn_common_blue"
-            android:text="查询"
-            android:textColor="@color/white"
-            android:textSize="15sp" />
-    </RelativeLayout>
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/btn_blue"
+            android:clickable="true" >
 
-    <RelativeLayout
+            <TextView
+                style="@style/TextView.header_title"
+                android:layout_centerInParent="true"
+                android:text="查询"
+                android:textSize="14sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/acty_life_electricity_title"
-        android:background="@drawable/ic_bg_score_record" >
+        android:background="@drawable/ic_bg_score_record"
+        android:orientation="vertical" >
 
         <RelativeLayout
             android:id="@+id/acty_life_electricity_re_electricity"
@@ -67,128 +86,108 @@
 
             <TextView
                 android:id="@+id/acty_life_electricity_tv_tip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/TextView.Base"
                 android:layout_centerInParent="true"
                 android:layout_margin="20dp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:text="@string/ElectricityTips" />
+                android:text="@string/ElectricityTips"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
             <RelativeLayout
                 android:id="@+id/acty_life_electricity_re_electricityInfo"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:visibility="gone" >
 
                 <TextView
                     android:id="@+id/acty_life_electricity_tv_flatNum"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/TextView.Base"
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:text="公寓名称 :"
-                    android:textColor="@color/black"
                     android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/acty_life_electricity_flatNum"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/TextView.Base"
                     android:layout_alignBaseline="@+id/acty_life_electricity_tv_flatNum"
                     android:layout_alignBottom="@+id/acty_life_electricity_tv_flatNum"
                     android:layout_marginLeft="14dp"
                     android:layout_toRightOf="@+id/acty_life_electricity_tv_flatNum"
                     android:text="3栋"
-                    android:textColor="@color/black"
                     android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/acty_life_electricity_tv_roomNum"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/TextView.Base"
                     android:layout_below="@+id/acty_life_electricity_tv_flatNum"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:text="房间编号:"
-                    android:textColor="@color/black"
                     android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/acty_life_electricity_tv_hasUse"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/TextView.Base"
                     android:layout_below="@+id/acty_life_electricity_tv_roomNum"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:text="已使用量:"
-                    android:textColor="@color/black"
                     android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/acty_life_electricity_roomNum"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/TextView.Base"
                     android:layout_above="@+id/acty_life_electricity_tv_hasUse"
                     android:layout_alignLeft="@+id/acty_life_electricity_flatNum"
                     android:text="706"
-                    android:textColor="@color/black"
                     android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/acty_life_electricity_hasUse"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/TextView.Base"
                     android:layout_alignBaseline="@+id/acty_life_electricity_tv_hasUse"
                     android:layout_alignBottom="@+id/acty_life_electricity_tv_hasUse"
                     android:layout_alignLeft="@+id/acty_life_electricity_roomNum"
                     android:text="383.4"
-                    android:textColor="@color/black"
                     android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/acty_life_electricity_tv_left"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/TextView.Base"
                     android:layout_below="@+id/acty_life_electricity_tv_hasUse"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:text="剩余电量:"
-                    android:textColor="@color/black"
                     android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/acty_life_electricity_left"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/TextView.Base"
                     android:layout_alignBaseline="@+id/acty_life_electricity_tv_left"
                     android:layout_alignBottom="@+id/acty_life_electricity_tv_left"
                     android:layout_alignLeft="@+id/acty_life_electricity_hasUse"
                     android:text="26.6"
-                    android:textColor="@color/black"
                     android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/acty_life_electricity_tv_recordTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/TextView.Base"
                     android:layout_below="@+id/acty_life_electricity_tv_left"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:text="记录时间:"
-                    android:textColor="@color/black"
                     android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/acty_life_electricity_recordTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/TextView.Base"
                     android:layout_alignBaseline="@+id/acty_life_electricity_tv_recordTime"
                     android:layout_alignBottom="@+id/acty_life_electricity_tv_recordTime"
                     android:layout_alignLeft="@+id/acty_life_electricity_left"
                     android:text="26.6"
-                    android:textColor="@color/black"
                     android:textSize="15sp" />
             </RelativeLayout>
         </RelativeLayout>
@@ -197,19 +196,15 @@
             android:id="@+id/acty_life_electricity_re_input_flatNum"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/acty_life_electricity_re_electricity"
             android:layout_marginTop="20dp"
             android:background="@drawable/btn_setting_sigleitem" >
 
             <TextView
                 android:id="@+id/acty_life_electricity_tv_input_flatNum"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/TextView.Base"
                 android:padding="8dp"
                 android:singleLine="true"
                 android:text="公寓名称"
-                android:textColor="@color/black"
                 android:textSize="15sp" />
 
             <EditText
@@ -220,41 +215,38 @@
                 android:layout_toRightOf="@+id/acty_life_electricity_tv_input_flatNum"
                 android:background="@color/lucency_white"
                 android:hint="栋数"
+                android:inputType="number"
                 android:textColor="@color/black"
                 android:textSize="15sp" >
             </EditText>
         </RelativeLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/acty_life_electricity_re_input_roomNum"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/acty_life_electricity_re_input_flatNum"
             android:layout_marginTop="15dp"
-            android:background="@drawable/btn_setting_sigleitem" >
+            android:background="@drawable/btn_setting_sigleitem"
+            android:orientation="horizontal" >
 
             <TextView
                 android:id="@+id/acty_life_electricity_tv_input_roomNum"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/TextView.Base"
                 android:padding="8dp"
                 android:singleLine="true"
                 android:text="房间编号"
-                android:textColor="@color/black"
                 android:textSize="15sp" />
 
             <EditText
                 android:id="@+id/acty_life_electricity_et_input_roomNum"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/acty_life_electricity_tv_input_roomNum"
                 android:background="@color/lucency_white"
                 android:hint="门牌号"
+                android:inputType="number"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
-        </RelativeLayout>
-    </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

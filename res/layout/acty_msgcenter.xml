@@ -1,12 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+ <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/blue_nav_bg_nomal"
+        android:orientation="horizontal" >
 
+        <RelativeLayout
+            android:id="@+id/acty_msgcenter_back"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/btn_blue"
+            android:clickable="true" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_action_back" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="2px"
+            android:layout_height="match_parent"
+            android:background="@drawable/ic_head_line" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4" >
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/TextView.header_title"
+                android:layout_centerInParent="true"
+                android:text="消息中心" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="2px"
+            android:layout_height="match_parent"
+            android:background="@drawable/ic_head_line" />
+
+        <RelativeLayout
+            android:id="@+id/acty_msgcenter_reflush"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/btn_blue"
+            android:clickable="true" >
+            <TextView
+                style="@style/TextView.header_title"
+                android:layout_centerInParent="true"
+                android:text="清空"
+                android:textSize="14sp" />
+        </RelativeLayout>
+    </LinearLayout>
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/acty_msgcenter_navigate"
         android:background="@color/lightblue" >
 
         <ProgressBar
@@ -23,46 +77,4 @@
         </ListView>
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/acty_msgcenter_navigate"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:background="@drawable/ic_bg_tweet" >
-
-        <Button
-            android:id="@+id/acty_msgcenter_back"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/btn_back_round" />
-
-        <TextView
-            android:id="@+id/acty_msgcenter_page"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="消息中心"
-            android:textColor="@color/white"
-            android:textSize="20sp" >
-        </TextView>
-
-        <Button
-            android:id="@+id/acty_msgcenter_reflush"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_margin="3dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/btn_common_blue"
-            android:text="清空"
-            android:textColor="@color/white"
-            android:textSize="15sp" />
-    </RelativeLayout>
-
-</RelativeLayout>
+</LinearLayout>

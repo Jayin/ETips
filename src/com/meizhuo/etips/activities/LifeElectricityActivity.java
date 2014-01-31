@@ -18,9 +18,13 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
+/**
+ * 查询电费
+ * @author Jayin Ton
+ *
+ */
 public class LifeElectricityActivity extends BaseUIActivity {
-	private Button backBtn, checkBtn;
+	private View backBtn, checkBtn;
 	private EditText et_falt, et_room;
 	private TextView tv_tip, tv_flat, tv_room, tv_hasUse, tv_left,
 			tv_recordTime;
@@ -38,8 +42,8 @@ public class LifeElectricityActivity extends BaseUIActivity {
 
 	@Override
 	protected void initLayout() {
-		backBtn = (Button) this.findViewById(R.id.acty_life_electricity_back);
-		checkBtn = (Button) this.findViewById(R.id.acty_life_electricity_check);
+		backBtn = this.findViewById(R.id.acty_life_electricity_back);
+		checkBtn = this.findViewById(R.id.acty_life_electricity_check);
 		et_falt = (EditText) this
 				.findViewById(R.id.acty_life_electricity_et_input_flatNum);
 		et_room = (EditText) this
@@ -67,24 +71,26 @@ public class LifeElectricityActivity extends BaseUIActivity {
 				LifeElectricityActivity.this.finish();
 			}
 		});
-		
+
 		checkBtn.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-			    flagNum = et_falt.getText().toString().trim();
-			    if(flagNum == null || flagNum.equals("")){
-			    	Toast.makeText(LifeElectricityActivity.this, "公寓名称不能为空！", Toast.LENGTH_SHORT).show();
-			    	return ;
-			    }
-			    roomNum = et_room.getText().toString().trim();
-			    if(roomNum == null || roomNum.equals("")){
-			    	Toast.makeText(LifeElectricityActivity.this, "房间编号不能为空！", Toast.LENGTH_SHORT).show();
-			    	return ;
-			    }
-			    LifeElcHandler handler = new LifeElcHandler();
-			    new LifeElcThread(handler).start();
-				
+				flagNum = et_falt.getText().toString().trim();
+				if (flagNum == null || flagNum.equals("")) {
+					Toast.makeText(LifeElectricityActivity.this, "公寓名称不能为空！",
+							Toast.LENGTH_SHORT).show();
+					return;
+				}
+				roomNum = et_room.getText().toString().trim();
+				if (roomNum == null || roomNum.equals("")) {
+					Toast.makeText(LifeElectricityActivity.this, "房间编号不能为空！",
+							Toast.LENGTH_SHORT).show();
+					return;
+				}
+				LifeElcHandler handler = new LifeElcHandler();
+				new LifeElcThread(handler).start();
+
 			}
 		});
 
@@ -129,20 +135,22 @@ public class LifeElectricityActivity extends BaseUIActivity {
 
 	class LifeElcThread extends Thread {
 		Handler handler;
-		public LifeElcThread(Handler handler){
+
+		public LifeElcThread(Handler handler) {
 			this.handler = handler;
 		}
+
 		@Override
 		public void run() {
 			handler.sendEmptyMessage(ETipsContants.Start);
 			LifeServiceAPI api = new LifeServiceAPI();
-			Message  msg = handler.obtainMessage();
+			Message msg = handler.obtainMessage();
 			try {
 				ElectricityInfo elc = api.getElectricityInfo(flagNum, roomNum);
-				if(elc != null && !elc.hasUseElc.equals("")){
+				if (elc != null && !elc.hasUseElc.equals("")) {
 					msg.what = ETipsContants.Finish;
 					msg.obj = elc;
-				}else{
+				} else {
 					msg.what = ETipsContants.Fail;
 					msg.obj = "查询失败，原因可能是：1.请检查你的输入 and 网络环境 2.你宿舍不属于智能用电宿舍楼";
 				}

@@ -27,8 +27,14 @@ import com.meizhuo.etips.common.utils.StringUtils;
 import com.meizhuo.etips.db.MsgCenterDAO;
 import com.meizhuo.etips.model.MsgRecord;
 
+/**
+ * 消息中心
+ * 
+ * @author Jayin Ton
+ * 
+ */
 public class MsgCenterActivity extends BaseUIActivity {
-	private Button backBtn, reflushBtn;
+	private View backBtn, reflushBtn;
 	private ListView lv;
 	private ProgressBar pb;
 	private List<MsgRecord> list;
@@ -51,8 +57,8 @@ public class MsgCenterActivity extends BaseUIActivity {
 
 	@Override
 	protected void initLayout() {
-		backBtn = (Button) this.findViewById(R.id.acty_msgcenter_back);
-		reflushBtn = (Button) this.findViewById(R.id.acty_msgcenter_reflush);
+		backBtn = this.findViewById(R.id.acty_msgcenter_back);
+		reflushBtn = this.findViewById(R.id.acty_msgcenter_reflush);
 		lv = (ListView) this.findViewById(R.id.acty_msgcenter_listview);
 		pb = (ProgressBar) this.findViewById(R.id.acty_msgcenter_progressbar);
 		backBtn.setOnClickListener(new View.OnClickListener() {
@@ -186,7 +192,7 @@ public class MsgCenterActivity extends BaseUIActivity {
 					.parseLong(mr.addTime)));
 			holder.tv_content.setText(StringUtils.wrapText(
 					MsgCenterActivity.this, mr.content));
-   
+
 			return convertView;
 		}
 

@@ -1,14 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+   android:background="@color/light_white"
     android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/blue_nav_bg_nomal"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:id="@+id/acty_course_detail_back"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/btn_blue"
+            android:clickable="true" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_action_back" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="2px"
+            android:layout_height="match_parent"
+            android:background="@drawable/ic_head_line" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4" >
+
+            <TextView
+                android:id="@+id/acty_course_detail_tv"
+                style="@style/TextView.header_title"
+                android:layout_centerInParent="true"
+                android:text="课程详情" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="2px"
+            android:layout_height="match_parent"
+            android:background="@drawable/ic_head_line" />
+
+        <RelativeLayout
+            android:id="@+id/acty_course_detail_setting"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/btn_blue"
+            android:clickable="true" >
+
+            <ImageView
+                style="@style/TextView.header_title"
+                android:layout_centerInParent="true"
+                android:background="@drawable/btn_edit_white" />
+        </RelativeLayout>
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/acty_course_detail_navigate"
-        android:background="@color/light_white" >
+        android:layout_height="0dp"
+        android:layout_weight="1" >
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -117,64 +173,35 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/acty_course_detail_navigate"
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:id="@+id/navigation_foot"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/ic_bg_tweet" >
-
-        <Button
-            android:id="@+id/acty_course_detail_back"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/btn_back_round" />
+       
+        android:orientation="horizontal"
+        android:visibility="invisible" >
 
         <Button
             android:id="@+id/acty_course_detail_ok"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:background="@drawable/btn_common_blue"
-            android:text="确 认"
-            android:textColor="@color/white"
-            android:visibility="invisible" />
+            style="@style/TextView.common"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/btn_item_whit2grey"
+            android:text="确 认" />
 
-        <Button
-            android:id="@+id/acty_course_detail_setting"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/btn_edit_white" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/grey" />
 
         <Button
             android:id="@+id/acty_course_detail_cancle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="1dp"
-            android:background="@drawable/btn_common_blue"
-            android:text="取 消"
-            android:textColor="@color/white"
-            android:visibility="invisible" />
+            style="@style/TextView.common"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/btn_item_whit2grey"
+            android:text="取 消" />
+    </LinearLayout>
 
-        <TextView
-            android:id="@+id/acty_course_detail_tv"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/acty_course_detail_setting"
-            android:layout_toRightOf="@+id/acty_course_detail_back"
-            android:gravity="center_horizontal"
-            android:text="课程详情"
-            android:textColor="@color/white"
-            android:textSize="25sp" />
-    </RelativeLayout>
-
-</RelativeLayout>
+</LinearLayout>

@@ -19,7 +19,7 @@ import android.widget.TextView;
 import android.widget.ViewFlipper;
 import com.meizhuo.etips.common.utils.ETipsContants;
 import com.meizhuo.etips.common.utils.ETipsUtils;
- 
+
 import com.meizhuo.etips.common.utils.StringUtils;
 import com.meizhuo.etips.model.Lesson;
 import com.meizhuo.etips.ui.CourseAllWeekAdapter;
@@ -27,15 +27,16 @@ import com.meizhuo.etips.ui.CourseListViwAdapter;
 import com.meizhuo.etips.ui.CourseViewPagerAdapter;
 
 /**
- * 删除property since 2.0 note:这里有个bug 更改周数后全周课程不会马上更新，退出了以后才会更新
+ * 
+ * 全课表
  * 
  * @author Jayin Ton
  * 
  */
 public class CourseMainActivity extends BaseUIActivity {
 	private List<ListView> lvList;
-	private Button settingBtn, switichBtn;// backBtn,
-	private TextView tv;
+	private View settingBtn, switichBtn;// backBtn,
+	private TextView tv_weekday, tv_status;// tv_status=每 日 、整周
 	private ViewPager viewpager;
 	private List<View> views;
 	private ETipsApplication App;
@@ -44,9 +45,10 @@ public class CourseMainActivity extends BaseUIActivity {
 	private List<CourseListViwAdapter> lvAdapterList;
 	private int DAY_OF_WEEK = 1; // 1 - 7 means Sunday,Monday.....Saturday
 	private ListView lv;
-	private RelativeLayout relyAllWeek;// rely显示allweek 的view // container.包含viewpager
-								// and rely
-//	private ViewGroup container;
+	private RelativeLayout relyAllWeek;// rely显示allweek 的view //
+										// container.包含viewpager
+	// and rely
+	// private ViewGroup container;
 	private String Title_CurrentWeek = null;
 	private ViewFlipper flipper;
 
@@ -73,15 +75,13 @@ public class CourseMainActivity extends BaseUIActivity {
 	protected void initLayout() {
 		lvList = new ArrayList<ListView>();
 		views = new ArrayList<View>();
-		tv = (TextView) this.findViewById(R.id.acty_course_main_tv_weekday);
+		tv_weekday = (TextView)_getView(R.id.acty_course_main_tv_weekday);
+		lv = (ListView) _getView(R.id.acty_course_main_listview1);
+		relyAllWeek = (RelativeLayout)_getView(R.id.acty_course_main_allweek);
 
-		lv = (ListView) this.findViewById(R.id.acty_course_main_listview1);
-		relyAllWeek = (RelativeLayout) this
-				.findViewById(R.id.acty_course_main_allweek);
+		tv_status = (TextView) _getView(R.id.tv_status);
 
-	 
-	 
-		settingBtn = (Button) this.findViewById(R.id.acty_course_main_setting);
+		settingBtn = this.findViewById(R.id.acty_course_main_setting);
 		settingBtn.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -94,13 +94,12 @@ public class CourseMainActivity extends BaseUIActivity {
 			}
 		});
 
-		switichBtn = (Button) this.findViewById(R.id.acty_course_main_switcher);
-		if (switichBtn.getText().toString().equals("每 日")) {
-			tv.setText(Title_CurrentWeek);
+		switichBtn = this.findViewById(R.id.acty_course_main_switcher);
+		if (tv_status.getText().toString().equals("每 日")) {
+			tv_weekday.setText(Title_CurrentWeek);
 		} else {
 			setDate(DAY_OF_WEEK - 1);
 		}
-		
 
 		// 初始化viewpager
 		viewpager = (ViewPager) this
@@ -115,30 +114,29 @@ public class CourseMainActivity extends BaseUIActivity {
 		viewpager.setCurrentItem(DAY_OF_WEEK - 1);
 		// 初始化gone 的 view (allweek)
 		lv.setAdapter(new CourseAllWeekAdapter(this, course));
-		
-		
-		flipper= (ViewFlipper) this.findViewById(R.id.acty_course_main_middle);
+
+		flipper = (ViewFlipper) this.findViewById(R.id.acty_course_main_middle);
 		flipper.removeAllViews();
 		flipper.addView(relyAllWeek);
 		flipper.addView(viewpager);
-		flipper.setInAnimation(getContext(),R.anim.push_up_in);
-		flipper.setOutAnimation(getContext(),R.anim.push_up_out);
+		flipper.setInAnimation(getContext(), R.anim.push_up_in);
+		flipper.setOutAnimation(getContext(), R.anim.push_up_out);
 		switichBtn.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				if (switichBtn.getText().toString().equals("整 周")) {
-					switichBtn.setText("每 日");
-					tv.setText(Title_CurrentWeek);
-					viewpager.setCurrentItem(DAY_OF_WEEK - 1); //改变显示为当日的日期
-					flipper.setInAnimation(getContext(),R.anim.push_up_in);
-					flipper.setOutAnimation(getContext(),R.anim.push_up_out);
+				if (tv_status.getText().toString().equals("整 周")) {
+					tv_status.setText("每 日");
+					tv_weekday.setText(Title_CurrentWeek);
+					viewpager.setCurrentItem(DAY_OF_WEEK - 1); // 改变显示为当日的日期
+					flipper.setInAnimation(getContext(), R.anim.push_up_in);
+					flipper.setOutAnimation(getContext(), R.anim.push_up_out);
 					flipper.showNext();
 				} else {
-					switichBtn.setText("整 周");
+					tv_status.setText("整 周");
 					setDate(DAY_OF_WEEK - 1);
-					flipper.setInAnimation(getContext(),R.anim.push_down_in);
-					flipper.setOutAnimation(getContext(),R.anim.push_down_out);
+					flipper.setInAnimation(getContext(), R.anim.push_down_in);
+					flipper.setOutAnimation(getContext(), R.anim.push_down_out);
 					flipper.showPrevious();
 				}
 			}
@@ -210,12 +208,12 @@ public class CourseMainActivity extends BaseUIActivity {
 	 */
 	public void reflushWeekTime() {
 		int currentWeek = ETipsUtils.getCurrentWeek(getContext());
-//		Elog.i(CourseMainActivity.class.getName() + "currentWeek-->"
-//				+ currentWeek);
+		// Elog.i(CourseMainActivity.class.getName() + "currentWeek-->"
+		// + currentWeek);
 		Title_CurrentWeek = "第" + currentWeek + "周";
 		if (switichBtn != null
-				&& switichBtn.getText().toString().trim().equals("每 日")) {
-			tv.setText(Title_CurrentWeek);
+				&& tv_status.getText().toString().trim().equals("每 日")) {
+			tv_weekday.setText(Title_CurrentWeek);
 		}
 
 	}
@@ -253,25 +251,25 @@ public class CourseMainActivity extends BaseUIActivity {
 	public void setDate(int position) {
 		switch (position) {
 		case 0:
-			tv.setText("星期一");
+			tv_weekday.setText("星期一");
 			break;
 		case 1:
-			tv.setText("星期二");
+			tv_weekday.setText("星期二");
 			break;
 		case 2:
-			tv.setText("星期三");
+			tv_weekday.setText("星期三");
 			break;
 		case 3:
-			tv.setText("星期四");
+			tv_weekday.setText("星期四");
 			break;
 		case 4:
-			tv.setText("星期五");
+			tv_weekday.setText("星期五");
 			break;
 		case 5:
-			tv.setText("星期六");
+			tv_weekday.setText("星期六");
 			break;
 		case 6:
-			tv.setText("星期日");
+			tv_weekday.setText("星期日");
 			break;
 
 		}
@@ -310,20 +308,17 @@ public class CourseMainActivity extends BaseUIActivity {
 
 	@Override
 	protected void onStart() {
-	 
+
 		super.onStart();
 
 	}
+
 	@Override
 	protected void onNewIntent(Intent intent) {
 		super.onNewIntent(intent);
 		initData();
 		initLayout();
-		//System.out.println("onNewIntent!!!!");
+		// System.out.println("onNewIntent!!!!");
 	}
-
-	 
-
-	 
 
 }

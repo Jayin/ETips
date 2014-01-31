@@ -25,7 +25,8 @@ public class CourseDetailActivity extends BaseUIActivity {
 	private EditText et_lesson, et_time, et_address, et_teacher;
 	private TextView tv_lesson, tv_time, tv_address, tv_teacher, tv_title,
 			tv_tips;
-	private Button backBtn, settingBtn, okBtn, cancleBtn;
+	private View backBtn, settingBtn, okBtn, cancleBtn;
+	private View footView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,30 +38,25 @@ public class CourseDetailActivity extends BaseUIActivity {
 
 	@Override
 	protected void initLayout() {
-		et_lesson = (EditText) this
-				.findViewById(R.id.acty_course_detail_lesson_et);
-		et_time = (EditText) this.findViewById(R.id.acty_course_detail_time_et);
-		et_address = (EditText) this
-				.findViewById(R.id.acty_course_detail_address_et);
-		et_teacher = (EditText) this
-				.findViewById(R.id.acty_course_detail_teacher_et);
+		et_lesson = (EditText) _getView(R.id.acty_course_detail_lesson_et);
+		et_time = (EditText) _getView(R.id.acty_course_detail_time_et);
+		et_address = (EditText) _getView(R.id.acty_course_detail_address_et);
+		et_teacher = (EditText) _getView(R.id.acty_course_detail_teacher_et);
 
-		tv_lesson = (TextView) this
-				.findViewById(R.id.acty_course_detail_lesson);
-		tv_time = (TextView) this.findViewById(R.id.acty_course_detail_time);
-		tv_address = (TextView) this
-				.findViewById(R.id.acty_course_detail_address);
-		tv_teacher = (TextView) this
-				.findViewById(R.id.acty_course_detail_teacher);
+		tv_lesson = (TextView) _getView(R.id.acty_course_detail_lesson);
+		tv_time = (TextView) _getView(R.id.acty_course_detail_time);
+		tv_address = (TextView) _getView(R.id.acty_course_detail_address);
+		tv_teacher = (TextView) _getView(R.id.acty_course_detail_teacher);
 
-		tv_title = (TextView) this.findViewById(R.id.acty_course_detail_tv);
-		tv_tips = (TextView) this.findViewById(R.id.acty_course_detail_tv_tips);
+		tv_title = (TextView) _getView(R.id.acty_course_detail_tv);
+		tv_tips = (TextView) _getView(R.id.acty_course_detail_tv_tips);
 
-		backBtn = (Button) this.findViewById(R.id.acty_course_detail_back);
-		settingBtn = (Button) this
-				.findViewById(R.id.acty_course_detail_setting);
-		okBtn = (Button) this.findViewById(R.id.acty_course_detail_ok);
-		cancleBtn = (Button) this.findViewById(R.id.acty_course_detail_cancle);
+		backBtn = _getView(R.id.acty_course_detail_back);
+		settingBtn = _getView(R.id.acty_course_detail_setting);
+		okBtn = _getView(R.id.acty_course_detail_ok);
+		cancleBtn = _getView(R.id.acty_course_detail_cancle);
+
+		footView = _getView(R.id.navigation_foot);
 
 		et_lesson.setText(lesson.LessonName);
 		et_time.setText(lesson.Time);
@@ -84,7 +80,10 @@ public class CourseDetailActivity extends BaseUIActivity {
 
 			@Override
 			public void onClick(View v) {
-				change2edit();
+				if (footView.getVisibility() == View.INVISIBLE){
+					change2edit();
+				}
+					
 
 			}
 		});
@@ -194,9 +193,10 @@ public class CourseDetailActivity extends BaseUIActivity {
 	protected void initData() {
 		int week = getIntent().getIntExtra("week", 1);
 		int classtime = getIntent().getIntExtra("classtime", 1);
-		int positon = getIntent().getIntExtra("position",0);
+		int positon = getIntent().getIntExtra("position", 0);
 		App = (ETipsApplication) getApplication();
-		lesson = App.getLessonList().get(week - 1).get(classtime - 1).get(positon);
+		lesson = App.getLessonList().get(week - 1).get(classtime - 1)
+				.get(positon);
 	}
 
 	private void change2edit() {
@@ -213,10 +213,11 @@ public class CourseDetailActivity extends BaseUIActivity {
 		et_address.setVisibility(View.VISIBLE);
 		et_teacher.setVisibility(View.VISIBLE);
 
-		settingBtn.setVisibility(View.INVISIBLE);
-		backBtn.setVisibility(View.INVISIBLE);
-		okBtn.setVisibility(View.VISIBLE);
-		cancleBtn.setVisibility(View.VISIBLE);
+		// settingBtn.setVisibility(View.INVISIBLE);
+		// backBtn.setVisibility(View.INVISIBLE);
+		// okBtn.setVisibility(View.VISIBLE);
+		// cancleBtn.setVisibility(View.VISIBLE);
+		footView.setVisibility(View.VISIBLE);
 
 		et_address.setText(tv_address.getText().toString());
 		et_lesson.setText(tv_lesson.getText().toString());
@@ -237,10 +238,11 @@ public class CourseDetailActivity extends BaseUIActivity {
 		et_address.setVisibility(View.GONE);
 		et_teacher.setVisibility(View.GONE);
 
-		settingBtn.setVisibility(View.VISIBLE);
-		backBtn.setVisibility(View.VISIBLE);
-		okBtn.setVisibility(View.INVISIBLE);
-		cancleBtn.setVisibility(View.INVISIBLE);
+		// settingBtn.setVisibility(View.VISIBLE);
+		// backBtn.setVisibility(View.VISIBLE);
+		// okBtn.setVisibility(View.INVISIBLE);
+		// cancleBtn.setVisibility(View.INVISIBLE);
+		footView.setVisibility(View.INVISIBLE);
 	}
 
 }

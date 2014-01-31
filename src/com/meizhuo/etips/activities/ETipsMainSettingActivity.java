@@ -18,17 +18,19 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.bean.SocializeEntity;
 import com.umeng.socialize.controller.listener.SocializeListeners.SnsPostListener;
 import com.umeng.socialize.controller.listener.SocializeListeners.SocializeClientListener;
+
 /**
- * 主设置页面
- * 写得很粗糙 = =
+ * 主设置页面 写得很粗糙 = =
+ * 
  * @author Jayin Ton
- *
+ * 
  */
 public class ETipsMainSettingActivity extends BaseUIActivity implements
 		OnClickListener {
-	private RelativeLayout shareBtn, aboutBtn, manualBtn, account,checkSource,declaration,cleanAuthorization;//queryClassroom;
-	private Button backBtn;
- 
+	private RelativeLayout shareBtn, aboutBtn, manualBtn, account, checkSource,
+			declaration, cleanAuthorization;// queryClassroom;
+	private View backBtn;
+
 	private boolean isETipsAccountLogin = false, isloginTimeOut = false;
 	private TextView tv_AccountInfo;
 	private DeclarationDialog dialog;
@@ -44,14 +46,14 @@ public class ETipsMainSettingActivity extends BaseUIActivity implements
 	@Override
 	protected void initLayout() {
 		shareBtn = (RelativeLayout) _getView(R.id.acty_etips_main_setting_rely_share);
-		backBtn = (Button) _getView(R.id.acty_etips_main_setting_back);
+		backBtn = _getView(R.id.acty_etips_main_setting_back);
 		aboutBtn = (RelativeLayout) _getView(R.id.acty_etips_main_setting_rely_aboutus);
 		manualBtn = (RelativeLayout) _getView(R.id.acty_etips_main_setting_rely_manual);
 		account = (RelativeLayout) _getView(R.id.acty_etips_main_setting_rely_account);
-		checkSource = (RelativeLayout)_getView(R.id.acty_etips_main_setting_rely_checkSource);
-        declaration = (RelativeLayout)_getView(R.id.acty_etips_main_setting_rely_declaration);
-        cleanAuthorization= (RelativeLayout)_getView(R.id.acty_etips_main_setting_rely_cleanAuthorization);
-        
+		checkSource = (RelativeLayout) _getView(R.id.acty_etips_main_setting_rely_checkSource);
+		declaration = (RelativeLayout) _getView(R.id.acty_etips_main_setting_rely_declaration);
+		cleanAuthorization = (RelativeLayout) _getView(R.id.acty_etips_main_setting_rely_cleanAuthorization);
+
 		tv_AccountInfo = (TextView) _getView(R.id.acty_etips_main_setting_tv_accountInfo);
 		if (isETipsAccountLogin) {
 			if (isloginTimeOut) {
@@ -152,41 +154,39 @@ public class ETipsMainSettingActivity extends BaseUIActivity implements
 	}
 
 	private void cleanAuth() {
-	   
+
 		ShareManager sm = new ShareManager();
 		sm.cleanSinaOAuth(getContext(), new SocializeClientListener() {
-			
+
 			@Override
 			public void onStart() {
-		 				
+
 			}
-			
+
 			@Override
 			public void onComplete(int arg0, SocializeEntity arg1) {
-			  toast("已取消新浪微博授权");	
+				toast("已取消新浪微博授权");
 			}
 		});
 	}
 
 	private void share() {
-		ShareManager sm = new ShareManager("我正在使用邑大校园助手#ETips#最新版2.0。新增校园资讯模块，个人便签,查空课室。对接学生子系统，一键导入课程表，轻松查成绩算绩点;对接邑大图书馆，找图书不再怠慢;对接校园服务，查电费，看邑大新闻超级方便！豌豆荚，360手机助手搜\"ETips\"即可下载！");
-        sm.shareToSina(ETipsMainSettingActivity.this, new SnsPostListener() {
-			
+		ShareManager sm = new ShareManager(
+				"我正在使用邑大校园助手#ETips#最新版2.0。新增校园资讯模块，个人便签,查空课室。对接学生子系统，一键导入课程表，轻松查成绩算绩点;对接邑大图书馆，找图书不再怠慢;对接校园服务，查电费，看邑大新闻超级方便！豌豆荚，360手机助手搜\"ETips\"即可下载！");
+		sm.shareToSina(ETipsMainSettingActivity.this, new SnsPostListener() {
+
 			@Override
 			public void onStart() {
-				 
-				
+
 			}
-			
+
 			@Override
-			public void onComplete(SHARE_MEDIA arg0, int arg1, SocializeEntity arg2) {
-				 
-				
+			public void onComplete(SHARE_MEDIA arg0, int arg1,
+					SocializeEntity arg2) {
+
 			}
 		});
-		
-	}
 
-	 
+	}
 
 }

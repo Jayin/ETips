@@ -1,52 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
 
-    <RelativeLayout
-        android:id="@+id/acty_score_record_title"
-        style="@style/Base_Navigation_rely_top"
-        android:background="@drawable/ic_bg_tweet" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/blue_nav_bg_nomal"
+        android:orientation="horizontal" >
 
-        <Button
+        <RelativeLayout
             android:id="@+id/acty_score_record_back"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/btn_back_round" />
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/btn_blue"
+            android:clickable="true" >
 
-        <TextView
-            android:id="@+id/acty_score_record_title_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:ems="10"
-            android:gravity="center"
-            android:text="3112002722"
-            android:textColor="@color/white"
-            android:textSize="15sp" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_action_back" />
+        </RelativeLayout>
 
-        <Button
+        <ImageView
+            android:layout_width="2px"
+            android:layout_height="match_parent"
+            android:background="@drawable/ic_head_line" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4" >
+
+            <TextView
+                android:id="@+id/acty_score_record_title_tv"
+                style="@style/TextView.header_title"
+                android:layout_centerInParent="true"
+                android:text="3112002722" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="2px"
+            android:layout_height="match_parent"
+            android:background="@drawable/ic_head_line" />
+
+        <RelativeLayout
             android:id="@+id/acty_score_record_reflush"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/ic_btn_reflush" />
-    </RelativeLayout>
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/btn_blue"
+            android:clickable="true" >
 
-    
+            <ImageView
+                style="@style/TextView.header_title"
+                android:layout_centerInParent="true"
+                android:background="@drawable/ic_btn_reflush" />
+        </RelativeLayout>
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-     
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/acty_score_record_title"
         android:background="@drawable/ic_bg_score_record" >
 
         <RelativeLayout
@@ -69,14 +85,12 @@
 
             <TextView
                 android:id="@+id/acty_score_record_tv_error_scoreRecord"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/TextView.Base"
                 android:layout_centerInParent="true"
                 android:text="无法获取成绩列表,原因:\n1.网络不给力，请刷新or重新登录 \n 2.学生子系统尚未有成绩记录"
-                android:textColor="@color/black"
                 android:textSize="13sp"
-                android:visibility="visible" 
-                android:textStyle="bold">
+                android:textStyle="bold"
+                android:visibility="visible" >
             </TextView>
 
             <ListView
@@ -100,19 +114,16 @@
 
             <TextView
                 android:id="@+id/acty_score_record_tv_jidian"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/TextView.Base"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:text="绩点:"
-                android:textColor="@color/black"
                 android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/acty_score_record_jidian"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/TextView.Base"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:layout_toLeftOf="@+id/textView1"
@@ -120,25 +131,21 @@
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:text="ETips认真计算中...."
-                android:textColor="@color/black"
                 android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/TextView.Base"
                 android:layout_alignBottom="@+id/acty_score_record_tv_jidian"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:text="(仅供参考)"
-                android:textColor="@color/black"
                 android:textSize="10sp" />
         </RelativeLayout>
 
         <TextView
             android:id="@+id/acty_score_record_tv_recordList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/TextView.Base"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="22dp"
@@ -147,4 +154,4 @@
             android:textSize="15sp" />
     </RelativeLayout>
 
-</RelativeLayout>
+</LinearLayout>

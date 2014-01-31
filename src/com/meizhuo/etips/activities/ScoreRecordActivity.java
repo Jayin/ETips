@@ -22,13 +22,19 @@ import com.meizhuo.etips.common.utils.ETipsContants;
 import com.meizhuo.etips.model.ScoreRecord;
 import com.meizhuo.etips.net.utils.SubSystemAPI;
 
+/**
+ * 查询成绩
+ * 
+ * @author Jayin Ton
+ * 
+ */
 public class ScoreRecordActivity extends BaseUIActivity {
 	private String userID, userPSW;
 	private ProgressBar pb;
 	private TextView tv_title, tv_error, tv_jidian;
 	private ListView lv;
 	private List<ScoreRecord> list;
-	private Button backbtn, reflushBtn;
+	private View backbtn, reflushBtn;
 	private boolean hasData = false; // to define wheather listview's adapter
 										// has date or not
 	private SubSystemAPI api;
@@ -47,7 +53,7 @@ public class ScoreRecordActivity extends BaseUIActivity {
 	private void onWork() {
 
 		// create handler and thead to get data & update UI
-		
+
 		SRHandler handler = new SRHandler();
 		new SRThread(handler).start();
 	}
@@ -60,11 +66,10 @@ public class ScoreRecordActivity extends BaseUIActivity {
 				.findViewById(R.id.acty_score_record_title_tv);
 		tv_error = (TextView) this
 				.findViewById(R.id.acty_score_record_tv_error_scoreRecord);
-		tv_jidian = (TextView) this
-				.findViewById(R.id.acty_score_record_jidian);
+		tv_jidian = (TextView) this.findViewById(R.id.acty_score_record_jidian);
 		lv = (ListView) this.findViewById(R.id.acty_score_record_listview);
-		backbtn = (Button) this.findViewById(R.id.acty_score_record_back);
-		reflushBtn = (Button) this.findViewById(R.id.acty_score_record_reflush);
+		backbtn = this.findViewById(R.id.acty_score_record_back);
+		reflushBtn = this.findViewById(R.id.acty_score_record_reflush);
 
 		tv_title.setText(userID);
 		backbtn.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +97,7 @@ public class ScoreRecordActivity extends BaseUIActivity {
 	protected void initData() {
 		userID = getIntent().getStringExtra("userID");
 		userPSW = getIntent().getStringExtra("userPSW");
-		App = (ETipsApplication)getApplication();
+		App = (ETipsApplication) getApplication();
 		api = App.getSubSystemAPI();
 	}
 
@@ -125,8 +130,9 @@ public class ScoreRecordActivity extends BaseUIActivity {
 				tv_error.setVisibility(View.VISIBLE);
 				lv.setVisibility(View.GONE);
 				tv_jidian.setText("木有成绩记录!");
-				if(msg.obj != null && msg.obj instanceof String){
-					Toast.makeText(ScoreRecordActivity.this, (String)msg.obj, Toast.LENGTH_SHORT).show();
+				if (msg.obj != null && msg.obj instanceof String) {
+					Toast.makeText(ScoreRecordActivity.this, (String) msg.obj,
+							Toast.LENGTH_SHORT).show();
 				}
 				break;
 
@@ -139,23 +145,23 @@ public class ScoreRecordActivity extends BaseUIActivity {
 			for (ScoreRecord sr : list) {
 				if (sr.category.equals("必修")) {
 					double mscore = 0;
-					 
-				    if(sr.score.equals("优秀")){
-				    	mscore = 4.5;
-				    } else if(sr.score.equals("良好")){
-				    	mscore = 3.5;
-				    } else if(sr.score.equals("中等")){
-				    	mscore = 2.5;
-				    } else if(sr.score.equals("及格")){
-				    	mscore = 1.5;
-				    } else if(sr.score.equals("不及格")){
-				    	mscore = 0;
-				    } else if(sr.score.equals("旷考")){
-				    	mscore = 0;
-				    }else{
-				    	mscore = (Double.parseDouble(sr.score) - 50)/ 10; 
-				    }
-					totalScore +=mscore * Double.parseDouble(sr.lessonScore);
+
+					if (sr.score.equals("优秀")) {
+						mscore = 4.5;
+					} else if (sr.score.equals("良好")) {
+						mscore = 3.5;
+					} else if (sr.score.equals("中等")) {
+						mscore = 2.5;
+					} else if (sr.score.equals("及格")) {
+						mscore = 1.5;
+					} else if (sr.score.equals("不及格")) {
+						mscore = 0;
+					} else if (sr.score.equals("旷考")) {
+						mscore = 0;
+					} else {
+						mscore = (Double.parseDouble(sr.score) - 50) / 10;
+					}
+					totalScore += mscore * Double.parseDouble(sr.lessonScore);
 					totalLessonScore += Double.parseDouble(sr.lessonScore);
 				}
 			}
@@ -173,21 +179,21 @@ public class ScoreRecordActivity extends BaseUIActivity {
 		@Override
 		public void run() {
 			handler.sendEmptyMessage(ETipsContants.Start);
-//			SubSystemAPI api = new SubSystemAPI(userID, userPSW);
-            if(api  == null ){
-            	api = new SubSystemAPI(userID, userPSW);
-            	try {
-					if(!api.login()){
-					    Message msg = handler.obtainMessage();
-					    msg.obj = "未知错误，请重新登录";
-					    msg.what  =ETipsContants.Fail;
-					    handler.sendMessage(msg);
-					    return;
+			// SubSystemAPI api = new SubSystemAPI(userID, userPSW);
+			if (api == null) {
+				api = new SubSystemAPI(userID, userPSW);
+				try {
+					if (!api.login()) {
+						Message msg = handler.obtainMessage();
+						msg.obj = "未知错误，请重新登录";
+						msg.what = ETipsContants.Fail;
+						handler.sendMessage(msg);
+						return;
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-            }
+			}
 			try {
 				list = api.getScoreList();
 				if (list.size() > 0)
@@ -202,10 +208,10 @@ public class ScoreRecordActivity extends BaseUIActivity {
 				handler.sendEmptyMessage(ETipsContants.Fail);
 			} catch (IndexOutOfBoundsException e) {
 				e.printStackTrace();
-				 Message msg = handler.obtainMessage();
-				 msg.obj = "学生子系统上无成绩记录！";
-				 msg.what = ETipsContants.Fail;
-				 handler.sendMessage(msg);
+				Message msg = handler.obtainMessage();
+				msg.obj = "学生子系统上无成绩记录！";
+				msg.what = ETipsContants.Fail;
+				handler.sendMessage(msg);
 			}
 		}
 
@@ -249,7 +255,7 @@ public class ScoreRecordActivity extends BaseUIActivity {
 			}
 			ScoreRecord sr = list.get(position);
 			holder.tv_lessonName.setText(sr.lessonName);
-			holder.tv_lessonScore.setText("学分:"+sr.lessonScore);
+			holder.tv_lessonScore.setText("学分:" + sr.lessonScore);
 			holder.tv_score.setText(sr.score);
 			holder.tv_category.setText(sr.category);
 			return convertView;

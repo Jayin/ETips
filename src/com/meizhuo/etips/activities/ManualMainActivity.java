@@ -19,10 +19,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.meizhuo.etips.common.utils.PathBuilder;
-
+/**
+ * 学生手册
+ * @author Jayin Ton
+ *
+ */
 public class ManualMainActivity extends BaseUIActivity {
 	private ListView lv;
-	private Button backBtn;
+	private View backBtn;
 	private List<String> list;
 
 	@Override
@@ -36,7 +40,7 @@ public class ManualMainActivity extends BaseUIActivity {
 	@Override
 	protected void initLayout() {
 		lv = (ListView) this.findViewById(R.id.acty_manual_main_listview);
-		backBtn = (Button) this.findViewById(R.id.acty_manual_main_back);
+		backBtn = this.findViewById(R.id.acty_manual_main_back);
 		lv.setAdapter(new ManualContentAdapter());
 		lv.setOnItemClickListener(new OnItemClickListener() {
 

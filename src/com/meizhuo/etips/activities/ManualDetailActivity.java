@@ -9,12 +9,15 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
+/**
+ * 学生手册-详情
+ * @author Jayin Ton
+ *
+ */
 public class ManualDetailActivity extends BaseUIActivity {
 	private String URL = null, title = null;
-	private TextView tv_title;
 	private WebView webview;
-	private Button backbtn;
+	private View backbtn;
 	private ProgressBar pb ;
 
 	@Override
@@ -52,10 +55,7 @@ public class ManualDetailActivity extends BaseUIActivity {
 	protected void initLayout() {
 		pb= (ProgressBar) this.findViewById(R.id.acty_manual_detail_progressbar1);
 		webview = (WebView) this.findViewById(R.id.acty_manual_detail_webview);
-		tv_title = (TextView) this
-				.findViewById(R.id.acty_manual_detail_title_tv);
-		backbtn = (Button) this.findViewById(R.id.acty_manual_detail_back);
-		tv_title.setText(title);
+		backbtn =  this.findViewById(R.id.acty_manual_detail_back);
 		backbtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {

@@ -33,9 +33,9 @@ import com.meizhuo.etips.net.utils.LibraryAPI;
  *@version 2.2
  */
 public class LibBookDetailActivity extends BaseUIActivity {
-	private Button backBtn, collect;
+	private View backBtn, collect;
 	private ListView lv;
-	private TextView tv_title, tv_press, tv_pressTime, tv_words;
+	private TextView tv_title, tv_press, tv_pressTime, tv_words,tv_headerCollect;
 	private ProgressBar progressBar;
 	private List<BookStatus> list;
 	private BookInfo bookInfo;
@@ -68,11 +68,11 @@ public class LibBookDetailActivity extends BaseUIActivity {
 
 	@Override
 	protected void initLayout() {
-		collect = (Button) this
-				.findViewById(R.id.acty_library_bookdetail_collect);
-		backBtn = (Button) this.findViewById(R.id.acty_library_bookdetail_back);
+		collect =  this
+				.findViewById(R.id.btn_collect);
+		backBtn = this.findViewById(R.id.btn_back);
 		tv_title = (TextView) this
-				.findViewById(R.id.acty_library_bookdetail_title_tv);
+				.findViewById(R.id.tv_title_bookname);
 		tv_press = (TextView) this
 				.findViewById(R.id.acty_library_bookdetail_press);
 		tv_pressTime = (TextView) this
@@ -83,10 +83,12 @@ public class LibBookDetailActivity extends BaseUIActivity {
 				.findViewById(R.id.acty_library_bookdetail_progressBar);
 		lv = (ListView) this
 				.findViewById(R.id.acty_library_bookdetail_listview);
+		
+		tv_headerCollect = (TextView)this.findViewById(R.id.tv_collect);
 		if (from.equals("LibSearchResultActivity")) {
-			collect.setText("收藏");
+			tv_headerCollect.setText("收藏");
 		} else if (from.equals("BookCollection")) {
-			collect.setText("取消收藏");
+			tv_headerCollect.setText("取消收藏");
 		}
 		tv_title.setText(bookInfo.getBookName());
 		tv_press.setText(bookInfo.getPress());
@@ -108,14 +110,6 @@ public class LibBookDetailActivity extends BaseUIActivity {
 				if (from.equals("LibSearchResultActivity")) {
 					// 加入收藏信息
 					bookInfo.setStatus(list);
-					// bookInfo.setCollectionTime(System.currentTimeMillis());
-					// if (sp.add(System.currentTimeMillis() + "",
-					// sp.toJSON(ETipsContants.TYPE_SP_Book, bookInfo))) {
-					// toast("收藏成功");
-					// } else {
-					// toast("收藏失败");
-					// }
-
 					if (bookInfos.contains(bookInfo)) {
 						toast("已收藏");
 					} else {

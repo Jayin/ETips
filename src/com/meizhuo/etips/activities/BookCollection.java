@@ -13,14 +13,15 @@ import android.widget.TextView;
 
 import com.meizhuo.etips.model.BookInfo;
 import com.meizhuo.etips.ui.LibSearchResultListViewAdapter;
+
 /**
  * 图书收藏页面
+ * 
  * @author Jayin Ton
  * @version 2.2
  */
 public class BookCollection extends BaseUIActivity {
 	private ListView lv;
-	private TextView count;
 	private View back, deleteAll;
 	private List<BookInfo> list;
 	private LibSearchResultListViewAdapter adapter;
@@ -37,11 +38,9 @@ public class BookCollection extends BaseUIActivity {
 	@Override
 	protected void initLayout() {
 		lv = (ListView) _getView(R.id.acty_bookcollection_listview);
-		count = (TextView) _getView(R.id.acty_bookcollection_count);
 		back = _getView(R.id.acty_bookcollection_back);
 		deleteAll = _getView(R.id.acty_bookcollection_deleteAll);
 
-		count.setText("总数：" + list.size());
 		back.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -52,7 +51,8 @@ public class BookCollection extends BaseUIActivity {
 		deleteAll.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				ArrayList<BookInfo> bookInfos = AppInfo.getFavouriteBook(getContext());
+				ArrayList<BookInfo> bookInfos = AppInfo
+						.getFavouriteBook(getContext());
 				bookInfos.clear();
 				AppInfo.setFavouriteBook(getContext(), bookInfos);
 				closeActivity();
@@ -70,7 +70,7 @@ public class BookCollection extends BaseUIActivity {
 				BookInfo bookInfo = list.get(position);
 				intent.putExtra("from", "BookCollection");
 				intent.putExtra("BookInfo", bookInfo);
-openActivity(intent);
+				openActivity(intent);
 			}
 		});
 	}
@@ -83,7 +83,6 @@ openActivity(intent);
 		list.clear();
 		list.addAll(newList);
 		adapter.notifyDataSetChanged();
-		count.setText("总数:" + list.size());
 
 	}
 
@@ -91,5 +90,5 @@ openActivity(intent);
 	protected void initData() {
 		list = AppInfo.getFavouriteBook(getContext());
 	}
- 
+
 }

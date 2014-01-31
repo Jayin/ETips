@@ -30,7 +30,7 @@ public class LibSearchResultActivity extends BaseUIActivity {
 	private int page = 1;
 	private TextView tv_title, tv_pageInfo;
 	
-	private Button backBtn, prevBtn, nextBtn;
+	private View backBtn, prevBtn, nextBtn;
 	private ListView lv;
 	private List<BookInfo> list;
 	private String error;
@@ -56,11 +56,11 @@ public class LibSearchResultActivity extends BaseUIActivity {
 				.findViewById(R.id.acty_library_searchresult_title_tv);
 		tv_pageInfo = (TextView) this
 				.findViewById(R.id.acty_library_searchresult_page);
-		backBtn = (Button) this
+		backBtn = this
 				.findViewById(R.id.acty_library_searchresult_back);
-		prevBtn = (Button) this
+		prevBtn =  this
 				.findViewById(R.id.acty_library_searchresult_prev);
-		nextBtn = (Button) this
+		nextBtn =  this
 				.findViewById(R.id.acty_library_searchresult_next);
 		lv = (ListView) this
 				.findViewById(R.id.acty_library_searchresult_listview);

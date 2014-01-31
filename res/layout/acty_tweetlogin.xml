@@ -37,14 +37,14 @@
 
                     <TextView
                         android:id="@+id/acty_tweetlogin_frame_nickname"
-                        style="@style/Acty_Course_Setting.textview"
+                        style="@style/TextView.setting"
                         android:text="用户名:"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/acty_tweetlogin_frame_tv_nickname"
-                        style="@style/Acty_Course_Setting.textview"
+                        style="@style/TextView.setting"
                         android:layout_toRightOf="@+id/acty_tweetlogin_frame_nickname"
                         android:text="Jayin_Ton"
                         android:textSize="14sp"
@@ -55,14 +55,14 @@
 
                     <TextView
                         android:id="@+id/acty_tweetlogin_frame_account"
-                        style="@style/Acty_Course_Setting.textview"
+                        style="@style/TextView.setting"
                         android:text="登录账户:"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/acty_tweetlogin_frame_tv_account"
-                        style="@style/Acty_Course_Setting.textview"
+                        style="@style/TextView.setting"
                         android:layout_toRightOf="@+id/acty_tweetlogin_frame_account"
                         android:text="tonjayin@gmail.com"
                         android:textSize="14sp"
@@ -74,14 +74,14 @@
 
                     <TextView
                         android:id="@+id/acty_tweetlogin_frame_loginTime"
-                        style="@style/Acty_Course_Setting.textview"
+                        style="@style/TextView.setting"
                         android:text="登录日期:"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/acty_tweetlogin_frame_tv_loginTime"
-                        style="@style/Acty_Course_Setting.textview"
+                        style="@style/TextView.setting"
                         android:layout_toRightOf="@+id/acty_tweetlogin_frame_loginTime"
                         android:text="2013-11-2"
                         android:textSize="14sp"   android:ems="12" android:ellipsize="end"

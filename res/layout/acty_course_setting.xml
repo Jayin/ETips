@@ -21,7 +21,7 @@
                 style="@style/Acty_Course_Setting.rely" >
 
                 <TextView
-                    style="@style/Acty_Course_Setting.textview"
+                    style="@style/TextView.setting"
                     android:text="更新课表" />
 
                 <ImageView style="@style/Acty_Course_Setting.imageview" />
@@ -32,7 +32,7 @@
                 style="@style/Acty_Course_Setting.rely" >
 
                 <TextView
-                    style="@style/Acty_Course_Setting.textview"
+                    style="@style/TextView.setting"
                     android:text="当前周数" />
 
                 <ImageView
@@ -41,7 +41,7 @@
 
                 <TextView
                     android:id="@+id/acty_course_setting_tv_currentWeek"
-                    style="@style/Acty_Course_Setting.textview"
+                    style="@style/TextView.setting"
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/imageView1"
                     android:text="1周"

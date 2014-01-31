@@ -1,193 +1,204 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
 
-    <RelativeLayout
-        android:id="@+id/acty_query_title"
-        style="@style/Base_Navigation_rely_top"
-        android:background="@drawable/ic_bg_tweet" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/blue_nav_bg_nomal"
+        android:orientation="horizontal" >
 
-        <TextView
-            android:id="@+id/acty_query_tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="Thinking in java"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
-
-        <Button
+        <RelativeLayout
             android:id="@+id/acty_query_back"
-            android:layout_width="50dp"
-            android:layout_height="30dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="4dp"
-            android:background="@drawable/btn_back_blue"
-            android:text="退出"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/btn_blue"
+            android:clickable="true" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_action_back" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="2px"
+            android:layout_height="match_parent"
+            android:background="@drawable/ic_head_line" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4" >
+
+            <TextView
+                android:id="@+id/acty_query_tv_title"
+                style="@style/TextView.header_title"
+                android:layout_centerInParent="true"
+                android:text="title"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="2px"
+            android:layout_height="match_parent"
+            android:background="@drawable/ic_head_line" />
 
         <RelativeLayout
             android:id="@+id/acty_query_rely_switch"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true" 
-            android:background="@drawable/btn_common_blue"
-            android:layout_marginRight="3dp" >
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/btn_blue"
+            android:clickable="true" >
 
             <TextView
                 android:id="@+id/acty_query_tv_switch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:text="返回"
-                android:textColor="@color/white"
-                android:textSize="12sp" />
+                style="@style/TextView.header_title"
+                android:layout_centerInParent="true"
+                android:text="清空"
+                android:textSize="14sp" />
         </RelativeLayout>
-    </RelativeLayout>
-
- <ViewFlipper
-    android:id="@+id/acty_query_flipper"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:layout_below="@+id/acty_query_title"
-    android:background="@drawable/ic_bg_queryclassroom" >
-
-    <ScrollView
-        android:id="@+id/acty_query_input"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_margin="20dp"
-        android:background="@drawable/btn_item_gridview_style_one" >
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <Spinner
-                android:id="@+id/acty_query_week"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp" />
-
-            <Spinner
-                android:id="@+id/acty_query_weektime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp" />
-
-            <Spinner
-                android:id="@+id/acty_query_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp" />
-
-            <TextView
-                android:id="@+id/acty_query_loadinfo"
-                style="@style/TextView.common"
-                android:layout_width="match_parent"
-                android:gravity="center"
-                android:text="111"
-                android:textColor="@color/white"
-                android:visibility="gone" />
-        </LinearLayout>
-    </ScrollView>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical" >
-
-        <TextView
-            style="@style/TextView.common"
-            android:layout_width="fill_parent"
-            android:background="@color/white"
-            android:text="   Tips:无显示课室代表全天无课或该课室是办公场所"
-            android:textSize="16sp" />
-
-        <LinearLayout
-            android:id="@+id/acty_query_timeline"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:gravity="center"
-                android:text="节数"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="一"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="二"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="三"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="四"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="五"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <ListView
-            android:id="@+id/acty_query_listview"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:background="@color/white" >
-        </ListView>
     </LinearLayout>
 
-</ViewFlipper> 
+    <ViewFlipper
+        android:id="@+id/acty_query_flipper"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/ic_bg_queryclassroom" >
 
-</RelativeLayout>
+        <ScrollView
+            android:id="@+id/acty_query_input"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="20dp"
+            android:background="@drawable/btn_round_blacklighter" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <Spinner
+                    android:id="@+id/acty_query_week"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp" />
+
+                <Spinner
+                    android:id="@+id/acty_query_weektime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp" />
+
+                <Spinner
+                    android:id="@+id/acty_query_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp" />
+
+                <TextView
+                    android:id="@+id/acty_query_loadinfo"
+                    style="@style/TextView.common"
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:text="111"
+                    android:textColor="@color/white"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical" >
+
+            <TextView
+                style="@style/TextView.common"
+                android:layout_width="fill_parent"
+                android:background="@color/white"
+                android:text="   Tips:无显示课室代表全天无课或该课室是办公场所"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:id="@+id/acty_query_timeline"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:text="节数"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="一"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="二"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="三"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="四"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="五"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/acty_query_listview"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@color/white" >
+            </ListView>
+        </LinearLayout>
+    </ViewFlipper>
+
+</LinearLayout>

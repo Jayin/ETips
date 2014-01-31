@@ -7,9 +7,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
+/**
+ * 关于页面
+ * @author Jayin Ton
+ *
+ */
 public class AboutActivity extends BaseUIActivity {
-	private Button backBtn;
+	private View backBtn;
 	private TextView tv_version;
 
 	@Override
@@ -19,12 +23,12 @@ public class AboutActivity extends BaseUIActivity {
 		setContentView(R.layout.acty_about);
 		initData();
 		initLayout();
-	
+
 	}
 
 	@Override
 	protected void initLayout() {
-		backBtn = (Button) this.findViewById(R.id.acty_about_back);
+		backBtn = this.findViewById(R.id.acty_about_back);
 		backBtn.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -34,8 +38,8 @@ public class AboutActivity extends BaseUIActivity {
 		});
 		tv_version = (TextView) _getView(R.id.textView8);
 		try {
-			tv_version
-					.setText("版本:" + AndroidUtils.getAppVersionName(getContext()));
+			tv_version.setText("版本:"
+					+ AndroidUtils.getAppVersionName(getContext()));
 		} catch (NameNotFoundException e) {
 			e.printStackTrace();
 		}

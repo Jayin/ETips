@@ -26,8 +26,7 @@ import com.meizhuo.etips.net.utils.CourseQueryAPI;
 
 public class QueryEmptyClassroom extends BaseUIActivity implements
 		OnClickListener {
-	private View btn_exit;
-	private View btn_switch;
+	private View btn_exit,btn_switch;
 	private ViewFlipper flipper;
 	private ListView lv;
 	private Spinner sp_week, sp_weektime, sp_address;

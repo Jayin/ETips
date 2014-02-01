@@ -3,41 +3,62 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_bg_tweet" >
+        android:layout_height="48dp"
+        android:background="@color/blue_nav_bg_nomal"
+        android:orientation="horizontal" >
 
-        <Button
-            android:id="@+id/back"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/btn_back_round" />
+        <RelativeLayout
+            android:id="@+id/btn_back"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/btn_blue"
+            android:clickable="true" >
 
-        <TextView
-            android:id="@+id/web_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_centerVertical="true"
-            android:text="邑大购购网"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_action_back" />
+        </RelativeLayout>
 
-        <TextView
-            android:id="@+id/web_tv_progress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:text="0%"
-            android:textColor="@color/white"
-            android:textSize="14sp" 
-            android:layout_marginRight="4dp"/>
-    </RelativeLayout>
+        <ImageView
+            android:layout_width="2px"
+            android:layout_height="match_parent"
+            android:background="@drawable/ic_head_line" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4" >
+
+            <TextView
+                android:id="@+id/web_title"
+                style="@style/TextView.header_title"
+                android:layout_centerInParent="true"
+                android:text="邑大购购网" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="2px"
+            android:layout_height="match_parent"
+            android:background="@drawable/ic_head_line" />
+
+        <RelativeLayout
+            android:id="@+id/btn_more"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/btn_blue"
+            android:clickable="true" >
+            <TextView
+                android:id="@+id/web_tv_progress"
+                style="@style/TextView.header_title"
+                android:layout_centerInParent="true"
+                android:text="0%"
+                android:textSize="14sp" />
+        </RelativeLayout>
+    </LinearLayout>
 
     <WebView
         android:id="@+id/webView1"

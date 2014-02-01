@@ -49,7 +49,7 @@ public class Browser extends BaseUIActivity implements OnClickListener {
 	protected void initLayout() {
 		webview = (WebView) findViewById(R.id.webView1);
 
-		btn_back = _getView(R.id.back);
+		btn_back = _getView(R.id.btn_back);
 		btn_webBack = _getView(R.id.web_back);
 		btn_forward = _getView(R.id.web_forward);
 		btn_home = _getView(R.id.web_home);
@@ -164,7 +164,7 @@ public class Browser extends BaseUIActivity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.back:
+		case R.id.btn_back:
 			closeActivity();
 			break;
 		case R.id.web_back:

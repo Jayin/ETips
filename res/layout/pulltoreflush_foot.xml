@@ -8,9 +8,8 @@
     <Button
         android:id="@+id/pulltoreflush_more"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@drawable/btn_white"
+        android:layout_height="match_parent"
+        android:background="@drawable/btn_item_grey2whit"
         android:text="更   多"
         android:textColor="@color/black"
         android:textSize="16sp"
@@ -21,6 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:background="@color/grey"
         android:layout_margin="10dp"
         android:gravity="center"
         android:orientation="horizontal"  android:visibility="gone">

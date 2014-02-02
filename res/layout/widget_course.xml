@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget_course_main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="294.0dip"
+    android:layout_height="220.0dip"
     android:alpha="0.9"
     android:background="@drawable/ic_bg_widget_course2"
     android:orientation="vertical" 
@@ -12,6 +12,7 @@
         android:id="@+id/widget_course_time"
         style="@style/TextView.common"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:padding="4dp"
         android:text="2013年11月23日  第15周"
@@ -22,12 +23,13 @@
         android:id="@+id/widget_course_content"
         style="@style/TextView.common"
         android:layout_width="wrap_content"
-        android:gravity="left"
+        android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
+        android:gravity="left"
         android:padding="8dp"
         android:text="1.计算机组成原理\n2.离散数学 \n3.操作系统\n4.算法分析\n5.无课\n"
         android:textColor="@color/black"
-        android:textSize="18sp" 
-        android:textStyle="bold"/>
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
 </LinearLayout>

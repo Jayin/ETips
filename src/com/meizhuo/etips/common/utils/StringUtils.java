@@ -137,30 +137,32 @@ public class StringUtils {
 				.append(c.get(Calendar.DAY_OF_MONTH)).append(" 星期");
 		int day_of_week = c.get(Calendar.DAY_OF_WEEK) == 1 ? 7 : c
 				.get(Calendar.DAY_OF_WEEK) - 1;
+		getChinese(day_of_week);
+		return sb.toString();
+	}
+	/**
+	 * 根据星期x获取中文<br>
+	 * 星期1 ->星期一
+	 * @param day_of_week 星期1 ->星期一
+	 * @return
+	 */
+	public static String getChinese(int day_of_week){
 		switch (day_of_week) {
 		case 1:
-			sb.append("一");
-			break;
+			return "一";
 		case 2:
-			sb.append("二");
-			break;
+			return "二";
 		case 3:
-			sb.append("三");
-			break;
+			return "三";
 		case 4:
-			sb.append("四");
-			break;
+			return "四";
 		case 5:
-			sb.append("五");
-			break;
+			return "五";
 		case 6:
-			sb.append("六");
-			break;
-		case 7:
-			sb.append("日");
-			break;
+			return "六";
+		default :
+			return "日";
 		}
-		return sb.toString();
 	}
 
 	/**

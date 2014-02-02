@@ -106,9 +106,6 @@ public class CourseUtils {
 		SharedPreferences sp = context.getSharedPreferences(
 				ETipsContants.SharedPreference_NAME, Context.MODE_PRIVATE);
 		Calendar c = CalendarManager.getCalendar();
-//		int startWeek = Integer.parseInt(sp.getString("Current_Week",
-//				String.valueOf(c.get(Calendar.WEEK_OF_YEAR))));
-//		int currentWeek = c.get(Calendar.WEEK_OF_YEAR) - startWeek + 1;
 		int currentWeek = ETipsUtils.getCurrentWeek(context);
 		Set<Integer> set = null;
 		if (l.Time != null && !l.Time.equals(""))

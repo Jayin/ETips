@@ -37,10 +37,7 @@ public class ETipsApplication extends Application {
 	 * @return the lessonList
 	 */
 	public List<List<List<Lesson>>> getLessonList() {
-		Course course = null;
-		DataPool dp = new DataPool(ETipsContants.SP_NAME_Course,
-				getApplicationContext());
-		course = (Course) dp.get("course");
+		Course course = AppInfo.getCourse(this);
 		if (course == null)
 			return null;
 		return course.getCourseList();
@@ -52,16 +49,7 @@ public class ETipsApplication extends Application {
 	 *            把课程添加到sharedpreference;
 	 */
 	public void setLessonList(List<List<List<Lesson>>> lessonList) {
-		Course course = new Course(lessonList);
-		DataPool dp = new DataPool(ETipsContants.SP_NAME_Course,
-				getApplicationContext());
-		if (dp.put("course", course)) {
-			Elog.i("App:setLessonList  successfully");
-			getApplicationContext().sendBroadcast(
-					new Intent(ETipsContants.Action_CourseChange)); // 发送课表修改的广播！
-		} else {
-			Elog.i("App:setLessonList  faild");
-		}
+		AppInfo.setCourse(this,  new Course(lessonList));
 	}
 
 

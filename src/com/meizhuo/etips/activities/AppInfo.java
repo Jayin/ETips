@@ -1,12 +1,14 @@
 package com.meizhuo.etips.activities;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import android.content.Context;
+import android.content.Intent;
 
 import com.meizhuo.etips.common.utils.DataPool;
+import com.meizhuo.etips.common.utils.ETipsContants;
 import com.meizhuo.etips.model.BookInfo;
+import com.meizhuo.etips.model.Course;
 
 /**
  * 应用程序信息管理
@@ -19,7 +21,9 @@ public class AppInfo {
 	// 图书收藏
 	public static final String DP_Name_FavouriteBook = "FavouriteBook";
 	public static final String DP_Key_FavouriteBook = "FavouriteBook";
-
+	//课程表
+	public static final String DP_Name_Course = "Course";
+	public static final String DP_Key_Course  = "course";
 	public AppInfo() {
 
 	}
@@ -54,4 +58,30 @@ public class AppInfo {
 		DataPool dp = getDataPool(DP_Name_FavouriteBook, context);
 		return dp.put(DP_Key_FavouriteBook, bookInfos);
 	}
+	/**
+	 * 获得课程表
+	 * @param context
+	 * @return
+	 */
+	public static Course getCourse(Context context){
+		DataPool dp = getDataPool(DP_Name_Course, context);
+		Course course = (Course)dp.get(DP_Key_Course);
+		return course;
+	}
+	/**
+	 * 保存课程表
+	 * @param context
+	 * @param course 
+	 * @return
+	 */
+	public static boolean setCourse(Context context,Course course){
+		DataPool dp = getDataPool(DP_Name_Course, context);
+		if(dp.put(DP_Key_Course, course)){
+			context.sendBroadcast(new Intent(ETipsContants.Action_CourseChange)); // 发送课表修改的广播！
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 }

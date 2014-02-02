@@ -6,14 +6,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.meizhuo.etips.common.utils.ETipsContants;
 import com.meizhuo.etips.common.utils.ETipsUtils;
 import com.meizhuo.etips.common.utils.ShareManager;
 import com.meizhuo.etips.ui.DeclarationDialog;
+import com.meizhuo.etips.ui.SetCurrentWeekDialog;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.bean.SocializeEntity;
 import com.umeng.socialize.controller.listener.SocializeListeners.SnsPostListener;
@@ -27,14 +26,13 @@ import com.umeng.socialize.controller.listener.SocializeListeners.SocializeClien
  */
 public class ETipsMainSettingActivity extends BaseUIActivity implements
 		OnClickListener {
-	private RelativeLayout shareBtn, aboutBtn, manualBtn, account, checkSource,
-			declaration, cleanAuthorization;// queryClassroom;
-	private View backBtn;
+	private View backBtn, shareBtn, aboutBtn, manualBtn, account, checkSource,
+			declaration, cleanAuthorization, currentWeekBtn;// queryClassroom;
 
 	private boolean isETipsAccountLogin = false, isloginTimeOut = false;
-	private TextView tv_AccountInfo;
+	private TextView tv_AccountInfo, tv_crrentWeek;
 	private DeclarationDialog dialog;
-
+private SetCurrentWeekDialog setCurrentWeekDialog;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -45,16 +43,19 @@ public class ETipsMainSettingActivity extends BaseUIActivity implements
 
 	@Override
 	protected void initLayout() {
-		shareBtn = (RelativeLayout) _getView(R.id.acty_etips_main_setting_rely_share);
+		shareBtn = _getView(R.id.acty_etips_main_setting_rely_share);
 		backBtn = _getView(R.id.acty_etips_main_setting_back);
-		aboutBtn = (RelativeLayout) _getView(R.id.acty_etips_main_setting_rely_aboutus);
-		manualBtn = (RelativeLayout) _getView(R.id.acty_etips_main_setting_rely_manual);
-		account = (RelativeLayout) _getView(R.id.acty_etips_main_setting_rely_account);
-		checkSource = (RelativeLayout) _getView(R.id.acty_etips_main_setting_rely_checkSource);
-		declaration = (RelativeLayout) _getView(R.id.acty_etips_main_setting_rely_declaration);
-		cleanAuthorization = (RelativeLayout) _getView(R.id.acty_etips_main_setting_rely_cleanAuthorization);
+		aboutBtn = _getView(R.id.acty_etips_main_setting_rely_aboutus);
+		manualBtn = _getView(R.id.acty_etips_main_setting_rely_manual);
+		account = _getView(R.id.acty_etips_main_setting_rely_account);
+		checkSource = _getView(R.id.acty_etips_main_setting_rely_checkSource);
+		declaration = _getView(R.id.acty_etips_main_setting_rely_declaration);
+		cleanAuthorization = _getView(R.id.acty_etips_main_setting_rely_cleanAuthorization);
+		currentWeekBtn = _getView(R.id.rely_currentWeek);
 
+		tv_crrentWeek = (TextView) _getView(R.id.tv_currentWeek);
 		tv_AccountInfo = (TextView) _getView(R.id.acty_etips_main_setting_tv_accountInfo);
+		
 		if (isETipsAccountLogin) {
 			if (isloginTimeOut) {
 				tv_AccountInfo.setText("ETips账户登录失效，请重新登录");
@@ -71,6 +72,9 @@ public class ETipsMainSettingActivity extends BaseUIActivity implements
 		checkSource.setOnClickListener(this);
 		declaration.setOnClickListener(this);
 		cleanAuthorization.setOnClickListener(this);
+		currentWeekBtn.setOnClickListener(this);
+		
+		setCurrentWeekDialog = new SetCurrentWeekDialog(getContext(),tv_crrentWeek);
 	}
 
 	@Override
@@ -96,6 +100,7 @@ public class ETipsMainSettingActivity extends BaseUIActivity implements
 		} else {
 			tv_AccountInfo.setText("ETips账户登录");
 		}
+		tv_crrentWeek.setText(ETipsUtils.getCurrentWeek(getContext())+"");
 	}
 
 	@Override
@@ -148,6 +153,12 @@ public class ETipsMainSettingActivity extends BaseUIActivity implements
 			break;
 		case R.id.acty_etips_main_setting_rely_cleanAuthorization:
 			cleanAuth();
+			break;
+		case R.id.rely_currentWeek:
+			//修改周数
+			setCurrentWeekDialog.show();
+			break;
+		default:
 			break;
 		}
 

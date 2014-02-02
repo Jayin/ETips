@@ -104,6 +104,28 @@
 
                 <ImageView style="@style/Acty_Course_Setting.imageview" />
             </RelativeLayout>
+            
+            
+            <RelativeLayout
+                android:id="@+id/rely_currentWeek"
+                style="@style/Acty_Course_Setting.rely" >
+
+                <TextView
+                    style="@style/TextView.setting"
+                    android:text="当前周数" />
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    style="@style/Acty_Course_Setting.imageview" />
+
+                <TextView
+                    android:id="@+id/tv_currentWeek"
+                    style="@style/TextView.setting"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/imageView1"
+                    android:text="1周"
+                    android:textSize="15sp" />
+            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/acty_etips_main_setting_rely_cleanAuthorization"

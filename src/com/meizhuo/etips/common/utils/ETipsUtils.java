@@ -8,6 +8,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 
 /**
  * 工具类
@@ -72,12 +74,50 @@ public class ETipsUtils {
 	 * 获取当前周数 </br> 
 	 * 挖了个小坑：在SharedPreference里面，里面的SharedPreference的Current_week</br>
 	 * 实际上是保存当前week of year 而不是真的是一学期的当前周数 这样做的原因就是难以方便计算 当然 这里获取当前周数是封装好的
-	 * 
+	 * @deprecated
 	 * @param c
 	 * @return 当前周数
 	 */
-	public static int getCurrentWeek(Context c) {
-		return SharedPreferenceHelper.getCurrentWeek(c);
+//	public static int getCurrentWeek1(Context c) {
+//		return SharedPreferenceHelper.getCurrentWeek(c);
+//	}
+	/**
+	 * 获取当前周数<br>
+	 * currentWeek 保存真的是当前，本学期的周数。因为currentWeek只会递增(除非你自己修改了)<br>
+     * currentWeek 递增的依据，所保存的weekOfYear与当前CalendarManager.getWeekOfYeah()“不一致”就会增一(考虑到一旦跨年了，getWeekOfYeah又会从1开始)<br>
+	 * @since version 2.2
+	 * @param context
+	 * @return 
+	 */
+	public static int getCurrentWeek(Context context){
+		SharedPreferences sp = context.getSharedPreferences(
+				ETipsContants.SharedPreference_NAME, Context.MODE_PRIVATE);
+		int currentWeek = Integer.parseInt(sp.getString("currentWeek", "1"));
+		int weekOfYear = Integer.parseInt(sp.getString("weekOfYear",
+				CalendarManager.getWeekOfYeah() + ""));
+		if(weekOfYear != CalendarManager.getWeekOfYeah()){
+			currentWeek++;
+			setCurrentWeek(context,currentWeek);
+		} 
+		return currentWeek;
+	}
+	/**
+	 * 设置当前周数,并且发布周数切换广播
+	 * @param context
+	 * @param currentWeek
+	 */
+	public static void setCurrentWeek(Context context,int currentWeek){
+		if (currentWeek <= 0) {
+			currentWeek = 1;
+		}
+		SharedPreferences sp = context.getSharedPreferences(
+				ETipsContants.SharedPreference_NAME, Context.MODE_PRIVATE);
+		SharedPreferenceHelper.set(sp, "currentWeek", currentWeek + "");
+		SharedPreferenceHelper.set(sp, "weekOfYear",
+				CalendarManager.getWeekOfYeah() + "");
+		// 发广播通知Home页面要课表，时间切换
+		Intent intent = new Intent(ETipsContants.Action_CurrentWeekChange);
+		context.sendBroadcast(intent);
 	}
 
 	/**

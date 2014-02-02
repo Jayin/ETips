@@ -25,6 +25,7 @@ import android.widget.ViewFlipper;
 import com.meizhuo.etips.common.utils.CalendarManager;
 import com.meizhuo.etips.common.utils.CourseUtils;
 import com.meizhuo.etips.common.utils.ETipsContants;
+import com.meizhuo.etips.common.utils.ETipsUtils;
 import com.meizhuo.etips.common.utils.Elog;
 
 import com.meizhuo.etips.common.utils.SP;
@@ -127,7 +128,7 @@ public class ETipsMainActivity extends BaseUIActivity implements
 	// 切换时间课表
 	private void startAsyncWork() {
 		CourseUpdate cu = new CourseUpdate();
-		current_week = SharedPreferenceHelper.getCurrentWeek(this);
+		current_week = ETipsUtils.getCurrentWeek(this);
 		tv_weekNo.setText("第" + current_week + "周");
 		cu.execute("");
 	}
@@ -245,7 +246,7 @@ public class ETipsMainActivity extends BaseUIActivity implements
 	@Override
 	protected void initData() {
 		App = (ETipsApplication) getApplication();
-		current_week = SharedPreferenceHelper.getCurrentWeek(this);
+		current_week = ETipsUtils.getCurrentWeek(this);
 		// 获取Notes
 		SP sp = new SP(ETipsContants.SP_NAME_Notes, this);
 		// notes = (List<MNotes>) sp.toEntityAll(ETipsContants.TYPE_SP_Notes);

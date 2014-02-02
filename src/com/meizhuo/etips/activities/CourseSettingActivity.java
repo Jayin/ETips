@@ -19,10 +19,13 @@ import com.meizhuo.etips.common.utils.ETipsContants;
 import com.meizhuo.etips.common.utils.ETipsUtils;
 import com.meizhuo.etips.common.utils.SharedPreferenceHelper;
 import com.meizhuo.etips.ui.utils.BaseDialog;
+
 /**
  * 关于每日提醒，不管他有没有设置开启课程通知，都开启闹钟，只是接收的时候才决定处不处理
+ * 
  * @author Jayin Ton
- *
+ * @deprecated since version 2.2
+ * @version 2.2
  */
 public class CourseSettingActivity extends BaseUIActivity implements
 		OnClickListener {
@@ -30,7 +33,7 @@ public class CourseSettingActivity extends BaseUIActivity implements
 	private ETipsApplication App;
 	private RelativeLayout reflshly, currentWeekly;// openAlarmly;
 	private String currentWeek; // 当前是第几周？
-	//private String isOpenCourseAlarm;
+	// private String isOpenCourseAlarm;
 	private TextView tv_currentweek, tv_openAlarm;
 	private Activity mContext;
 
@@ -52,40 +55,43 @@ public class CourseSettingActivity extends BaseUIActivity implements
 		reflshly.setOnClickListener(this);
 		tv_currentweek = (TextView) this
 				.findViewById(R.id.acty_course_setting_tv_currentWeek);
-//		tv_openAlarm = (TextView) this
-//				.findViewById(R.id.acty_course_setting_tv_dailyAlarm);
+		// tv_openAlarm = (TextView) this
+		// .findViewById(R.id.acty_course_setting_tv_dailyAlarm);
 		tv_currentweek.setText(currentWeek + "周");
-//		if (isOpenCourseAlarm.equals("YES")) {
-//			tv_openAlarm.setText("开启");
-//		} else {
-//			tv_openAlarm.setText("关闭");
-//		}
+		// if (isOpenCourseAlarm.equals("YES")) {
+		// tv_openAlarm.setText("开启");
+		// } else {
+		// tv_openAlarm.setText("关闭");
+		// }
 
 		currentWeekly = (RelativeLayout) this
 				.findViewById(R.id.acty_course_setting_rely_currentWeek);
 		currentWeekly.setOnClickListener(this);
-//		openAlarmly = (RelativeLayout) this
-//				.findViewById(R.id.acty_course_setting_rely_dailyAlarm);
-//		openAlarmly.setOnClickListener(this);
+		// openAlarmly = (RelativeLayout) this
+		// .findViewById(R.id.acty_course_setting_rely_dailyAlarm);
+		// openAlarmly.setOnClickListener(this);
 	}
 
 	@Override
 	protected void initData() {
 		App = (ETipsApplication) getApplication();
-//		int recordWeek = Integer
-//				.parseInt(App.getProperty().get("Current_Week"));
+		// int recordWeek = Integer
+		// .parseInt(App.getProperty().get("Current_Week"));
 		int _currentWeek = ETipsUtils.getCurrentWeek(getContext());
-		if (_currentWeek <= 0 || _currentWeek>20) { // 非法数据，即记录的周数WEEK_OF_YEAR 比 目前的 还大
-									// （一般出现在用户自己调整了时间出现错误）
+		if (_currentWeek <= 0 || _currentWeek > 20) { // 非法数据，即记录的周数WEEK_OF_YEAR
+														// 比 目前的 还大
+			// （一般出现在用户自己调整了时间出现错误）
 			_currentWeek = 1;
 			SharedPreferences sp = getSharedPreferences(
 					ETipsContants.SharedPreference_NAME, Context.MODE_PRIVATE);
 			SharedPreferenceHelper.set(sp, "Current_Week", CalendarManager
 					.getCalendar().get(Calendar.WEEK_OF_YEAR));
-			App.getProperty().put("Current_Week", String.valueOf(CalendarManager.getWeekOfYeah()));
+			App.getProperty().put("Current_Week",
+					String.valueOf(CalendarManager.getWeekOfYeah()));
 		}
 		currentWeek = String.valueOf(_currentWeek);
-	//	isOpenCourseAlarm = App.getProperty().get("Is_Open_Daily_Course_Alarm");
+		// isOpenCourseAlarm =
+		// App.getProperty().get("Is_Open_Daily_Course_Alarm");
 	}
 
 	@Override
@@ -107,11 +113,12 @@ public class CourseSettingActivity extends BaseUIActivity implements
 			SetCurrentWeekDialog dialog = new SetCurrentWeekDialog(mContext);
 			dialog.show();
 			break;
-//		case R.id.acty_course_setting_rely_dailyAlarm:
-//			// show dialog before it create
-//			SetDailyCourseAlarmDialog mdialog = new SetDailyCourseAlarmDialog(mContext);
-//			mdialog.show();
-//			break;
+		// case R.id.acty_course_setting_rely_dailyAlarm:
+		// // show dialog before it create
+		// SetDailyCourseAlarmDialog mdialog = new
+		// SetDailyCourseAlarmDialog(mContext);
+		// mdialog.show();
+		// break;
 		}
 
 	}
@@ -125,7 +132,7 @@ public class CourseSettingActivity extends BaseUIActivity implements
 
 		public SetCurrentWeekDialog(Context context) {
 			super(context);
-			this.context  = context;
+			this.context = context;
 		}
 
 		@Override
@@ -177,15 +184,16 @@ public class CourseSettingActivity extends BaseUIActivity implements
 						ETipsContants.SharedPreference_NAME,
 						Context.MODE_PRIVATE);
 				int WEEK_OF_YEAR = CalendarManager.getWeekOfYeah();
- 				int recoredTime = Integer.parseInt(sp.getString("Current_Week",
- 						String.valueOf(WEEK_OF_YEAR)));
+				int recoredTime = Integer.parseInt(sp.getString("Current_Week",
+						String.valueOf(WEEK_OF_YEAR)));
 				SharedPreferenceHelper.set(sp, "Current_Week", WEEK_OF_YEAR
 						- mCurrentWeek + 1);
 				App.refreshProperty();
-				//设置Result
+				// 设置Result
 				setResult(RESULT_OK);
-				//发广播通知Home页面要课表，时间切换
-				Intent intent = new Intent(ETipsContants.Action_CurrentWeekChange);
+				// 发广播通知Home页面要课表，时间切换
+				Intent intent = new Intent(
+						ETipsContants.Action_CurrentWeekChange);
 				context.sendBroadcast(intent);
 				break;
 			case R.id.dialog_setting_currentweek_cancle:

@@ -86,11 +86,13 @@ public class CourseMainActivity extends BaseUIActivity {
 
 			@Override
 			public void onClick(View v) {
-				// startActivity(new Intent(CourseMainActivity.this,
-				// CourseSettingActivity.class));
-				CourseMainActivity.this.startActivityForResult(new Intent(
-						CourseMainActivity.this, CourseSettingActivity.class),
-						ETipsContants.RequestCode_CourseMain2Setting);
+//				CourseMainActivity.this.startActivityForResult(new Intent(
+//						CourseMainActivity.this, CourseSettingActivity.class),
+//						ETipsContants.RequestCode_CourseMain2Setting);
+				Intent intent = new Intent(CourseMainActivity.this,
+						SubSystemLoginActivity.class);
+				intent.putExtra("toWhere", "CourseMainActivity");
+				openActivity(intent);
 			}
 		});
 

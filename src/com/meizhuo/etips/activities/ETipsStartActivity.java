@@ -48,7 +48,6 @@ import com.meizhuo.etips.model.Lesson;
  *
  */
 public class ETipsStartActivity extends BaseUIActivity {
-	private HashMap<String, String> property; // 用户偏好设置类
 	private ETipsApplication App;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -161,7 +160,6 @@ public class ETipsStartActivity extends BaseUIActivity {
 		// 用户偏好设置加载
 		SharedPreferences sp = this.getSharedPreferences(
 				ETipsContants.SharedPreference_NAME, Context.MODE_PRIVATE);
-		property = App.getProperty();
 
 		if (!sp.contains("First_Open_APP")) {
 			String[] properties = getResources().getStringArray(
@@ -175,20 +173,15 @@ public class ETipsStartActivity extends BaseUIActivity {
 			SharedPreferenceHelper.set(sp, "Current_Week", CalendarManager
 					.getCalendar().get(Calendar.WEEK_OF_YEAR));
 			SharedPreferenceHelper.set(sp, "Is_Open_Daily_Course_Alarm", "YES");
-			property = (HashMap<String, String>) sp.getAll();
 
 		} else {
-			property = (HashMap<String, String>) sp.getAll();
 			SharedPreferenceHelper.set(sp, "First_Open_APP", "NO");
-			property.put("First_Open_APP", "NO");
 		}
 		if (sp.contains("Has_Saying_load")) { // 包含，说明用户基于新版本安装   
 
 		} else { // 不包含，说明用户基于就旧本升级
 			SharedPreferenceHelper.set(sp, "Has_Saying_load", "NO");
-			property.put("Has_Saying_load", "NO");
 		}
-		App.setProperty(property);
 
 		// 设置校园资讯模块
 		SP msp = new SP(ETipsContants.SP_NAME_User, getContext());
@@ -248,7 +241,6 @@ public class ETipsStartActivity extends BaseUIActivity {
     	msp.deleteAll();
     	sp.edit().remove("First_Open_APP").commit(); //commit() - > apply
     	
-		property = App.getProperty();
 
 		if (!sp.contains("First_Open_APP")) {
 			String[] properties = getResources().getStringArray(
@@ -262,20 +254,15 @@ public class ETipsStartActivity extends BaseUIActivity {
 			SharedPreferenceHelper.set(sp, "Current_Week", CalendarManager
 					.getCalendar().get(Calendar.WEEK_OF_YEAR));
 			SharedPreferenceHelper.set(sp, "Is_Open_Daily_Course_Alarm", "YES");
-			property = (HashMap<String, String>) sp.getAll();
 
 		} else {
-			property = (HashMap<String, String>) sp.getAll();
 			SharedPreferenceHelper.set(sp, "First_Open_APP", "NO");
-			property.put("First_Open_APP", "NO");
 		}
 		if (sp.contains("Has_Saying_load")) { // 包含，说明用户基于新版本安装   
 
 		} else { // 不包含，说明用户基于就旧本升级
 			SharedPreferenceHelper.set(sp, "Has_Saying_load", "NO");
-			property.put("Has_Saying_load", "NO");
 		}
-		App.setProperty(property);
 
 		// 设置校园资讯模块
 	 

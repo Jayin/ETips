@@ -86,8 +86,6 @@ public class CourseSettingActivity extends BaseUIActivity implements
 					ETipsContants.SharedPreference_NAME, Context.MODE_PRIVATE);
 			SharedPreferenceHelper.set(sp, "Current_Week", CalendarManager
 					.getCalendar().get(Calendar.WEEK_OF_YEAR));
-			App.getProperty().put("Current_Week",
-					String.valueOf(CalendarManager.getWeekOfYeah()));
 		}
 		currentWeek = String.valueOf(_currentWeek);
 		// isOpenCourseAlarm =
@@ -98,7 +96,6 @@ public class CourseSettingActivity extends BaseUIActivity implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.acty_course_setting_back:
-			App.setObject(null);
 			CourseSettingActivity.this.finish();
 			break;
 		case R.id.acty_course_setting_rely_reflush:
@@ -188,7 +185,6 @@ public class CourseSettingActivity extends BaseUIActivity implements
 						String.valueOf(WEEK_OF_YEAR)));
 				SharedPreferenceHelper.set(sp, "Current_Week", WEEK_OF_YEAR
 						- mCurrentWeek + 1);
-				App.refreshProperty();
 				// 设置Result
 				setResult(RESULT_OK);
 				// 发广播通知Home页面要课表，时间切换
@@ -234,7 +230,6 @@ public class CourseSettingActivity extends BaseUIActivity implements
 					SharedPreferenceHelper.set(SharedPreferenceHelper
 							.getSharedPreferences(CourseSettingActivity.this),
 							"Is_Open_Daily_Course_Alarm", "YES");
-					App.refreshProperty();
 				}
 				this.dismiss();
 				break;
@@ -244,7 +239,6 @@ public class CourseSettingActivity extends BaseUIActivity implements
 					SharedPreferenceHelper.set(SharedPreferenceHelper
 							.getSharedPreferences(CourseSettingActivity.this),
 							"Is_Open_Daily_Course_Alarm", "NO");
-					App.refreshProperty();
 				}
 				this.dismiss();
 				break;

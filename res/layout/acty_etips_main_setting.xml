@@ -2,8 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/grey" android:orientation="vertical" >
- <LinearLayout
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@color/blue_nav_bg_nomal"
@@ -43,7 +45,8 @@
         <ImageView
             android:layout_width="2px"
             android:layout_height="match_parent"
-            android:background="@drawable/ic_head_line"  android:visibility="invisible"/>
+            android:background="@drawable/ic_head_line"
+            android:visibility="invisible" />
 
         <RelativeLayout
             android:id="@+id/btn_more"
@@ -51,25 +54,93 @@
             android:layout_height="match_parent"
             android:background="@drawable/btn_blue"
             android:clickable="true" >
+
             <TextView
                 style="@style/TextView.header_title"
                 android:layout_centerInParent="true"
                 android:text="清空"
-                android:textSize="14sp" android:visibility="invisible"/>
+                android:textSize="14sp"
+                android:visibility="invisible" />
         </RelativeLayout>
     </LinearLayout>
- 
+
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/acty_etips_main_setting_navigate" >
+        android:fadingEdge="none"
+        android:scrollbars="none" >
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical" >
 
             <!-- 后面的添加直接复制 下面的RelativeLayout即可~ -->
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical" >
+
+                <TextView
+                    style="@style/TextView.Base"
+                    android:layout_marginLeft="8dp"
+                    android:text="ETips功能"
+                    android:textColor="@color/grey_lv_two"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@drawable/ic_line_1" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/acty_etips_main_setting_rely_checkSource"
+                style="@style/Acty_Course_Setting.rely" >
+
+                <TextView
+                    style="@style/TextView.setting"
+                    android:text="查询成绩" />
+
+                <ImageView style="@style/Acty_Course_Setting.imageview" />
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/ic_line_1" />
+
+            <RelativeLayout
+                android:id="@+id/acty_etips_main_setting_rely_manual"
+                style="@style/Acty_Course_Setting.rely" >
+
+                <TextView
+                    style="@style/TextView.setting"
+                    android:text="学生手册" />
+
+                <ImageView style="@style/Acty_Course_Setting.imageview" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical" >
+
+                <TextView
+                    style="@style/TextView.Base"
+                    android:layout_marginLeft="8dp"
+                    android:text="ETips设置"
+                    android:textColor="@color/grey_lv_two"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@drawable/ic_line_1" />
+            </LinearLayout>
 
             <RelativeLayout
                 android:id="@+id/acty_etips_main_setting_rely_account"
@@ -83,29 +154,11 @@
                 <ImageView style="@style/Acty_Course_Setting.imageview" />
             </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/acty_etips_main_setting_rely_checkSource"
-                style="@style/Acty_Course_Setting.rely" >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/ic_line_1" />
 
-                <TextView
-                    style="@style/TextView.setting"
-                    android:text="查询成绩" />
-
-                <ImageView style="@style/Acty_Course_Setting.imageview" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/acty_etips_main_setting_rely_manual"
-                style="@style/Acty_Course_Setting.rely" >
-
-                <TextView
-                    style="@style/TextView.setting"
-                    android:text="学生手册" />
-
-                <ImageView style="@style/Acty_Course_Setting.imageview" />
-            </RelativeLayout>
-            
-            
             <RelativeLayout
                 android:id="@+id/rely_currentWeek"
                 style="@style/Acty_Course_Setting.rely" >
@@ -123,9 +176,14 @@
                     style="@style/TextView.setting"
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/imageView1"
-                    android:text="1周"
+                    android:text="1"
                     android:textSize="15sp" />
             </RelativeLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/ic_line_1" />
 
             <RelativeLayout
                 android:id="@+id/acty_etips_main_setting_rely_cleanAuthorization"
@@ -138,6 +196,11 @@
                 <ImageView style="@style/Acty_Course_Setting.imageview" />
             </RelativeLayout>
 
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/ic_line_1" />
+
             <RelativeLayout
                 android:id="@+id/acty_etips_main_setting_rely_declaration"
                 style="@style/Acty_Course_Setting.rely" >
@@ -149,6 +212,11 @@
                 <ImageView style="@style/Acty_Course_Setting.imageview" />
             </RelativeLayout>
 
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/ic_line_1" />
+
             <RelativeLayout
                 android:id="@+id/acty_etips_main_setting_rely_share"
                 style="@style/Acty_Course_Setting.rely" >
@@ -159,6 +227,11 @@
 
                 <ImageView style="@style/Acty_Course_Setting.imageview" />
             </RelativeLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/ic_line_1" />
 
             <RelativeLayout
                 android:id="@+id/acty_etips_main_setting_rely_aboutus"
@@ -175,5 +248,4 @@
         </LinearLayout>
     </ScrollView>
 
-  
 </LinearLayout>

@@ -102,8 +102,8 @@
         <item name="android:persistentDrawingCache">animation|scrolling</item>
         <item name="android:scrollbarStyle">outsideOverlay</item>
         <item name="android:layoutAnimation">@anim/layout_listview_top_to_bottom_alpha</item>
-        <item name="android:scrollbars">vertical</item> 
-          <item name="android:fadingEdge">none</item>
+        <item name="android:scrollbars">vertical</item>
+        <item name="android:fadingEdge">none</item>
     </style>
 
     <style name="Acty_Course_Setting" />
@@ -112,9 +112,9 @@
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">5dp</item>
-        <item name="android:background">@drawable/btn_setting_sigleitem</item>
+        <item name="android:background">@drawable/btn_item_whit2grey</item>
     </style>
-
+<!--  <item name="android:background">@drawable/btn_setting_sigleitem</item> -->
     <style name="Acty_Course_Setting.imageview">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -123,6 +123,7 @@
         <item name="android:layout_marginRight">5dp</item>
         <item name="android:background">@drawable/ic_item_right</item>
         <item name="android:padding">8dp</item>
+        <item name="android:contentDescription">setting Image</item>
     </style>
 
     <style name="TextView">
@@ -146,6 +147,7 @@
         <item name="android:padding">8dp</item>
         <item name="android:textSize">14sp</item>
         <item name="android:singleLine">true</item>
+        <item name="android:layout_margin">4dp</item>
         <item name="android:layout_centerVertical">true</item>
     </style>
 

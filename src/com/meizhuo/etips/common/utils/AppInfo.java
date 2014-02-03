@@ -1,4 +1,4 @@
-package com.meizhuo.etips.activities;
+package com.meizhuo.etips.common.utils;
 
 import java.util.ArrayList;
 

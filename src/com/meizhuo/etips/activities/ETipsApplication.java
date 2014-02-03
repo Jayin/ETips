@@ -3,11 +3,9 @@ package com.meizhuo.etips.activities;
 import java.util.List;
 
 import android.app.Application;
-import android.content.Intent;
 
-import com.meizhuo.etips.common.utils.DataPool;
-import com.meizhuo.etips.common.utils.ETipsContants;
-import com.meizhuo.etips.common.utils.Elog;
+import com.meizhuo.etips.common.utils.AppInfo;
+import com.meizhuo.etips.common.utils.JPushManager;
 import com.meizhuo.etips.model.Course;
 import com.meizhuo.etips.model.Lesson;
 import com.meizhuo.etips.net.utils.LibraryAPI;
@@ -31,6 +29,7 @@ public class ETipsApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		JPushManager.init(getApplicationContext());
 		MobclickAgent.setDebugMode(true);
 	}
 	/**

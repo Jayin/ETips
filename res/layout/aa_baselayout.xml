@@ -19,8 +19,7 @@
             android:textColor="@color/white"
             android:textSize="15sp" />
     </RelativeLayout>
-
-    <RelativeLayout
+  <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_above="@+id/acty_library_searchresult_navigate"

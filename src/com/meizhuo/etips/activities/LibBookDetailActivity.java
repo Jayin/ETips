@@ -2,12 +2,10 @@ package com.meizhuo.etips.activities;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.http.client.ClientProtocolException;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,13 +14,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.meizhuo.etips.common.utils.AppInfo;
 import com.meizhuo.etips.common.utils.ETipsContants;
-import com.meizhuo.etips.common.utils.Elog;
 import com.meizhuo.etips.common.utils.SP;
 import com.meizhuo.etips.model.BookInfo;
 import com.meizhuo.etips.model.BookStatus;

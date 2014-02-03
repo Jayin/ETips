@@ -12,12 +12,11 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.RemoteViews;
 
-import com.meizhuo.etips.activities.AppInfo;
 import com.meizhuo.etips.activities.CourseMainActivity;
 import com.meizhuo.etips.activities.R;
 import com.meizhuo.etips.activities.SubSystemLoginActivity;
+import com.meizhuo.etips.common.utils.AppInfo;
 import com.meizhuo.etips.common.utils.ETipsContants;
-import com.meizhuo.etips.common.utils.ETipsUtils;
 import com.meizhuo.etips.common.utils.StringUtils;
 import com.meizhuo.etips.model.Course;
 import com.meizhuo.etips.model.Lesson;

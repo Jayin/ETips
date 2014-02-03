@@ -1,12 +1,8 @@
 package com.meizhuo.etips.activities;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 
 import android.app.PendingIntent;
 import android.content.Context;
@@ -21,15 +17,12 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
-import android.widget.TextView;
-
 import com.meizhuo.etips.common.utils.AndroidUtils;
 import com.meizhuo.etips.common.utils.CalendarManager;
 import com.meizhuo.etips.common.utils.DataPool;
 import com.meizhuo.etips.common.utils.ETipsAlarmManager;
 import com.meizhuo.etips.common.utils.ETipsContants;
 import com.meizhuo.etips.common.utils.Elog;
-import com.meizhuo.etips.common.utils.JPushManager;
 import com.meizhuo.etips.common.utils.SP;
 import com.meizhuo.etips.common.utils.SharedPreferenceHelper;
 import com.meizhuo.etips.db.CourseDAO;
@@ -67,7 +60,7 @@ public class ETipsStartActivity extends BaseUIActivity {
 					toast("首次加载需要稍等片刻");
 					break;
 				case ETipsContants.Finish:
-					JPushManager.init(getApplicationContext());
+					
 					// init
  
 					SP sp  = null;
@@ -115,29 +108,29 @@ public class ETipsStartActivity extends BaseUIActivity {
 					@Override
 					public void run() {
 						loadPreference();
-						SharedPreferences sp = getSharedPreferences(
-								ETipsContants.SharedPreference_NAME,
-								Context.MODE_PRIVATE);
-						if (sp.getString("LessonDB_Has_Data", "NO").equals(
-								"YES")) {
-							CourseDAO dao = new CourseDAO(
-									ETipsStartActivity.this);
-							List<List<List<Lesson>>> course = new ArrayList<List<List<Lesson>>>();
-							for (int i = 1; i <= 7; i++) {
-								course.add(dao.getLessonList("week = ?",
-										new String[] { String.valueOf(i) }));
-							}
-						//	App.setLessonList(course);
-							//把课程表保存到SharedPreference 更高效可靠
-							DataPool dp  = new DataPool(ETipsContants.SP_NAME_Course, getContext());
-						    Course c = new Course(course);
-						    if(dp.put("course", c)){
-						    	Elog.i("ETipsStartActivity -Course add  successfully");
-						    }else{
-						    	Elog.i("ETipsStartActivity -Course add  faild");
-						    }
- 
-						}
+//						SharedPreferences sp = getSharedPreferences(
+//								ETipsContants.SharedPreference_NAME,
+//								Context.MODE_PRIVATE);
+//						if (sp.getString("LessonDB_Has_Data", "NO").equals(
+//								"YES")) {
+//							CourseDAO dao = new CourseDAO(
+//									ETipsStartActivity.this);
+//							List<List<List<Lesson>>> course = new ArrayList<List<List<Lesson>>>();
+//							for (int i = 1; i <= 7; i++) {
+//								course.add(dao.getLessonList("week = ?",
+//										new String[] { String.valueOf(i) }));
+//							}
+//						//	App.setLessonList(course);
+//							//把课程表保存到SharedPreference 更高效可靠
+//							DataPool dp  = new DataPool(ETipsContants.SP_NAME_Course, getContext());
+//						    Course c = new Course(course);
+//						    if(dp.put("course", c)){
+//						    	Elog.i("ETipsStartActivity -Course add  successfully");
+//						    }else{
+//						    	Elog.i("ETipsStartActivity -Course add  faild");
+//						    }
+// 
+//						}
 						Message msg = handler.obtainMessage();
 				//		initAlarm();
 						msg.what = ETipsContants.Finish;

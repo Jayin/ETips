@@ -1,11 +1,8 @@
 package com.meizhuo.etips.activities;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,7 +17,7 @@ import android.widget.Toast;
 
 import com.meizhuo.etips.common.utils.ETipsContants;
 import com.meizhuo.etips.common.utils.SharedPreferenceHelper;
-import com.meizhuo.etips.db.CourseDAO;
+import com.meizhuo.etips.model.Course;
 import com.meizhuo.etips.model.Lesson;
 import com.meizhuo.etips.net.utils.SubSystemAPI;
 import com.meizhuo.etips.ui.WaittingDialog;
@@ -130,13 +127,13 @@ public class SubSystemLoginActivity extends BaseUIActivity {
 				dialog.setText("ETips解析数据中...");
 				if (tag == TAG_Lesson) {
 					dialog.setText("ETips正在跳转...");
-					//保存到数据库
-					List<List<List<Lesson>>> course = translateData(((Map<Integer, Map<Integer, List<Lesson>>>) msg.obj));
+					//转换
+					Course course =Course.translateData((Map<Integer, Map<Integer, List<Lesson>>>) msg.obj);
 					SharedPreferences sp = getSharedPreferences(
 							ETipsContants.SharedPreference_NAME,
 							Context.MODE_PRIVATE);
 					SharedPreferenceHelper.set(sp, "LessonDB_Has_Data", "YES");
-					App.setLessonList(course);
+					App.setLessonList(course.getCourseList());
 					dialog.dismiss();
 					dialog = null;
 					// startActivity.... finish..
@@ -178,44 +175,44 @@ public class SubSystemLoginActivity extends BaseUIActivity {
 			}
 		}
 
-		private List<List<List<Lesson>>> translateData(
-				Map<Integer, Map<Integer, List<Lesson>>> map) {
-			CourseDAO dao = new CourseDAO(SubSystemLoginActivity.this);
-			ContentValues cv = null;
-			dao.deleteAll();
-			List<List<List<Lesson>>> mmmlist = new ArrayList<List<List<Lesson>>>();
-			List<List<Lesson>> mmlist = new ArrayList<List<Lesson>>();
-			List<Lesson> mlist;
-			for (int i = 1; i <= 7; i++) { // 周1-7
-				Map<Integer, List<Lesson>> week = map.get(i);
-				mmlist = new ArrayList<List<Lesson>>();
-				for (int j = 1; j <= 5; j++) { // 第1-5节
-					List<Lesson> list = week.get(j);
-					mlist = new ArrayList<Lesson>();
-					for (Lesson l : list) {
-						l.week = i;
-						l.classtime = j;
-						mlist.add(l);
-						String lessonName = l.LessonName.trim();
-						String time = l.Time.trim();
-						String address = l.address.trim();
-						String teacher = l.Teacher.trim();
-						cv = new ContentValues();
-						cv.put("lessonName", lessonName);
-						cv.put("time", time);
-						cv.put("address", address);
-						cv.put("teacher", teacher);
-						cv.put("week", i);
-						cv.put("classtime", j);
-						dao.add(cv);
-					}
-					mmlist.add(mlist);
-				}
-				mmmlist.add(mmlist);
-
-			}
-			return mmmlist;
-		}
+//		private List<List<List<Lesson>>> translateData(
+//				Map<Integer, Map<Integer, List<Lesson>>> map) {
+////			CourseDAO dao = new CourseDAO(SubSystemLoginActivity.this);
+////			ContentValues cv = null;
+////			dao.deleteAll();
+//			List<List<List<Lesson>>> mmmlist = new ArrayList<List<List<Lesson>>>();
+//			List<List<Lesson>> mmlist = new ArrayList<List<Lesson>>();
+//			List<Lesson> mlist;
+//			for (int i = 1; i <= 7; i++) { // 周1-7
+//				Map<Integer, List<Lesson>> week = map.get(i);
+//				mmlist = new ArrayList<List<Lesson>>();
+//				for (int j = 1; j <= 5; j++) { // 第1-5节
+//					List<Lesson> list = week.get(j);
+//					mlist = new ArrayList<Lesson>();
+//					for (Lesson l : list) {
+//						l.week = i;
+//						l.classtime = j;
+//						mlist.add(l);
+//						String lessonName = l.LessonName.trim();
+//						String time = l.Time.trim();
+//						String address = l.address.trim();
+//						String teacher = l.Teacher.trim();
+//						cv = new ContentValues();
+//						cv.put("lessonName", lessonName);
+//						cv.put("time", time);
+//						cv.put("address", address);
+//						cv.put("teacher", teacher);
+//						cv.put("week", i);
+//						cv.put("classtime", j);
+//						dao.add(cv);
+//					}
+//					mmlist.add(mlist);
+//				}
+//				mmmlist.add(mmlist);
+//
+//			}
+//			return mmmlist;
+//		}
 
 	}
 

@@ -137,7 +137,7 @@ public class StringUtils {
 				.append(c.get(Calendar.DAY_OF_MONTH)).append(" 星期");
 		int day_of_week = c.get(Calendar.DAY_OF_WEEK) == 1 ? 7 : c
 				.get(Calendar.DAY_OF_WEEK) - 1;
-		getChinese(day_of_week);
+		sb.append(getChinese(day_of_week));
 		return sb.toString();
 	}
 	/**

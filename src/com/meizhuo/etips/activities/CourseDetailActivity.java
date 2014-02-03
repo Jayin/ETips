@@ -1,22 +1,12 @@
 package com.meizhuo.etips.activities;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import android.content.ContentValues;
-import android.content.pm.ResolveInfo;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.meizhuo.etips.common.utils.ETipsContants;
-import com.meizhuo.etips.common.utils.StringUtils;
-import com.meizhuo.etips.db.CourseDAO;
+import com.meizhuo.etips.common.utils.AppInfo;
+import com.meizhuo.etips.model.Course;
 import com.meizhuo.etips.model.Lesson;
 
 public class CourseDetailActivity extends BaseUIActivity {
@@ -27,6 +17,7 @@ public class CourseDetailActivity extends BaseUIActivity {
 			tv_tips;
 	private View backBtn, settingBtn, okBtn, cancleBtn;
 	private View footView;
+	int week, classtime, positon = 0;//星期几(form0)，课时，位置
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -80,10 +71,9 @@ public class CourseDetailActivity extends BaseUIActivity {
 
 			@Override
 			public void onClick(View v) {
-				if (footView.getVisibility() == View.INVISIBLE){
+				if (footView.getVisibility() == View.INVISIBLE) {
 					change2edit();
 				}
-					
 
 			}
 		});
@@ -103,97 +93,113 @@ public class CourseDetailActivity extends BaseUIActivity {
 			@Override
 			public void onClick(View v) {
 				change2nomal();
-
-				final Handler handler = new Handler() {
-					@Override
-					public void handleMessage(Message msg) {
-						if (msg.what == ETipsContants.Finish) {
-							tv_lesson.setText(et_lesson.getText().toString()
-									.trim());
-							tv_address.setText(et_address.getText().toString()
-									.trim());
-							tv_teacher.setText(et_teacher.getText().toString()
-									.trim());
-							tv_time.setText(et_time.getText().toString().trim());
-							Toast.makeText(CourseDetailActivity.this, "编辑成功！",
-									Toast.LENGTH_SHORT).show();
-							setResult(RESULT_OK, getIntent());
-						}
-
-						else {
-							Toast.makeText(CourseDetailActivity.this,
-									(String) msg.obj, Toast.LENGTH_SHORT)
-									.show();
-							setResult(RESULT_FIRST_USER, getIntent());
-						}
-					}
-				};
-				new Thread(new Runnable() {
-
-					@Override
-					public void run() {
-						Message msg = handler.obtainMessage();
-						if (!StringUtils.isEditVaild(et_time.getText()
-								.toString())) {
-							if (!(et_lesson.getText().toString().trim()
-									.equals("")
-									&& et_time.getText().toString().trim()
-											.equals("")
-									&& et_address.getText().toString().trim()
-											.equals("") && et_teacher.getText()
-									.toString().trim().equals(""))) {
-								msg.obj = "编辑失败,输入上课周数错误！";
-								msg.what = ETipsContants.Fail;
-								handler.sendMessage(msg);
-								return;
-							}
-
-						}
-						CourseDAO dao = new CourseDAO(CourseDetailActivity.this);
-						ContentValues cv = new ContentValues();
-						cv.put("lessonName", et_lesson.getText().toString()
-								.trim());
-						cv.put("time", et_time.getText().toString().trim());
-						cv.put("address", et_address.getText().toString()
-								.trim());
-						cv.put("teacher", et_teacher.getText().toString()
-								.trim());
-						cv.put("week", lesson.week);
-						cv.put("classtime", lesson.classtime);
-						initData();
-						String where = "lessonName = ? and time = ? and address = ? and teacher = ? and week = ? and classtime = ? ";
-						String[] whereArgs = new String[] { lesson.LessonName,
-								lesson.Time, lesson.address, lesson.Teacher,
-								String.valueOf(lesson.week),
-								String.valueOf(lesson.classtime) };
-						if (dao.update(cv, where, whereArgs)) {
-							// Application 从新获取 lessonlist
-							List<List<List<Lesson>>> course = new ArrayList<List<List<Lesson>>>();
-							for (int i = 1; i <= 7; i++) {
-
-								course.add(dao.getLessonList("week = ?",
-										new String[] { String.valueOf(i) }));
-							}
-							App.setLessonList(course);
-							msg.what = ETipsContants.Finish;
-
-						} else {
-							msg.obj = "编辑失败,请重试！";
-							msg.what = ETipsContants.Fail;
-
-						}
-						handler.sendMessage(msg);
-					}
-				}).start();
+				//
+				// final Handler handler = new Handler() {
+				// @Override
+				// public void handleMessage(Message msg) {
+				// if (msg.what == ETipsContants.Finish) {
+				// tv_lesson.setText(et_lesson.getText().toString()
+				// .trim());
+				// tv_address.setText(et_address.getText().toString()
+				// .trim());
+				// tv_teacher.setText(et_teacher.getText().toString()
+				// .trim());
+				// tv_time.setText(et_time.getText().toString().trim());
+				// Toast.makeText(CourseDetailActivity.this, "编辑成功！",
+				// Toast.LENGTH_SHORT).show();
+				// setResult(RESULT_OK, getIntent());
+				// }
+				//
+				// else {
+				// Toast.makeText(CourseDetailActivity.this,
+				// (String) msg.obj, Toast.LENGTH_SHORT)
+				// .show();
+				// setResult(RESULT_FIRST_USER, getIntent());
+				// }
+				// }
+				// };
+				// new Thread(new Runnable() {
+				//
+				// @Override
+				// public void run() {
+				// Message msg = handler.obtainMessage();
+				// if (!StringUtils.isEditVaild(et_time.getText()
+				// .toString())) {
+				// if (!(et_lesson.getText().toString().trim()
+				// .equals("")
+				// && et_time.getText().toString().trim()
+				// .equals("")
+				// && et_address.getText().toString().trim()
+				// .equals("") && et_teacher.getText()
+				// .toString().trim().equals(""))) {
+				// msg.obj = "编辑失败,输入上课周数错误！";
+				// msg.what = ETipsContants.Fail;
+				// handler.sendMessage(msg);
+				// return;
+				// }
+				//
+				// }
+				// CourseDAO dao = new CourseDAO(CourseDetailActivity.this);
+				// ContentValues cv = new ContentValues();
+				// cv.put("lessonName", et_lesson.getText().toString()
+				// .trim());
+				// cv.put("time", et_time.getText().toString().trim());
+				// cv.put("address", et_address.getText().toString()
+				// .trim());
+				// cv.put("teacher", et_teacher.getText().toString()
+				// .trim());
+				// cv.put("week", lesson.week);
+				// cv.put("classtime", lesson.classtime);
+				// initData();
+				// String where =
+				// "lessonName = ? and time = ? and address = ? and teacher = ? and week = ? and classtime = ? ";
+				// String[] whereArgs = new String[] { lesson.LessonName,
+				// lesson.Time, lesson.address, lesson.Teacher,
+				// String.valueOf(lesson.week),
+				// String.valueOf(lesson.classtime) };
+				// if (dao.update(cv, where, whereArgs)) {
+				// // Application 从新获取 lessonlist
+				// List<List<List<Lesson>>> course = new
+				// ArrayList<List<List<Lesson>>>();
+				// for (int i = 1; i <= 7; i++) {
+				//
+				// course.add(dao.getLessonList("week = ?",
+				// new String[] { String.valueOf(i) }));
+				// }
+				// App.setLessonList(course);
+				// msg.what = ETipsContants.Finish;
+				//
+				// } else {
+				// msg.obj = "编辑失败,请重试！";
+				// msg.what = ETipsContants.Fail;
+				//
+				// }
+				// handler.sendMessage(msg);
+				// }
+				// }).start();
+				toUpdateCourse();
 			}
 		});
+	}
+   //处理修改
+	protected void toUpdateCourse() {
+		Course course = AppInfo.getCourse(getContext());
+		Lesson l = course.getDailyLesson(week,classtime).get(positon);
+		l.setLessonName(et_lesson.getText().toString()
+		 .trim());
+		l.setTime(et_time.getText().toString().trim());
+		l.setTeacher(et_teacher.getText().toString()
+				 .trim());
+		l.setAddress(et_address.getText().toString()
+				 .trim());
+		AppInfo.setCourse(getContext(), course);
 	}
 
 	@Override
 	protected void initData() {
-		int week = getIntent().getIntExtra("week", 1);
-		int classtime = getIntent().getIntExtra("classtime", 1);
-		int positon = getIntent().getIntExtra("position", 0);
+		week = getIntent().getIntExtra("week", 1);
+		classtime = getIntent().getIntExtra("classtime", 1);
+		  positon = getIntent().getIntExtra("position", 0);
 		App = (ETipsApplication) getApplication();
 		lesson = App.getLessonList().get(week - 1).get(classtime - 1)
 				.get(positon);
@@ -213,10 +219,6 @@ public class CourseDetailActivity extends BaseUIActivity {
 		et_address.setVisibility(View.VISIBLE);
 		et_teacher.setVisibility(View.VISIBLE);
 
-		// settingBtn.setVisibility(View.INVISIBLE);
-		// backBtn.setVisibility(View.INVISIBLE);
-		// okBtn.setVisibility(View.VISIBLE);
-		// cancleBtn.setVisibility(View.VISIBLE);
 		footView.setVisibility(View.VISIBLE);
 
 		et_address.setText(tv_address.getText().toString());
@@ -238,10 +240,6 @@ public class CourseDetailActivity extends BaseUIActivity {
 		et_address.setVisibility(View.GONE);
 		et_teacher.setVisibility(View.GONE);
 
-		// settingBtn.setVisibility(View.VISIBLE);
-		// backBtn.setVisibility(View.VISIBLE);
-		// okBtn.setVisibility(View.INVISIBLE);
-		// cancleBtn.setVisibility(View.INVISIBLE);
 		footView.setVisibility(View.INVISIBLE);
 	}
 

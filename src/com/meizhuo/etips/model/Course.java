@@ -3,7 +3,9 @@ package com.meizhuo.etips.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import android.content.ContentValues;
 import android.content.Context;
 
 import com.meizhuo.etips.common.utils.CourseUtils;
@@ -77,6 +79,32 @@ public class Course implements Serializable {
 			}
 		}
 		return result;
+	}
+	/**
+	 * 把从api或去到的数据转换成一个Course
+	 * @param map Map<Integer, Map<Integer, List<Lesson>>>
+	 * @return
+	 */
+	public static  Course translateData(Map<Integer, Map<Integer, List<Lesson>>> map){
+		List<List<List<Lesson>>> mmmlist = new ArrayList<List<List<Lesson>>>();
+		List<List<Lesson>> mmlist = new ArrayList<List<Lesson>>();
+		List<Lesson> mlist;
+		for (int i = 1; i <= 7; i++) { // 周1-7
+			Map<Integer, List<Lesson>> week = map.get(i);
+			mmlist = new ArrayList<List<Lesson>>();
+			for (int j = 1; j <= 5; j++) { // 第1-5节
+				List<Lesson> list = week.get(j);
+				mlist = new ArrayList<Lesson>();
+				for (Lesson l : list) {
+					l.week = i;
+					l.classtime = j;
+					mlist.add(l);
+				}
+				mmlist.add(mlist);
+			}
+			mmmlist.add(mmlist);
+		}
+		return new Course(mmmlist);
 	}
 
 	public List<List<List<Lesson>>> getCourseList() {

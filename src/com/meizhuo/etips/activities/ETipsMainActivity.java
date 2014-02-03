@@ -22,6 +22,7 @@ import android.widget.ViewFlipper;
 
  
  
+import com.meizhuo.etips.common.utils.AppInfo;
 import com.meizhuo.etips.common.utils.CalendarManager;
 import com.meizhuo.etips.common.utils.CourseUtils;
 import com.meizhuo.etips.common.utils.ETipsContants;
@@ -31,7 +32,6 @@ import com.meizhuo.etips.common.utils.Elog;
 import com.meizhuo.etips.common.utils.SP;
 import com.meizhuo.etips.common.utils.SharedPreferenceHelper;
 import com.meizhuo.etips.common.utils.StringUtils;
-import com.meizhuo.etips.db.CourseDAO;
 import com.meizhuo.etips.model.Lesson;
 import com.meizhuo.etips.model.MNotes;
 
@@ -425,19 +425,19 @@ public class ETipsMainActivity extends BaseUIActivity implements
 		}
 
 		private List<Lesson> getLesson(int[] courseStatus) {
-			List<Lesson> _coursList = null;
-			if (App.getLessonList() != null && App.getLessonList().size() > 0) {
-				_coursList = App.getLessonList().get(courseStatus[0] - 1)
-						.get(courseStatus[1] - 1);
-			} else {
-				CourseDAO dao = new CourseDAO(ETipsMainActivity.this);
-				// dao.getCourse()
-				_coursList = dao.getLessonByClassTime(
-						"week = ? and classtime = ?",
-						new String[] { String.valueOf(courseStatus[0]),
-								String.valueOf(courseStatus[1]) });
-			}
-			return _coursList;
+//			List<Lesson> _coursList = null;
+//			if (App.getLessonList() != null && App.getLessonList().size() > 0) {
+//				_coursList = App.getLessonList().get(courseStatus[0] - 1)
+//						.get(courseStatus[1] - 1);
+//			} else {
+//				CourseDAO dao = new CourseDAO(ETipsMainActivity.this);
+//				// dao.getCourse()
+//				_coursList = dao.getLessonByClassTime(
+//						"week = ? and classtime = ?",
+//						new String[] { String.valueOf(courseStatus[0]),
+//								String.valueOf(courseStatus[1]) });
+//			}
+			return AppInfo.getCourse(getContext()).getDailyLesson(courseStatus[0], courseStatus[1]);
 		}
 	}
 

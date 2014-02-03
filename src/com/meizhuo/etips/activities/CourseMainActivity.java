@@ -3,7 +3,11 @@ package com.meizhuo.etips.activities;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -51,6 +55,7 @@ public class CourseMainActivity extends BaseUIActivity {
 	// private ViewGroup container;
 	private String Title_CurrentWeek = null;
 	private ViewFlipper flipper;
+	private BroadcastReceiver mBroadcastReceiver;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +66,14 @@ public class CourseMainActivity extends BaseUIActivity {
 		// App.setObject(this); // 这里为了方便跳转！CourseMainActivity-》settingActivity
 		// ->subloginActivity-》CourseMainActivity
 		initLayout();
+		
+		mBroadcastReceiver = new BroadcastReceiver(){
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				// TODO Auto-generated method stub
+				
+			}
+		};
 
 	}
 
@@ -319,5 +332,6 @@ public class CourseMainActivity extends BaseUIActivity {
 		initLayout();
 		// System.out.println("onNewIntent!!!!");
 	}
-
+  
+	
 }

@@ -23,7 +23,6 @@ import com.meizhuo.etips.activities.CourseMainActivity;
 import com.meizhuo.etips.activities.ETipsApplication;
 import com.meizhuo.etips.activities.R;
 import com.meizhuo.etips.common.utils.Elog;
-import com.meizhuo.etips.db.CourseDAO;
 import com.meizhuo.etips.model.Lesson;
 import com.meizhuo.etips.ui.utils.BaseDialog;
 

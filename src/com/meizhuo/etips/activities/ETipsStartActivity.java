@@ -25,7 +25,6 @@ import com.meizhuo.etips.common.utils.ETipsContants;
 import com.meizhuo.etips.common.utils.Elog;
 import com.meizhuo.etips.common.utils.SP;
 import com.meizhuo.etips.common.utils.SharedPreferenceHelper;
-import com.meizhuo.etips.db.CourseDAO;
 import com.meizhuo.etips.model.Course;
 import com.meizhuo.etips.model.Lesson;
 /**

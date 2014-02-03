@@ -7,6 +7,8 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.meizhuo.etips.app.Preferences;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -43,10 +45,10 @@ public class ETipsUtils {
 		Calendar c = Calendar.getInstance();
 		c.setTimeInMillis(milliseconds);
 		StringBuffer sb = new StringBuffer();
-		sb.append(c.get(c.YEAR)).append("-").append(c.get(c.MONTH) + 1)
-				.append("-").append(c.get(c.DAY_OF_MONTH)).append(" ")
-				.append(c.get(c.HOUR_OF_DAY)).append(":")
-				.append(c.get(c.MINUTE));
+		sb.append(c.get(Calendar.YEAR)).append("-").append(c.get(Calendar.MONTH) + 1)
+				.append("-").append(c.get(Calendar.DAY_OF_MONTH)).append(" ")
+				.append(c.get(Calendar.HOUR_OF_DAY)).append(":")
+				.append(c.get(Calendar.MINUTE));
 		return sb.toString();
 	}
 
@@ -79,16 +81,7 @@ public class ETipsUtils {
 	 * @return 
 	 */
 	public static int getCurrentWeek(Context context){
-		SharedPreferences sp = context.getSharedPreferences(
-				ETipsContants.SharedPreference_NAME, Context.MODE_PRIVATE);
-		int currentWeek = Integer.parseInt(sp.getString("currentWeek", "1"));
-		int weekOfYear = Integer.parseInt(sp.getString("weekOfYear",
-				CalendarManager.getWeekOfYeah() + ""));
-		if(weekOfYear != CalendarManager.getWeekOfYeah()){
-			currentWeek++;
-			setCurrentWeek(context,currentWeek);
-		} 
-		return currentWeek;
+		return Preferences.getCurrentWeek(context);
 	}
 	/**
 	 * 设置当前周数,并且发布周数切换广播
@@ -96,17 +89,7 @@ public class ETipsUtils {
 	 * @param currentWeek
 	 */
 	public static void setCurrentWeek(Context context,int currentWeek){
-		if (currentWeek <= 0) {
-			currentWeek = 1;
-		}
-		SharedPreferences sp = context.getSharedPreferences(
-				ETipsContants.SharedPreference_NAME, Context.MODE_PRIVATE);
-		SharedPreferenceHelper.set(sp, "currentWeek", currentWeek + "");
-		SharedPreferenceHelper.set(sp, "weekOfYear",
-				CalendarManager.getWeekOfYeah() + "");
-		// 发广播通知Home页面要课表，时间切换
-		Intent intent = new Intent(ETipsContants.Action_CurrentWeekChange);
-		context.sendBroadcast(intent);
+		Preferences.setCurrentWeek(context, currentWeek);
 	}
 
 	/**

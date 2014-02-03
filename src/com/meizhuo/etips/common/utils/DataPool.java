@@ -90,7 +90,7 @@ public class DataPool {
 	 * 
 	 * @param key
 	 *            key of this pair ,with the defalut key="temp"
-	 * @return one Serializable Object
+	 * @return one Serializable Object ;null if not exist
 	 */
 	public Serializable get(String key) {
 		if (!contains(key))

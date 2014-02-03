@@ -2,10 +2,7 @@ package com.meizhuo.etips.activities;
 
 import java.util.List;
 import java.util.Map;
-
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,9 +11,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.meizhuo.etips.common.utils.ETipsContants;
-import com.meizhuo.etips.common.utils.SharedPreferenceHelper;
 import com.meizhuo.etips.model.Course;
 import com.meizhuo.etips.model.Lesson;
 import com.meizhuo.etips.net.utils.SubSystemAPI;
@@ -129,10 +124,10 @@ public class SubSystemLoginActivity extends BaseUIActivity {
 					dialog.setText("ETips正在跳转...");
 					//转换
 					Course course =Course.translateData((Map<Integer, Map<Integer, List<Lesson>>>) msg.obj);
-					SharedPreferences sp = getSharedPreferences(
-							ETipsContants.SharedPreference_NAME,
-							Context.MODE_PRIVATE);
-					SharedPreferenceHelper.set(sp, "LessonDB_Has_Data", "YES");
+//					SharedPreferences sp = getSharedPreferences(
+//							ETipsContants.SharedPreference_NAME,
+//							Context.MODE_PRIVATE);
+//					SharedPreferenceHelper.set(sp, "LessonDB_Has_Data", "YES");
 					App.setLessonList(course.getCourseList());
 					dialog.dismiss();
 					dialog = null;

@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
-
 import android.content.Context;
-import android.content.SharedPreferences;
-
 import com.meizhuo.etips.activities.R;
 import com.meizhuo.etips.model.Lesson;
 
@@ -103,8 +100,6 @@ public class CourseUtils {
      * @return
      */
 	public static boolean isLessonStart(Context context, Lesson l) {
-		SharedPreferences sp = context.getSharedPreferences(
-				ETipsContants.SharedPreference_NAME, Context.MODE_PRIVATE);
 		Calendar c = CalendarManager.getCalendar();
 		int currentWeek = ETipsUtils.getCurrentWeek(context);
 		Set<Integer> set = null;

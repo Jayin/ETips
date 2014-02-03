@@ -13,8 +13,9 @@ import com.meizhuo.etips.model.Course;
 import com.meizhuo.etips.model.MsgRecord;
 
 /**
- * 应用程序信息管理
- * 
+ * 应用信息管理<br>
+ * 各种非主sharedPreferred的管理<br>
+ * see class : {@linkplain#Preference}
  * @author Jayin Ton
  * @since v2.2 2014.1.31
  * 
@@ -69,7 +70,7 @@ public class AppInfo {
 	 * 获得课程表
 	 * 
 	 * @param context
-	 * @return
+	 * @return null if not exist
 	 */
 	public static Course getCourse(Context context) {
 		DataPool dp = getDataPool(DP_Name_Course, context);

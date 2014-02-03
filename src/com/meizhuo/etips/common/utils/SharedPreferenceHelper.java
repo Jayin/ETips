@@ -7,9 +7,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 
 public class SharedPreferenceHelper {
-	public static boolean set(SharedPreferences sp, String key, String defvalue) {
+	public static boolean set(SharedPreferences sp, String key, String value) {
 		SharedPreferences.Editor editor = sp.edit();
-		editor.putString(key, defvalue);
+		editor.putString(key, value);
 		return editor.commit();
 	}
 

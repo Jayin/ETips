@@ -15,13 +15,9 @@
     <string-array name="SharedPreference">
         <item>First_Open_APP</item>
         <item>LessonDB_Has_Data</item>
-        <item>User_ID_Subsystem</item>
-        <item>User_PSW_Subsystem</item>
-        <item>User_ID_Library</item>
-        <item>User_PSW_Library</item>
-        <item>First_Open_APP_Time</item>
+        <item>User_ID_Subsystem</item> 
+        <item>User_PSW_Subsystem</item> 
         <item>Current_Week</item>
-        <item>Is_Open_Daily_Course_Alarm</item>
         <item>Has_Msg_To_Check</item>
         <item>Has_Saying_load</item>
     </string-array>

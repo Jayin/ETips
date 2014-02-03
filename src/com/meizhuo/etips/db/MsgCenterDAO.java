@@ -13,7 +13,6 @@ import com.meizhuo.etips.activities.R;
 import com.meizhuo.etips.activities.R.string;
 import com.meizhuo.etips.common.utils.ETipsContants;
 import com.meizhuo.etips.common.utils.ETipsUtils;
-import com.meizhuo.etips.common.utils.SharedPreferenceHelper;
 import com.meizhuo.etips.model.MsgRecord;
 
 public class MsgCenterDAO implements BaseDAO {
@@ -100,11 +99,11 @@ public class MsgCenterDAO implements BaseDAO {
 	 */
 	public boolean addOne(){
 		ContentValues cv =new ContentValues();
-		SharedPreferences sp  = context.getSharedPreferences(ETipsContants.SharedPreference_NAME, Context.MODE_PRIVATE);
+		//SharedPreferences sp  = context.getSharedPreferences(ETipsContants.SharedPreference_NAME, Context.MODE_PRIVATE);
 		cv.put("id", 0);
 		cv.put("content",context.getString(R.string.MsgCenterTips));
 		cv.put("type", ETipsContants.TYPE_MsgCenter_System);
-		cv.put("addTime", sp.getString("First_Open_APP_Time", String.valueOf(System.currentTimeMillis())));
+		cv.put("addTime", System.currentTimeMillis()+"");
 		System.out.println((String)cv.get("addTime"));
 		return add(cv);
 	}

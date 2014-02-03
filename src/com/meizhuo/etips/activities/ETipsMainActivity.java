@@ -10,31 +10,23 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.util.DebugUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
-
- 
- 
 import com.meizhuo.etips.app.AppInfo;
+import com.meizhuo.etips.app.Preferences;
 import com.meizhuo.etips.common.utils.CalendarManager;
 import com.meizhuo.etips.common.utils.CourseUtils;
 import com.meizhuo.etips.common.utils.ETipsContants;
 import com.meizhuo.etips.common.utils.ETipsUtils;
-import com.meizhuo.etips.common.utils.Elog;
-
 import com.meizhuo.etips.common.utils.SP;
-import com.meizhuo.etips.common.utils.SharedPreferenceHelper;
 import com.meizhuo.etips.common.utils.StringUtils;
 import com.meizhuo.etips.model.Lesson;
-import com.meizhuo.etips.model.MNotes;
 import com.umeng.socialize.common.l;
 
 /**
@@ -161,10 +153,15 @@ public class ETipsMainActivity extends BaseUIActivity implements
 		tv_weekNo.setText("第" + current_week + "周");
 		// / tv_courseStatus.setText("");
 		tv_time.setText(StringUtils.getTimeFormat());
-		SharedPreferences sp = getSharedPreferences(
-				ETipsContants.SharedPreference_NAME, Context.MODE_PRIVATE);
-		String value = sp.getString("Has_Msg_To_Check", "NO");
-		if (value.equals("YES")) {
+//		SharedPreferences sp = getSharedPreferences(
+//				ETipsContants.SharedPreference_NAME, Context.MODE_PRIVATE);
+//		String value = sp.getString("Has_Msg_To_Check", "NO");
+//		if (value.equals("YES")) {
+//			((ImageView) _getView(R.id.acty_etips_main_msgcenter_notifyNew))
+//					.setVisibility(View.VISIBLE);
+//		}
+		//是否有未读消息
+		if (Preferences.isHasMsgToCheck(getContext())) {
 			((ImageView) _getView(R.id.acty_etips_main_msgcenter_notifyNew))
 					.setVisibility(View.VISIBLE);
 		}
@@ -336,13 +333,15 @@ public class ETipsMainActivity extends BaseUIActivity implements
 		    up1 = up2 =  down1 = down2 = null;
 			List<Lesson> _coursList = null;
 			boolean flag = false;
-			SharedPreferences sp = ETipsMainActivity.this.getSharedPreferences(
-					ETipsContants.SharedPreference_NAME, Context.MODE_PRIVATE);
-			String status = sp.getString("LessonDB_Has_Data", "NO");
-			if (!status.equals("YES")) {
-				return up1 = "同学\n还没有课表信息哦！\n赶紧点击这里更新课表吧!";
-			}
-
+//			SharedPreferences sp = ETipsMainActivity.this.getSharedPreferences(
+//					ETipsContants.SharedPreference_NAME, Context.MODE_PRIVATE);
+//			String status = sp.getString("LessonDB_Has_Data", "NO");
+//			if (!status.equals("YES")) {
+//				return up1 = "同学\n还没有课表信息哦！\n赶紧点击这里更新课表吧!";
+//			}
+            if(!Preferences.isCourseExist(getContext())){
+            	return up1 = "同学\n还没有课表信息哦！\n赶紧点击这里更新课表吧!";
+            }
 			int[] courseStatus = CourseUtils.getCourseStatus(
 					ETipsMainActivity.this, CalendarManager.getTimePart()
 							.getTimeInMillis());

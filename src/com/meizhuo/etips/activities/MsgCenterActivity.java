@@ -2,8 +2,6 @@ package com.meizhuo.etips.activities;
 
 import java.util.ArrayList;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,11 +14,10 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.meizhuo.etips.app.AppInfo;
+import com.meizhuo.etips.app.Preferences;
 import com.meizhuo.etips.common.utils.ETipsContants;
 import com.meizhuo.etips.common.utils.ETipsUtils;
-import com.meizhuo.etips.common.utils.SharedPreferenceHelper;
 import com.meizhuo.etips.common.utils.StringUtils;
 import com.meizhuo.etips.model.MsgRecord;
 
@@ -105,9 +102,10 @@ public class MsgCenterActivity extends BaseUIActivity {
 	@Override
 	protected void initData() {
 		// 注意更新 用户查看消息的状态
-		SharedPreferences sp = getSharedPreferences(
-				ETipsContants.SharedPreference_NAME, Context.MODE_PRIVATE);
-		SharedPreferenceHelper.set(sp, "Has_Msg_To_Check", "NO");
+//		SharedPreferences sp = getSharedPreferences(
+//				ETipsContants.SharedPreference_NAME, Context.MODE_PRIVATE);
+//		SharedPreferenceHelper.set(sp, "Has_Msg_To_Check", "NO");
+		Preferences.setIsHasMsgToCheck(getContext(), false);
 	}
 
 	class MsgCenterHandler extends Handler {

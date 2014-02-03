@@ -3,19 +3,16 @@ package com.meizhuo.etips.receiver;
 import java.util.ArrayList;
 
 import android.content.BroadcastReceiver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import cn.jpush.android.api.JPushInterface;
-
 import com.meizhuo.etips.activities.MsgCenterActivity;
 import com.meizhuo.etips.app.AppInfo;
+import com.meizhuo.etips.app.Preferences;
 import com.meizhuo.etips.common.utils.ETipsContants;
 import com.meizhuo.etips.common.utils.ETipsUtils;
-import com.meizhuo.etips.common.utils.SharedPreferenceHelper;
 import com.meizhuo.etips.model.MsgRecord;
 import com.meizhuo.etips.ui.utils.BaseNotificationCompat;
 
@@ -74,17 +71,17 @@ public class MsgReceiver extends BroadcastReceiver {
 						.getContentIntent(context, MsgCenterActivity.class));
 				notification.setContentTitle("ETips消息中心");
 				if (saveMessage(notify, ETipsContants.TYPE_MsgCenter_Notify)) {
-					saveToSharedPerference(); // 通知用户有新消息
+					saveToSharedPerference(context); // 通知用户有新消息
 					notification.setID(ETipsContants.ID_Notify);
 					notification.setContentText(notify);
 					notification.show();
 				}
 				if (saveMessage(push, ETipsContants.TYPE_MsgCenter_Push)) {
-					saveToSharedPerference();
+					saveToSharedPerference(context);
 					// not to create a notification
 				}
 				if (saveMessage(system, ETipsContants.TYPE_MsgCenter_System)) {
-					saveToSharedPerference();
+					saveToSharedPerference(context);
 					notification.setID(ETipsContants.ID_System);
 					notification.setContentText(system);
 					notification.show();
@@ -186,10 +183,11 @@ public class MsgReceiver extends BroadcastReceiver {
 		return false;
 	}
 
-	public void saveToSharedPerference() {
-		SharedPreferences sp = context.getSharedPreferences(
-				ETipsContants.SharedPreference_NAME, Context.MODE_PRIVATE);
-		SharedPreferenceHelper.set(sp, "Has_Msg_To_Check", "YES");
+	public void saveToSharedPerference(Context context) {
+//		SharedPreferences sp = context.getSharedPreferences(
+//				ETipsContants.SharedPreference_NAME, Context.MODE_PRIVATE);
+//		SharedPreferenceHelper.set(sp, "Has_Msg_To_Check", "YES");
+		Preferences.setIsHasMsgToCheck(context, true);
 	}
 
 }

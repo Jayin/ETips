@@ -13,7 +13,8 @@ public class ETipsContants {
 	 */
 	public final static String DB_NAME = "ETips.db";
 	public final static String DB_NAME_MsgCenter = "msgcenter.db";
-	public final static String SharedPreference_NAME = "ETipsSharedPreference";
+ 	public final static String SharedPreference_NAME = "ETipsSharedPreference";
+	public final static String SP_NAME_Preferences = "Preferences";//V 2.2开始用这个而不是上面一个
 	public final static String SP_NAME_Notes = "Notes";
 	public final static String SP_NAME_Book = "Book";
     public final static String SP_NAME_User = "User";

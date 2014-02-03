@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.meizhuo.etips.common.utils.AppInfo;
+import com.meizhuo.etips.app.AppInfo;
 import com.meizhuo.etips.model.Course;
 import com.meizhuo.etips.model.Lesson;
 

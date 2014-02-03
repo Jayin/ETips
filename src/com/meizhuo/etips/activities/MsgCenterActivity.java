@@ -1,8 +1,7 @@
 package com.meizhuo.etips.activities;
 
-import java.util.List;
+import java.util.ArrayList;
 
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,20 +10,18 @@ import android.os.Message;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.meizhuo.etips.app.AppInfo;
 import com.meizhuo.etips.common.utils.ETipsContants;
 import com.meizhuo.etips.common.utils.ETipsUtils;
 import com.meizhuo.etips.common.utils.SharedPreferenceHelper;
 import com.meizhuo.etips.common.utils.StringUtils;
-import com.meizhuo.etips.db.MsgCenterDAO;
 import com.meizhuo.etips.model.MsgRecord;
 
 /**
@@ -37,7 +34,7 @@ public class MsgCenterActivity extends BaseUIActivity {
 	private View backBtn, reflushBtn;
 	private ListView lv;
 	private ProgressBar pb;
-	private List<MsgRecord> list;
+	private ArrayList<MsgRecord> list;
 	private boolean hasData = false;
 	private MsgCenterLVAdapter adapter;
 
@@ -86,11 +83,16 @@ public class MsgCenterActivity extends BaseUIActivity {
 					new Thread(new Runnable() {
 						@Override
 						public void run() {
-							MsgCenterDAO dao = new MsgCenterDAO(
-									MsgCenterActivity.this);
-							if (dao.deleteAll()) {
+//							MsgCenterDAO dao = new MsgCenterDAO(
+//									MsgCenterActivity.this);
+//							if (dao.deleteAll()) {
+//								list.removeAll(list);
+//								mHandler.sendEmptyMessage(ETipsContants.Finish);
+//							}
+							//清空
+							if(AppInfo.setMessages(getContext(), list)){
 								list.removeAll(list);
-								mHandler.sendEmptyMessage(ETipsContants.Finish);
+       							mHandler.sendEmptyMessage(ETipsContants.Finish);
 							}
 						}
 					}).start();
@@ -140,14 +142,23 @@ public class MsgCenterActivity extends BaseUIActivity {
 
 		@Override
 		public void run() {
-			MsgCenterDAO dao = new MsgCenterDAO(MsgCenterActivity.this);
-			list = dao.queryAll();
+//			MsgCenterDAO dao = new MsgCenterDAO(MsgCenterActivity.this);
+//			list = dao.queryAll();
+			list = AppInfo.getMessages(getContext());
 			if (list.size() > 0) {
-				list = ETipsUtils.reverse(list);
+				list = (ArrayList<MsgRecord>)ETipsUtils.reverse(list);
 				h.sendEmptyMessage(ETipsContants.Finish);
 			} else {
-				dao.addOne();
-				list = dao.queryAll();
+//				dao.addOne();
+//				list = dao.queryAll();
+				//没有就添加一条默认的
+				MsgRecord mr =new MsgRecord();
+				mr.setId(0);
+				mr.setContent(getContext().getString(R.string.MsgCenterTips));
+				mr.setType(ETipsContants.TYPE_MsgCenter_System);
+				mr.setAddTime(System.currentTimeMillis()+"");
+				list.add(mr);
+				AppInfo.setMessages(getContext(), list);
 				h.sendEmptyMessage(ETipsContants.Finish);
 			}
 		}

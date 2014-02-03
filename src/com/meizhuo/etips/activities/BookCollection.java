@@ -10,7 +10,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-import com.meizhuo.etips.common.utils.AppInfo;
+import com.meizhuo.etips.app.AppInfo;
 import com.meizhuo.etips.model.BookInfo;
 import com.meizhuo.etips.ui.LibSearchResultListViewAdapter;
 

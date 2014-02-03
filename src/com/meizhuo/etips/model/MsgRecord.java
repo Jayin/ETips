@@ -1,12 +1,14 @@
 package com.meizhuo.etips.model;
 
+import java.io.Serializable;
+
 /**
  * 一条消息记录
  * 
  * @author Jayin Ton
  * 
  */
-public class MsgRecord {
+public class MsgRecord implements Serializable{
 	public MsgRecord() {
 		id = 0;
 		type = "";
@@ -41,5 +43,39 @@ public class MsgRecord {
 		return "MsgRecord [id=" + id + ", type=" + type + ", content="
 				+ content + ", addTime=" + addTime + "]";
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public String getAddTime() {
+		return addTime;
+	}
+
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+	
+	
 
 }

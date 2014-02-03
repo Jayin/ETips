@@ -13,7 +13,7 @@ import android.content.SharedPreferences;
 
 /**
  * 工具类
- * 
+ * 获取本周时间
  * @author Jayin Ton
  * 
  */

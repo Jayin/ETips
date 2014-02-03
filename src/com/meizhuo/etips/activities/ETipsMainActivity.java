@@ -22,7 +22,7 @@ import android.widget.ViewFlipper;
 
  
  
-import com.meizhuo.etips.common.utils.AppInfo;
+import com.meizhuo.etips.app.AppInfo;
 import com.meizhuo.etips.common.utils.CalendarManager;
 import com.meizhuo.etips.common.utils.CourseUtils;
 import com.meizhuo.etips.common.utils.ETipsContants;

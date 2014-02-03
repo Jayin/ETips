@@ -16,7 +16,7 @@ public class ETipsContants {
 	public final static String SharedPreference_NAME = "ETipsSharedPreference";
 	public final static String SP_NAME_Notes = "Notes";
 	public final static String SP_NAME_Book = "Book";
-	public final static String SP_NAME_User = "User";
+    public final static String SP_NAME_User = "User";
 	public final static String SP_NAME_Topic = "TopicList";
 	public final static String SP_NAME_Version = "Version_";
  	public final static String SP_NAME_Course ="Course"; //课程列表

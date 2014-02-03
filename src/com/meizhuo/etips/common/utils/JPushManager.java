@@ -71,7 +71,7 @@ public class JPushManager {
 	public  static Set getTags(){
 		Set<String> set = new LinkedHashSet<String>();
 		set.add("邑大");
-	// 	set.add("ETipsTestCase");
+	  	set.add("ETipsTestCase");
 		return set;
 	}
 	

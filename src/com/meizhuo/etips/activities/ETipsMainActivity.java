@@ -10,6 +10,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.util.DebugUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,7 @@ import com.meizhuo.etips.common.utils.SharedPreferenceHelper;
 import com.meizhuo.etips.common.utils.StringUtils;
 import com.meizhuo.etips.model.Lesson;
 import com.meizhuo.etips.model.MNotes;
+import com.umeng.socialize.common.l;
 
 /**
  * share :只支持单用户分享~！
@@ -437,7 +439,8 @@ public class ETipsMainActivity extends BaseUIActivity implements
 //						new String[] { String.valueOf(courseStatus[0]),
 //								String.valueOf(courseStatus[1]) });
 //			}
-			return AppInfo.getCourse(getContext()).getDailyLesson(courseStatus[0], courseStatus[1]);
+		    l.e("week->"+courseStatus[0]+"  classtime-->"+courseStatus[1]);
+			return AppInfo.getCourse(getContext()).getDailyLesson(courseStatus[0], courseStatus[1]-1);
 		}
 	}
 

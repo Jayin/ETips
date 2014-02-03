@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.meizhuo.etips.activities.TweetList.LikeTask;
+import com.meizhuo.etips.app.ClientConfig;
 import com.meizhuo.etips.common.utils.AndroidUtils;
 import com.meizhuo.etips.common.utils.ETipsContants;
 import com.meizhuo.etips.common.utils.ETipsUtils;
@@ -299,8 +300,9 @@ public class TweetDetail extends BaseUIActivity implements OnClickListener {
 			if(!ETipsUtils.isTweetLogin(getContext())){
 				return;
 			}
-			SP sp = new SP(ETipsContants.SP_NAME_User, getContext());
-			String senderID = sp.getValue("id");
+//			SP sp = new SP(ETipsContants.SP_NAME_User, getContext());
+//			String senderID = sp.getValue("id");
+			String senderID = ClientConfig.getUserId(getContext());
 			if(senderID==null || senderID.equals("null") || senderID.equals("")){
 				return;
 			}

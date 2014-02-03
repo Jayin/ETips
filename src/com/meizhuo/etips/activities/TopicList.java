@@ -40,7 +40,7 @@ public class TopicList extends BaseUIActivity implements OnClickListener {
 	private List<Topic> list,newList;
 	private TopicListAdapter adapter;
  
-	private boolean shouldTopicListReflush = false; // 系统配置，是否要自动刷新列表
+//	private boolean shouldTopicListReflush = false; // 系统配置，是否要自动刷新列表
 	//private boolean isRefreshing = false; // 设置一个状态，防止多次刷新 接着就
 	// private boolean isGetingMore = false;
 	// private boolean hasData = false;
@@ -62,9 +62,9 @@ public class TopicList extends BaseUIActivity implements OnClickListener {
 			adapter = new TopicListAdapter(list);
 			lv.setAdapter(adapter);
 			footView.setVisibility(View.GONE);
-			if (shouldTopicListReflush) { // 系统控制是否刷新！！
-				lv.clickRefresh();
-			}
+//			if (shouldTopicListReflush) { // 系统控制是否刷新！！
+//				lv.clickRefresh();
+//			}
 		} else {
 			lv.clickRefresh();
 		}
@@ -120,9 +120,9 @@ public class TopicList extends BaseUIActivity implements OnClickListener {
 	@Override
 	protected void initData() {
 		sp = new SP(ETipsContants.SP_NAME_Topic, this);
-		shouldTopicListReflush = (new SP(ETipsContants.SP_NAME_User, this)
-				.getValue("shouldTopicListUpdata").equals("YES")) ? true
-				: false;
+//		shouldTopicListReflush = (new SP(ETipsContants.SP_NAME_User, this)
+//				.getValue("shouldTopicListUpdata").equals("YES")) ? true
+//				: false;
 		if (!sp.isEmpty()) {
 			list = (List<Topic>) sp.toEntityAll(ETipsContants.TYPE_SP_Topic);
 		}

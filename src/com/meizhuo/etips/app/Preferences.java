@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import com.meizhuo.etips.common.utils.CalendarManager;
 import com.meizhuo.etips.common.utils.ETipsContants;
+import com.meizhuo.etips.common.utils.SharedPreferenceHelper;
 
 /**
  * 用户配置偏好信息,管理版本等信息<br>
@@ -29,9 +30,7 @@ public class Preferences {
 
 	/** helper method like the set() in class SharedPreferenceHelper1 */
 	public static boolean set(SharedPreferences sp, String key, String value) {
-		SharedPreferences.Editor editor = sp.edit();
-		editor.putString(key, value);
-		return editor.commit();
+		return SharedPreferenceHelper.set(sp, key, value);
 	}
 
 	/** 是否第一次打开App see{@linkplain#setIsFirstOpenApp} */

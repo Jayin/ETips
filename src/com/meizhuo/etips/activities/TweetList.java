@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.meizhuo.etips.app.ClientConfig;
 import com.meizhuo.etips.common.utils.AndroidUtils;
 import com.meizhuo.etips.common.utils.ETipsContants;
 import com.meizhuo.etips.common.utils.ETipsUtils;
@@ -397,8 +398,9 @@ public class TweetList extends BaseUIActivity implements OnClickListener {
 			String content = "赞！";
 			String time = System.currentTimeMillis() + "";
 			TweetAPI api = new TweetAPI(getContext());
-			SP sp = new SP(ETipsContants.SP_NAME_User, getContext());
-			String senderID = sp.getValue("id");
+//	     	SP sp = new SP(ETipsContants.SP_NAME_User, getContext());
+//			String senderID = sp.getValue("id");
+			String senderID = ClientConfig.getUserId(getContext());
 			if(senderID==null || senderID.equals("null") || senderID.equals("")){
 				return;
 			}

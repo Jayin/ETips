@@ -13,13 +13,14 @@ public class ETipsContants {
 	 */
 	public final static String DB_NAME = "ETips.db";
 	public final static String DB_NAME_MsgCenter = "msgcenter.db";
- 	public final static String SharedPreference_NAME = "ETipsSharedPreference";
+ 	//public final static String SharedPreference_NAME = "ETipsSharedPreference";
 	public final static String SP_NAME_Preferences = "Preferences";//V 2.2开始用这个而不是上面一个
 	public final static String SP_NAME_Notes = "Notes";
 	public final static String SP_NAME_Book = "Book";
-    public final static String SP_NAME_User = "User";
+  //  public final static String SP_NAME_User = "User";
+	public final static String SP_NANE_ClientConfig = "ClientConfig";
 	public final static String SP_NAME_Topic = "TopicList";
-	public final static String SP_NAME_Version = "Version_";
+//	public final static String SP_NAME_Version = "Version_";
  	public final static String SP_NAME_Course ="Course"; //课程列表
 	public final static String File_NewsCache = "NewsCache";
 	public final static String SharedPreference_NAME_Saying = "Saying";

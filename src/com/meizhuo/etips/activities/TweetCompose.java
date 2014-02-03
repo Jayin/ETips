@@ -10,6 +10,7 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.meizhuo.etips.app.ClientConfig;
 import com.meizhuo.etips.common.utils.AndroidUtils;
 import com.meizhuo.etips.common.utils.ETipsContants;
 import com.meizhuo.etips.common.utils.ETipsUtils;
@@ -91,8 +92,9 @@ public class TweetCompose extends BaseUIActivity implements OnClickListener {
 			tweet = (Tweet) getIntent().getSerializableExtra("Tweet");
 		}
 		enableIncognito = getIntent().getBooleanExtra("enableIncognito", true);
-		SP sp = new SP(ETipsContants.SP_NAME_User, getContext());
-		id = sp.getValue("id");
+//		SP sp = new SP(ETipsContants.SP_NAME_User, getContext());
+//		id = sp.getValue("id");
+		id = ClientConfig.getUserId(getContext());
 	}
 
 	@Override

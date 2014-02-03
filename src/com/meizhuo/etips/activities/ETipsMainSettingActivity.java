@@ -79,8 +79,8 @@ private SetCurrentWeekDialog setCurrentWeekDialog;
 
 	@Override
 	protected void initData() {
-		SharedPreferences sp = this.getSharedPreferences(
-				ETipsContants.SP_NAME_User, Context.MODE_PRIVATE);
+//		SharedPreferences sp = this.getSharedPreferences(
+//				ETipsContants.SP_NAME_User, Context.MODE_PRIVATE);
 		isETipsAccountLogin = ETipsUtils.isTweetLogin(this);
 		if (isETipsAccountLogin) {
 			isloginTimeOut = ETipsUtils.isTweetLoginTimeOut(this);
@@ -183,7 +183,7 @@ private SetCurrentWeekDialog setCurrentWeekDialog;
 
 	private void share() {
 		ShareManager sm = new ShareManager(
-				"我正在使用邑大校园助手#ETips#最新版2.0。新增校园资讯模块，个人便签,查空课室。对接学生子系统，一键导入课程表，轻松查成绩算绩点;对接邑大图书馆，找图书不再怠慢;对接校园服务，查电费，看邑大新闻超级方便！豌豆荚，360手机助手搜\"ETips\"即可下载！");
+				"我正在使用邑大校园助手#ETips#最新版2.2。新增校园资讯模块，个人便签,查空课室。对接学生子系统，一键导入课程表，轻松查成绩算绩点;对接邑大图书馆，找图书不再怠慢;对接校园服务，查电费，看邑大新闻超级方便！豌豆荚，360手机助手搜\"ETips\"即可下载！");
 		sm.shareToSina(ETipsMainSettingActivity.this, new SnsPostListener() {
 
 			@Override

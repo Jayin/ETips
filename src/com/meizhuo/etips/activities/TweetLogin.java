@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
+import com.meizhuo.etips.app.ClientConfig;
 import com.meizhuo.etips.common.utils.AndroidUtils;
 import com.meizhuo.etips.common.utils.ETipsContants;
 import com.meizhuo.etips.common.utils.ETipsUtils;
@@ -36,7 +37,7 @@ public class TweetLogin extends BaseUIActivity implements OnClickListener {
 	private TextView tv_nickName, tv_loginTime, tv_status,tv_account;
 	private EditText et_account, et_psw;
 	private boolean isLogin = false;
-	private String longTime = "", nickName = "",account = "";
+	private String  nickName = "",account = "",loginTime = "";
 	private View progress;
 	
 	private boolean isLogining = false; //正在登录，防止点击登录，在继续登录
@@ -70,7 +71,7 @@ public class TweetLogin extends BaseUIActivity implements OnClickListener {
 		
 		if(isLogin){
 			switchView(_toUser);
-			tv_loginTime.setText(StringUtils.getDateFormat(Long.parseLong(longTime), "yy-mm-dd"));
+			tv_loginTime.setText(StringUtils.getDateFormat(Long.parseLong(loginTime), "yy-mm-dd"));
 			tv_nickName.setText(nickName);
 			tv_account.setText(account);
 			
@@ -82,19 +83,17 @@ public class TweetLogin extends BaseUIActivity implements OnClickListener {
     @Override
     protected void onResume() {
     	super.onResume();
-    	SP msp = new SP(ETipsContants.SP_NAME_User, getContext());
-    	if(!msp.getValue("account").equals("null")){
-    		et_account.setText(msp.getValue("account"));
+    	if(!"".equals(ClientConfig.getAccount(getContext()))){
+    		et_account.setText(ClientConfig.getAccount(getContext()));
     	} 	
     }
 	@Override
 	protected void initData() {
 		isLogin = ETipsUtils.isTweetLogin(getContext());
 		if (isLogin) {
-			SP msp = new SP(ETipsContants.SP_NAME_User, getContext());
-			longTime = msp.getValue("loginTime");
-			nickName = msp.getValue("nickname");
-			account = msp.getValue("account");	
+			loginTime = ClientConfig.getLoginTime(getContext());
+					nickName =ClientConfig.getNickname(getContext());
+					account=ClientConfig.getAccount(getContext());
 		}
 	}
 
@@ -138,13 +137,7 @@ public class TweetLogin extends BaseUIActivity implements OnClickListener {
 
 		case R.id.acty_tweetlogin_loginOut:
 			// login out..
-			SP msp = new SP(ETipsContants.SP_NAME_User, getContext());
-			msp.add("nickname", "null");
-			msp.add("psw", "null");
-			msp.add("session", "null");
-			msp.add("id", "null");
-			msp.add("loginTime", "null");
-			msp.add("descrpiton", "null");
+			ClientConfig.cleanAll(getContext());
 			isLogin = false;
 			toast("已注销");
 			switchView(_toLogin);
@@ -175,17 +168,16 @@ public class TweetLogin extends BaseUIActivity implements OnClickListener {
 			Elog.i("result-->"+result);
 			//登录成功后保存账号密码 用户昵称 + 学号,登录时间
 			if(JSONParser.isOK(result)){
-				SP msp = new SP(ETipsContants.SP_NAME_User, getContext());
 			    JSONArray jsonArray = JSONParser.getResponse(result);
 			    try {
 				JSONObject jobj =jsonArray.getJSONObject(0);
-					msp.add("account", et_account.getText().toString());
- 					msp.add("psw", et_psw.getText()
- 							.toString());     
-					msp.add("id", "3112002722");
-					msp.add("loginTime", System.currentTimeMillis()+"");
-					msp.add("nickname", jobj.getString("nickname"));
-					msp.add("id", jobj.getString("id"));
+					ClientConfig.setAccount(getContext(), et_account.getText().toString());
+					ClientConfig.setLoginTime(getContext(), System.currentTimeMillis()+"");
+					ClientConfig.setNickName(getContext(), jobj.getString("nickname"));
+					ClientConfig.setUserId(getContext(), jobj.getString("id"));
+					ClientConfig.setUserPsw(getContext(), et_psw.getText()
+ 							.toString());
+					
 				} catch (JSONException e) {
 					e.printStackTrace();
 					return 0;  //服务器返回数据有误

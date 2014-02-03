@@ -30,8 +30,8 @@ public class SharedPreferenceHelper {
 	 * 
 	 * @return
 	 */
-	public static SharedPreferences getSharedPreferences(Context context) {
-		return context.getSharedPreferences(
-				ETipsContants.SharedPreference_NAME, Context.MODE_PRIVATE);
-	}
+//	public static SharedPreferences getSharedPreferences(Context context) {
+//		return context.getSharedPreferences(
+//				ETipsContants.SharedPreference_NAME, Context.MODE_PRIVATE);
+//	}
 }

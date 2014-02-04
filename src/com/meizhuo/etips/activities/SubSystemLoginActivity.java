@@ -2,6 +2,7 @@ package com.meizhuo.etips.activities;
 
 import java.util.List;
 import java.util.Map;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,6 +12,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.meizhuo.etips.app.ClientConfig;
 import com.meizhuo.etips.common.utils.ETipsContants;
 import com.meizhuo.etips.model.Course;
 import com.meizhuo.etips.model.Lesson;
@@ -23,6 +26,7 @@ import com.meizhuo.etips.ui.WaittingDialog;
  * @author Jayin Ton
  * 
  */
+@SuppressLint("HandlerLeak")
 public class SubSystemLoginActivity extends BaseUIActivity {
 	private String toWhere = null;
 	private String userID, userPSW;
@@ -31,11 +35,12 @@ public class SubSystemLoginActivity extends BaseUIActivity {
 	private ETipsApplication App;
 	private final int TAG_ScoreRecord = 21, TAG_Lesson = 22;
 	private int tag = 0; // design to figure out after Login , sovle what
-    private SubSystemAPI api  = null;
+	private SubSystemAPI api = null;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.acty_login_subsystem);
+		setContentView(R.layout.acty_login_subsystem1);
 		initData();
 		initLayout();
 
@@ -51,6 +56,7 @@ public class SubSystemLoginActivity extends BaseUIActivity {
 		cancleBtn = (Button) this
 				.findViewById(R.id.acty_login_subsystem_cancle);
 
+		et_userID.setText(ClientConfig.getUserId(getContext()));
 		loginBtn.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -76,7 +82,7 @@ public class SubSystemLoginActivity extends BaseUIActivity {
 					tag = TAG_ScoreRecord;
 					SSLoginHandler h = new SSLoginHandler();
 					new SSLoginThread(h).start();
-			      
+
 				}
 			}
 		});
@@ -101,6 +107,7 @@ public class SubSystemLoginActivity extends BaseUIActivity {
 	class SSLoginHandler extends Handler {
 		WaittingDialog dialog;
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
@@ -122,31 +129,16 @@ public class SubSystemLoginActivity extends BaseUIActivity {
 				dialog.setText("ETips解析数据中...");
 				if (tag == TAG_Lesson) {
 					dialog.setText("ETips正在跳转...");
-					//转换
-					Course course =Course.translateData((Map<Integer, Map<Integer, List<Lesson>>>) msg.obj);
-//					SharedPreferences sp = getSharedPreferences(
-//							ETipsContants.SharedPreference_NAME,
-//							Context.MODE_PRIVATE);
-//					SharedPreferenceHelper.set(sp, "LessonDB_Has_Data", "YES");
+					// 转换
+					Course course = Course
+							.translateData((Map<Integer, Map<Integer, List<Lesson>>>) msg.obj);
 					App.setLessonList(course.getCourseList());
 					dialog.dismiss();
 					dialog = null;
-					// startActivity.... finish..
-					/*
-					if (App.getObject() != null
-							&& App.getObject() instanceof Activity
-							&& !((Activity) App.getObject()).isFinishing()) {
-						((Activity) App.getObject()).finish();
-						App.setObject(null);
-					}
-*/
 					startActivity(new Intent(SubSystemLoginActivity.this,
 							CourseMainActivity.class));
-					// set animation here
-
-					// finish
-			 	SubSystemLoginActivity.this.finish();
-				} else  if(tag == TAG_ScoreRecord){
+					SubSystemLoginActivity.this.finish();
+				} else if (tag == TAG_ScoreRecord) {
 					dialog.setText("ETips正在跳转...");
 					Intent intent = new Intent(SubSystemLoginActivity.this,
 							ScoreRecordActivity.class);
@@ -154,7 +146,7 @@ public class SubSystemLoginActivity extends BaseUIActivity {
 					intent.putExtra("userPSW", userPSW);
 					startActivity(intent);
 
-				 	SubSystemLoginActivity.this.finish();
+					SubSystemLoginActivity.this.finish();
 				}
 				break;
 			case ETipsContants.Fail:
@@ -169,46 +161,6 @@ public class SubSystemLoginActivity extends BaseUIActivity {
 				break;
 			}
 		}
-
-//		private List<List<List<Lesson>>> translateData(
-//				Map<Integer, Map<Integer, List<Lesson>>> map) {
-////			CourseDAO dao = new CourseDAO(SubSystemLoginActivity.this);
-////			ContentValues cv = null;
-////			dao.deleteAll();
-//			List<List<List<Lesson>>> mmmlist = new ArrayList<List<List<Lesson>>>();
-//			List<List<Lesson>> mmlist = new ArrayList<List<Lesson>>();
-//			List<Lesson> mlist;
-//			for (int i = 1; i <= 7; i++) { // 周1-7
-//				Map<Integer, List<Lesson>> week = map.get(i);
-//				mmlist = new ArrayList<List<Lesson>>();
-//				for (int j = 1; j <= 5; j++) { // 第1-5节
-//					List<Lesson> list = week.get(j);
-//					mlist = new ArrayList<Lesson>();
-//					for (Lesson l : list) {
-//						l.week = i;
-//						l.classtime = j;
-//						mlist.add(l);
-//						String lessonName = l.LessonName.trim();
-//						String time = l.Time.trim();
-//						String address = l.address.trim();
-//						String teacher = l.Teacher.trim();
-//						cv = new ContentValues();
-//						cv.put("lessonName", lessonName);
-//						cv.put("time", time);
-//						cv.put("address", address);
-//						cv.put("teacher", teacher);
-//						cv.put("week", i);
-//						cv.put("classtime", j);
-//						dao.add(cv);
-//					}
-//					mmlist.add(mlist);
-//				}
-//				mmmlist.add(mmlist);
-//
-//			}
-//			return mmmlist;
-//		}
-
 	}
 
 	class SSLoginThread extends Thread {
@@ -220,19 +172,18 @@ public class SubSystemLoginActivity extends BaseUIActivity {
 
 		@Override
 		public void run() {
-			//SubSystemAPI api = new SubSystemAPI(userID, userPSW);
-           if(api == null){
-        	   api = new SubSystemAPI(userID, userPSW);
-           }
-           api.setUserData(userID, userPSW);
-           App.setSubSystemAPI(api);
+			if (api == null) {
+				api = new SubSystemAPI(userID, userPSW);
+			}
+			api.setUserData(userID, userPSW);
+			App.setSubSystemAPI(api);
 			try {
 				handler.sendEmptyMessage(ETipsContants.Start);
 				handler.sendEmptyMessage(ETipsContants.Logining);
 				boolean flag = api.login();
 				if (flag) {
 					if (tag == TAG_Lesson) {
-						//deal with lesson
+						// deal with lesson
 						handler.sendEmptyMessage(ETipsContants.Downloading);
 						Map<Integer, Map<Integer, List<Lesson>>> course = api
 								.getLessons();
@@ -247,8 +198,8 @@ public class SubSystemLoginActivity extends BaseUIActivity {
 							msg.obj = course;
 							handler.sendMessage(msg);
 						}
-					}else if(tag == TAG_ScoreRecord){
-						//deal with score record
+					} else if (tag == TAG_ScoreRecord) {
+						// deal with score record
 						handler.sendEmptyMessage(ETipsContants.Finish);
 					}
 				} else {
@@ -266,17 +217,12 @@ public class SubSystemLoginActivity extends BaseUIActivity {
 			}
 		}
 	}
-/*
-	 
-	@Override
-	protected void onPause() {
 
-		super.onPause();
-		// 因为存在一条路径：CourseMainActivity-》settingActivity(dismiss)->subloginActivity(dismiss)-》CourseMainActivity
-		// 栈顶不能有两个
-		if (App.getObject() != null && App.getObject() instanceof Activity) {
-			App.setObject(null);
-		}
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		//保存用户账号
+		ClientConfig.setUserId(getContext(), et_userID.getText().toString()
+				.trim());
 	}
-*/
 }

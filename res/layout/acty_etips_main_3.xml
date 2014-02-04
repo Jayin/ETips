@@ -52,7 +52,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="2dp"
-                            android:text="高等数学"
+                            android:text=""
                             android:textColor="@color/white"
                             android:textSize="18sp" >
                         </TextView>
@@ -62,7 +62,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
-                            android:text="马兰芳103"
+                            android:text=""
                             android:textColor="@color/white"
                             android:textSize="13sp" >
                         </TextView>
@@ -72,7 +72,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="2dp"
-                            android:text="计算及组成原理"
+                            android:text=""
                             android:textColor="@color/white"
                             android:textSize="18sp" >
                         </TextView>
@@ -82,7 +82,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
-                            android:text="马兰芳103马兰芳103"
+                            android:text=""
                             android:textColor="@color/white"
                             android:textSize="13sp" >
                         </TextView>

@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical" >
 
-        <com.meizhuo.etips.ui.utils.CustomItemView
+        <com.meizhuo.etips.ui.base.CustomItemView
             android:id="@+id/acty_etips_main_course"
             style="@style/Base_CustomView"
             android:layout_height="140dp"
@@ -98,7 +98,7 @@
                 android:layout_marginLeft="4dp"
                 android:text="个人课表"
                 android:textColor="@color/white" />
-        </com.meizhuo.etips.ui.utils.CustomItemView>
+        </com.meizhuo.etips.ui.base.CustomItemView>
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -155,7 +155,7 @@
             android:layout_height="140dp"
             android:orientation="horizontal" >
 
-            <com.meizhuo.etips.ui.utils.CustomItemView
+            <com.meizhuo.etips.ui.base.CustomItemView
                 android:id="@+id/acty_etips_main_library"
                 style="@style/Base_CustomView"
                 android:layout_height="match_parent"
@@ -176,9 +176,9 @@
                     android:layout_marginLeft="5dp"
                     android:text="WYU Library"
                     android:textSize="18sp" />
-            </com.meizhuo.etips.ui.utils.CustomItemView>
+            </com.meizhuo.etips.ui.base.CustomItemView>
 
-            <com.meizhuo.etips.ui.utils.CustomItemView
+            <com.meizhuo.etips.ui.base.CustomItemView
                 android:id="@+id/acty_etips_main_wyunews"
                 style="@style/Base_CustomView"
                 android:layout_height="match_parent"
@@ -203,7 +203,7 @@
                     android:gravity="center"
                     android:text="WYU News"
                     android:textSize="18sp" />
-            </com.meizhuo.etips.ui.utils.CustomItemView>
+            </com.meizhuo.etips.ui.base.CustomItemView>
         </LinearLayout>
 
         <LinearLayout
@@ -221,7 +221,7 @@
                     android:layout_weight="1"
                     android:orientation="horizontal" >
 
-                    <com.meizhuo.etips.ui.utils.CustomItemView
+                    <com.meizhuo.etips.ui.base.CustomItemView
                         android:id="@+id/acty_etips_main_rely_qureyclassroom"
                         style="@style/Base_CustomView"
                         android:layout_height="wrap_content"
@@ -235,9 +235,9 @@
                             android:layout_centerHorizontal="true"
                             android:layout_centerVertical="true"
                             android:src="@drawable/ic_bg_main_class" />
-                    </com.meizhuo.etips.ui.utils.CustomItemView>
+                    </com.meizhuo.etips.ui.base.CustomItemView>
 
-                    <com.meizhuo.etips.ui.utils.CustomItemView
+                    <com.meizhuo.etips.ui.base.CustomItemView
                         android:id="@+id/acty_etips_main_checkElcecity"
                         style="@style/Base_CustomView"
                         android:layout_height="wrap_content"
@@ -251,7 +251,7 @@
                             android:layout_centerHorizontal="true"
                             android:layout_centerVertical="true"
                             android:src="@drawable/ic_bg_main_power" />
-                    </com.meizhuo.etips.ui.utils.CustomItemView>
+                    </com.meizhuo.etips.ui.base.CustomItemView>
                 </LinearLayout>
 
                 <LinearLayout
@@ -259,7 +259,7 @@
                     android:layout_weight="1"
                     android:orientation="horizontal" >
 
-                    <com.meizhuo.etips.ui.utils.CustomItemView
+                    <com.meizhuo.etips.ui.base.CustomItemView
                         android:id="@+id/acty_etips_main_msgcenter"
                         style="@style/Base_CustomView"
                         android:layout_height="match_parent"
@@ -284,9 +284,9 @@
                             android:layout_centerHorizontal="true"
                             android:layout_centerVertical="true"
                             android:src="@drawable/ic_bg_main_message" />
-                    </com.meizhuo.etips.ui.utils.CustomItemView>
+                    </com.meizhuo.etips.ui.base.CustomItemView>
 
-                    <com.meizhuo.etips.ui.utils.CustomItemView
+                    <com.meizhuo.etips.ui.base.CustomItemView
                         android:id="@+id/acty_etips_main_setting"
                         style="@style/Base_CustomView"
                         android:layout_height="wrap_content"
@@ -300,7 +300,7 @@
                             android:layout_centerHorizontal="true"
                             android:layout_centerVertical="true"
                             android:src="@drawable/ic_bg_main_setting" />
-                    </com.meizhuo.etips.ui.utils.CustomItemView>
+                    </com.meizhuo.etips.ui.base.CustomItemView>
                 </LinearLayout>
             </LinearLayout>
 

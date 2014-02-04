@@ -10,9 +10,9 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.meizhuo.etips.adapter.LibSearchResultListViewAdapter;
 import com.meizhuo.etips.app.AppInfo;
 import com.meizhuo.etips.model.BookInfo;
-import com.meizhuo.etips.ui.LibSearchResultListViewAdapter;
 
 /**
  * 图书收藏页面

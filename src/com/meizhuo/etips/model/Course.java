@@ -8,7 +8,7 @@ import java.util.Map;
 import android.content.ContentValues;
 import android.content.Context;
 
-import com.meizhuo.etips.common.utils.CourseUtils;
+import com.meizhuo.etips.common.CourseUtils;
 
 /**
  * 一周课程的实体类<br>

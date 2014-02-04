@@ -1,7 +1,7 @@
 package com.meizhuo.etips.activities;
 
-import com.meizhuo.etips.common.utils.AndroidUtils;
-import com.meizhuo.etips.common.utils.ETipsContants;
+import com.meizhuo.etips.common.AndroidUtils;
+import com.meizhuo.etips.common.ETipsContants;
 
 import android.content.Intent;
 import android.os.Bundle;

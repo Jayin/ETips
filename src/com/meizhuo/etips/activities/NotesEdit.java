@@ -11,12 +11,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.meizhuo.etips.common.utils.AndroidUtils;
-import com.meizhuo.etips.common.utils.ETipsContants;
-import com.meizhuo.etips.common.utils.SP;
-import com.meizhuo.etips.common.utils.ShareManager;
-import com.meizhuo.etips.common.utils.StringUtils;
-import com.meizhuo.etips.ui.utils.BaseDialog;
+import com.meizhuo.etips.common.AndroidUtils;
+import com.meizhuo.etips.common.ETipsContants;
+import com.meizhuo.etips.common.SP;
+import com.meizhuo.etips.common.ShareManager;
+import com.meizhuo.etips.common.StringUtils;
+import com.meizhuo.etips.ui.base.BaseDialog;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.bean.SocializeEntity;
 import com.umeng.socialize.controller.listener.SocializeListeners.SnsPostListener;

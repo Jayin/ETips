@@ -16,12 +16,12 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.meizhuo.etips.common.utils.AndroidUtils;
-import com.meizhuo.etips.common.utils.ETipsContants;
-import com.meizhuo.etips.common.utils.SP;
+import com.meizhuo.etips.common.AndroidUtils;
+import com.meizhuo.etips.common.ETipsContants;
+import com.meizhuo.etips.common.SP;
 import com.meizhuo.etips.model.Topic;
 import com.meizhuo.etips.net.utils.TweetAPI;
-import com.meizhuo.etips.ui.DeclarationDialog;
+import com.meizhuo.etips.ui.dialog.DeclarationDialog;
 import com.meizhuo.etips.widget.PullToRefreshListView;
 import com.meizhuo.etips.widget.PullToRefreshListView.OnRefreshListener;
 

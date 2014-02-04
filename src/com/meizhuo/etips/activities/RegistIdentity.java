@@ -4,10 +4,10 @@ import java.security.PublicKey;
 
 import org.jsoup.Jsoup;
 
-import com.meizhuo.etips.common.utils.AndroidUtils;
-import com.meizhuo.etips.common.utils.ETipsContants;
-import com.meizhuo.etips.common.utils.Elog;
-import com.meizhuo.etips.common.utils.JSONParser;
+import com.meizhuo.etips.common.AndroidUtils;
+import com.meizhuo.etips.common.ETipsContants;
+import com.meizhuo.etips.common.Elog;
+import com.meizhuo.etips.common.JSONParser;
 import com.meizhuo.etips.net.utils.SubSystemAPI;
 import com.meizhuo.etips.net.utils.TweetAPI;
 

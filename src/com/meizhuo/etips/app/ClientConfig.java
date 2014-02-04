@@ -2,9 +2,10 @@ package com.meizhuo.etips.app;
 
 import java.util.Calendar;
 
-import com.meizhuo.etips.common.utils.CalendarManager;
-import com.meizhuo.etips.common.utils.ETipsContants;
-import com.meizhuo.etips.common.utils.SharedPreferenceHelper;
+import com.meizhuo.etips.common.CalendarManager;
+import com.meizhuo.etips.common.ETipsContants;
+import com.meizhuo.etips.common.SharedPreferenceHelper;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 

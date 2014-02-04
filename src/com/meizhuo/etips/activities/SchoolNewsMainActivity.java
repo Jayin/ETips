@@ -21,12 +21,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.meizhuo.etips.common.utils.ETipsContants;
-import com.meizhuo.etips.common.utils.FileUtils;
+import com.meizhuo.etips.common.ETipsContants;
+import com.meizhuo.etips.common.FileUtils;
 import com.meizhuo.etips.model.SchoolNewList;
 import com.meizhuo.etips.model.SchoolNews;
 import com.meizhuo.etips.net.utils.WYUNewsAPI;
-import com.meizhuo.etips.ui.WaittingDialog;
+import com.meizhuo.etips.ui.dialog.WaittingDialog;
 
 public class SchoolNewsMainActivity extends BaseUIActivity {
 	private int page = 1, totalPage = -1;

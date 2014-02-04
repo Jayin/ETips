@@ -3,9 +3,10 @@ package com.meizhuo.etips.app;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import com.meizhuo.etips.common.utils.CalendarManager;
-import com.meizhuo.etips.common.utils.ETipsContants;
-import com.meizhuo.etips.common.utils.SharedPreferenceHelper;
+
+import com.meizhuo.etips.common.CalendarManager;
+import com.meizhuo.etips.common.ETipsContants;
+import com.meizhuo.etips.common.SharedPreferenceHelper;
 
 /**
  * 用户配置偏好信息,管理版本等信息<br>

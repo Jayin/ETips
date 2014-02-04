@@ -16,8 +16,8 @@ import com.meizhuo.etips.activities.CourseMainActivity;
 import com.meizhuo.etips.activities.R;
 import com.meizhuo.etips.activities.SubSystemLoginActivity;
 import com.meizhuo.etips.app.AppInfo;
-import com.meizhuo.etips.common.utils.ETipsContants;
-import com.meizhuo.etips.common.utils.StringUtils;
+import com.meizhuo.etips.common.ETipsContants;
+import com.meizhuo.etips.common.StringUtils;
 import com.meizhuo.etips.model.Course;
 import com.meizhuo.etips.model.Lesson;
 /**

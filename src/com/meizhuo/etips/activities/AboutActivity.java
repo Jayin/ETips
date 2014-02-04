@@ -1,6 +1,6 @@
 package com.meizhuo.etips.activities;
 
-import com.meizhuo.etips.common.utils.AndroidUtils;
+import com.meizhuo.etips.common.AndroidUtils;
 
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;

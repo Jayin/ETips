@@ -19,8 +19,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.meizhuo.etips.app.AppInfo;
-import com.meizhuo.etips.common.utils.ETipsContants;
-import com.meizhuo.etips.common.utils.SP;
+import com.meizhuo.etips.common.ETipsContants;
+import com.meizhuo.etips.common.SP;
 import com.meizhuo.etips.model.BookInfo;
 import com.meizhuo.etips.model.BookStatus;
 import com.meizhuo.etips.net.utils.LibraryAPI;

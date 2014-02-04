@@ -21,9 +21,9 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.meizhuo.etips.common.utils.ETipsContants;
-import com.meizhuo.etips.common.utils.SP;
-import com.meizhuo.etips.common.utils.StringUtils;
+import com.meizhuo.etips.common.ETipsContants;
+import com.meizhuo.etips.common.SP;
+import com.meizhuo.etips.common.StringUtils;
 import com.meizhuo.etips.model.MNotes;
 
 public class Notes extends BaseUIActivity implements OnClickListener {

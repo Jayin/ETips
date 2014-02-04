@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-import com.meizhuo.etips.common.utils.StringUtils;
+import com.meizhuo.etips.common.StringUtils;
 
 /**
  * 用户注册 注册时用户验证 这个Activity 的启动模式应该是singleTast

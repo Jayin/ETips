@@ -18,7 +18,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.meizhuo.etips.common.utils.PathBuilder;
+import com.meizhuo.etips.common.PathBuilder;
 /**
  * 学生手册
  * @author Jayin Ton

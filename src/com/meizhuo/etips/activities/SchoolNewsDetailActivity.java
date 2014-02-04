@@ -20,10 +20,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.meizhuo.etips.common.utils.ETipsContants;
-import com.meizhuo.etips.common.utils.Elog;
-import com.meizhuo.etips.common.utils.PathBuilder;
-import com.meizhuo.etips.common.utils.ShareManager;
+import com.meizhuo.etips.common.ETipsContants;
+import com.meizhuo.etips.common.Elog;
+import com.meizhuo.etips.common.PathBuilder;
+import com.meizhuo.etips.common.ShareManager;
 import com.meizhuo.etips.net.utils.WYUNewsAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.bean.SocializeEntity;

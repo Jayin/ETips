@@ -8,11 +8,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
-import com.meizhuo.etips.common.utils.ETipsContants;
-import com.meizhuo.etips.common.utils.ETipsUtils;
-import com.meizhuo.etips.common.utils.ShareManager;
-import com.meizhuo.etips.ui.DeclarationDialog;
-import com.meizhuo.etips.ui.SetCurrentWeekDialog;
+import com.meizhuo.etips.common.ETipsContants;
+import com.meizhuo.etips.common.ETipsUtils;
+import com.meizhuo.etips.common.ShareManager;
+import com.meizhuo.etips.ui.dialog.DeclarationDialog;
+import com.meizhuo.etips.ui.dialog.SetCurrentWeekDialog;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.bean.SocializeEntity;
 import com.umeng.socialize.controller.listener.SocializeListeners.SnsPostListener;

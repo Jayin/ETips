@@ -5,7 +5,7 @@ import java.util.List;
 import android.app.Application;
 
 import com.meizhuo.etips.app.AppInfo;
-import com.meizhuo.etips.common.utils.JPushManager;
+import com.meizhuo.etips.common.JPushManager;
 import com.meizhuo.etips.model.Course;
 import com.meizhuo.etips.model.Lesson;
 import com.meizhuo.etips.net.utils.LibraryAPI;

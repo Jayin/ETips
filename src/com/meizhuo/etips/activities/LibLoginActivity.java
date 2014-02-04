@@ -4,9 +4,9 @@ import java.io.IOException;
 
 import org.apache.http.client.ClientProtocolException;
 
-import com.meizhuo.etips.common.utils.ETipsContants;
+import com.meizhuo.etips.common.ETipsContants;
 import com.meizhuo.etips.net.utils.LibraryAPI;
-import com.meizhuo.etips.ui.WaittingDialog;
+import com.meizhuo.etips.ui.dialog.WaittingDialog;
 
 import android.content.Intent;
 import android.os.Bundle;

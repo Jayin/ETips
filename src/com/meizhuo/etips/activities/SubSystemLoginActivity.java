@@ -14,11 +14,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.meizhuo.etips.app.ClientConfig;
-import com.meizhuo.etips.common.utils.ETipsContants;
+import com.meizhuo.etips.common.ETipsContants;
 import com.meizhuo.etips.model.Course;
 import com.meizhuo.etips.model.Lesson;
 import com.meizhuo.etips.net.utils.SubSystemAPI;
-import com.meizhuo.etips.ui.WaittingDialog;
+import com.meizhuo.etips.ui.dialog.WaittingDialog;
 
 /**
  * 登录子系统 登录和登录后的操作应该分离！ 课表那里比较前搞的，所以没有遵循着原则。。。

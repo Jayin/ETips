@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.apache.http.client.ClientProtocolException;
 
-import com.meizhuo.etips.common.utils.ETipsContants;
+import com.meizhuo.etips.common.ETipsContants;
 import com.meizhuo.etips.model.ElectricityInfo;
 import com.meizhuo.etips.net.utils.LifeServiceAPI;
 

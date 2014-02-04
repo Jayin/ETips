@@ -19,7 +19,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
-import com.meizhuo.etips.common.utils.AndroidUtils;
+import com.meizhuo.etips.common.AndroidUtils;
 import com.meizhuo.etips.model.ClassroomInfo;
 import com.meizhuo.etips.model.CourseQueryData;
 import com.meizhuo.etips.net.utils.CourseQueryAPI;

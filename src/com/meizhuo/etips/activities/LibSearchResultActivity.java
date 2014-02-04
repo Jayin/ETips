@@ -18,11 +18,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.meizhuo.etips.common.utils.ETipsContants;
+import com.meizhuo.etips.adapter.LibSearchResultListViewAdapter;
+import com.meizhuo.etips.common.ETipsContants;
 import com.meizhuo.etips.model.*;
 import com.meizhuo.etips.net.utils.LibraryAPI;
-import com.meizhuo.etips.ui.LibSearchResultListViewAdapter;
-import com.meizhuo.etips.ui.WaittingDialog;
+import com.meizhuo.etips.ui.dialog.WaittingDialog;
 
 public class LibSearchResultActivity extends BaseUIActivity {
 	private String keyword;

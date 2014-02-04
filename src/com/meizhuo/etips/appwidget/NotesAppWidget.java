@@ -21,9 +21,9 @@ import com.meizhuo.etips.activities.Notes;
 import com.meizhuo.etips.activities.NotesEdit;
 import com.meizhuo.etips.activities.R;
  
-import com.meizhuo.etips.common.utils.ETipsContants;
-import com.meizhuo.etips.common.utils.SP;
-import com.meizhuo.etips.common.utils.StringUtils;
+import com.meizhuo.etips.common.ETipsContants;
+import com.meizhuo.etips.common.SP;
+import com.meizhuo.etips.common.StringUtils;
 import com.meizhuo.etips.model.MNotes;
 /**
  * 便签桌面小插件

@@ -20,12 +20,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.meizhuo.etips.app.ClientConfig;
-import com.meizhuo.etips.common.utils.AndroidUtils;
-import com.meizhuo.etips.common.utils.ETipsContants;
-import com.meizhuo.etips.common.utils.ETipsUtils;
-import com.meizhuo.etips.common.utils.SP;
-import com.meizhuo.etips.common.utils.ShareManager;
-import com.meizhuo.etips.common.utils.StringUtils;
+import com.meizhuo.etips.common.AndroidUtils;
+import com.meizhuo.etips.common.ETipsContants;
+import com.meizhuo.etips.common.ETipsUtils;
+import com.meizhuo.etips.common.SP;
+import com.meizhuo.etips.common.ShareManager;
+import com.meizhuo.etips.common.StringUtils;
 import com.meizhuo.etips.model.Tweet;
 import com.meizhuo.etips.net.utils.TweetAPI;
 import com.meizhuo.etips.widget.PullToRefreshListView;

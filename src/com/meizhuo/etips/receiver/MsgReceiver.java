@@ -11,10 +11,10 @@ import cn.jpush.android.api.JPushInterface;
 import com.meizhuo.etips.activities.MsgCenterActivity;
 import com.meizhuo.etips.app.AppInfo;
 import com.meizhuo.etips.app.Preferences;
-import com.meizhuo.etips.common.utils.ETipsContants;
-import com.meizhuo.etips.common.utils.ETipsUtils;
+import com.meizhuo.etips.common.ETipsContants;
+import com.meizhuo.etips.common.ETipsUtils;
 import com.meizhuo.etips.model.MsgRecord;
-import com.meizhuo.etips.ui.utils.BaseNotificationCompat;
+import com.meizhuo.etips.ui.base.BaseNotificationCompat;
 
 /**
  * 自定义接收器

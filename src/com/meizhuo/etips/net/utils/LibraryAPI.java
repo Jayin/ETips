@@ -19,8 +19,9 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
-import com.meizhuo.etips.common.utils.Elog;
-import com.meizhuo.etips.common.utils.PathBuilder;
+
+import com.meizhuo.etips.common.Elog;
+import com.meizhuo.etips.common.PathBuilder;
 import com.meizhuo.etips.model.BookBorrowRecord;
 import com.meizhuo.etips.model.BookInfo;
 import com.meizhuo.etips.model.BookStatus;

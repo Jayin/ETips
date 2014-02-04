@@ -11,8 +11,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.meizhuo.etips.activities.R;
 import com.meizhuo.etips.activities.R.string;
-import com.meizhuo.etips.common.utils.ETipsContants;
-import com.meizhuo.etips.common.utils.ETipsUtils;
+import com.meizhuo.etips.common.ETipsContants;
+import com.meizhuo.etips.common.ETipsUtils;
 import com.meizhuo.etips.model.MsgRecord;
 
 public class MsgCenterDAO implements BaseDAO {

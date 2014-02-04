@@ -23,7 +23,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.meizhuo.etips.common.utils.ETipsContants;
+import com.meizhuo.etips.common.ETipsContants;
 import com.meizhuo.etips.model.BookBorrowRecord;
 import com.meizhuo.etips.net.utils.LibraryAPI;
 

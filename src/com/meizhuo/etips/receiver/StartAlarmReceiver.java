@@ -2,9 +2,9 @@ package com.meizhuo.etips.receiver;
 
 import java.util.Calendar;
 
-import com.meizhuo.etips.common.utils.CalendarManager;
-import com.meizhuo.etips.common.utils.ETipsAlarmManager;
-import com.meizhuo.etips.common.utils.ETipsContants;
+import com.meizhuo.etips.common.CalendarManager;
+import com.meizhuo.etips.common.ETipsAlarmManager;
+import com.meizhuo.etips.common.ETipsContants;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;

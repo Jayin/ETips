@@ -21,14 +21,15 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
-import com.meizhuo.etips.common.utils.ETipsContants;
-import com.meizhuo.etips.common.utils.ETipsUtils;
 
-import com.meizhuo.etips.common.utils.StringUtils;
+import com.meizhuo.etips.adapter.CourseAllWeekAdapter;
+import com.meizhuo.etips.adapter.CourseListViwAdapter;
+import com.meizhuo.etips.adapter.CourseViewPagerAdapter;
+import com.meizhuo.etips.common.ETipsContants;
+import com.meizhuo.etips.common.ETipsUtils;
+import com.meizhuo.etips.common.StringUtils;
+
 import com.meizhuo.etips.model.Lesson;
-import com.meizhuo.etips.ui.CourseAllWeekAdapter;
-import com.meizhuo.etips.ui.CourseListViwAdapter;
-import com.meizhuo.etips.ui.CourseViewPagerAdapter;
 
 /**
  * 

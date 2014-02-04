@@ -18,12 +18,12 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 import com.meizhuo.etips.app.AppInfo;
 import com.meizhuo.etips.app.Preferences;
-import com.meizhuo.etips.common.utils.CalendarManager;
-import com.meizhuo.etips.common.utils.CourseUtils;
-import com.meizhuo.etips.common.utils.ETipsContants;
-import com.meizhuo.etips.common.utils.ETipsUtils;
-import com.meizhuo.etips.common.utils.SP;
-import com.meizhuo.etips.common.utils.StringUtils;
+import com.meizhuo.etips.common.CalendarManager;
+import com.meizhuo.etips.common.CourseUtils;
+import com.meizhuo.etips.common.ETipsContants;
+import com.meizhuo.etips.common.ETipsUtils;
+import com.meizhuo.etips.common.SP;
+import com.meizhuo.etips.common.StringUtils;
 import com.meizhuo.etips.model.Lesson;
 
 /**

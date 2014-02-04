@@ -13,8 +13,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
-import com.meizhuo.etips.common.utils.Elog;
-import com.meizhuo.etips.common.utils.PathBuilder;
+import com.meizhuo.etips.common.Elog;
+import com.meizhuo.etips.common.PathBuilder;
 import com.meizhuo.etips.model.SchoolNews;
 
 /**

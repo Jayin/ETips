@@ -1,6 +1,6 @@
 package com.meizhuo.etips.db;
 
-import com.meizhuo.etips.common.utils.ETipsContants;
+import com.meizhuo.etips.common.ETipsContants;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

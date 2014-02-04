@@ -6,8 +6,8 @@ import java.util.List;
 import android.content.Context;
 import android.content.Intent;
 
-import com.meizhuo.etips.common.utils.DataPool;
-import com.meizhuo.etips.common.utils.ETipsContants;
+import com.meizhuo.etips.common.DataPool;
+import com.meizhuo.etips.common.ETipsContants;
 import com.meizhuo.etips.model.BookInfo;
 import com.meizhuo.etips.model.Course;
 import com.meizhuo.etips.model.MsgRecord;

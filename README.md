@@ -38,4 +38,6 @@ Knowning bugs
   * fix bugs (can not login sub-system to get Course List & query personal score) 
   
 
-
+License
+===
+GPL

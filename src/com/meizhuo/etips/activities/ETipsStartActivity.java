@@ -162,6 +162,7 @@ public class ETipsStartActivity extends BaseUIActivity {
 					.getAppVersionName(getContext());
 		} catch (NameNotFoundException e) {
 			e.printStackTrace();
+			versionName = "1";
 		}
 		if (versionName != null && !versionName.equals(Preferences
 				.getAppVersion(getContext()))) {

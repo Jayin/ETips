@@ -71,7 +71,36 @@ public class CalendarManager {
 			// Night
 			return getCalendar(19, 31, 0, 0);
 		}
+	}
 
+	/**
+	 * 一天又三个时间 早上；下午；晚上 区分：时间段 每日凌晨0:00； 每日中午12：00 Like
+	 * {@linkplain#getTimePart()}
+	 * 
+	 * @return "AM"。"PM"。"Night"
+	 */
+	public static String getDayPart() {
+		Calendar c = getCalendar();
+		if (c.get(Calendar.HOUR_OF_DAY) >= 0
+				&& c.get(Calendar.HOUR_OF_DAY) < 12) {
+			return "AM";
+		} else if (c.get(Calendar.HOUR_OF_DAY) >= 12
+				&& c.get(Calendar.HOUR_OF_DAY) < 18) {
+			return "PM";
+		} else {
+			return "Night";
+		}
+	}
+
+	/**
+	 * 获得今日星期几<br>
+	 * 若星期一则返回1
+	 * 
+	 * @return 星期几，若星期一则返回1
+	 */
+	public static int getWeekDay() {
+		int day_of_week = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+		return day_of_week - 1 == 0 ? 7 : day_of_week - 1;
 	}
 
 	/**

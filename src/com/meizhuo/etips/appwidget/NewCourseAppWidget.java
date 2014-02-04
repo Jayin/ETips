@@ -36,7 +36,8 @@ public class NewCourseAppWidget extends AppWidgetProvider {
 				|| action.equals(ETipsContants.Action_CurrentWeekChange)
 				|| action.equals("android.intent.action.TIME_SET")
 				|| action.equals("android.intent.action.TIME_TICK")
-				|| action.equals("android.intent.action.TIMEZONE_CHANGED")) {
+				|| action.equals("android.intent.action.TIMEZONE_CHANGED")
+				|| action.equals("android.appwidget.action.APPWIDGET_UPDATE")) {
 
 			// 计算对应的数据。Calendar的API不想吐槽了 ++！
 			int cur_weekday = Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 2 == -1 ? 6

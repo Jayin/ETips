@@ -51,7 +51,7 @@ public class NotesAppWidget extends AppWidgetProvider {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		
-		if (intent.getAction() == ETipsContants.Action_Notes) {
+		if (intent.getAction().equals(ETipsContants.Action_Notes) || intent.getAction().equals("android.appwidget.action.APPWIDGET_UPDATE")) {
 			reflush(context);
 		}else{
 			super.onReceive(context, intent);

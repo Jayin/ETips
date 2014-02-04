@@ -56,13 +56,14 @@ public class CourseAppWidget extends AppWidgetProvider {
 				|| action.equals(ETipsContants.Action_CurrentWeekChange)
 				|| action.equals("android.intent.action.TIME_SET")
 				|| action.equals("android.intent.action.TIME_TICK")
-				|| action.equals("android.intent.action.TIMEZONE_CHANGED")) {
+				|| action.equals("android.intent.action.TIMEZONE_CHANGED")
+				|| action.equals("android.appwidget.action.APPWIDGET_UPDATE")) {
 
 			String time = StringUtils.getTimeFormat() + " 第"
 					+ ETipsUtils.getCurrentWeek(context) + "周";
 			String courseInfo = wrapData(context);
-			PendingIntent startCourseMain = getPendingIntent(context);  //刷新点击事件
-			
+			PendingIntent startCourseMain = getPendingIntent(context); // 刷新点击事件
+
 			RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
 					R.layout.widget_course);
 			remoteViews.setTextViewText(R.id.widget_course_time, time);
@@ -87,9 +88,10 @@ public class CourseAppWidget extends AppWidgetProvider {
 		String[] lessonName = new String[5];
 		StringBuilder sb = new StringBuilder("全日无课！");
 		boolean flag = true; // 用来判断是否全天无课,true 为是
-		DataPool dp  = new DataPool(ETipsContants.SP_NAME_Course, context);
-		Course course = (Course)dp.get("course");
-		if(course ==null )return "尚未导入课程";
+		DataPool dp = new DataPool(ETipsContants.SP_NAME_Course, context);
+		Course course = (Course) dp.get("course");
+		if (course == null)
+			return "尚未导入课程";
 		List<List<List<Lesson>>> lessonList = course.getCourseList();
 		int week = Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == 1 ? 7
 				: Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 1;
@@ -109,8 +111,7 @@ public class CourseAppWidget extends AppWidgetProvider {
 						}
 					}
 				} else {
-					System.out.println(todayLesson.get(i)
-					.get(0).toString());
+					System.out.println(todayLesson.get(i).get(0).toString());
 					if (CourseUtils.isLessonStart(context, todayLesson.get(i)
 							.get(0))) {
 						flag = false;
@@ -163,19 +164,18 @@ public class CourseAppWidget extends AppWidgetProvider {
 		super.onUpdate(context, appWidgetManager, appWidgetIds);
 
 	}
-	
-	private PendingIntent getPendingIntent(Context context){
+
+	private PendingIntent getPendingIntent(Context context) {
 		PendingIntent startCourseMain = PendingIntent.getActivity(context, 0,
 				new Intent(context, CourseMainActivity.class), 0);
-        DataPool dp = new DataPool(ETipsContants.SP_NAME_Course, context);
-        Course c =(Course) dp.get("course");
-        if(c==null || c.getCourseList().size()==0){
-        	Intent intent = new Intent(context,
-					SubSystemLoginActivity.class);
+		DataPool dp = new DataPool(ETipsContants.SP_NAME_Course, context);
+		Course c = (Course) dp.get("course");
+		if (c == null || c.getCourseList().size() == 0) {
+			Intent intent = new Intent(context, SubSystemLoginActivity.class);
 			intent.putExtra("toWhere", "CourseMainActivity");
-			startCourseMain = PendingIntent.getActivity(context, 0,intent , 0);
-        }
-        return startCourseMain;
+			startCourseMain = PendingIntent.getActivity(context, 0, intent, 0);
+		}
+		return startCourseMain;
 	}
 
 }

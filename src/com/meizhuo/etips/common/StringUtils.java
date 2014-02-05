@@ -140,13 +140,16 @@ public class StringUtils {
 		sb.append(getChinese(day_of_week));
 		return sb.toString();
 	}
+
 	/**
 	 * 根据星期x获取中文<br>
 	 * 星期1 ->星期一
-	 * @param day_of_week 星期1 ->星期一
+	 * 
+	 * @param day_of_week
+	 *            星期1 ->星期一
 	 * @return
 	 */
-	public static String getChinese(int day_of_week){
+	public static String getChinese(int day_of_week) {
 		switch (day_of_week) {
 		case 1:
 			return "一";
@@ -160,7 +163,7 @@ public class StringUtils {
 			return "五";
 		case 6:
 			return "六";
-		default :
+		default:
 			return "日";
 		}
 	}
@@ -188,42 +191,56 @@ public class StringUtils {
 
 		return sb.toString();
 	}
-   /**
-    * 检测字符串中只能包含：中文、数字、下划线、横线,英文a-z A-Z
-    * @param sequence
-    * @return true if it's ok
-    */
+
+	/**
+	 * 检测字符串中只能包含：中文、数字、下划线、横线,英文a-z A-Z
+	 * 
+	 * @param sequence
+	 * @return true if it's ok
+	 */
 	public static boolean isNickname(String sequence) {
 		final String format = "[^\\u4E00-\\u9FA5\\uF900-\\uFA2D\\w-_a-zA-Z]";
 		Pattern pattern = Pattern.compile(format);
 		Matcher matcher = pattern.matcher(sequence);
 		return !matcher.find();
 	}
-	
 
 	/**
-	 * 判断是否是邮箱 
+	 * 判断是否是邮箱
+	 * 
 	 * @param sequence
 	 * @return
 	 */
 	public static boolean isEmail(String sequence) {
-		Pattern pattern = Pattern.compile("^([a-z0-9A-Z]+[-_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$");
+		Pattern pattern = Pattern
+				.compile("^([a-z0-9A-Z]+[-_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$");
 		Matcher matcher = pattern.matcher(sequence);
 		return matcher.find();
 	}
+
 	/**
-	 * 判断密码格式是否ok
-	 * 长度8-16 , 英文+中文
+	 * 判断密码格式是否ok 长度8-16 , 英文+中文
+	 * 
 	 * @param sequence
 	 * @return
 	 */
-    public static boolean isPswVaild(String sequence){
-    	if(!(sequence.length()>=8 && sequence.length()<=16)){
-    		return false;
-    	}
-    	Pattern pattern = Pattern.compile("^([a-zA-Z0-9]){8,16}$");
-		Matcher matcher = pattern.matcher(sequence);  
-    	return matcher.find();
-    }
+	public static boolean isPswVaild(String sequence) {
+		if (!(sequence.length() >= 8 && sequence.length() <= 16)) {
+			return false;
+		}
+		Pattern pattern = Pattern.compile("^([a-zA-Z0-9]){8,16}$");
+		Matcher matcher = pattern.matcher(sequence);
+		return matcher.find();
+	}
 
+	/**
+	 * 从url中获取文件名+后缀名
+	 * 
+	 * @param url
+	 * @return
+	 */
+	public static String getFileNameFromUrl(String url) {
+		int p = url.lastIndexOf("/");
+		return url.substring(p + 1, url.length());
+	}
 }

@@ -1,36 +1,27 @@
 package com.meizhuo.etips.activities;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
-import com.meizhuo.etips.app.AppInfo;
 import com.meizhuo.etips.app.ClientConfig;
+import com.meizhuo.etips.app.ImgSwitchInfo;
 import com.meizhuo.etips.app.Preferences;
 import com.meizhuo.etips.common.AndroidUtils;
-import com.meizhuo.etips.common.CalendarManager;
-import com.meizhuo.etips.common.DataPool;
-import com.meizhuo.etips.common.ETipsAlarmManager;
 import com.meizhuo.etips.common.ETipsContants;
-import com.meizhuo.etips.common.Elog;
-import com.meizhuo.etips.common.SP;
-import com.meizhuo.etips.common.SharedPreferenceHelper;
-import com.meizhuo.etips.model.Course;
-import com.meizhuo.etips.model.Lesson;
+import com.meizhuo.etips.model.ImgInfo;
+import com.meizhuo.etips.service.ETipsCoreService;
 
 /**
  * Change Log: ETips 2.0 1.移除每日一句saying, Has_Saying_load 将会在再后一个版本移除 2.根据版本来识别
@@ -52,6 +43,7 @@ public class ETipsStartActivity extends BaseUIActivity {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		final View view = View.inflate(this, R.layout.acty_etips_start, null);
+		initBackgroud(view);
 		setContentView(view);
 		initData();
 		initLayout();
@@ -63,15 +55,19 @@ public class ETipsStartActivity extends BaseUIActivity {
 					toast("首次加载需要稍等片刻");
 					break;
 				case ETipsContants.Finish:
-					String versionName =null;
+					checkImgDoadload();
+				  //	test();
+					
+					String versionName = null;
 					try {
 						versionName = AndroidUtils
 								.getAppVersionName(getContext());
 					} catch (NameNotFoundException e) {
 						e.printStackTrace();
 					}
-					if (versionName != null && !versionName.equals(Preferences
-							.getAppVersion(getContext()))) {
+					if (versionName != null
+							&& !versionName.equals(Preferences
+									.getAppVersion(getContext()))) {
 						// 跳转到 导航
 						openActivity(ETipsGuidePage.class);
 						Preferences.setAppVersion(getContext(), versionName);
@@ -108,31 +104,6 @@ public class ETipsStartActivity extends BaseUIActivity {
 					@Override
 					public void run() {
 						loadPreference();
-						// SharedPreferences sp = getSharedPreferences(
-						// ETipsContants.SharedPreference_NAME,
-						// Context.MODE_PRIVATE);
-						// if (sp.getString("LessonDB_Has_Data", "NO").equals(
-						// "YES")) {
-						// CourseDAO dao = new CourseDAO(
-						// ETipsStartActivity.this);
-						// List<List<List<Lesson>>> course = new
-						// ArrayList<List<List<Lesson>>>();
-						// for (int i = 1; i <= 7; i++) {
-						// course.add(dao.getLessonList("week = ?",
-						// new String[] { String.valueOf(i) }));
-						// }
-						// // App.setLessonList(course);
-						// //把课程表保存到SharedPreference 更高效可靠
-						// DataPool dp = new
-						// DataPool(ETipsContants.SP_NAME_Course, getContext());
-						// Course c = new Course(course);
-						// if(dp.put("course", c)){
-						// Elog.i("ETipsStartActivity -Course add  successfully");
-						// }else{
-						// Elog.i("ETipsStartActivity -Course add  faild");
-						// }
-						//
-						// }
 						Message msg = handler.obtainMessage();
 						// initAlarm();
 						msg.what = ETipsContants.Finish;
@@ -144,48 +115,61 @@ public class ETipsStartActivity extends BaseUIActivity {
 		});
 	}
 
-	private void initAlarm() {
-		PendingIntent operation = PendingIntent.getBroadcast(getContext(),
-				ETipsContants.ID_Alarm_Course, new Intent(
-						ETipsContants.ACTION_Custom_Alarm),
-				PendingIntent.FLAG_UPDATE_CURRENT);
-		ETipsAlarmManager eam = new ETipsAlarmManager(getContext());
-		long firstTime = eam.getFirstTime(20, 1);
-		eam.setRepeatAlarm(firstTime, 1000 * 60 * 60 * 24, operation);
+	protected void test() {
+		Intent service = new Intent(getContext(),
+				ETipsCoreService.class);
+		service.putExtra("url", "http://etips.u.qiniudn.com/pic_6.jpg");
+		service.putExtra("displayTime",System.currentTimeMillis());	
+		service.putExtra("description","test" );
+		service.putExtra("continuance", 2 );
+		service.setAction(ETipsContants.Action_Service_Download_Pic);
+		startService(service);
+		Log.i("debug", "to test()---------->"+service.toString());
+	}
+
+	protected void checkImgDoadload() {
+		ImgInfo info = ImgSwitchInfo.getImgInfo(getContext());
+		Log.i("debug", "Check img--->"+info.toString());
+		if (!info.isDownloaded() && info.getUrl() != null
+				&& !info.getUrl().equals("")) {
+			Intent service = new Intent(getContext(),
+					ETipsCoreService.class);
+			service.putExtra("url", info.getUrl());
+			service.putExtra("displayTime",info.getDisplayTime());	
+			service.putExtra("description", info.getDescription() );
+			service.putExtra("continuance", info.getContinuance() );
+			service.setAction(ETipsContants.Action_Service_Download_Pic);
+			startService(service);
+		}
+		
+	}
+
+	// 判断是否显示下载下来的背景图
+	@SuppressWarnings("deprecation")
+	private void initBackgroud(View view) {
+		if (ImgSwitchInfo.shouldDisplayImg(getContext())) {
+			ImgInfo info = ImgSwitchInfo.getImgInfo(getContext());
+			Log.i("debug","init backgroud-->"+info.toString());
+			ImageView iv = (ImageView) view.findViewById(R.id.iv_bg);
+			iv.setBackgroundDrawable(Drawable.createFromPath(ImgSwitchInfo
+					.getImgSavePath(getContext()) + info.getName()));
+		}
 	}
 
 	private void loadPreference() {
-		ClientConfig.init(getContext()); 
-		String versionName =null;
+		ClientConfig.init(getContext());
+		String versionName = null;
 		try {
-			versionName = AndroidUtils
-					.getAppVersionName(getContext());
+			versionName = AndroidUtils.getAppVersionName(getContext());
 		} catch (NameNotFoundException e) {
 			e.printStackTrace();
 			versionName = "1";
 		}
-		if (versionName != null && !versionName.equals(Preferences
-				.getAppVersion(getContext()))) {
-			 //第一次装，就去社会资源默认的日期
+		if (versionName != null
+				&& !versionName.equals(Preferences.getAppVersion(getContext()))) {
+			// 第一次装，就去社会资源默认的日期
 			Preferences.setCurrentWeek(getContext(), 1);
-		}  
-		 
-//		// 版本控制；跳转时才判断是否应该跳转到导航 or MainActivity;
-//		try {
-//			SP vsp = new SP(ETipsContants.SP_NAME_Version
-//					+ AndroidUtils.getAppVersionName(getContext()),
-//					getContext());
-//			if (!vsp.getSharedPreferences().contains("First_Install")) {
-//				vsp.add("First_Install", "YES");
-//				loadAgain();
-//				SharedPreferenceHelper.set(sp, "Current_Week",
-//						CalendarManager.getStartTermWeek());
-//				// 不断加入属性。。。
-//			}
-//		} catch (NameNotFoundException e) {
-//			e.printStackTrace();
-//		}
-
+		}
 	}
 
 	@Override
@@ -198,66 +182,4 @@ public class ETipsStartActivity extends BaseUIActivity {
 
 	}
 
-	/**
-	 * 这里写的太不负责了，为了赶。。日后重构
-	 */
-//	public void loadAgain() {
-//		SharedPreferences sp = this.getSharedPreferences(
-//				ETipsContants.SharedPreference_NAME, Context.MODE_PRIVATE);
-//		SP msp = new SP(ETipsContants.SP_NAME_User, getContext());
-//		msp.deleteAll();
-//		sp.edit().remove("First_Open_APP").commit(); // commit() - > apply
-//
-//		if (!sp.contains("First_Open_APP")) {
-//			String[] properties = getResources().getStringArray(
-//					R.array.SharedPreference);
-//			for (String key : properties) {
-//				SharedPreferenceHelper.set(sp, key, "NO");
-//			}
-//			SharedPreferenceHelper.set(sp, "First_Open_APP", "YES");
-//			SharedPreferenceHelper.set(sp, "First_Open_APP_Time",
-//					String.valueOf(System.currentTimeMillis()));
-//			SharedPreferenceHelper.set(sp, "Current_Week", CalendarManager
-//					.getCalendar().get(Calendar.WEEK_OF_YEAR));
-//			SharedPreferenceHelper.set(sp, "Is_Open_Daily_Course_Alarm", "YES");
-//
-//		} else {
-//			SharedPreferenceHelper.set(sp, "First_Open_APP", "NO");
-//		}
-//		if (sp.contains("Has_Saying_load")) { // 包含，说明用户基于新版本安装
-//
-//		} else { // 不包含，说明用户基于就旧本升级
-//			SharedPreferenceHelper.set(sp, "Has_Saying_load", "NO");
-//		}
-//
-//		// 设置校园资讯模块
-//
-//		if (msp.getSharedPreferences().getString("nickname", "").equals("")) {
-//			msp.add("nickname", "null");
-//			msp.add("account", "null");
-//			msp.add("psw", "null");
-//			msp.add("session", "null");
-//			msp.add("id", "null");
-//			msp.add("ReigstTimeout", 1000 * 60 * 5 + "");
-//			msp.add("loginTimeout", 1000 * 60 * 60 * 24 * 7 + "");
-//			msp.add("loginTime", "null");
-//			msp.add("shouldTopicListUpdata", "null");
-//			msp.add("shouldStartBgUpdata", "null");
-//			msp.add("shouldCurrentUpdata", "null");
-//			msp.add("descrpiton", "null");
-//			msp.add("SendCount", 0 + ""); // sendCount就是控制每日可以发多少帖子
-//			msp.add("Day_of_Year",
-//					CalendarManager.getCalendar().get(Calendar.DAY_OF_YEAR)
-//							+ "");
-//			msp.add("MaxSend", 3 + "");// 一天最多能发的帖子数
-//		}
-//		// 每日清0
-//		if (CalendarManager.getCalendar().get(Calendar.DAY_OF_YEAR) != Integer
-//				.parseInt(msp.getValue("Day_of_Year"))) {
-//			msp.add("SendCount", 0 + ""); // sendCount就是控制每日可以发多少帖子
-//			msp.add("Day_of_Year",
-//					CalendarManager.getCalendar().get(Calendar.DAY_OF_YEAR)
-//							+ "");
-//		}
-//	}
 }

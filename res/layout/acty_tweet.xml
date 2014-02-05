@@ -64,6 +64,7 @@
     <com.meizhuo.etips.widget.PullToRefreshListView
         android:id="@+id/acty_tweet_lv"
         style="@style/ListView.Base"
+        android:background="@color/grey"
     >
     </com.meizhuo.etips.widget.PullToRefreshListView>
 

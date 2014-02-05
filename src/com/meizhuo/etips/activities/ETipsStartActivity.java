@@ -56,8 +56,6 @@ public class ETipsStartActivity extends BaseUIActivity {
 					break;
 				case ETipsContants.Finish:
 					checkImgDoadload();
-				  //	test();
-					
 					String versionName = null;
 					try {
 						versionName = AndroidUtils
@@ -115,17 +113,17 @@ public class ETipsStartActivity extends BaseUIActivity {
 		});
 	}
 
-	protected void test() {
-		Intent service = new Intent(getContext(),
-				ETipsCoreService.class);
-		service.putExtra("url", "http://etips.u.qiniudn.com/pic_6.jpg");
-		service.putExtra("displayTime",System.currentTimeMillis());	
-		service.putExtra("description","test" );
-		service.putExtra("continuance", 2 );
-		service.setAction(ETipsContants.Action_Service_Download_Pic);
-		startService(service);
-		Log.i("debug", "to test()---------->"+service.toString());
-	}
+//	protected void test() {
+//		Intent service = new Intent(getContext(),
+//				ETipsCoreService.class);
+//		service.putExtra("url", "http://etips.u.qiniudn.com/pic_6.jpg");
+//		service.putExtra("displayTime",System.currentTimeMillis());	
+//		service.putExtra("description","test" );
+//		service.putExtra("continuance", 2 );
+//		service.setAction(ETipsContants.Action_Service_Download_Pic);
+//		startService(service);
+//		Log.i("debug", "to test()---------->"+service.toString());
+//	}
 
 	protected void checkImgDoadload() {
 		ImgInfo info = ImgSwitchInfo.getImgInfo(getContext());

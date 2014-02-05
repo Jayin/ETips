@@ -52,6 +52,7 @@ public class ETipsContants {
 	public final static String TYPE_MsgCenter_System = "system";
 	public final static String TYPE_MsgCenter_Push = "push";
 	public final static String TYPE_MsgCenter_Feedback = "feedback";
+	public final static String TYPE_MsgCenter_Image  = "image";
 	/**
 	 * SP类型
 	 */
@@ -70,7 +71,7 @@ public class ETipsContants {
 	 */
 	public final static int ID_Notification_MsgCenter = 0x0000011;
 	public final static int ID_Notification_Alarm_Course = 0x0000012;
-	public static final int ID_Notify = 10001;
+	public static final int ID_Notify = 10001;//暂时无用 since v2.2.但保留
 	public static final int ID_System = 10002;
 	public static final int ID_Push = 10003;
 	public static final int ID_Send_Tweet = 10004;

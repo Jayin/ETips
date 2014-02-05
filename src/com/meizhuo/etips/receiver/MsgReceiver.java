@@ -2,19 +2,24 @@ package com.meizhuo.etips.receiver;
 
 import java.util.ArrayList;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import cn.jpush.android.api.JPushInterface;
+
 import com.meizhuo.etips.activities.MsgCenterActivity;
 import com.meizhuo.etips.app.AppInfo;
 import com.meizhuo.etips.app.Preferences;
 import com.meizhuo.etips.common.ETipsContants;
-import com.meizhuo.etips.common.ETipsUtils;
 import com.meizhuo.etips.model.MsgRecord;
-import com.meizhuo.etips.ui.base.BaseNotificationCompat;
+import com.meizhuo.etips.service.ETipsCoreService;
+import com.meizhuo.etips.ui.base.BaseNotification;
 
 /**
  * 自定义接收器
@@ -50,61 +55,34 @@ public class MsgReceiver extends BroadcastReceiver {
 			// send the UnRegistration Id to your server...
 		} else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent
 				.getAction())) {
-			String content = bundle.getString(JPushInterface.EXTRA_MESSAGE);
-			String JSONstring = bundle.getString(JPushInterface.EXTRA_EXTRA);
-			// Log.d(TAG, "接收到推送下来的自定义消息: " + content);
-			// Log.d(TAG, "接收到推送下来的自定义json: " + JSONstring);
-			// System.out.println("content:" + content);
-			// System.out.println("接收到推送下来的自定义json: " + JSONstring);
-			// Elog.i("接收到推送下来的自定义json: " + JSONstring);
-			if (JSONstring != null) {
-				// get content of notify/push/system
-				String notify = ETipsUtils.parseJSON(JSONstring,
-						ETipsContants.TYPE_MsgCenter_Notify);
-				String push = ETipsUtils.parseJSON(JSONstring,
-						ETipsContants.TYPE_MsgCenter_Push);
-				String system = ETipsUtils.parseJSON(JSONstring,
-						ETipsContants.TYPE_MsgCenter_System);
-				BaseNotificationCompat notification = (BaseNotificationCompat) BaseNotificationCompat
-						.getInstance(context);
-				notification.setContentIntent(BaseNotificationCompat
-						.getContentIntent(context, MsgCenterActivity.class));
-				notification.setContentTitle("ETips消息中心");
-				if (saveMessage(notify, ETipsContants.TYPE_MsgCenter_Notify)) {
-					saveToSharedPerference(context); // 通知用户有新消息
-					notification.setID(ETipsContants.ID_Notify);
-					notification.setContentText(notify);
-					notification.show();
+			String content = bundle.getString(JPushInterface.EXTRA_MESSAGE);// 接收到推送下来的自定义消息:
+			String JSONstring = bundle.getString(JPushInterface.EXTRA_EXTRA);// 接收到推送下来的自定义json
+			try {
+				JSONObject obj = new JSONObject(JSONstring);
+				String type = obj.getString("type");
+				if (type != null) {
+					if (ETipsContants.TYPE_MsgCenter_System.equals(type)) {
+						toSystem(obj);
+					} else if (ETipsContants.TYPE_MsgCenter_Push.equals(type)) {
+						toPush(obj);
+					} else if (ETipsContants.TYPE_MsgCenter_Image.equals(type)) {
+						toImage(obj);
+					}
 				}
-				if (saveMessage(push, ETipsContants.TYPE_MsgCenter_Push)) {
-					saveToSharedPerference(context);
-					// not to create a notification
-				}
-				if (saveMessage(system, ETipsContants.TYPE_MsgCenter_System)) {
-					saveToSharedPerference(context);
-					notification.setID(ETipsContants.ID_System);
-					notification.setContentText(system);
-					notification.show();
-				}
+			} catch (JSONException e) {
+				e.printStackTrace();
 			}
 
 		} else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent
 				.getAction())) {
 			// Log.d(TAG, "接收到推送下来的通知");
-			int notifactionId = bundle
-					.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
+			// int notifactionId = bundle
+			// .getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
 			// Log.d(TAG, "接收到推送下来的通知的ID: " + notifactionId);
 
 		} else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent
 				.getAction())) {
 			// Log.d(TAG, "用户点击打开了通知");
-
-			// 打开自定义的Activity
-			Intent i = new Intent(context, MsgCenterActivity.class);
-			i.putExtras(bundle);
-			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			context.startActivity(i);
-
 		} else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent
 				.getAction())) {
 			// Log.d(TAG,
@@ -117,6 +95,62 @@ public class MsgReceiver extends BroadcastReceiver {
 			// Log.d(TAG, "Unhandled intent - " + intent.getAction());
 		}
 
+	}
+
+	// notify to download
+	private void toImage(JSONObject obj) {
+		try {
+			String url = obj.getString("url");
+			long displayTime = Long.parseLong(obj.getString("displaytime"));
+			String description = obj.getString("description");
+			int continuance = Integer.parseInt(obj.getString("continuance"));
+			Intent service = new Intent(context, ETipsCoreService.class);
+			service.putExtra("url", url);
+			service.putExtra("displayTime", displayTime);
+			service.putExtra("description", description);
+			service.putExtra("continuance", continuance);
+			service.setAction(ETipsContants.Action_Service_Download_Pic);
+			context.startService(service);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	private void toPush(JSONObject obj) {
+		try {
+			if (saveMessage(obj.getString("content"), obj.getString("type"))) {
+				showNotification(ETipsContants.ID_Push,
+						obj.getString("content"));
+				Preferences.setIsHasMsgToCheck(context, true);
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void toSystem(JSONObject obj) {
+		try {
+			if (saveMessage(obj.getString("content"), obj.getString("type"))) {
+				showNotification(ETipsContants.ID_System,
+						obj.getString("content"));
+				Preferences.setIsHasMsgToCheck(context, true);
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	// 显示通知
+	private void showNotification(int id, String content) {
+		BaseNotification notify = new BaseNotification(context);
+		notify.setNotificationID(id);
+		notify.setContentText(content);
+		notify.setTicker(content);
+		notify.setContentIntent(PendingIntent.getActivity(context, 0,
+				new Intent(context, MsgCenterActivity.class), 0));
+		notify.show();
 	}
 
 	// 打印所有的 intent extra 数据
@@ -133,41 +167,12 @@ public class MsgReceiver extends BroadcastReceiver {
 	}
 
 	/**
-	 * 保存到数据库
-	 * 分离 since v2.2
+	 * 保存消息
+	 * 
 	 * @param content
 	 * @param type
 	 * @return
 	 */
-//	public boolean saveToDB(String content, String type) {
-//		if (content != null) {
-//			final MsgCenterDAO dao = new MsgCenterDAO(context);
-//			if (size == -1)
-//				size = dao.getRowCount();
-//			long currentTime = System.currentTimeMillis();
-//			final ContentValues cv = new ContentValues();
-//			cv.put("id", size++);
-//			cv.put("type", type);
-//			cv.put("content", content);
-//			cv.put("addTime", currentTime);
-//			new Thread(new Runnable() {
-//				@Override
-//				public void run() {
-//					int i = 1;
-//					while (!dao.add(cv) && i < 4)
-//						i++;
-//				}
-//			}).start();
-//			return true;
-//		}
-//		return false;
-//	}
-    /**
-     * 保存消息
-     * @param content
-     * @param type
-     * @return
-     */
 	public boolean saveMessage(String content, String type) {
 		if (content != null) {
 			ArrayList<MsgRecord> messages = AppInfo.getMessages(context);
@@ -182,12 +187,4 @@ public class MsgReceiver extends BroadcastReceiver {
 		}
 		return false;
 	}
-
-	public void saveToSharedPerference(Context context) {
-//		SharedPreferences sp = context.getSharedPreferences(
-//				ETipsContants.SharedPreference_NAME, Context.MODE_PRIVATE);
-//		SharedPreferenceHelper.set(sp, "Has_Msg_To_Check", "YES");
-		Preferences.setIsHasMsgToCheck(context, true);
-	}
-
 }

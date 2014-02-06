@@ -54,10 +54,8 @@ public class SetCurrentWeekDialog extends BaseDialog {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.dialog_setting_currentweek_decrease:
-			if (mCurrentWeek - 1 > 0) {
 				mCurrentWeek--;
 				tv.setText(mCurrentWeek + "");
-			}
 			break;
 		case R.id.dialog_setting_currentweek_plus:
 			mCurrentWeek++;

@@ -22,6 +22,7 @@ import com.meizhuo.etips.common.CalendarManager;
 import com.meizhuo.etips.common.CourseUtils;
 import com.meizhuo.etips.common.ETipsContants;
 import com.meizhuo.etips.common.ETipsUtils;
+import com.meizhuo.etips.common.L;
 import com.meizhuo.etips.common.SP;
 import com.meizhuo.etips.common.StringUtils;
 import com.meizhuo.etips.model.Lesson;
@@ -40,7 +41,7 @@ public class ETipsMainActivity extends BaseUIActivity implements
 	// private boolean hasLoadingCourse = false; // 是否已经刷新了课表
 	private RelativeLayout Btn_Library, Btn_wyuNews, Btn_notes,
 			Btn_checkElectricity, Btn_msgCenter, Btn_Setting, Btn_Course,
-			queryClassroom; 
+			queryClassroom;
 	private TextView tv_time, tv_weekNo, tv_TimePart;// tv_weekNo 第几周
 														// tv_TimePart =AM PM
 														// Night
@@ -105,8 +106,11 @@ public class ETipsMainActivity extends BaseUIActivity implements
 	// 切换时间课表
 	private void startAsyncWork() {
 		CourseUpdate cu = new CourseUpdate();
-		current_week = ETipsUtils.getCurrentWeek(this);
-		tv_weekNo.setText("第" + current_week + "周");
+		current_week = Preferences.getCurrentWeek(this);
+		if (current_week > 0 && current_week < 21)
+			tv_weekNo.setText("第" + current_week + "周");
+		else
+			tv_weekNo.setText("放假ing");
 		cu.execute("");
 	}
 
@@ -142,7 +146,7 @@ public class ETipsMainActivity extends BaseUIActivity implements
 		Btn_msgCenter.setOnClickListener(this);
 		Btn_Setting.setOnClickListener(this);
 		Btn_Course.setOnClickListener(this);
-		
+
 		initCourseShow();
 		initFlipper();
 	}
@@ -332,7 +336,7 @@ public class ETipsMainActivity extends BaseUIActivity implements
 			_coursList2 = AppInfo.getCourse(getContext()).getDailyLesson(
 					CalendarManager.getWeekDay() - 1, 3);
 		} else {
-			//Night
+			// Night
 			_coursList1 = AppInfo.getCourse(getContext()).getDailyLesson(
 					CalendarManager.getWeekDay() - 1, 4);
 		}

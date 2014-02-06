@@ -143,23 +143,67 @@ public class CalendarManager {
 	}
 
 	/**
-	 * 获得本学期的起始的周数
+	 * 计算第一次打开应用的周数(可以是负数！)
 	 * 
 	 * @return
 	 */
-	public static int getStartTermWeek() {
+	public static int getStartTermWeek2() {
+
 		Calendar c = Calendar.getInstance();
+		Calendar c1 = Calendar.getInstance();
+		int c1_week = c1.get(Calendar.WEEK_OF_YEAR);
 		int year = c.get(Calendar.YEAR);
 		int month = c.get(Calendar.MONTH);
-		if (month > Calendar.FEBRUARY && month < Calendar.SEPTEMBER) {
+		if (month >= Calendar.FEBRUARY && month <= Calendar.AUGUST) {
 			// 下学期,本来打算每年的都弄一个日期，发现都是在2月24日附近开学 所以为了方便这里就。。这么设置了
 			c.set(year, Calendar.FEBRUARY, 24);
-			return c.get(Calendar.WEEK_OF_YEAR);
+			return c1_week - c.get(Calendar.WEEK_OF_YEAR);
 		} else {
 			// 上学期,本来打算每年的都弄一个日期，发现都是在9月2日附近开学 所以为了方便这里就。。这么设置了
 			c.set(year, Calendar.SEPTEMBER, 2); // 2013年9月2日 开学
-			return c.get(Calendar.WEEK_OF_YEAR);
+			return c1_week - c.get(Calendar.WEEK_OF_YEAR);
 		}
 	}
 
+	/**
+	 * 计算第一次打开应用的周数(可以是负数！)
+	 *<li>这里只能保证一个学期正确显示，因为下一个学期的开学时间你无法确定，目前能确定的开学时间是2014.2.24
+	 * @return
+	 */
+	public static int getStartTermWeek() {
+
+		Calendar c1 = Calendar.getInstance();// 本年的2月24
+		Calendar c2 = Calendar.getInstance();// 本年的7月15
+		Calendar c3 = Calendar.getInstance();// 本年的9月2
+		Calendar c4 = Calendar.getInstance();// 下年年的1月21
+		Calendar c5 = Calendar.getInstance();// 本年的最后12.31
+		int year = c1.get(Calendar.YEAR);
+		int current_week = c1.get(Calendar.WEEK_OF_YEAR);
+		c1.set(year, Calendar.FEBRUARY, 24);
+		c2.set(year, Calendar.JULY, 15);
+		c3.set(year, Calendar.SEPTEMBER, 2);
+		c4.set(year + 1, Calendar.JANUARY, 21);
+		c5.set(year, Calendar.DECEMBER, 31);
+		if (current_week >= c1.get(Calendar.WEEK_OF_YEAR)// 周数处于2.24-7.15为下学期 返回正数
+				&& current_week <= c2.get(Calendar.WEEK_OF_YEAR)) {
+			return current_week - c1.get(Calendar.WEEK_OF_YEAR) + 1; //   
+		}
+		if (current_week >= c3.get(Calendar.WEEK_OF_YEAR)
+				|| (year == c4.get(Calendar.YEAR) && current_week <= c4
+						.get(Calendar.WEEK_OF_YEAR))) {// 处于本年的9月2后，或下一年的1月21 返回正数
+			if (current_week >= c3.get(Calendar.WEEK_OF_YEAR)) {
+				return current_week - c3.get(Calendar.WEEK_OF_YEAR) + 1;
+			} else {
+				return c5.get(Calendar.WEEK_OF_YEAR)
+						- c3.get(Calendar.WEEK_OF_YEAR) + 1
+						+ c4.get(Calendar.WEEK_OF_YEAR);
+			}
+		} else {  //倒数，均是负数
+			if (current_week < c1.get(Calendar.WEEK_OF_YEAR)) {
+				return current_week - c1.get(Calendar.WEEK_OF_YEAR) +1;   //向下学期倒数
+			} else { 
+				return current_week - c3.get(Calendar.WEEK_OF_YEAR) +1;   //想上学期倒数
+			}
+		}
+	}
 }

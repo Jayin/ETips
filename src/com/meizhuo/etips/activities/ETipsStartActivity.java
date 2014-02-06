@@ -1,5 +1,7 @@
 package com.meizhuo.etips.activities;
 
+import java.util.Calendar;
+
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.BitmapFactory;
@@ -19,7 +21,9 @@ import com.meizhuo.etips.app.ClientConfig;
 import com.meizhuo.etips.app.ImgSwitchInfo;
 import com.meizhuo.etips.app.Preferences;
 import com.meizhuo.etips.common.AndroidUtils;
+import com.meizhuo.etips.common.CalendarManager;
 import com.meizhuo.etips.common.ETipsContants;
+import com.meizhuo.etips.common.L;
 import com.meizhuo.etips.model.ImgInfo;
 import com.meizhuo.etips.service.ETipsCoreService;
 
@@ -165,8 +169,9 @@ public class ETipsStartActivity extends BaseUIActivity {
 		}
 		if (versionName != null
 				&& !versionName.equals(Preferences.getAppVersion(getContext()))) {
-			// 第一次装，就去社会资源默认的日期
-			Preferences.setCurrentWeek(getContext(), 1);
+			// 第一次装新版本，就去社会资源默认的日期
+			//Preferences.setCurrentWeek(getContext(), 1);
+			Preferences.setCurrentWeek(getContext(), CalendarManager.getStartTermWeek());
 		}
 	}
 

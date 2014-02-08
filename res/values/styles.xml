@@ -114,7 +114,7 @@
         <item name="android:layout_margin">5dp</item>
         <item name="android:background">@drawable/btn_item_whit2grey</item>
     </style>
-<!--  <item name="android:background">@drawable/btn_setting_sigleitem</item> -->
+    <!-- <item name="android:background">@drawable/btn_setting_sigleitem</item> -->
     <style name="Acty_Course_Setting.imageview">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -195,9 +195,9 @@
     <style name="Base_CustomView" parent="Base_Layout">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:background">@drawable/ic_item_color_lightblue</item>
+        <item name="android:background">@drawable/btn_item_main</item>
     </style>
-
+    <!-- <item name="android:background">@drawable/ic_item_color_lightblue</item> -->
     <style name="Base_EditText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

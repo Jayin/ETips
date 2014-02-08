@@ -44,13 +44,13 @@ public class Notes extends BaseUIActivity implements OnClickListener {
 		final Handler h = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
-			
+
 			}
 		};
 		receiver = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context context, Intent intent) {
-				//h.sendEmptyMessage(1);
+				// h.sendEmptyMessage(1);
 				initData();
 				lv.setAdapter(new MyAdapter());
 			}
@@ -103,7 +103,7 @@ public class Notes extends BaseUIActivity implements OnClickListener {
 		if (sp.isEmpty()) {
 			isEmpty = true;
 		} else {
- 			list  = (List<MNotes>)sp.toEntityAll(ETipsContants.TYPE_SP_Notes);
+			list = (List<MNotes>) sp.toEntityAll(ETipsContants.TYPE_SP_Notes);
 		}
 	}
 
@@ -137,9 +137,6 @@ public class Notes extends BaseUIActivity implements OnClickListener {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			convertView = LayoutInflater.from(Notes.this).inflate(
 					R.layout.item_note, null);
-			((TextView) convertView.findViewById(R.id.item_note_time))
-					.setText(StringUtils.getDateFormat(list.get(position)
-							.getTime(), "mm-dd"));
 			((TextView) convertView.findViewById(R.id.item_note_content))
 					.setText(list.get(position).getContent());
 			return convertView;

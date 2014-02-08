@@ -15,8 +15,7 @@
 
         <ImageView
             android:id="@+id/iv_previous"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/ImageView.base"
             android:background="@drawable/ic_action_back" />
 
         <TextView
@@ -32,8 +31,7 @@
 
         <ImageView
             android:id="@+id/iv_next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/ImageView.base"
             android:background="@drawable/ic_action_next" />
     </LinearLayout>
 

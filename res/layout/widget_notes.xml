@@ -4,60 +4,67 @@
     android:layout_height="match_parent"
     android:layout_margin="5dp"
     android:alpha="0.9"
-    android:background="@color/lucency_white"
+    android:background="@color/black_lighter"
     android:orientation="vertical" >
 
-    <RelativeLayout
+    <!-- android:background="@color/black_lighter" -->
+
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:alpha="1"
-        android:background="@drawable/frame_main_head" >
+        android:layout_height="40dp"
+        android:orientation="horizontal" >
 
         <TextView
             android:id="@+id/widget_notes_note_title"
             style="@style/TextView.Base"
-            android:layout_alignParentLeft="true"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="10dp"
+            android:layout_weight="1"
             android:text="个人便签"
             android:textColor="@color/white"
-            android:textSize="28sp" />
+            android:textSize="22sp" />
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="10dp" >
+        <ImageView
+            android:id="@+id/iv_previous"
+            style="@style/ImageView.base"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="4dp"
+            android:background="@drawable/ic_action_back" />
 
-            <Button
-                android:id="@+id/widget_notes_btn_addNote"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/btn_add" />
-        </RelativeLayout>
-    </RelativeLayout>
+        <ImageView
+            android:id="@+id/iv_next"
+            style="@style/ImageView.base"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="4dp"
+            android:background="@drawable/ic_action_next" />
+
+        <ImageView
+            android:id="@+id/widget_notes_btn_addNote"
+            style="@style/ImageView.base"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/ic_action_new" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/ic_line_1" />
 
     <RelativeLayout
         android:id="@+id/widget_notes_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-       
-        android:alpha="0.9"
-        android:background="@drawable/item_note" >
+        android:layout_height="wrap_content" >
 
         <TextView
             android:id="@+id/widget_notes_tv_content"
-             android:padding="4dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:gravity="center_vertical"
+            android:gravity="center_horizontal"
+            android:padding="4dp"
             android:text="随时随地，记录生活点滴"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="14.0sp" />
+            android:textColor="@color/white"
+            android:textSize="14sp" />
     </RelativeLayout>
 
 </LinearLayout>

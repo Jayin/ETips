@@ -54,7 +54,7 @@ public class NotesEdit extends BaseUIActivity implements OnClickListener {
 	protected void initLayout() {
 		et_content = (EditText) _getView(R.id.acty_notesedit_et_content);
 		tv_time = (TextView) _getView(R.id.acty_notesedit_time);
-		back = _getView(R.id.acty_notesedit_back);
+		back = _getView(R.id.btn_back);
 		save = _getView(R.id.acty_notesedit_save);
 		delete = _getView(R.id.acty_notesedit_delete);
 		share = _getView(R.id.acty_notesedit_share);
@@ -141,7 +141,7 @@ public class NotesEdit extends BaseUIActivity implements OnClickListener {
 			dialog.dismiss();
 			closeActivity();
 			break;
-		case R.id.acty_notesedit_back:
+		case R.id.btn_back:
 			// 内容编辑了,但是没有按保存就离开
 			isExit();
 			break;

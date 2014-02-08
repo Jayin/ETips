@@ -104,6 +104,7 @@
         <item name="android:layoutAnimation">@anim/layout_listview_top_to_bottom_alpha</item>
         <item name="android:scrollbars">vertical</item>
         <item name="android:fadingEdge">none</item>
+        <item name="android:listSelector">@android:color/transparent</item>
     </style>
 
     <style name="Acty_Course_Setting" />
@@ -155,6 +156,13 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">18sp</item>
         <item name="android:gravity">center</item>
+    </style>
+
+    <style name="ImageView"></style>
+
+    <style name="ImageView.base">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
     <style name="Better_TextView_ETipsMain" parent="TextView.Base">

@@ -27,7 +27,7 @@ import com.meizhuo.etips.common.StringUtils;
 import com.meizhuo.etips.model.MNotes;
 
 public class Notes extends BaseUIActivity implements OnClickListener {
-	private View add;
+	private View add, back;
 	private ListView lv;
 	private SP sp;
 	private boolean isEmpty = false;
@@ -76,8 +76,10 @@ public class Notes extends BaseUIActivity implements OnClickListener {
 	@Override
 	protected void initLayout() {
 		add = _getView(R.id.acty_notes_btn_add);
+		back = _getView(R.id.btn_back);
 		lv = (ListView) _getView(R.id.acty_notes_lv);
 		add.setOnClickListener(this);
+		back.setOnClickListener(this);
 
 		lv.setAdapter(new MyAdapter());
 		lv.setOnItemClickListener(new OnItemClickListener() {
@@ -112,6 +114,9 @@ public class Notes extends BaseUIActivity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.acty_notes_btn_add:
 			openActivity(NotesEdit.class);
+			break;
+		case R.id.btn_back:
+			closeActivity();
 			break;
 		}
 	}

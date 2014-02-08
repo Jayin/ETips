@@ -18,6 +18,7 @@ import com.meizhuo.etips.common.ETipsContants;
 import com.meizhuo.etips.model.Course;
 import com.meizhuo.etips.model.Lesson;
 import com.meizhuo.etips.net.utils.SubSystemAPI;
+import com.meizhuo.etips.ui.dialog.LoadingDialog;
 import com.meizhuo.etips.ui.dialog.WaittingDialog;
 
 /**
@@ -105,30 +106,29 @@ public class SubSystemLoginActivity extends BaseUIActivity {
 	}
 
 	class SSLoginHandler extends Handler {
-		WaittingDialog dialog;
-
+LoadingDialog dialog;
 		@SuppressWarnings("unchecked")
 		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case ETipsContants.Start:
-				dialog = new WaittingDialog(SubSystemLoginActivity.this);
+				dialog = new LoadingDialog(getContext());
 				dialog.show();
 				break;
 			case ETipsContants.Logining:
-				dialog.setText("ETips登陆中...");
+				dialog.setLodingText("ETips登陆中...");
 				break;
 			case ETipsContants.Downloading:
-				dialog.setText("ETips下载数据中...");
+				dialog.setLodingText("ETips下载数据中...");
 				break;
 			case ETipsContants.Finish: // save data to DB
 				if (!dialog.isShowing()) {
 					dialog = null;
 					break;
 				}
-				dialog.setText("ETips解析数据中...");
+				dialog.setLodingText("ETips解析数据中...");
 				if (tag == TAG_Lesson) {
-					dialog.setText("ETips正在跳转...");
+					dialog.setLodingText("ETips正在跳转...");
 					// 转换
 					Course course = Course
 							.translateData((Map<Integer, Map<Integer, List<Lesson>>>) msg.obj);
@@ -139,7 +139,7 @@ public class SubSystemLoginActivity extends BaseUIActivity {
 							CourseMainActivity.class));
 					SubSystemLoginActivity.this.finish();
 				} else if (tag == TAG_ScoreRecord) {
-					dialog.setText("ETips正在跳转...");
+					dialog.setLodingText("ETips正在跳转...");
 					Intent intent = new Intent(SubSystemLoginActivity.this,
 							ScoreRecordActivity.class);
 					intent.putExtra("userID", userID);

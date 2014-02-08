@@ -26,6 +26,7 @@ import com.meizhuo.etips.common.FileUtils;
 import com.meizhuo.etips.model.SchoolNewList;
 import com.meizhuo.etips.model.SchoolNews;
 import com.meizhuo.etips.net.utils.WYUNewsAPI;
+import com.meizhuo.etips.ui.dialog.LoadingDialog;
 import com.meizhuo.etips.ui.dialog.WaittingDialog;
 
 public class SchoolNewsMainActivity extends BaseUIActivity {
@@ -186,13 +187,12 @@ public class SchoolNewsMainActivity extends BaseUIActivity {
 	}
 
 	class SNMHandler extends Handler {
-		WaittingDialog dialog;
-
+       LoadingDialog dialog;
 		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case ETipsContants.Start:
-				dialog = new WaittingDialog(SchoolNewsMainActivity.this);
+				dialog = new LoadingDialog(getContext());
 				dialog.show();
 				break;
 			case ETipsContants.Logining:
@@ -202,7 +202,7 @@ public class SchoolNewsMainActivity extends BaseUIActivity {
 					dialog = null;
 					break;
 				}
-				dialog.setText("ETips获取数据中...");
+			dialog.setLodingText("ETips获取数据中...");
 				break;
 			case ETipsContants.Finish:
 				if (!dialog.isShowing()) {

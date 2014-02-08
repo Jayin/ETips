@@ -41,7 +41,7 @@ public class ETipsCoreService extends Service {
 		if (ETipsContants.Action_Service_Download_Pic.equals(action)) {
 			downloadPic(intent);
 		}
-		return Service.START_REDELIVER_INTENT;
+		return Service.START_STICKY;
 	}
 
 	//

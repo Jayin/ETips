@@ -29,7 +29,7 @@
     </style>
 
     <style name="BaseDialog" parent="@android:Theme.Dialog">
-        <item name="android:windowBackground">@color/lucency_white</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowFrame">@null</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>

@@ -22,14 +22,16 @@ import com.meizhuo.etips.adapter.LibSearchResultListViewAdapter;
 import com.meizhuo.etips.common.ETipsContants;
 import com.meizhuo.etips.model.*;
 import com.meizhuo.etips.net.utils.LibraryAPI;
+import com.meizhuo.etips.ui.dialog.LoadingDialog;
 import com.meizhuo.etips.ui.dialog.WaittingDialog;
 
 public class LibSearchResultActivity extends BaseUIActivity {
 	private String keyword;
-	private int totalPage = -1;  //-1 means having not finishing first download wrok
+	private int totalPage = -1; // -1 means having not finishing first download
+								// wrok
 	private int page = 1;
 	private TextView tv_title, tv_pageInfo;
-	
+
 	private View backBtn, prevBtn, nextBtn;
 	private ListView lv;
 	private List<BookInfo> list;
@@ -56,12 +58,9 @@ public class LibSearchResultActivity extends BaseUIActivity {
 				.findViewById(R.id.acty_library_searchresult_title_tv);
 		tv_pageInfo = (TextView) this
 				.findViewById(R.id.acty_library_searchresult_page);
-		backBtn = this
-				.findViewById(R.id.acty_library_searchresult_back);
-		prevBtn =  this
-				.findViewById(R.id.acty_library_searchresult_prev);
-		nextBtn =  this
-				.findViewById(R.id.acty_library_searchresult_next);
+		backBtn = this.findViewById(R.id.acty_library_searchresult_back);
+		prevBtn = this.findViewById(R.id.acty_library_searchresult_prev);
+		nextBtn = this.findViewById(R.id.acty_library_searchresult_next);
 		lv = (ListView) this
 				.findViewById(R.id.acty_library_searchresult_listview);
 		lv.setOnItemClickListener(new OnItemClickListener() {
@@ -89,24 +88,26 @@ public class LibSearchResultActivity extends BaseUIActivity {
 		prevBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				 if(totalPage == -1){
-					 onWork();
-				 }else{
-					 if(page-1>=1){
-						 page--;
-						 onWork();
-					 }else{
-						 Toast.makeText(LibSearchResultActivity.this, "囧~已经是首页了！", Toast.LENGTH_SHORT).show();
-					 }
-				 }
+				if (totalPage == -1) {
+					onWork();
+				} else {
+					if (page - 1 >= 1) {
+						page--;
+						onWork();
+					} else {
+						Toast.makeText(LibSearchResultActivity.this,
+								"囧~已经是首页了！", Toast.LENGTH_SHORT).show();
+					}
+				}
 			}
 		});
 
 		nextBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				 if(totalPage != -1) page++;  //第一次进入的时候cancle了dialog
-				 onWork();
+				if (totalPage != -1)
+					page++; // 第一次进入的时候cancle了dialog
+				onWork();
 			}
 		});
 
@@ -118,28 +119,29 @@ public class LibSearchResultActivity extends BaseUIActivity {
 	}
 
 	class LibSRHandler extends Handler {
-		WaittingDialog dialog;
+		LoadingDialog dialog;
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case ETipsContants.Start:
-				dialog = new WaittingDialog(LibSearchResultActivity.this);
+				dialog = new LoadingDialog(getContext());
 				dialog.show();
 				break;
 			case ETipsContants.Logining:
 				break;
 			case ETipsContants.Downloading:
-				dialog.setText("ETips下载数据中...");
+				dialog.setLodingText("ETips下载数据中...");
 				break;
 			case ETipsContants.Finish:
-				if(!dialog.isShowing()){
+				if (!dialog.isShowing()) {
 					dialog = null;
 					break;
 				}
 				list = (List<BookInfo>) msg.obj;
 				totalPage = msg.arg1;
-				tv_pageInfo .setText("第"+page+"/"+totalPage+"页");
+				tv_pageInfo.setText("第" + page + "/" + totalPage + "页");
 				// update UI;
 				lv.setAdapter(new LibSearchResultListViewAdapter(
 						LibSearchResultActivity.this, list));
@@ -147,7 +149,7 @@ public class LibSearchResultActivity extends BaseUIActivity {
 				dialog = null;
 				break;
 			case ETipsContants.Fail:
-				if(!dialog.isShowing()){
+				if (!dialog.isShowing()) {
 					dialog = null;
 					break;
 				}
@@ -201,8 +203,8 @@ public class LibSearchResultActivity extends BaseUIActivity {
 				msg.what = ETipsContants.Fail;
 				msg.obj = "囧~网络不给力啊！";
 				handler.sendMessage(msg);
-				e.printStackTrace();	
-			} 
+				e.printStackTrace();
+			}
 		}
 
 	}

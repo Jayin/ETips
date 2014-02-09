@@ -255,7 +255,7 @@ public class ScoreRecordActivity extends BaseUIActivity {
 			}
 			ScoreRecord sr = list.get(position);
 			holder.tv_lessonName.setText(sr.lessonName);
-			holder.tv_lessonScore.setText("学分:" + sr.lessonScore);
+			holder.tv_lessonScore.setText("学分:" + (sr.lessonScore.indexOf(".")==0?"0"+sr.lessonScore:sr.lessonScore));
 			holder.tv_score.setText(sr.score);
 			holder.tv_category.setText(sr.category);
 			return convertView;

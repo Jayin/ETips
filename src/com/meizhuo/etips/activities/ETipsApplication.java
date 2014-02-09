@@ -30,7 +30,7 @@ public class ETipsApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 		JPushManager.init(getApplicationContext());
-		MobclickAgent.setDebugMode(true);
+//		MobclickAgent.setDebugMode(true);
 	}
 	/**
 	 * @return the lessonList

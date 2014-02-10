@@ -131,7 +131,6 @@ public class ETipsStartActivity extends BaseUIActivity {
 
 	protected void checkImgDoadload() {
 		ImgInfo info = ImgSwitchInfo.getImgInfo(getContext());
-		Log.i("debug", "Check img--->"+info.toString());
 		if (!info.isDownloaded() && info.getUrl() != null
 				&& !info.getUrl().equals("")) {
 			Intent service = new Intent(getContext(),

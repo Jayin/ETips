@@ -21,7 +21,7 @@ public class Browser extends BaseUIActivity implements OnClickListener {
 	private ProgressBar loading;
 	private TextView tv_progress;
 	// private TextView tv_title;
-	private String homeUrl = "http://m.wyugogo.com";
+	private String homeUrl = "http://siteapp.baidu.com/webapp/wyugogo.com";
 
 	private boolean isLoading = false;
 	private int steps;

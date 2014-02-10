@@ -1,20 +1,30 @@
 package com.meizhuo.etips.activities;
 
+import java.io.Serializable;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.Toast;
 
+import com.meizhuo.etips.common.AndroidUtils;
 import com.umeng.analytics.MobclickAgent;
+
 /**
  * Activity的基类 <br>
  * 封装了常用的方法
+ * 
  * @author Jayin Ton
  * @version 1.0
  * @since version 1.0
  */
-public abstract class BaseUIActivity extends Activity {
+public abstract class BaseUIActivity extends Activity  {
+
 	/**
 	 * 初始化Layout UI 等等
 	 */
@@ -91,11 +101,53 @@ public abstract class BaseUIActivity extends Activity {
 	public void closeActivity() {
 		this.finish();
 	}
+
 	/**
 	 * 获得这个Activity的Context
+	 * 
 	 * @return
 	 */
-	public Context getContext(){
+	public Context getContext() {
 		return this;
+	}
+
+	/**
+	 * 调试
+	 * 
+	 * @param content
+	 */
+	public void debug(String content) {
+		Log.i("debug", this.getClass().getName() + ":" + content);
+	}
+
+	/**
+	 * Get intent extra
+	 * 
+	 * @param name
+	 * @return serializable
+	 */
+	@SuppressWarnings("unchecked")
+	protected <V extends Serializable> V getSerializableExtra(final String name) {
+		return (V) getIntent().getSerializableExtra(name);
+	}
+
+	/**
+	 * Get intent extra
+	 * 
+	 * @param name
+	 * @return int -1 if not exist!
+	 */
+	protected int getIntExtra(final String name) {
+		return getIntent().getIntExtra(name, -1);
+	}
+
+	/**
+	 * Get intent extra
+	 * 
+	 * @param name
+	 * @return string
+	 */
+	protected String getStringExtra(final String name) {
+		return getIntent().getStringExtra(name);
 	}
 }

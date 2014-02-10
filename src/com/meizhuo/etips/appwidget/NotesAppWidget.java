@@ -129,9 +129,6 @@ public class NotesAppWidget extends AppWidgetProvider {
 					pi_pre);
 			remoteViews.setOnClickPendingIntent(R.id.iv_next,
 					pi_next);
-			L.i("item_no"+item_no);
-			L.i("pre-->"+pre);
-			L.i("next-->"+next);
 		}
 		remoteViews.setTextViewText(R.id.widget_notes_tv_content, content);
 		AppWidgetManager appWidgetManager = AppWidgetManager

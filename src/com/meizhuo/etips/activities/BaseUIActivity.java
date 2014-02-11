@@ -2,17 +2,15 @@ package com.meizhuo.etips.activities;
 
 import java.io.Serializable;
 
-import android.app.Activity;
+import me.imid.swipebacklayout.lib.SwipeBackLayout;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.widget.Toast;
 
-import com.meizhuo.etips.common.AndroidUtils;
 import com.umeng.analytics.MobclickAgent;
 
 /**
@@ -23,7 +21,7 @@ import com.umeng.analytics.MobclickAgent;
  * @version 1.0
  * @since version 1.0
  */
-public abstract class BaseUIActivity extends Activity  {
+public abstract class BaseUIActivity extends SwipeBackActivity   {
 
 	/**
 	 * 初始化Layout UI 等等
@@ -150,4 +148,21 @@ public abstract class BaseUIActivity extends Activity  {
 	protected String getStringExtra(final String name) {
 		return getIntent().getStringExtra(name);
 	}
+	
+	private SwipeBackLayout mSwipeBackLayout;
+	private boolean enableSwipeBack = true;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		 
+		super.onCreate(savedInstanceState);
+		if(enableSwipeBack){
+			mSwipeBackLayout  = getSwipeBackLayout();
+			mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
+		}
+	}
+	
+	public void setEnableSwipBack(boolean enable){
+		this.enableSwipeBack = enable;
+	}
+	
 }

@@ -2,6 +2,8 @@ package com.meizhuo.etips.activities;
 
 import java.util.Calendar;
 
+import me.imid.swipebacklayout.lib.SwipeBackLayout;
+
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.BitmapFactory;
@@ -38,8 +40,6 @@ import com.meizhuo.etips.service.ETipsCoreService;
  * 
  */
 public class ETipsStartActivity extends BaseUIActivity {
-	private ETipsApplication App;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,6 +49,7 @@ public class ETipsStartActivity extends BaseUIActivity {
 		final View view = View.inflate(this, R.layout.acty_etips_start, null);
 		initBackgroud(view);
 		setContentView(view);
+		setEnableSwipBack(false);
 		initData();
 		initLayout();
 		final Handler handler = new Handler() {
@@ -83,51 +84,18 @@ public class ETipsStartActivity extends BaseUIActivity {
 			}
 
 		};
-		App = (ETipsApplication) getApplication();
-		Animation animation = AnimationUtils.loadAnimation(this, R.anim.alpha);
-		view.startAnimation(animation);
-		animation.setDuration(1000);
-		animation.setAnimationListener(new AnimationListener() {
+		new Thread(new Runnable() {
 
 			@Override
-			public void onAnimationStart(Animation animation) {
-
+			public void run() {
+				loadPreference();
+				Message msg = handler.obtainMessage();
+				// initAlarm();
+				msg.what = ETipsContants.Finish;
+				handler.sendMessageDelayed(msg, 1500);
 			}
-
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-
-			}
-
-			@Override
-			public void onAnimationEnd(Animation animation) {
-				new Thread(new Runnable() {
-
-					@Override
-					public void run() {
-						loadPreference();
-						Message msg = handler.obtainMessage();
-						// initAlarm();
-						msg.what = ETipsContants.Finish;
-						handler.sendMessageDelayed(msg, 200);
-					}
-				}).start();
-
-			}
-		});
+		}).start();
 	}
-
-//	protected void test() {
-//		Intent service = new Intent(getContext(),
-//				ETipsCoreService.class);
-//		service.putExtra("url", "http://etips.u.qiniudn.com/pic_6.jpg");
-//		service.putExtra("displayTime",System.currentTimeMillis());	
-//		service.putExtra("description","test" );
-//		service.putExtra("continuance", 2 );
-//		service.setAction(ETipsContants.Action_Service_Download_Pic);
-//		startService(service);
-//		Log.i("debug", "to test()---------->"+service.toString());
-//	}
 
 	protected void checkImgDoadload() {
 		ImgInfo info = ImgSwitchInfo.getImgInfo(getContext());
@@ -150,7 +118,6 @@ public class ETipsStartActivity extends BaseUIActivity {
 	private void initBackgroud(View view) {
 		if (ImgSwitchInfo.shouldDisplayImg(getContext())) {
 			ImgInfo info = ImgSwitchInfo.getImgInfo(getContext());
-			Log.i("debug","init backgroud-->"+info.toString());
 			ImageView iv = (ImageView) view.findViewById(R.id.iv_bg);
 			iv.setBackgroundDrawable(Drawable.createFromPath(ImgSwitchInfo
 					.getImgSavePath(getContext()) + info.getName()));

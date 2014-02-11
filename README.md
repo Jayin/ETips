@@ -6,18 +6,25 @@ ETips
 * For all new version of ETips, you can download in http://etipsweb.duapp.com/download/ETips.apk     
 * the source code and change log (or update infomation) will compose here and http://etipsweb.duapp.com/download/index.html  (not very in time at all)
 
+ETips 2.2 changelog
+====
+本次更新主要一些优化
+* 全新的课表/个人便签插件
+* 界面统一话
+* 加入新的交互方式，按着屏幕左边缘享有划，即可退出页面
+* 移除个人图书馆功能
+* 节日启动页面将会变化
+* 移除保存课表的数据库
+
 ETips 2.2 Features preview
 =====
 * bugs fixed 
 * redesign all head-navigation
-* redesign course widget 
-* add time notification
+* redesign course widget  
 * no time-out for School News
 * remove Login Library ,just to search/favourite books!
 * No more database.Every local IO will fater than before
 * homepage switch on special day
-
-
 
 Knowning bugs
 =====

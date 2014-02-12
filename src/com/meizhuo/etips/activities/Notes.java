@@ -2,7 +2,6 @@ package com.meizhuo.etips.activities;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -17,13 +16,13 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.meizhuo.etips.common.ETipsContants;
 import com.meizhuo.etips.common.SP;
-import com.meizhuo.etips.common.StringUtils;
 import com.meizhuo.etips.model.MNotes;
 
 public class Notes extends BaseUIActivity implements OnClickListener {
@@ -32,7 +31,7 @@ public class Notes extends BaseUIActivity implements OnClickListener {
 	private SP sp;
 	private boolean isEmpty = false;
 	private List<MNotes> list = null;
-
+	private MyAdapter adapter;
 	private BroadcastReceiver receiver;
 
 	@Override
@@ -52,7 +51,9 @@ public class Notes extends BaseUIActivity implements OnClickListener {
 			public void onReceive(Context context, Intent intent) {
 				// h.sendEmptyMessage(1);
 				initData();
-				lv.setAdapter(new MyAdapter());
+				// lv.setAdapter(new MyAdapter());
+				if (adapter != null)
+					adapter.notifyDataSetChanged();
 			}
 		};
 		IntentFilter filter = new IntentFilter(ETipsContants.Action_Notes);
@@ -81,7 +82,8 @@ public class Notes extends BaseUIActivity implements OnClickListener {
 		add.setOnClickListener(this);
 		back.setOnClickListener(this);
 
-		lv.setAdapter(new MyAdapter());
+		adapter = new MyAdapter(list);
+		lv.setAdapter(adapter);
 		lv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -95,17 +97,34 @@ public class Notes extends BaseUIActivity implements OnClickListener {
 			}
 		});
 
+		lv.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				SP sp = new SP(ETipsContants.SP_NAME_Notes, getContext());
+				sp.delete(list.get(position).getTime() + "");
+				list.remove(position);
+				adapter.notifyDataSetChanged();
+				toast("已删除");
+				return false;
+			}
+		});
+
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void initData() {
 		sp = new SP(ETipsContants.SP_NAME_Notes, this);
-		list = null;
-		list = new ArrayList<MNotes>();
+		if (list == null)
+			list = new ArrayList<MNotes>();
 		if (sp.isEmpty()) {
 			isEmpty = true;
 		} else {
-			list = (List<MNotes>) sp.toEntityAll(ETipsContants.TYPE_SP_Notes);
+			list.clear();
+			list.addAll((List<MNotes>) sp
+					.toEntityAll(ETipsContants.TYPE_SP_Notes));
 		}
 	}
 
@@ -122,15 +141,20 @@ public class Notes extends BaseUIActivity implements OnClickListener {
 	}
 
 	class MyAdapter extends BaseAdapter {
+		List<MNotes> data;
+
+		public MyAdapter(List<MNotes> list) {
+			this.data = list;
+		}
 
 		@Override
 		public int getCount() {
-			return list.size();
+			return data.size();
 		}
 
 		@Override
 		public Object getItem(int position) {
-			return list.get(position);
+			return data.get(position);
 		}
 
 		@Override
@@ -143,7 +167,7 @@ public class Notes extends BaseUIActivity implements OnClickListener {
 			convertView = LayoutInflater.from(Notes.this).inflate(
 					R.layout.item_note, null);
 			((TextView) convertView.findViewById(R.id.item_note_content))
-					.setText(list.get(position).getContent());
+					.setText(data.get(position).getContent());
 			return convertView;
 		}
 

@@ -2,6 +2,8 @@ package com.meizhuo.etips.activities;
 
 import java.util.ArrayList;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -9,15 +11,19 @@ import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.meizhuo.etips.app.AppInfo;
 import com.meizhuo.etips.app.Preferences;
 import com.meizhuo.etips.common.ETipsContants;
 import com.meizhuo.etips.common.ETipsUtils;
+import com.meizhuo.etips.common.SP;
 import com.meizhuo.etips.common.StringUtils;
 import com.meizhuo.etips.model.MsgRecord;
 
@@ -80,16 +86,10 @@ public class MsgCenterActivity extends BaseUIActivity {
 					new Thread(new Runnable() {
 						@Override
 						public void run() {
-//							MsgCenterDAO dao = new MsgCenterDAO(
-//									MsgCenterActivity.this);
-//							if (dao.deleteAll()) {
-//								list.removeAll(list);
-//								mHandler.sendEmptyMessage(ETipsContants.Finish);
-//							}
-							//清空
-							if(AppInfo.setMessages(getContext(), list)){
+							// 清空
+							if (AppInfo.setMessages(getContext(), list)) {
 								list.removeAll(list);
-       							mHandler.sendEmptyMessage(ETipsContants.Finish);
+								mHandler.sendEmptyMessage(ETipsContants.Finish);
 							}
 						}
 					}).start();
@@ -97,17 +97,30 @@ public class MsgCenterActivity extends BaseUIActivity {
 				}
 			}
 		});
+
+		lv.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Intent intent = new Intent(ETipsContants.Action_Notes);
+				String content = ((TextView)view.findViewById(R.id.item_dialog_msg_center_common_tv_content)).getText().toString();
+				SP sp = new SP(ETipsContants.SP_NAME_Notes, getContext());
+				sp.add(java.lang.System.currentTimeMillis() + "",content);
+				sendBroadcast(intent);
+				toast("已保存到个人便签");
+				return false;
+			}
+		});
 	}
 
 	@Override
 	protected void initData() {
 		// 注意更新 用户查看消息的状态
-//		SharedPreferences sp = getSharedPreferences(
-//				ETipsContants.SharedPreference_NAME, Context.MODE_PRIVATE);
-//		SharedPreferenceHelper.set(sp, "Has_Msg_To_Check", "NO");
 		Preferences.setIsHasMsgToCheck(getContext(), false);
 	}
 
+	@SuppressLint("HandlerLeak")
 	class MsgCenterHandler extends Handler {
 		@Override
 		public void handleMessage(Message msg) {
@@ -140,21 +153,21 @@ public class MsgCenterActivity extends BaseUIActivity {
 
 		@Override
 		public void run() {
-//			MsgCenterDAO dao = new MsgCenterDAO(MsgCenterActivity.this);
-//			list = dao.queryAll();
+			// MsgCenterDAO dao = new MsgCenterDAO(MsgCenterActivity.this);
+			// list = dao.queryAll();
 			list = AppInfo.getMessages(getContext());
 			if (list.size() > 0) {
-				list = (ArrayList<MsgRecord>)ETipsUtils.reverse(list);
+				list = (ArrayList<MsgRecord>) ETipsUtils.reverse(list);
 				h.sendEmptyMessage(ETipsContants.Finish);
 			} else {
-//				dao.addOne();
-//				list = dao.queryAll();
-				//没有就添加一条默认的
-				MsgRecord mr =new MsgRecord();
+				// dao.addOne();
+				// list = dao.queryAll();
+				// 没有就添加一条默认的
+				MsgRecord mr = new MsgRecord();
 				mr.setId(0);
 				mr.setContent(getContext().getString(R.string.MsgCenterTips));
 				mr.setType(ETipsContants.TYPE_MsgCenter_System);
-				mr.setAddTime(System.currentTimeMillis()+"");
+				mr.setAddTime(System.currentTimeMillis() + "");
 				list.add(mr);
 				AppInfo.setMessages(getContext(), list);
 				h.sendEmptyMessage(ETipsContants.Finish);

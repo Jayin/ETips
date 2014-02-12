@@ -8,12 +8,15 @@ import java.io.Serializable;
  * @author Jayin Ton
  * 
  */
+@SuppressWarnings("serial")
 public class MsgRecord implements Serializable{
 	public MsgRecord() {
 		id = 0;
 		type = "";
 		content = "";
 		addTime = "";
+		from = "";
+		to = "";
 	}
 
 	/**
@@ -32,16 +35,26 @@ public class MsgRecord implements Serializable{
 	 * 接收并写入数据库时间
 	 */
 	public String addTime;
+	/** 来自*/
+	private String from;
+	/** to id*/
+	private String to;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "MsgRecord [id=" + id + ", type=" + type + ", content="
-				+ content + ", addTime=" + addTime + "]";
+ 
+	public String getFrom() {
+		return from;
+	}
+
+	public void setFrom(String from) {
+		this.from = from;
+	}
+
+	public String getTo() {
+		return to;
+	}
+
+	public void setTo(String to) {
+		this.to = to;
 	}
 
 	public int getId() {

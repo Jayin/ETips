@@ -8,23 +8,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.meizhuo.etips.activities.TweetList.LikeTask;
 import com.meizhuo.etips.app.ClientConfig;
 import com.meizhuo.etips.common.AndroidUtils;
-import com.meizhuo.etips.common.ETipsContants;
 import com.meizhuo.etips.common.ETipsUtils;
-import com.meizhuo.etips.common.Elog;
-import com.meizhuo.etips.common.JSONParser;
-import com.meizhuo.etips.common.SP;
 import com.meizhuo.etips.common.ShareManager;
 import com.meizhuo.etips.common.StringUtils;
 import com.meizhuo.etips.model.Comment;
@@ -51,9 +48,9 @@ public class TweetDetail extends BaseUIActivity implements OnClickListener {
 	private boolean isLike = false, isIncognito = true;
 	private Tweet tweet;
 	private List<Comment> list;
-	private String topic_id,topicName;
+	private String topic_id, topicName;
 	private boolean enableIncognito = false;// 是否可以匿名发布
-  
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -83,7 +80,7 @@ public class TweetDetail extends BaseUIActivity implements OnClickListener {
 		like.setOnClickListener(this);
 		share.setOnClickListener(this);
 		comment.setOnClickListener(this);
-		
+
 		back.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -102,6 +99,19 @@ public class TweetDetail extends BaseUIActivity implements OnClickListener {
 		if (isLike) {
 			like.setBackgroundResource(R.drawable.ic_item_tweet_like);
 		}
+
+		lv.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				 Intent intent = new Intent(getContext(),TweetCompose.class);
+				 intent.putExtra("function", "reply");
+				 intent.putExtra("author", list.get(position).getAuthor());
+				 intent.putExtra("enableIncognito", true);
+                 openActivity(intent);
+			}
+		});
 	}
 
 	@Override
@@ -132,19 +142,19 @@ public class TweetDetail extends BaseUIActivity implements OnClickListener {
 			share();
 			break;
 		case R.id.item_tweet_detail_like:
-			//Tweet tweet = list.get(_position);
-			if(!tweet.isLike()){
+			// Tweet tweet = list.get(_position);
+			if (!tweet.isLike()) {
 				tweet.setLike(true);
 				new LikeTask(tweet).start();
 			}
-			Animation anim = AnimationUtils.loadAnimation(getContext(),R.anim.scale_zoom_big);
+			Animation anim = AnimationUtils.loadAnimation(getContext(),
+					R.anim.scale_zoom_big);
 			v.setBackgroundResource(R.drawable.ic_item_tweet_like);
 			v.startAnimation(anim);
 			break;
 		case R.id.item_tweet_detail_rely_comment:
 			if (ETipsUtils.isTweetLogin(TweetDetail.this)) {
-				Intent intent = new Intent(TweetDetail.this,
-						TweetCompose.class);
+				Intent intent = new Intent(TweetDetail.this, TweetCompose.class);
 				intent.putExtra("function", "comment");
 				intent.putExtra("Tweet", tweet);
 				intent.putExtra("enableIncognito", true);// 是否可以匿名发布
@@ -157,19 +167,22 @@ public class TweetDetail extends BaseUIActivity implements OnClickListener {
 			break;
 		}
 	}
-    //分享
+
+	// 分享
 	private void share() {
-		ShareManager sm  = new ShareManager("#"+topicName+"#"+tweet.getContent());
+		ShareManager sm = new ShareManager("#" + topicName + "#"
+				+ tweet.getContent());
 		sm.shareToSina(getContext(), new SnsPostListener() {
 			@Override
 			public void onStart() {
 			}
-			
+
 			@Override
-			public void onComplete(SHARE_MEDIA arg0, int arg1, SocializeEntity arg2) {
+			public void onComplete(SHARE_MEDIA arg0, int arg1,
+					SocializeEntity arg2) {
 			}
 		});
-		
+
 	}
 
 	/**
@@ -279,12 +292,13 @@ public class TweetDetail extends BaseUIActivity implements OnClickListener {
 			TextView tv_name, tv_content, tv_time;
 		}
 	}
-	 /**
-     * 赞，不需要确定在服务端是否赞的到</br>
-     * 比较粗略，等待后期优化
-     * @author Jayin Ton
-     *
-     */
+
+	/**
+	 * 赞，不需要确定在服务端是否赞的到</br> 比较粗略，等待后期优化
+	 * 
+	 * @author Jayin Ton
+	 * 
+	 */
 	class LikeTask extends Thread {
 		private Tweet tweet;
 
@@ -297,22 +311,23 @@ public class TweetDetail extends BaseUIActivity implements OnClickListener {
 			if (!AndroidUtils.isNetworkConnected(getContext())) {
 				return;
 			}
-			if(!ETipsUtils.isTweetLogin(getContext())){
+			if (!ETipsUtils.isTweetLogin(getContext())) {
 				return;
 			}
-//			SP sp = new SP(ETipsContants.SP_NAME_User, getContext());
-//			String senderID = sp.getValue("id");
+			// SP sp = new SP(ETipsContants.SP_NAME_User, getContext());
+			// String senderID = sp.getValue("id");
 			String senderID = ClientConfig.getUserId(getContext());
-			if(senderID==null || senderID.equals("null") || senderID.equals("")){
+			if (senderID == null || senderID.equals("null")
+					|| senderID.equals("")) {
 				return;
 			}
-			
+
 			String content = "赞！";
 			String time = System.currentTimeMillis() + "";
 			TweetAPI api = new TweetAPI(getContext());
-			//赞是不匿名的！！
-			String json = api.comment(tweet.getTopicID(), tweet.getArticleID(), content,
-					time, senderID, "0");
+			// 赞是不匿名的！！
+			String json = api.comment(tweet.getTopicID(), tweet.getArticleID(),
+					content, time, senderID, "0");
 		}
 	}
 }

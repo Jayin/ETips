@@ -1,5 +1,7 @@
 package com.meizhuo.etips.activities;
 
+import org.apache.http.Header;
+
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,6 +12,9 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.meizhuo.etips.app.ClientConfig;
 import com.meizhuo.etips.common.AndroidUtils;
 import com.meizhuo.etips.common.ETipsContants;
@@ -29,14 +34,16 @@ import com.meizhuo.etips.ui.base.BaseNotification;
  */
 public class TweetCompose extends BaseUIActivity implements OnClickListener {
 	private View back, send, incognito, check;
-	private TextView tv_count;
+	private TextView tv_count,tv_title;
 	private EditText et_comment;
 	private boolean isCognito = false;
-	private String function = "compose"; //compose 发帖 comment 评论
+	private String function = "compose"; // compose 发帖 comment 评论
 	private Tweet tweet;
 	private boolean enableIncognito = false; // 是否可以匿名发布
 	private String id; // 发布人学号
 	private String topic_id;
+	private String to_comment_id;
+	private String author;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +61,8 @@ public class TweetCompose extends BaseUIActivity implements OnClickListener {
 		send = _getView(R.id.acty_tweet_comment_btn_send);
 		et_comment = (EditText) _getView(R.id.acty_tweet_comment_content);
 		tv_count = (TextView) _getView(R.id.acty_tweet_comment_tv_count);
-        check = _getView(R.id.acty_tweet_comment_btn_check);
+		tv_title = (TextView)_getView(R.id.tv_title);
+		check = _getView(R.id.acty_tweet_comment_btn_check);
 		tv_count.setText("0/140");
 		back.setOnClickListener(this);
 		incognito.setOnClickListener(this);
@@ -82,18 +90,30 @@ public class TweetCompose extends BaseUIActivity implements OnClickListener {
 			public void afterTextChanged(Editable s) {
 			}
 		});
+		if (enableIncognito) {
+			isCognito = true;
+			check.setBackgroundResource(R.drawable.ic_check_press);
+		}
+		// 如果是回复评论:
+		if (author != null) {
+			tv_title.setText("回复");
+			check.setBackgroundResource(R.drawable.ic_check_nomal);
+		}
 	}
 
 	@Override
 	protected void initData() {
 		function = getIntent().getStringExtra("function");
-		topic_id = getIntent().getStringExtra("topic_id");
+		topic_id = getIntent().getStringExtra("topic_id");// 评论  or 发布
 		if (function.equals("comment")) {
 			tweet = (Tweet) getIntent().getSerializableExtra("Tweet");
+		} else if (function.equals("reply")) {  //回复
+			author = getIntent().getStringExtra("author");
+			to_comment_id = getIntent().getStringExtra("to_comment_id");
+			toast(author);
 		}
 		enableIncognito = getIntent().getBooleanExtra("enableIncognito", true);
-//		SP sp = new SP(ETipsContants.SP_NAME_User, getContext());
-//		id = sp.getValue("id");
+		//
 		id = ClientConfig.getUserId(getContext());
 	}
 
@@ -131,12 +151,72 @@ public class TweetCompose extends BaseUIActivity implements OnClickListener {
 				toast("登录已失效，请重新登录ETips账号");
 				return;
 			}
-			if(!AndroidUtils.isNetworkConnected(getContext())){
+			if (!AndroidUtils.isNetworkConnected(getContext())) {
 				toast("请检查你的网络");
-				return ;
+				return;
 			}
-			// 开启线程去 server 去发送 注意检查字数
-			new PostTask().start();
+			if (function.equals("reply")) {
+				final BaseNotification notification = new BaseNotification(
+						TweetCompose.this);
+				AsyncHttpClient client = new AsyncHttpClient();
+				RequestParams params = new RequestParams();
+				params.add("to_comment_id", to_comment_id);
+				params.add("to_author", author);
+
+				client.get(TweetAPI.BaseUrl + "comment.php", params,
+						new AsyncHttpResponseHandler() {
+							@Override
+							public void onStart() {
+								notification.setContentTitle("校园资讯");
+								notification.setContentText("发送中....");
+								notification.setVibrate(new long[0]);
+								notification.setSound(null);
+								notification
+										.setNotificationID(ETipsContants.ID_Send_Tweet);
+								notification.setTicker("发送中....");
+								notification.show();
+							}
+
+							@Override
+							public void onSuccess(int arg0, Header[] arg1,
+									byte[] data) {
+								notification.cancle();
+								if (JSONParser.isOK(new String(data))) {
+									notification.setContentText("回复成功");
+									notification.setTicker("回复成功");
+									notification.show();
+									try {
+										Thread.sleep(1000);
+									} catch (InterruptedException e) {
+										e.printStackTrace();
+									} finally {
+										notification.cancle();
+									}
+								} else {
+									// can't send!
+									notification.cancle();
+									notification.setTicker("回复失败  错误码:"+JSONParser.getStatusCode(new String(data)));
+									notification
+											.setContentText("回复失败  错误码:"+JSONParser.getStatusCode(new String(data)));
+									notification.show();
+								}
+							}
+
+							@Override
+							public void onFailure(int arg0, Header[] arg1,
+									byte[] arg2, Throwable arg3) {
+								// can't send!
+								notification.cancle();
+								notification.setTicker("回复失败，网络异常");
+								notification.setContentText("回复失败，网络异常");
+								notification.show();
+							}
+						});
+			} else { // comment or compose
+						// 开启线程去 server 去发送 注意检查字数
+				new PostTask().start();
+			}
+
 			closeActivity();
 			break;
 		}
@@ -159,7 +239,7 @@ public class TweetCompose extends BaseUIActivity implements OnClickListener {
 				if (ETipsUtils.enableSend(getContext())) {
 					// your code,虽然下面不美观，但是为了方便调试 = =
 					TweetAPI api = new TweetAPI(getContext());
-				 
+
 					String content = et_comment.getText().toString();
 					String sendTime = System.currentTimeMillis() + "";
 
@@ -178,7 +258,7 @@ public class TweetCompose extends BaseUIActivity implements OnClickListener {
 						} finally {
 							notification.cancle();
 						}
-					} else {	 
+					} else {
 						notification.setTicker("发布失败");
 						notification.setContentText("发布失败");
 						notification.show();
@@ -190,18 +270,19 @@ public class TweetCompose extends BaseUIActivity implements OnClickListener {
 					notification.setContentText("发布失败，今日发布次数达到上限");
 					notification.show();
 				}
-               //评论
+				// 评论
 			} else if (function.equals("comment")) {
 				// your code
-				TweetAPI api  =new TweetAPI(getContext()); 
+				TweetAPI api = new TweetAPI(getContext());
 				String topic_id = tweet.getTopicID();
-				String  article_id = tweet.getArticleID();
-				String content =  et_comment.getText().toString();
-				String sendTime = System.currentTimeMillis()+"";
+				String article_id = tweet.getArticleID();
+				String content = et_comment.getText().toString();
+				String sendTime = System.currentTimeMillis() + "";
 				String author = id;
-				String response =  api.comment(topic_id, article_id, content, sendTime, author, isCognito?"1":"0");
+				String response = api.comment(topic_id, article_id, content,
+						sendTime, author, isCognito ? "1" : "0");
 				notification.cancle();
-				if(JSONParser.isOK(response)){
+				if (JSONParser.isOK(response)) {
 					notification.setTicker("评论成功");
 					notification.setContentText("评论成功");
 					notification.show();
@@ -212,9 +293,11 @@ public class TweetCompose extends BaseUIActivity implements OnClickListener {
 					} finally {
 						notification.cancle();
 					}
-				}else{
-					notification.setTicker("评论失败,"+JSONParser.getStatus(response));
-					notification.setContentText("评论失败,"+JSONParser.getStatus(response));
+				} else {
+					notification.setTicker("评论失败,"
+							+ JSONParser.getStatus(response));
+					notification.setContentText("评论失败,"
+							+ JSONParser.getStatus(response));
 					notification.show();
 				}
 			}

@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class Comment implements Serializable {
 
 	public Comment(String topicID, String articleID, long sendTime,
-			String author, int incognito, String content,String nickname) {
+			String author, int incognito, String content,String nickname,String comment_id) {
 		super();
 		this.topicID = topicID;
 		this.articleID = articleID;
@@ -20,6 +20,7 @@ public class Comment implements Serializable {
 		this.incognito = incognito;
 		this.content = content;
 		this.nickname = nickname;
+		this.comment_id = comment_id;
 	}
 
 	/**
@@ -50,12 +51,22 @@ public class Comment implements Serializable {
 	 * 评论人的昵称
 	 */
 	private String nickname;
+	/** 评论的id*/
+	private String comment_id;
 
 	/**
 	 * 是否匿名 是否匿名:是为1，其他为否，但否一般约定为0
 	 */
 	public boolean isIncognito() {
 		return incognito == 1;
+	}
+ 
+	public String getComment_id() {
+		return comment_id;
+	}
+
+	public void setComment_id(String comment_id) {
+		this.comment_id = comment_id;
 	}
 
 	public String getTopicID() {
@@ -113,4 +124,14 @@ public class Comment implements Serializable {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
+
+	@Override
+	public String toString() {
+		return "Comment [topicID=" + topicID + ", articleID=" + articleID
+				+ ", sendTime=" + sendTime + ", author=" + author
+				+ ", incognito=" + incognito + ", content=" + content
+				+ ", nickname=" + nickname + ", comment_id=" + comment_id + "]";
+	}
+	
+	
 }

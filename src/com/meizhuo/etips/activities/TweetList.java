@@ -12,13 +12,10 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.meizhuo.etips.app.ClientConfig;
 import com.meizhuo.etips.common.AndroidUtils;
 import com.meizhuo.etips.common.ETipsContants;
@@ -114,8 +111,10 @@ public class TweetList extends BaseUIActivity implements OnClickListener {
 		lv.setAdapter(adapter);
 
 		lv.addFooterView(footView);
+		lv.clickRefresh();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void initData() {
 		topic_id = getIntent().getStringExtra("topic_id");
@@ -224,7 +223,7 @@ public class TweetList extends BaseUIActivity implements OnClickListener {
 				toast("网络异常");
 				return;
 			} else if (newList.size() == 0) {
-				toast("更新完毕");
+				toast("尚无人发布");
 				return;
 			} else {
 				toast("更新完毕");

@@ -1,8 +1,12 @@
 package com.meizhuo.etips.service;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Service;
 import android.content.Intent;
@@ -11,11 +15,19 @@ import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import com.meizhuo.etips.app.AppInfo;
+import com.meizhuo.etips.app.ClientConfig;
 import com.meizhuo.etips.app.ImgSwitchInfo;
+import com.meizhuo.etips.app.Preferences;
 import com.meizhuo.etips.common.ETipsContants;
 import com.meizhuo.etips.common.FileUtils;
+import com.meizhuo.etips.common.JSONParser;
 import com.meizhuo.etips.common.StringUtils;
 import com.meizhuo.etips.model.ImgInfo;
+import com.meizhuo.etips.model.MsgRecord;
+import com.meizhuo.etips.net.utils.TweetAPI;
 
 /**
  * 
@@ -40,11 +52,103 @@ public class ETipsCoreService extends Service {
 		String action = intent.getAction();
 		if (ETipsContants.Action_Service_Download_Pic.equals(action)) {
 			downloadPic(intent);
+		} else if (ETipsContants.Action_Service_Check_Comment.equals(action)) {
+			checkComments();
 		}
 		return Service.START_STICKY;
 	}
 
-	//
+	// dirty code!
+	private void checkComments() {
+		final AsyncHttpClient client = new AsyncHttpClient();
+		if (ClientConfig.isUserLogin(getApplicationContext())) {
+			RequestParams params = new RequestParams();
+			params.put("author",
+					ClientConfig.getUserId(getApplicationContext()));
+			params.put("op", "check");
+			client.get(TweetAPI.BaseUrl + "checkcomment.php", params,
+					new AsyncHttpResponseHandler() {
+						@Override
+						public void onSuccess(int statusCode, Header[] headers,
+								byte[] data) {
+							if (JSONParser.isOK(new String(data))) {
+								JSONArray arr = JSONParser
+										.getResponse(new String(data));
+								if (arr.length() > 0) {
+									int count = 0;
+									try {
+										count = Integer.parseInt(arr
+												.getString(0));
+									} catch (NumberFormatException e) {
+										e.printStackTrace();
+									} catch (JSONException e) {
+										e.printStackTrace();
+									}
+									if (count > 0) {// 有消息
+										client.get(TweetAPI.BaseUrl+ "getcomment.php",new RequestParams("author",ClientConfig.getUserId(getApplicationContext())),
+												new AsyncHttpResponseHandler() {
+													public void onSuccess(int statusCode,Header[] headers,byte[] data) {
+													
+														if(JSONParser.isOK(new String(data))){
+															//get info
+															JSONArray array = JSONParser.getResponse(new String(data));
+															for(int i=0;i<array.length();i++){
+																try {
+																	JSONObject obj = array.getJSONObject(i);
+																	String content = obj.getString("content");
+																	String content_id = obj.getString("content_id");
+																	String comment = obj.getString("comment");
+																	String sendTime = obj.getString("sendTime");
+																	String author = obj.getString("author");
+																	String incognito = obj.getString("incognito");
+																	StringBuilder sb = new StringBuilder();
+																	if(!incognito.equals("0")){
+																		sb.append("@"+author);
+																	}else{
+																		sb.append("@某人");
+																	}
+																	sb.append(" 回复你:");
+																	sb.append(comment);
+																	ArrayList<MsgRecord> messages = AppInfo.getMessages(getApplicationContext());
+																	int size = messages.size();
+																	MsgRecord mr = new MsgRecord();
+																	mr.setId(size);
+																	mr.setType("tweet");
+																	mr.setContent(sb.toString());
+																	mr.setAddTime(sendTime);
+																	mr.setFrom(author);
+																	mr.setTo(content_id);
+																	messages.add(mr);
+																	AppInfo.setMessages(getApplicationContext(), messages);
+																	Preferences.setIsHasMsgToCheck(getApplicationContext(), true);
+																} catch (JSONException e) {
+																	e.printStackTrace();
+																}
+															}
+															RequestParams params = new RequestParams();
+															params.add("author", ClientConfig.getUserId(getApplicationContext()));
+															params.add("op","clear");
+													        client.get(TweetAPI.BaseUrl+ "checkcomment.php", params, new AsyncHttpResponseHandler(){
+													        	public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+													        		Log.i("debug", "ETipsCoreService--->clean Comment");
+													        	};
+													        });
+															 
+														}
+                                                      
+													};
+												});
+									}
+								}
+							}
+						}
+
+					});
+		}
+
+	}
+
+	// 下载图片
 	private void downloadPic(final Intent intent) {
 		// get info
 		long displayTime = intent.getLongExtra("displayTime",
@@ -72,7 +176,7 @@ public class ETipsCoreService extends Service {
 							StringUtils.getFileNameFromUrl(url));
 					info.setDownloaded(true);
 					ImgSwitchInfo.setImgInfo(getApplicationContext(), info);
-				 
+
 					Log.i(ETipsContants.Debug,
 							"ETipsCoreService::download finish");
 				};

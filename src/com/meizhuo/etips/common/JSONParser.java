@@ -7,9 +7,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import android.util.Log;
+
 import com.meizhuo.etips.model.Comment;
 import com.meizhuo.etips.model.Topic;
 import com.meizhuo.etips.model.Tweet;
@@ -222,7 +221,7 @@ public class JSONParser {
 	 */
 	public static List<Comment> parseCommentList(String json) {
 		List<Comment> list = new ArrayList<Comment>();
-		JSONArray jsonArray = getResponse(json);
+		JSONArray jsonArray = getResponse(json); 
 		if (jsonArray == null)
 			return null;
 		for (int i = 0; i < jsonArray.length(); i++) {
@@ -235,8 +234,9 @@ public class JSONParser {
 				int incognito = obj.getInt("incognito");
 				String content = obj.getString("content");
 				String nickname = obj.getString("nickname");
+				String comment_id = obj.getString("comment_id");
 				list.add(new Comment(topic_id, article_id, sendTime, author,
-						incognito, content,nickname));
+						incognito, content,nickname,comment_id));
 			} catch (JSONException e) {
 				e.printStackTrace();
 				return null;

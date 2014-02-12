@@ -88,6 +88,7 @@ public class ETipsContants {
 	 * Service 的action
 	 */
 	public final static String Action_Service_Download_Pic = "download_pic";
+	public final static String Action_Service_Check_Comment = "check_comment";
 	/**
 	 * TweetAPI 状态码
 	 */

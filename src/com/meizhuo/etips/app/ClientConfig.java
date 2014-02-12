@@ -18,9 +18,9 @@ import android.content.SharedPreferences;
  * 
  */
 public class ClientConfig {
-	public static final long Login_Timeout = 1000 * 60 * 60 * 24 * 60; //2个月
-	public static final long Max_Send_Count = 3;//一天最大发送数
-	
+	public static final long Login_Timeout = 1000 * 60 * 60 * 24 * 60; // 2个月
+	public static final long Max_Send_Count = 3;// 一天最大发送数
+
 	/** to get SharedPreferences */
 	public static SharedPreferences getSP(Context context) {
 		return context.getSharedPreferences(ETipsContants.SP_NANE_ClientConfig,
@@ -31,18 +31,22 @@ public class ClientConfig {
 	public static boolean set(SharedPreferences sp, String key, String value) {
 		return SharedPreferenceHelper.set(sp, key, value);
 	}
-	//初始化常量
-	public static void init(Context context){
-		setMaxSend(context,Max_Send_Count+"");
-		setLoginTimeout(context, Login_Timeout+"");
-		int day_of_year =Integer.parseInt(getSP(context).getString("Day_Of_Year","0"));
-		//发送次数每日清零
-		if(CalendarManager.getCalendar().get(Calendar.DAY_OF_YEAR) != day_of_year){
-			setSendCount(context,0+"");
-			set(getSP(context), "Day_Of_Year", CalendarManager.getCalendar().get(Calendar.DAY_OF_YEAR)+"");
+
+	// 初始化常量
+	public static void init(Context context) {
+		setMaxSend(context, Max_Send_Count + "");
+		setLoginTimeout(context, Login_Timeout + "");
+		int day_of_year = Integer.parseInt(getSP(context).getString(
+				"Day_Of_Year", "0"));
+		// 发送次数每日清零
+		if (CalendarManager.getCalendar().get(Calendar.DAY_OF_YEAR) != day_of_year) {
+			setSendCount(context, 0 + "");
+			set(getSP(context), "Day_Of_Year", CalendarManager.getCalendar()
+					.get(Calendar.DAY_OF_YEAR) + "");
 		}
 	}
-    //登出删除数据
+
+	// 登出删除数据
 	public static void cleanAll(Context context) {
 		setAccount(context, "");
 		setDescrpiton(context, "");
@@ -52,6 +56,15 @@ public class ClientConfig {
 		setSession(context, "");
 		setUserId(context, "");
 		setUserPsw(context, "");
+	}
+    //用户是否登录了
+	public static boolean isUserLogin(Context context) {
+		if (getAccount(context).equals("") || getUserId(context).equals("")
+				|| getUserId(context).equals("")) {
+			cleanAll(context);
+			return false;
+		}
+		return true;
 	}
 
 	/** 获取账号 */
@@ -84,7 +97,7 @@ public class ClientConfig {
 		set(getSP(context), "psw", psw);
 	}
 
-	/** 获取用户id */
+	/** 获取用户id 学号*/
 	public static String getUserId(Context context) {
 		return getSP(context).getString("id", "");
 	}
@@ -106,7 +119,8 @@ public class ClientConfig {
 
 	/** 获取用户loginTime */
 	public static String getLoginTime(Context context) {
-		return getSP(context).getString("loginTime", System.currentTimeMillis()+"");
+		return getSP(context).getString("loginTime",
+				System.currentTimeMillis() + "");
 	}
 
 	/** 设置用户loginTime */
@@ -126,7 +140,7 @@ public class ClientConfig {
 
 	/** 获取用户登录超时时间loginTimeout */
 	public static String getLoginTimeout(Context context) {
-		return getSP(context).getString("loginTimeout", Login_Timeout +"");
+		return getSP(context).getString("loginTimeout", Login_Timeout + "");
 	}
 
 	/** 设置用户登录超时时间LoginTimeout */
@@ -153,7 +167,5 @@ public class ClientConfig {
 	public static void setSendCount(Context context, String SendCount) {
 		set(getSP(context), "SendCount", SendCount);
 	}
-	
-	
 
 }

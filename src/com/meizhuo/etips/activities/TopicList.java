@@ -21,7 +21,6 @@ import com.meizhuo.etips.common.ETipsContants;
 import com.meizhuo.etips.common.SP;
 import com.meizhuo.etips.model.Topic;
 import com.meizhuo.etips.net.utils.TweetAPI;
-import com.meizhuo.etips.ui.dialog.DeclarationDialog;
 import com.meizhuo.etips.widget.PullToRefreshListView;
 import com.meizhuo.etips.widget.PullToRefreshListView.OnRefreshListener;
 
@@ -115,6 +114,8 @@ public class TopicList extends BaseUIActivity implements OnClickListener {
 				R.layout.pulltoreflush_head, null);
 		lv.setAdapter(new TopicListAdapter(new ArrayList<Topic>()));
 		lv.addFooterView(footView);
+		
+		lv.clickRefresh();
 	}
 
 	@Override
@@ -158,13 +159,12 @@ public class TopicList extends BaseUIActivity implements OnClickListener {
 			if(newList==null){
 				toast("请检查你的网络");
 			}else if(newList.size() == 0){
-				toast("没有数据返回");
+			   toast("没有数据返回");
 			}else{
 				if(list==null)list= new ArrayList<Topic>();
 				list.clear();
 				list.addAll(newList);
 				onWork();
-				toast("已刷新");
 			}
 		}
 	}

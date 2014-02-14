@@ -105,11 +105,15 @@ public class TweetDetail extends BaseUIActivity implements OnClickListener {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				 Intent intent = new Intent(getContext(),TweetCompose.class);
-				 intent.putExtra("function", "reply");
-				 intent.putExtra("author", list.get(position).getAuthor());
-				 intent.putExtra("enableIncognito", true);
-                 openActivity(intent);
+				Intent intent = new Intent(getContext(), TweetCompose.class);
+				intent.putExtra("function", "reply");
+				intent.putExtra("author", list.get(position).getAuthor());
+				intent.putExtra("enableIncognito", true);
+				intent.putExtra("topic_id", list.get(position).getTopicID());
+				intent.putExtra("article_id", list.get(position).getArticleID());
+				intent.putExtra("author", list.get(position).getAuthor());
+				intent.putExtra("to_comment_id", list.get(position).getComment_id());
+				openActivity(intent);
 			}
 		});
 	}
@@ -156,8 +160,10 @@ public class TweetDetail extends BaseUIActivity implements OnClickListener {
 			if (ETipsUtils.isTweetLogin(TweetDetail.this)) {
 				Intent intent = new Intent(TweetDetail.this, TweetCompose.class);
 				intent.putExtra("function", "comment");
-				intent.putExtra("Tweet", tweet);
-				intent.putExtra("enableIncognito", true);// 是否可以匿名发布
+				// intent.putExtra("Tweet", tweet);
+				intent.putExtra("topic_id", tweet.getTopicID());
+				intent.putExtra("article_id", tweet.getArticleID());
+				// intent.putExtra("enableIncognito", true);// 是否可以匿名发布
 				openActivity(intent);
 			} else {
 				// 打开登录页面

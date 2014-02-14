@@ -17,6 +17,8 @@ public class MsgRecord implements Serializable{
 		addTime = "";
 		from = "";
 		to = "";
+		topic_id = "";
+		article_id="";
 	}
 
 	/**
@@ -39,8 +41,27 @@ public class MsgRecord implements Serializable{
 	private String from;
 	/** to id*/
 	private String to;
+	/** 话题id*/
+	private String topic_id;
+	/** 推文id*/
+	private String article_id;
+	
+	public String getTopic_id() {
+		return topic_id;
+	}
 
- 
+	public void setTopic_id(String topic_id) {
+		this.topic_id = topic_id;
+	}
+
+	public String getArticle_id() {
+		return article_id;
+	}
+
+	public void setArticle_id(String article_id) {
+		this.article_id = article_id;
+	}
+
 	public String getFrom() {
 		return from;
 	}

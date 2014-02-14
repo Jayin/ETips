@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -21,7 +20,6 @@ import com.meizhuo.etips.common.ETipsContants;
 import com.meizhuo.etips.common.ETipsUtils;
 import com.meizhuo.etips.common.Elog;
 import com.meizhuo.etips.common.JSONParser;
-import com.meizhuo.etips.common.SP;
 import com.meizhuo.etips.model.Tweet;
 import com.meizhuo.etips.net.utils.TweetAPI;
 import com.meizhuo.etips.ui.base.BaseNotification;
@@ -38,10 +36,9 @@ public class TweetCompose extends BaseUIActivity implements OnClickListener {
 	private EditText et_comment;
 	private boolean isCognito = false;
 	private String function = "compose"; // compose 发帖 comment 评论
-	private Tweet tweet;
 	private boolean enableIncognito = false; // 是否可以匿名发布
 	private String id; // 发布人学号
-	private String topic_id;
+	private String topic_id,article_id;
 	private String to_comment_id;
 	private String author;
 
@@ -104,14 +101,16 @@ public class TweetCompose extends BaseUIActivity implements OnClickListener {
 	@Override
 	protected void initData() {
 		function = getIntent().getStringExtra("function");
-		topic_id = getIntent().getStringExtra("topic_id");// 评论  or 发布
-		if (function.equals("comment")) {
-			tweet = (Tweet) getIntent().getSerializableExtra("Tweet");
-		} else if (function.equals("reply")) {  //回复
-			author = getIntent().getStringExtra("author");
+		topic_id = getIntent().getStringExtra("topic_id"); 
+		article_id = getIntent().getStringExtra("article_id");
+		if (function.equals("reply")) {  //回复
+			author = getIntent().getStringExtra("author"); //元评论者的id
 			to_comment_id = getIntent().getStringExtra("to_comment_id");
 			toast(author);
+			toast(to_comment_id);
 		}
+		Elog.i("topic id"+topic_id);
+		Elog.i("article id"+article_id);
 		enableIncognito = getIntent().getBooleanExtra("enableIncognito", true);
 		//
 		id = ClientConfig.getUserId(getContext());
@@ -140,8 +139,8 @@ public class TweetCompose extends BaseUIActivity implements OnClickListener {
 
 			break;
 		case R.id.acty_tweet_comment_btn_send:
-			if (et_comment.getText().toString().length() > 140) {
-				toast("字数超出范围！");
+			if (et_comment.getText().toString().length() > 140 || et_comment.getText().toString().length()==0) {
+				toast("字数为0或超出范围！");
 				return;
 			}
 			if (!ETipsUtils.isTweetLogin(getContext())) {
@@ -158,11 +157,25 @@ public class TweetCompose extends BaseUIActivity implements OnClickListener {
 			if (function.equals("reply")) {
 				final BaseNotification notification = new BaseNotification(
 						TweetCompose.this);
+				String content = et_comment.getText().toString();
+				String sendTime = System.currentTimeMillis() + "";
 				AsyncHttpClient client = new AsyncHttpClient();
 				RequestParams params = new RequestParams();
 				params.add("to_comment_id", to_comment_id);
 				params.add("to_author", author);
-
+                params.add("content",content);
+                params.add("sendTime", sendTime);
+                params.add("incognito", isCognito ? "1" : "0");
+                params.add("article_id", article_id);
+                params.add("topic_id", topic_id);
+                Elog.i(params.toString());
+                Elog.i(isCognito ? "1" : "0");
+                Elog.i(to_comment_id); 
+                Elog.i(author); 
+                Elog.i(content); 
+                Elog.i(sendTime); 
+                Elog.i(article_id);
+                Elog.i(topic_id); 
 				client.get(TweetAPI.BaseUrl + "comment.php", params,
 						new AsyncHttpResponseHandler() {
 							@Override
@@ -274,8 +287,6 @@ public class TweetCompose extends BaseUIActivity implements OnClickListener {
 			} else if (function.equals("comment")) {
 				// your code
 				TweetAPI api = new TweetAPI(getContext());
-				String topic_id = tweet.getTopicID();
-				String article_id = tweet.getArticleID();
 				String content = et_comment.getText().toString();
 				String sendTime = System.currentTimeMillis() + "";
 				String author = id;

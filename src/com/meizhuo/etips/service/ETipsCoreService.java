@@ -101,6 +101,9 @@ public class ETipsCoreService extends Service {
 																	String sendTime = obj.getString("sendTime");
 																	String author = obj.getString("author");
 																	String incognito = obj.getString("incognito");
+																	String topic_id = obj.getString("topic_id");
+																	String article_id = obj.getString("article_id");
+																	String nickname = obj.getString("nickname");
 																	StringBuilder sb = new StringBuilder();
 																	if(!incognito.equals("0")){
 																		sb.append("@"+author);
@@ -118,6 +121,8 @@ public class ETipsCoreService extends Service {
 																	mr.setAddTime(sendTime);
 																	mr.setFrom(author);
 																	mr.setTo(content_id);
+																	mr.setTopic_id(topic_id);
+																	mr.setArticle_id(article_id);
 																	messages.add(mr);
 																	AppInfo.setMessages(getApplicationContext(), messages);
 																	Preferences.setIsHasMsgToCheck(getApplicationContext(), true);

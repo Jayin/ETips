@@ -62,8 +62,8 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@color/lightblue" >
 
         <ProgressBar
@@ -75,10 +75,9 @@
         <ListView
             android:id="@+id/acty_msgcenter_listview"
             style="@style/ListView.Base"
-            android:background="@color/lightblue"
-            android:divider="@null"
-            
-            android:visibility="gone" >
+            android:visibility="gone"
+            android:listSelector="@null" 
+            android:background="@android:color/transparent">
         </ListView>
     </RelativeLayout>
 

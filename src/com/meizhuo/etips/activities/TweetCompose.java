@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -18,9 +17,7 @@ import com.meizhuo.etips.app.ClientConfig;
 import com.meizhuo.etips.common.AndroidUtils;
 import com.meizhuo.etips.common.ETipsContants;
 import com.meizhuo.etips.common.ETipsUtils;
-import com.meizhuo.etips.common.Elog;
 import com.meizhuo.etips.common.JSONParser;
-import com.meizhuo.etips.model.Tweet;
 import com.meizhuo.etips.net.utils.TweetAPI;
 import com.meizhuo.etips.ui.base.BaseNotification;
 
@@ -40,7 +37,8 @@ public class TweetCompose extends BaseUIActivity implements OnClickListener {
 	private String id; // 发布人学号
 	private String topic_id,article_id;
 	private String to_comment_id;
-	private String author;
+	private String author;//原评论的id
+	private String nickname;//原评论名称
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +92,9 @@ public class TweetCompose extends BaseUIActivity implements OnClickListener {
 		// 如果是回复评论:
 		if (author != null) {
 			tv_title.setText("回复");
+			isCognito = false;
 			check.setBackgroundResource(R.drawable.ic_check_nomal);
+			et_comment.setHint("回复@"+nickname+":");
 		}
 	}
 
@@ -104,13 +104,12 @@ public class TweetCompose extends BaseUIActivity implements OnClickListener {
 		topic_id = getIntent().getStringExtra("topic_id"); 
 		article_id = getIntent().getStringExtra("article_id");
 		if (function.equals("reply")) {  //回复
-			author = getIntent().getStringExtra("author"); //元评论者的id
+			author = getIntent().getStringExtra("author"); //原评论者的id
 			to_comment_id = getIntent().getStringExtra("to_comment_id");
+			nickname = getIntent().getStringExtra("nickname");
 			toast(author);
 			toast(to_comment_id);
 		}
-		Elog.i("topic id"+topic_id);
-		Elog.i("article id"+article_id);
 		enableIncognito = getIntent().getBooleanExtra("enableIncognito", true);
 		//
 		id = ClientConfig.getUserId(getContext());
@@ -168,14 +167,7 @@ public class TweetCompose extends BaseUIActivity implements OnClickListener {
                 params.add("incognito", isCognito ? "1" : "0");
                 params.add("article_id", article_id);
                 params.add("topic_id", topic_id);
-                Elog.i(params.toString());
-                Elog.i(isCognito ? "1" : "0");
-                Elog.i(to_comment_id); 
-                Elog.i(author); 
-                Elog.i(content); 
-                Elog.i(sendTime); 
-                Elog.i(article_id);
-                Elog.i(topic_id); 
+                params.add("author", ClientConfig.getUserId(getContext()));
 				client.get(TweetAPI.BaseUrl + "comment.php", params,
 						new AsyncHttpResponseHandler() {
 							@Override

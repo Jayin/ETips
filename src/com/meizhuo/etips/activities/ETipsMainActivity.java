@@ -26,6 +26,7 @@ import com.meizhuo.etips.common.L;
 import com.meizhuo.etips.common.SP;
 import com.meizhuo.etips.common.StringUtils;
 import com.meizhuo.etips.model.Lesson;
+import com.meizhuo.etips.service.ETipsCoreService;
 
 /**
  * share :只支持单用户分享~！
@@ -64,11 +65,21 @@ public class ETipsMainActivity extends BaseUIActivity implements
 		initData();
 		initLayout();
 		initReceivers(); // 初始化recevier.. 可以不断添加intent的Action
+		toCheck();
+	}
+
+	private void toCheck() {
+		Intent service = new Intent(getContext(),ETipsCoreService.class);
+		service.setAction(ETipsContants.Action_Service_Check_Comment);
+		startService(service);
 	}
 
 	private void initReceivers() {
 		receiver = new MainReceiver();
 		IntentFilter filter = new IntentFilter(ETipsContants.Action_Notes);
+		filter.addAction(ETipsContants.Action_MsgReceive);
+		filter.addAction(ETipsContants.Action_CurrentWeekChange);
+		filter.addAction(ETipsContants.Action_CourseChange);
 		this.registerReceiver(receiver, filter);
 
 	}
@@ -305,7 +316,6 @@ public class ETipsMainActivity extends BaseUIActivity implements
 
 			}
 			tv_TimePart.setText(timePart);
-
 		}
 	}
 
@@ -315,6 +325,9 @@ public class ETipsMainActivity extends BaseUIActivity implements
 			if (intent.getAction().equals(
 					ETipsContants.Action_CurrentWeekChange)) {
 				new CourseUpdate().execute("");
+			}else if(intent.getAction().equals(ETipsContants.Action_MsgReceive)){//有新消息
+				((ImageView) _getView(R.id.acty_etips_main_msgcenter_notifyNew))
+				.setVisibility(View.VISIBLE);
 			}
 		}
 	}

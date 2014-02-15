@@ -53,6 +53,7 @@ public class ETipsContants {
 	public final static String TYPE_MsgCenter_Push = "push";
 	public final static String TYPE_MsgCenter_Feedback = "feedback";
 	public final static String TYPE_MsgCenter_Image  = "image";
+	public final static String TYPE_MsgCenter_Tweet = "tweet";
 	/**
 	 * SP类型
 	 */
@@ -83,6 +84,7 @@ public class ETipsContants {
 	public final static String Action_CurrentWeekChange = "Action_CurrentWeekChange";
 	public final static String ACTION_Custom_Alarm = "ETips_Course_Alarm"; // 自定义闹钟的Action
 	public final static String Action_CourseChange = "Action_CourseChange"; // 课表更新
+	public final static String Action_MsgReceive = "Message_Receiver";//消息中心收心消息
 
 	/**
 	 * Service 的action

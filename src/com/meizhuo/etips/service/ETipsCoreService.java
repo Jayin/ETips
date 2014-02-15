@@ -105,24 +105,28 @@ public class ETipsCoreService extends Service {
 																	String article_id = obj.getString("article_id");
 																	String nickname = obj.getString("nickname");
 																	StringBuilder sb = new StringBuilder();
-																	if(!incognito.equals("0")){
-																		sb.append("@"+author);
+																	MsgRecord mr = new MsgRecord();
+
+																	if(!incognito.equals("0")){//1为匿名
+																		sb.append("@某同学");
+																		mr.setIncognito(1);
 																	}else{
-																		sb.append("@某人");
+																		sb.append("@"+nickname);
+																		mr.setIncognito(0);
 																	}
 																	sb.append(" 回复你:");
-																	sb.append(comment);
+																	sb.append(comment+"(点击可回复)");
 																	ArrayList<MsgRecord> messages = AppInfo.getMessages(getApplicationContext());
 																	int size = messages.size();
-																	MsgRecord mr = new MsgRecord();
-																	mr.setId(size);
-																	mr.setType("tweet");
+																																		mr.setId(size);
+																	mr.setType(ETipsContants.TYPE_MsgCenter_Tweet);
 																	mr.setContent(sb.toString());
 																	mr.setAddTime(sendTime);
-																	mr.setFrom(author);
-																	mr.setTo(content_id);
+																	mr.setAuthor(author);
+																	mr.setTo_comment_id(content_id);
 																	mr.setTopic_id(topic_id);
 																	mr.setArticle_id(article_id);
+																	mr.setNickname(nickname);
 																	messages.add(mr);
 																	AppInfo.setMessages(getApplicationContext(), messages);
 																	Preferences.setIsHasMsgToCheck(getApplicationContext(), true);
@@ -130,14 +134,17 @@ public class ETipsCoreService extends Service {
 																	e.printStackTrace();
 																}
 															}
-															RequestParams params = new RequestParams();
-															params.add("author", ClientConfig.getUserId(getApplicationContext()));
-															params.add("op","clear");
-													        client.get(TweetAPI.BaseUrl+ "checkcomment.php", params, new AsyncHttpResponseHandler(){
-													        	public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-													        		Log.i("debug", "ETipsCoreService--->clean Comment");
-													        	};
-													        });
+															//notify :message receive!
+															getApplicationContext().sendBroadcast(new Intent(ETipsContants.Action_MsgReceive));
+															//clean the comment in server!
+//															RequestParams params = new RequestParams();
+//															params.add("author", ClientConfig.getUserId(getApplicationContext()));
+//															params.add("op","clear");
+//													        client.get(TweetAPI.BaseUrl+ "checkcomment.php", params, new AsyncHttpResponseHandler(){
+//													        	public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+//													        		Log.i("debug", "ETipsCoreService--->clean Comment");
+//													        	};
+//													        });
 															 
 														}
                                                       

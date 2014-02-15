@@ -10,8 +10,11 @@ import android.os.Message;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
@@ -87,29 +90,14 @@ public class MsgCenterActivity extends BaseUIActivity {
 						@Override
 						public void run() {
 							// 清空
+							list.removeAll(list);
 							if (AppInfo.setMessages(getContext(), list)) {
-								list.removeAll(list);
 								mHandler.sendEmptyMessage(ETipsContants.Finish);
 							}
 						}
 					}).start();
 
 				}
-			}
-		});
-
-		lv.setOnItemLongClickListener(new OnItemLongClickListener() {
-
-			@Override
-			public boolean onItemLongClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				Intent intent = new Intent(ETipsContants.Action_Notes);
-				String content = ((TextView)view.findViewById(R.id.item_dialog_msg_center_common_tv_content)).getText().toString();
-				SP sp = new SP(ETipsContants.SP_NAME_Notes, getContext());
-				sp.add(java.lang.System.currentTimeMillis() + "",content);
-				sendBroadcast(intent);
-				toast("已保存到个人便签");
-				return false;
 			}
 		});
 	}
@@ -193,8 +181,8 @@ public class MsgCenterActivity extends BaseUIActivity {
 		}
 
 		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			ViewHolder holder = null;
+		public View getView(final int position, View convertView, ViewGroup parent) {
+			final ViewHolder holder;
 			if (convertView == null) {
 				holder = new ViewHolder();
 				convertView = LayoutInflater.from(MsgCenterActivity.this)
@@ -214,14 +202,48 @@ public class MsgCenterActivity extends BaseUIActivity {
 					.parseLong(mr.addTime)));
 			holder.tv_content.setText(StringUtils.wrapText(
 					MsgCenterActivity.this, mr.content));
+           //点击回复
+			holder.tv_content.setOnClickListener(new OnClickListener() {
 
+				@Override
+				public void onClick(View v) {
+					if (list.get(position).getType()
+							.equals(ETipsContants.TYPE_MsgCenter_Tweet)) {
+						MsgRecord mr = list.get(position);
+						Intent intent = new Intent(getContext(), TweetCompose.class);
+						intent.putExtra("function", "reply");
+						intent.putExtra("topic_id", mr.getTopic_id());
+						intent.putExtra("article_id", mr.getArticle_id());
+						intent.putExtra("author", mr.getAuthor());
+						intent.putExtra("to_comment_id", mr.getTo_comment_id());
+						intent.putExtra("nickname", mr.isIncognito()?"某同学":mr.getNickname());
+						openActivity(intent);
+					}
+				}
+			});
+			//长按保存
+			holder.tv_content.setOnLongClickListener(new OnLongClickListener() {
+
+				@Override
+				public boolean onLongClick(View v) {
+					Intent intent = new Intent(ETipsContants.Action_Notes);
+					// String content = ((TextView) convertView
+					// .findViewById(R.id.item_dialog_msg_center_common_tv_content))
+					// .getText().toString();
+					String content = holder.tv_content.getText().toString();
+					SP sp = new SP(ETipsContants.SP_NAME_Notes, getContext());
+					sp.add(java.lang.System.currentTimeMillis() + "", content);
+					sendBroadcast(intent);
+					toast("已保存到个人便签");
+					return true;
+				}
+			});
 			return convertView;
 		}
 
 		class ViewHolder {
 			TextView tv_time, tv_content;
 		}
-
 	}
 
 }

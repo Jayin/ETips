@@ -99,7 +99,7 @@ public class TweetDetail extends BaseUIActivity implements OnClickListener {
 		if (isLike) {
 			like.setBackgroundResource(R.drawable.ic_item_tweet_like);
 		}
-
+        //回复评论
 		lv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -113,6 +113,7 @@ public class TweetDetail extends BaseUIActivity implements OnClickListener {
 				intent.putExtra("article_id", list.get(position).getArticleID());
 				intent.putExtra("author", list.get(position).getAuthor());
 				intent.putExtra("to_comment_id", list.get(position).getComment_id());
+				intent.putExtra("nickname", list.get(position).isIncognito()?"某同学":list.get(position).getNickname());
 				openActivity(intent);
 			}
 		});

@@ -9,16 +9,17 @@ import java.io.Serializable;
  * 
  */
 @SuppressWarnings("serial")
-public class MsgRecord implements Serializable{
+public class MsgRecord implements Serializable {
 	public MsgRecord() {
 		id = 0;
 		type = "";
 		content = "";
 		addTime = "";
-		from = "";
-		to = "";
+		author = "";
+		to_comment_id = "";
 		topic_id = "";
-		article_id="";
+		article_id = "";
+		incognito = 0;
 	}
 
 	/**
@@ -37,15 +38,36 @@ public class MsgRecord implements Serializable{
 	 * 接收并写入数据库时间
 	 */
 	public String addTime;
-	/** 来自*/
-	private String from;
-	/** to id*/
-	private String to;
-	/** 话题id*/
+	// 下面的都是为了支持新版帖子回复提醒
+	/** 消息的作者id */
+	private String author;
+	/** 评论idid */
+	private String to_comment_id;
+	/** 话题id */
 	private String topic_id;
-	/** 推文id*/
+	/** 推文id */
 	private String article_id;
-	
+	/** 推文作者名称 */
+	private String nickname;
+	/** 是否匿名 */
+	private int incognito;
+
+	public void setIncognito(int incognito) {
+		this.incognito = incognito;
+	}
+
+	public boolean isIncognito() {
+		return incognito==1;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
 	public String getTopic_id() {
 		return topic_id;
 	}
@@ -62,20 +84,20 @@ public class MsgRecord implements Serializable{
 		this.article_id = article_id;
 	}
 
-	public String getFrom() {
-		return from;
+	public String getAuthor() {
+		return author;
 	}
 
-	public void setFrom(String from) {
-		this.from = from;
+	public void setAuthor(String author) {
+		this.author = author;
 	}
 
-	public String getTo() {
-		return to;
+	public String getTo_comment_id() {
+		return to_comment_id;
 	}
 
-	public void setTo(String to) {
-		this.to = to;
+	public void setTo_comment_id(String to_comment_id) {
+		this.to_comment_id = to_comment_id;
 	}
 
 	public int getId() {
@@ -109,7 +131,5 @@ public class MsgRecord implements Serializable{
 	public void setAddTime(String addTime) {
 		this.addTime = addTime;
 	}
-	
-	
 
 }

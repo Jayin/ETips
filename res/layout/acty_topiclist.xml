@@ -61,10 +61,10 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <com.meizhuo.etips.widget.PullToRefreshListView
+    <com.xview.XListView
         android:id="@+id/acty_topiclist_lv"
         style="@style/ListView.Base"
        android:background="@color/grey">
-    </com.meizhuo.etips.widget.PullToRefreshListView>
+    </com.xview.XListView>
 
 </LinearLayout>

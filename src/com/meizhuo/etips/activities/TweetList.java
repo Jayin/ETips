@@ -16,6 +16,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.meizhuo.etips.app.ClientConfig;
 import com.meizhuo.etips.common.AndroidUtils;
 import com.meizhuo.etips.common.ETipsContants;
@@ -25,11 +26,12 @@ import com.meizhuo.etips.common.ShareManager;
 import com.meizhuo.etips.common.StringUtils;
 import com.meizhuo.etips.model.Tweet;
 import com.meizhuo.etips.net.utils.TweetAPI;
-import com.meizhuo.etips.widget.PullToRefreshListView;
 import com.meizhuo.etips.widget.PullToRefreshListView.OnRefreshListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.bean.SocializeEntity;
 import com.umeng.socialize.controller.listener.SocializeListeners.SnsPostListener;
+import com.xview.XListView;
+import com.xview.XListView.IXListViewListener;
 
 /**
  * 推文列表 </br> 1.记得额外保存 topic_id!</br> 2.点击评论即可评论</br> 3.推文列表 sp命名规则
@@ -41,7 +43,7 @@ import com.umeng.socialize.controller.listener.SocializeListeners.SnsPostListene
 public class TweetList extends BaseUIActivity implements OnClickListener {
 	private View back, compose;
 	private TextView tv_title;
-	private PullToRefreshListView lv;
+	private XListView lv;
 	private String topic_id, title;
 	private List<Tweet> list,// 一直存在
 			newList; // 分页
@@ -53,7 +55,7 @@ public class TweetList extends BaseUIActivity implements OnClickListener {
 	private boolean isPullDonwUpdating = false; // 用来控制page，pulldown的时候就是下拉，应该是最新的一页page=1，点击更多的时候应该是下页
 	private boolean isFootUpdating = false;
 	private boolean enableIncognito = false; // 能否匿名发帖，转至评论，发帖时直接传递这个boolean值就ok了
-	private View footView, more, progress;
+//	private View footView, more, progress;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,36 +75,59 @@ public class TweetList extends BaseUIActivity implements OnClickListener {
 		tv_title = (TextView) _getView(R.id.acty_tweet_title);
 		back = _getView(R.id.acty_tweet_btn_back);
 		compose = _getView(R.id.acty_tweet_btn_compose);
-		lv = (PullToRefreshListView) _getView(R.id.acty_tweet_lv);
+		lv = (XListView) _getView(R.id.acty_tweet_lv);
 
-		footView = LayoutInflater.from(this).inflate(
-				R.layout.pulltoreflush_foot, null);
-		more = footView.findViewById(R.id.pulltoreflush_more);
-		progress = footView.findViewById(R.id.pulltoreflush_flushing);
-		more.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if (!isPullDonwUpdating) { // 确保不是正在下拉刷新
-					new FootUpdate().execute();
-				}
-			}
-		});
+//		footView = LayoutInflater.from(this).inflate(
+//				R.layout.pulltoreflush_foot, null);
+//		more = footView.findViewById(R.id.pulltoreflush_more);
+	//	progress = footView.findViewById(R.id.pulltoreflush_flushing);
+//		more.setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				if (!isPullDonwUpdating) { // 确保不是正在下拉刷新
+//					new FootUpdate().execute();
+//				}
+//			}
+//		});
 
 		tv_title.setText(title);
 		back.setOnClickListener(this);
 		compose.setOnClickListener(this);
 
-		lv.setOnRefreshListener(new OnRefreshListener() {
+		lv.setPullRefreshEnable(true);
+		lv.setPullLoadEnable(true);
+		
+		lv.setXListViewListener(new IXListViewListener() {
+			
 			@Override
 			public void onRefresh() {
 				if (isFootUpdating) { // 底部更多正在刷新就不能下拉刷新
-					lv.onRefreshComplete();
+					lv.stopRefresh();
 				} else  {
 					new UpdateTask().execute(1); // 向下拉,page=1為最新页
 				}
-
+			}
+			
+			@Override
+			public void onLoadMore() {
+				if (!isPullDonwUpdating) { // 确保不是正在下拉刷新
+					new FootUpdate().execute();
+				}
 			}
 		});
+//		lv.setOnRefreshListener(new OnRefreshListener() {
+//			@Override
+//			public void onRefresh() {
+//				if (isFootUpdating) { // 底部更多正在刷新就不能下拉刷新
+//					lv.onRefreshComplete();
+//				} else  {
+//					new UpdateTask().execute(1); // 向下拉,page=1為最新页
+//				}
+//
+//			}
+//		});
+		
+
 		// list无数据就 先空
 		if (list == null) {
 			list = new ArrayList<Tweet>();
@@ -110,8 +135,9 @@ public class TweetList extends BaseUIActivity implements OnClickListener {
 		adapter = new TweetAdapter(list);
 		lv.setAdapter(adapter);
 
-		lv.addFooterView(footView);
-		lv.clickRefresh();
+//		lv.addFooterView(footView);
+//		lv.clickRefresh();
+        lv.startRefresh();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -161,8 +187,8 @@ public class TweetList extends BaseUIActivity implements OnClickListener {
 	class FootUpdate extends AsyncTask<Void, Void, Void> {
 		@Override
 		protected void onPreExecute() {
-			progress.setVisibility(View.VISIBLE);
-			more.setVisibility(View.GONE);
+//			progress.setVisibility(View.VISIBLE);
+//			more.setVisibility(View.GONE);
 			isFootUpdating = true;
 			isPullDonwUpdating = false;
 		}
@@ -177,10 +203,11 @@ public class TweetList extends BaseUIActivity implements OnClickListener {
 
 		@Override
 		protected void onPostExecute(Void result) {
-			lv.onRefreshComplete();
+//			lv.onRefreshComplete();
+			lv.stopLoadMore();
 			isFootUpdating = false;
-			progress.setVisibility(View.GONE);
-			more.setVisibility(View.VISIBLE);
+//			progress.setVisibility(View.GONE);
+//			more.setVisibility(View.VISIBLE);
 			if (newList == null) {
 				toast("网络异常");
 				return;
@@ -218,7 +245,8 @@ public class TweetList extends BaseUIActivity implements OnClickListener {
 		@Override
 		protected void onPostExecute(Void result) {
 			isPullDonwUpdating = false;
-			lv.onRefreshComplete();// 隐藏ListView Head View
+//			lv.onRefreshComplete();// 隐藏ListView Head View
+			lv.stopRefresh();
 			if (newList == null) {
 				toast("网络异常");
 				return;

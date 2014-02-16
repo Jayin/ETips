@@ -33,7 +33,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/header_hint_refresh_time"
-                    android:textSize="12sp" />
+                    android:textSize="12sp" android:visibility="invisible"/>
 
                 <TextView
                     android:id="@+id/header_hint_time"
@@ -45,6 +45,7 @@
 
         <ProgressBar
             android:id="@+id/header_progressbar"
+            android:indeterminateDrawable="@drawable/progress_drawable_black"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_toLeftOf="@id/header_text_layout"

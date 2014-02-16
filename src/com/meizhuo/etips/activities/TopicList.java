@@ -21,8 +21,9 @@ import com.meizhuo.etips.common.ETipsContants;
 import com.meizhuo.etips.common.SP;
 import com.meizhuo.etips.model.Topic;
 import com.meizhuo.etips.net.utils.TweetAPI;
-import com.meizhuo.etips.widget.PullToRefreshListView;
 import com.meizhuo.etips.widget.PullToRefreshListView.OnRefreshListener;
+import com.xview.XListView;
+import com.xview.XListView.IXListViewListener;
 
 /**
  * 话题列表
@@ -32,7 +33,7 @@ import com.meizhuo.etips.widget.PullToRefreshListView.OnRefreshListener;
  */
 public class TopicList extends BaseUIActivity implements OnClickListener {
 	private View back, setting;
-	private PullToRefreshListView lv;
+	private XListView lv;
 	private View footView;
 	private SP sp;
 	private BroadcastReceiver receiver;
@@ -65,7 +66,8 @@ public class TopicList extends BaseUIActivity implements OnClickListener {
 //				lv.clickRefresh();
 //			}
 		} else {
-			lv.clickRefresh();
+//			lv.clickRefresh();
+			lv.startRefresh();
 		}
 	}
 
@@ -73,31 +75,43 @@ public class TopicList extends BaseUIActivity implements OnClickListener {
 	protected void initLayout() {
 		back = _getView(R.id.acty_topiclist_btn_back);
 		setting = _getView(R.id.acty_topiclist_btn_setting);
+		lv = (XListView) _getView(R.id.acty_topiclist_lv);
 		
-		lv = (PullToRefreshListView) _getView(R.id.acty_topiclist_lv);
-
 		back.setOnClickListener(this);
-
 		setting.setOnClickListener(this);
-
-		lv.setOnRefreshListener(new OnRefreshListener() {
-
+		lv.setPullRefreshEnable(true);
+		lv.setPullLoadEnable(false);
+		lv.setXListViewListener(new IXListViewListener() {
+			
 			@Override
 			public void onRefresh() {
 				new ReflushTask().execute();
-				// 记得在Tast执行：lv.onRefreshComplete(); 隐藏ListView Head View
+				
+			}
+			
+			@Override
+			public void onLoadMore() {
+				
 			}
 		});
+//		lv.setOnRefreshListener(new OnRefreshListener() {
+//
+//			@Override
+//			public void onRefresh() {
+//				new ReflushTask().execute();
+//				// 记得在Tast执行：lv.onRefreshComplete(); 隐藏ListView Head View
+//			}
+//		});
 		lv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 			
-				if( footView == view){
-					lv.clickRefresh();
-					return;
-				}
+//				if( footView == view){
+//					lv.clickRefresh();
+//					return;
+//				}
 				if(list.get(position-1).getName().equals( "邑大购购网")){
 					openActivity(Browser.class);
 					return;
@@ -115,7 +129,8 @@ public class TopicList extends BaseUIActivity implements OnClickListener {
 		lv.setAdapter(new TopicListAdapter(new ArrayList<Topic>()));
 		lv.addFooterView(footView);
 		
-		lv.clickRefresh();
+//		lv.clickRefresh();
+		lv.startRefresh();
 	}
 
 	@Override
@@ -155,7 +170,8 @@ public class TopicList extends BaseUIActivity implements OnClickListener {
 
 		@Override
 		protected void onPostExecute(Void result) {
-			lv.onRefreshComplete();// 隐藏ListView Head View
+//			lv.onRefreshComplete();// 隐藏ListView Head View
+			lv.stopRefresh();
 			if(newList==null){
 				toast("请检查你的网络");
 			}else if(newList.size() == 0){

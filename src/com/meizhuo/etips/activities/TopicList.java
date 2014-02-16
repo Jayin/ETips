@@ -34,16 +34,10 @@ import com.xview.XListView.IXListViewListener;
 public class TopicList extends BaseUIActivity implements OnClickListener {
 	private View back, setting;
 	private XListView lv;
-	private View footView;
 	private SP sp;
 	private BroadcastReceiver receiver;
 	private List<Topic> list,newList;
 	private TopicListAdapter adapter;
- 
-//	private boolean shouldTopicListReflush = false; // 系统配置，是否要自动刷新列表
-	//private boolean isRefreshing = false; // 设置一个状态，防止多次刷新 接着就
-	// private boolean isGetingMore = false;
-	// private boolean hasData = false;
 	private String exception;
 
 
@@ -61,12 +55,7 @@ public class TopicList extends BaseUIActivity implements OnClickListener {
 		if (list != null && list.size() > 0) {
 			adapter = new TopicListAdapter(list);
 			lv.setAdapter(adapter);
-			footView.setVisibility(View.GONE);
-//			if (shouldTopicListReflush) { // 系统控制是否刷新！！
-//				lv.clickRefresh();
-//			}
 		} else {
-//			lv.clickRefresh();
 			lv.startRefresh();
 		}
 	}
@@ -86,7 +75,6 @@ public class TopicList extends BaseUIActivity implements OnClickListener {
 			@Override
 			public void onRefresh() {
 				new ReflushTask().execute();
-				
 			}
 			
 			@Override
@@ -94,24 +82,11 @@ public class TopicList extends BaseUIActivity implements OnClickListener {
 				
 			}
 		});
-//		lv.setOnRefreshListener(new OnRefreshListener() {
-//
-//			@Override
-//			public void onRefresh() {
-//				new ReflushTask().execute();
-//				// 记得在Tast执行：lv.onRefreshComplete(); 隐藏ListView Head View
-//			}
-//		});
 		lv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-			
-//				if( footView == view){
-//					lv.clickRefresh();
-//					return;
-//				}
 				if(list.get(position-1).getName().equals( "邑大购购网")){
 					openActivity(Browser.class);
 					return;
@@ -124,21 +99,14 @@ public class TopicList extends BaseUIActivity implements OnClickListener {
 			 
 			}
 		});
-		footView = LayoutInflater.from(this).inflate(
-				R.layout.pulltoreflush_head, null);
 		lv.setAdapter(new TopicListAdapter(new ArrayList<Topic>()));
-		lv.addFooterView(footView);
 		
-//		lv.clickRefresh();
 		lv.startRefresh();
 	}
 
 	@Override
 	protected void initData() {
 		sp = new SP(ETipsContants.SP_NAME_Topic, this);
-//		shouldTopicListReflush = (new SP(ETipsContants.SP_NAME_User, this)
-//				.getValue("shouldTopicListUpdata").equals("YES")) ? true
-//				: false;
 		if (!sp.isEmpty()) {
 			list = (List<Topic>) sp.toEntityAll(ETipsContants.TYPE_SP_Topic);
 		}
@@ -170,7 +138,6 @@ public class TopicList extends BaseUIActivity implements OnClickListener {
 
 		@Override
 		protected void onPostExecute(Void result) {
-//			lv.onRefreshComplete();// 隐藏ListView Head View
 			lv.stopRefresh();
 			if(newList==null){
 				toast("请检查你的网络");

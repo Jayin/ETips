@@ -55,7 +55,6 @@ public class TweetList extends BaseUIActivity implements OnClickListener {
 	private boolean isPullDonwUpdating = false; // 用来控制page，pulldown的时候就是下拉，应该是最新的一页page=1，点击更多的时候应该是下页
 	private boolean isFootUpdating = false;
 	private boolean enableIncognito = false; // 能否匿名发帖，转至评论，发帖时直接传递这个boolean值就ok了
-//	private View footView, more, progress;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,19 +75,6 @@ public class TweetList extends BaseUIActivity implements OnClickListener {
 		back = _getView(R.id.acty_tweet_btn_back);
 		compose = _getView(R.id.acty_tweet_btn_compose);
 		lv = (XListView) _getView(R.id.acty_tweet_lv);
-
-//		footView = LayoutInflater.from(this).inflate(
-//				R.layout.pulltoreflush_foot, null);
-//		more = footView.findViewById(R.id.pulltoreflush_more);
-	//	progress = footView.findViewById(R.id.pulltoreflush_flushing);
-//		more.setOnClickListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				if (!isPullDonwUpdating) { // 确保不是正在下拉刷新
-//					new FootUpdate().execute();
-//				}
-//			}
-//		});
 
 		tv_title.setText(title);
 		back.setOnClickListener(this);
@@ -115,19 +101,6 @@ public class TweetList extends BaseUIActivity implements OnClickListener {
 				}
 			}
 		});
-//		lv.setOnRefreshListener(new OnRefreshListener() {
-//			@Override
-//			public void onRefresh() {
-//				if (isFootUpdating) { // 底部更多正在刷新就不能下拉刷新
-//					lv.onRefreshComplete();
-//				} else  {
-//					new UpdateTask().execute(1); // 向下拉,page=1為最新页
-//				}
-//
-//			}
-//		});
-		
-
 		// list无数据就 先空
 		if (list == null) {
 			list = new ArrayList<Tweet>();
@@ -135,8 +108,6 @@ public class TweetList extends BaseUIActivity implements OnClickListener {
 		adapter = new TweetAdapter(list);
 		lv.setAdapter(adapter);
 
-//		lv.addFooterView(footView);
-//		lv.clickRefresh();
         lv.startRefresh();
 	}
 
@@ -187,8 +158,6 @@ public class TweetList extends BaseUIActivity implements OnClickListener {
 	class FootUpdate extends AsyncTask<Void, Void, Void> {
 		@Override
 		protected void onPreExecute() {
-//			progress.setVisibility(View.VISIBLE);
-//			more.setVisibility(View.GONE);
 			isFootUpdating = true;
 			isPullDonwUpdating = false;
 		}
@@ -203,11 +172,8 @@ public class TweetList extends BaseUIActivity implements OnClickListener {
 
 		@Override
 		protected void onPostExecute(Void result) {
-//			lv.onRefreshComplete();
 			lv.stopLoadMore();
 			isFootUpdating = false;
-//			progress.setVisibility(View.GONE);
-//			more.setVisibility(View.VISIBLE);
 			if (newList == null) {
 				toast("网络异常");
 				return;
@@ -245,7 +211,6 @@ public class TweetList extends BaseUIActivity implements OnClickListener {
 		@Override
 		protected void onPostExecute(Void result) {
 			isPullDonwUpdating = false;
-//			lv.onRefreshComplete();// 隐藏ListView Head View
 			lv.stopRefresh();
 			if (newList == null) {
 				toast("网络异常");

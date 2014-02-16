@@ -30,7 +30,6 @@ proguard/
 
 #android ignore
 .settings/
-*.png
 .settings/
 AndroidManifest.xml
 

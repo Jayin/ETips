@@ -120,7 +120,7 @@ public class ETipsCoreService extends Service {
 																	sb.append(comment+"(点击可回复)");
 																	ArrayList<MsgRecord> messages = AppInfo.getMessages(getApplicationContext());
 																	int size = messages.size();
-																																		mr.setId(size);
+																	mr.setId(size);
 																	mr.setType(ETipsContants.TYPE_MsgCenter_Tweet);
 																	mr.setContent(sb.toString());
 																	mr.setAddTime(sendTime);
@@ -139,14 +139,19 @@ public class ETipsCoreService extends Service {
 															//notify :message receive!
 															getApplicationContext().sendBroadcast(new Intent(ETipsContants.Action_MsgReceive));
 															//clean the comment in server!
-//															RequestParams params = new RequestParams();
-//															params.add("author", ClientConfig.getUserId(getApplicationContext()));
-//															params.add("op","clear");
-//													        client.get(TweetAPI.BaseUrl+ "checkcomment.php", params, new AsyncHttpResponseHandler(){
-//													        	public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-//													        		Log.i("debug", "ETipsCoreService--->clean Comment");
-//													        	};
-//													        });
+															RequestParams params = new RequestParams();
+															params.add("author", ClientConfig.getUserId(getApplicationContext()));
+															params.add("op","clear");
+													        client.get(TweetAPI.BaseUrl+ "checkcomment.php", params, new AsyncHttpResponseHandler(){
+													        	public void onSuccess(int arg0, Header[] arg1, byte[] data) {
+													        		if(JSONParser.isOK(new String(data))){
+													        			Log.i("debug", "ETipsCoreService--->clean Comment successfully!");
+													        		}else{
+													        			Log.i("debug", "ETipsCoreService--->clean Comment faild!");
+													        		}
+													        		
+													        	};
+													        });
 															 
 														}
                                                       

@@ -32,7 +32,7 @@
                 style="@style/Base_EditText"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:hint="登录邮箱" />
+                android:hint="登录邮箱(建议常用邮箱,如QQ邮箱)" />
 
             <EditText
                 android:id="@+id/acty_regist_nickname"

@@ -149,28 +149,6 @@
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
-
-                <RelativeLayout
-                    android:id="@+id/acty_tweetlogin_rely_progressBar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone" >
-
-                    <ProgressBar
-                        android:id="@+id/acty_tweetlogin_progressBar"
-                        style="@style/loading_small_style_two"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_centerHorizontal="true" />
-
-                    <TextView
-                        android:id="@+id/acty_tweetlogin_tv_loginStatus"
-                        style="@style/TextView.common"
-                        android:layout_centerVertical="true"
-                        android:layout_toRightOf="@+id/acty_tweetlogin_progressBar"
-                        android:text="登录中....."
-                        android:textColor="@color/white" />
-                </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

@@ -1,6 +1,7 @@
 package com.meizhuo.etips.common;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -29,11 +30,12 @@ public class ETipsUtils {
 	 * @return 逆转后的队列
 	 */
 	public static <T> List<T> reverse(List<T> list) {
-		List<T> newList = new ArrayList<T>();
-		for (int i = list.size() - 1; i >= 0; i--) {
-			newList.add(list.get(i));
+		List<T> tmp = new ArrayList<T>(list);
+		list.clear();
+		for (int index = tmp.size() - 1; index >= 0; index--) {
+			list.add(tmp.get(index));
 		}
-		return newList;
+		return list;
 	}
 
 	/**
@@ -148,7 +150,9 @@ public class ETipsUtils {
 	 */
 	public static boolean addSendCount(Context context) {
 		if (enableSend(context)) {
-			ClientConfig.setSendCount(context, (Integer.parseInt(ClientConfig.getSendCount(context)) + 1) + "");
+			ClientConfig.setSendCount(context,
+					(Integer.parseInt(ClientConfig.getSendCount(context)) + 1)
+							+ "");
 			return true;
 		} else {
 			return false;

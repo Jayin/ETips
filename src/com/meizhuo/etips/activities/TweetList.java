@@ -179,6 +179,7 @@ public class TweetList extends BaseUIActivity implements OnClickListener {
 				return;
 			} else if (newList.size() == 0) {
 				toast("沒有更多");
+				lv.setPullLoadEnable(false);
 				return;
 			} else {
 				toast("已刷新");
@@ -390,8 +391,6 @@ public class TweetList extends BaseUIActivity implements OnClickListener {
 			String content = "赞！";
 			String time = System.currentTimeMillis() + "";
 			TweetAPI api = new TweetAPI(getContext());
-//	     	SP sp = new SP(ETipsContants.SP_NAME_User, getContext());
-//			String senderID = sp.getValue("id");
 			String senderID = ClientConfig.getUserId(getContext());
 			if(senderID==null || senderID.equals("null") || senderID.equals("")){
 				return;

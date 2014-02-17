@@ -49,11 +49,13 @@ public class ETipsCoreService extends Service {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		Log.i("debug", "onStartCommand");
-		String action = intent.getAction();
-		if (ETipsContants.Action_Service_Download_Pic.equals(action)) {
-			downloadPic(intent);
-		} else if (ETipsContants.Action_Service_Check_Comment.equals(action)) {
-			checkComments();
+		if(intent != null){
+			String action = intent.getAction();
+			if (ETipsContants.Action_Service_Download_Pic.equals(action)) {
+				downloadPic(intent);
+			} else if (ETipsContants.Action_Service_Check_Comment.equals(action)) {
+				checkComments();
+			}
 		}
 		return Service.START_STICKY;
 	}

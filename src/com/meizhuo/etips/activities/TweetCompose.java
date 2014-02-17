@@ -107,8 +107,6 @@ public class TweetCompose extends BaseUIActivity implements OnClickListener {
 			author = getIntent().getStringExtra("author"); //原评论者的id
 			to_comment_id = getIntent().getStringExtra("to_comment_id");
 			nickname = getIntent().getStringExtra("nickname");
-			toast(author);
-			toast(to_comment_id);
 		}
 		enableIncognito = getIntent().getBooleanExtra("enableIncognito", true);
 		//

@@ -1,12 +1,11 @@
 package com.meizhuo.etips.activities;
 
-import com.meizhuo.etips.common.AndroidUtils;
-
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
+
+import com.meizhuo.etips.common.AndroidUtils;
 /**
  * 关于页面
  * @author Jayin Ton
@@ -36,10 +35,9 @@ public class AboutActivity extends BaseUIActivity {
 				AboutActivity.this.finish();
 			}
 		});
-		tv_version = (TextView) _getView(R.id.textView8);
+		tv_version = (TextView) _getView(R.id.tv_version);
 		try {
-			tv_version.setText("版本:"
-					+ AndroidUtils.getAppVersionName(getContext()));
+			tv_version.setText( AndroidUtils.getAppVersionName(getContext()));
 		} catch (NameNotFoundException e) {
 			e.printStackTrace();
 		}

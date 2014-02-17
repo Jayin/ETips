@@ -1,22 +1,13 @@
 package com.meizhuo.etips.activities;
 
-import java.util.Calendar;
-
-import me.imid.swipebacklayout.lib.SwipeBackLayout;
-
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.meizhuo.etips.app.ClientConfig;
@@ -25,7 +16,7 @@ import com.meizhuo.etips.app.Preferences;
 import com.meizhuo.etips.common.AndroidUtils;
 import com.meizhuo.etips.common.CalendarManager;
 import com.meizhuo.etips.common.ETipsContants;
-import com.meizhuo.etips.common.L;
+import com.meizhuo.etips.common.SP;
 import com.meizhuo.etips.model.ImgInfo;
 import com.meizhuo.etips.service.ETipsCoreService;
 
@@ -71,6 +62,7 @@ public class ETipsStartActivity extends BaseUIActivity {
 					if (versionName != null
 							&& !versionName.equals(Preferences
 									.getAppVersion(getContext()))) {
+						addUseage();
 						// 跳转到 导航
 						openActivity(ETipsGuidePage.class);
 						Preferences.setAppVersion(getContext(), versionName);
@@ -95,6 +87,12 @@ public class ETipsStartActivity extends BaseUIActivity {
 				handler.sendMessageDelayed(msg, 1500);
 			}
 		}).start();
+	}
+
+	protected void addUseage() {
+		SP sp = new SP(ETipsContants.SP_NAME_Notes, this); 
+		sp.add(java.lang.System.currentTimeMillis() + "", getString(R.string.useage));
+		
 	}
 
 	protected void checkImgDoadload() {

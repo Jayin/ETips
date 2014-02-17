@@ -124,6 +124,11 @@
         <item name="android:layout_margin">5dp</item>
         <item name="android:background">@drawable/btn_item_whit2grey</item>
     </style>
+    
+    <style name="Acty_Course_Setting.about" parent="Acty_Course_Setting.rely">
+        <item name="android:layout_margin">0dp</item>
+        <item name="android:background">@null</item>
+    </style>
     <!-- <item name="android:background">@drawable/btn_setting_sigleitem</item> -->
     <style name="Acty_Course_Setting.imageview">
         <item name="android:layout_width">wrap_content</item>

@@ -7,9 +7,9 @@
     <string name="menu_settings">Settings</string>
     -->
     <string name="ElectricityTips">使用方法：\n   如果你住在13栋706，则在下面分别输入:13 、706\n注意：\n   1.由于学校对IP限制了，只能在校园网络（wifi）下查询,望谅解！ \n   2.部分宿舍楼可能无法查询，因为不属于智能用电的宿舍楼</string>
-    <string name="MsgCenterTips">感谢使用ETips!如果在使用过程中有什么问题，可以向我们反馈.官方微博:@邑点通_ETips 官方微信公众账号：邑点通</string>
+    <string name="MsgCenterTips">感谢使用ETips!如果在使用过程中有什么问题，可以向我们反(tiao)馈(xi).官方新浪微博:@邑大校园助手ETips 官方微信公众账号：邑点通</string>
     <string name="Tips_Course_edit">ETips:上课周数格式:每个时间点or时间段要用","逗号隔开(英文的逗号)，例如"第1,2-15,18周".不然会出现错误.</string>
-     
+    <string  name="useage">ETips使用技巧:1.沿屏幕左边缘右划，可以退出当前界面 2.消息中心:长按信息内容，可以自动保存该信息到个人便签 3.个人便签:长按个人便签条目，可以快速删除该便签</string>
     <!-- PullToReflush -->
 
 

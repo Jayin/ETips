@@ -89,7 +89,6 @@ public class Notes extends BaseUIActivity implements OnClickListener {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-
 				Intent intent = wrapIntent(NotesEdit.class);
 				intent.putExtra("time", list.get(position).getTime() + "");
 				intent.putExtra("content", list.get(position).getContent());
@@ -107,7 +106,7 @@ public class Notes extends BaseUIActivity implements OnClickListener {
 				list.remove(position);
 				adapter.notifyDataSetChanged();
 				toast("已删除");
-				return false;
+				return true;
 			}
 		});
 
@@ -170,6 +169,5 @@ public class Notes extends BaseUIActivity implements OnClickListener {
 					.setText(data.get(position).getContent());
 			return convertView;
 		}
-
 	}
 }

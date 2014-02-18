@@ -282,7 +282,7 @@ public class XListView extends ListView implements OnScrollListener {
     
     //用于第一次进入加载
  	public void startRefresh() {
- 		updateHeaderHeight(80);//写的有点粗糙..
+ 		updateHeaderHeight(100);//写的有点粗糙..
  		invokeOnScrolling();
  		mPullRefreshing = true;
  		mHeaderView.setState(XHeaderView.STATE_REFRESHING);

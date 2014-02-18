@@ -1,14 +1,10 @@
 package com.meizhuo.etips.activities;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
-
-import com.meizhuo.etips.common.ETipsContants;
 import com.meizhuo.etips.common.ETipsUtils;
 import com.meizhuo.etips.common.ShareManager;
 import com.meizhuo.etips.ui.dialog.DeclarationDialog;
@@ -183,7 +179,7 @@ private SetCurrentWeekDialog setCurrentWeekDialog;
 
 	private void share() {
 		ShareManager sm = new ShareManager(
-				"我正在使用邑大校园助手#ETips#最新版2.2。新增校园资讯模块，个人便签,查空课室。对接学生子系统，一键导入课程表，轻松查成绩算绩点;对接邑大图书馆，找图书不再怠慢;对接校园服务，查电费，看邑大新闻超级方便！豌豆荚，360手机助手搜\"ETips\"即可下载！");
+				getString(R.string.share_content));
 		sm.shareToSina(ETipsMainSettingActivity.this, new SnsPostListener() {
 
 			@Override

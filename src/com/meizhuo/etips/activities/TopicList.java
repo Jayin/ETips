@@ -74,7 +74,9 @@ public class TopicList extends BaseUIActivity implements OnClickListener {
 			
 			@Override
 			public void onRefresh() {
-				new ReflushTask().execute();
+				if(AndroidUtils.isNetworkConnected(getContext())){
+					new ReflushTask().execute();
+				}
 			}
 			
 			@Override
@@ -104,6 +106,7 @@ public class TopicList extends BaseUIActivity implements OnClickListener {
 		lv.startRefresh();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void initData() {
 		sp = new SP(ETipsContants.SP_NAME_Topic, this);

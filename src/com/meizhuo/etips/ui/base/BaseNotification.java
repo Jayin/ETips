@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationCompat.Builder;
-import android.support.v4.widget.SlidingPaneLayout.PanelSlideListener;
-
 import com.meizhuo.etips.activities.R;
 
  

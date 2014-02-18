@@ -249,6 +249,7 @@ public class TweetCompose extends BaseUIActivity implements OnClickListener {
 					String response = api.compose(topic_id, content, id,
 							sendTime, isCognito ? "1" : "0");
 					notification.cancle();
+					debug("response");
 					if (JSONParser.isOK(response)) {
 						ETipsUtils.addSendCount(getContext());
 						notification.setContentText("发布成功");

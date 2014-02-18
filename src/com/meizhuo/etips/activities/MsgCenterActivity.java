@@ -3,6 +3,7 @@ package com.meizhuo.etips.activities;
 import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,9 +14,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -24,6 +22,7 @@ import android.widget.Toast;
 
 import com.meizhuo.etips.app.AppInfo;
 import com.meizhuo.etips.app.Preferences;
+import com.meizhuo.etips.common.CalendarUtils;
 import com.meizhuo.etips.common.ETipsContants;
 import com.meizhuo.etips.common.ETipsUtils;
 import com.meizhuo.etips.common.SP;
@@ -106,6 +105,11 @@ public class MsgCenterActivity extends BaseUIActivity {
 	protected void initData() {
 		// 注意更新 用户查看消息的状态
 		Preferences.setIsHasMsgToCheck(getContext(), false);
+		//清除notification
+		NotificationManager manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+		manager.cancel(ETipsContants.ID_System);
+		manager.cancel(ETipsContants.ID_Notify);
+		manager.cancel(ETipsContants.ID_Push);
 	}
 
 	@SuppressLint("HandlerLeak")
@@ -198,8 +202,9 @@ public class MsgCenterActivity extends BaseUIActivity {
 			}
 
 			MsgRecord mr = list.get(position);
-			holder.tv_time.setText(ETipsUtils.getTimeForm(Long
-					.parseLong(mr.addTime)));
+//			holder.tv_time.setText(ETipsUtils.getTimeForm(Long
+//					.parseLong(mr.addTime)));
+			holder.tv_time.setText(CalendarUtils.getTimeFromat(Long.parseLong(mr.getAddTime()), CalendarUtils.TYPE_ONE));
 			holder.tv_content.setText(StringUtils.wrapText(
 					MsgCenterActivity.this, mr.content));
            //点击回复

@@ -76,7 +76,6 @@
         android:layout_gravity="center" >
 
         <LinearLayout
-            android:id="@+id/acty_etips_main_setting_rely_checkSource"
             style="@style/Acty_Course_Setting.about" >
 
             <TextView
@@ -95,7 +94,6 @@
             android:background="@drawable/ic_line_1" />
 
         <LinearLayout
-            android:id="@+id/acty_etips_main_setting_rely_checkSource"
             style="@style/Acty_Course_Setting.about" >
 
             <TextView
@@ -114,7 +112,6 @@
             android:background="@drawable/ic_line_1" />
 
         <LinearLayout
-            android:id="@+id/acty_etips_main_setting_rely_checkSource"
             style="@style/Acty_Course_Setting.about" >
 
             <TextView
@@ -133,7 +130,6 @@
             android:background="@drawable/ic_line_1" />
 
         <LinearLayout
-            android:id="@+id/acty_etips_main_setting_rely_checkSource"
             style="@style/Acty_Course_Setting.about" >
 
             <TextView

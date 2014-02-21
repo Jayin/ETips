@@ -52,7 +52,7 @@ public class ClientConfig {
 		setDescrpiton(context, "");
 		setLoginTime(context, "");
 		setNickName(context, "");
-		setSendCount(context, "");
+		setSendCount(context, "0");
 		setSession(context, "");
 		setUserId(context, "");
 		setUserPsw(context, "");

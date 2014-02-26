@@ -6,6 +6,12 @@ ETips
 * For all new versions of ETips, you can download from http://etipsweb.duapp.com/download/ETips.apk
 * the source code and change log (or update information) will compose here and <http://etipsweb.duapp.com/download/>  (not very in time at all)
 
+knowing bug
+===
+* error response in course-list widget
+* doublely add data in Jiaowu Tongzhi
+
+
 ETips 2.2 changelog
 ====
 本次更新主要一些优化

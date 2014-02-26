@@ -19,7 +19,7 @@ import com.meizhuo.etips.activities.R;
  */
 public class JPushManager {
 	public static void init(Context context) {
-//		JPushInterface.setDebugMode(true); // 设置开启日志,发布时请关闭日志
+		JPushInterface.setDebugMode(true); // 设置开启日志,发布时请关闭日志
 		JPushInterface.init(context); // 初始化 JPush
 		BasicPushNotificationBuilder b = new BasicPushNotificationBuilder(context);
         b.statusBarDrawable = R.drawable.icon;
@@ -71,7 +71,7 @@ public class JPushManager {
 	public  static Set getTags(){
 		Set<String> set = new LinkedHashSet<String>();
 		set.add("邑大");
-//	  	set.add("ETipsTestCase");
+	  	set.add("ETipsTestCase");
 		return set;
 	}
 	

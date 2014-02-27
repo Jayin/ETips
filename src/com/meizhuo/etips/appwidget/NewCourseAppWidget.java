@@ -17,6 +17,7 @@ import com.meizhuo.etips.activities.R;
 import com.meizhuo.etips.activities.SubSystemLoginActivity;
 import com.meizhuo.etips.app.AppInfo;
 import com.meizhuo.etips.common.ETipsContants;
+import com.meizhuo.etips.common.L;
 import com.meizhuo.etips.common.StringUtils;
 import com.meizhuo.etips.model.Course;
 import com.meizhuo.etips.model.Lesson;
@@ -73,9 +74,9 @@ public class NewCourseAppWidget extends AppWidgetProvider {
 						R.id.tv_address_4);
 				setText(remoteViews, lessons.get(4), R.id.tv_lessonname_5,
 						R.id.tv_address_5);
+				L.i("current intent"+intent.getIntExtra("weekday", 99));
 				PendingIntent pre = getPrePendingIntent(context, weekday);
 				PendingIntent next = getNextPendingintent(context, weekday);
-
 				remoteViews.setOnClickPendingIntent(R.id.iv_previous, pre);// 前一天
 				remoteViews.setOnClickPendingIntent(R.id.iv_next, next);// 下一天
 			}
@@ -119,7 +120,7 @@ public class NewCourseAppWidget extends AppWidgetProvider {
 		context.sendBroadcast(new Intent(ETipsContants.Action_CourseChange)); // 发送课表修改的广播！
 		super.onUpdate(context, appWidgetManager, appWidgetIds);
 	}
-
+    /** 点击响应事件,打开课表or登录获取课表*/
 	private PendingIntent getPendingIntent(Context context) {
 		PendingIntent startCourseMain = PendingIntent.getActivity(context, 0,
 				new Intent(context, CourseMainActivity.class), 0);
@@ -150,7 +151,7 @@ public class NewCourseAppWidget extends AppWidgetProvider {
 		} else {
 			intent.putExtra("weekday", weekday - 1);
 		}
-		return PendingIntent.getBroadcast(context, 0, intent,
+		return PendingIntent.getBroadcast(context, 1, intent,
 				PendingIntent.FLAG_UPDATE_CURRENT);
 	}
 }

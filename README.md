@@ -8,7 +8,7 @@ ETips
 
 knowing bug
 ===
-* error response in course-list widget
+* error response in course-list widget (fixed)
 * doublely add data in Jiaowu Tongzhi
 
 

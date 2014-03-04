@@ -56,7 +56,8 @@ public class DataPool {
 			oos.writeObject(value);
 			String base64String = Base64.encodeToString(bos.toByteArray(),
 					Base64.DEFAULT);
-			sp.edit().putString(key, base64String).apply();
+//			sp.edit().putString(key, base64String).commit();
+			sp.edit().putString(key, base64String).commit();
 		} catch (IOException e) {
 			e.printStackTrace();
 			return false;
@@ -155,7 +156,7 @@ public class DataPool {
 	public void remove(String key) {
 		if (!contains(key))
 			return;
-		sp.edit().remove(key).apply();
+		sp.edit().remove(key).commit();
 	}
 
 	/**

@@ -171,7 +171,7 @@ public class HtmlParser {
 	/**
 	 * 解析学生个人信息
 	 * 
-	 * @param html
+	 * @param html  
 	 *            html code
 	 * @param stu
 	 *            a student

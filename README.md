@@ -2,8 +2,20 @@
 
 * ETips is an Android App for the students of Wuyi University
 * If you want to know more about it, click http://www.wandoujia.com/apps/com.meizhuo.etips.activities
-* For all new versions of ETips, you can download from http://etipsweb.duapp.com/download/ETips.apk
-* The source code and changelog (or update information) will be composed here and http://etipsweb.duapp.com/download/  (not very in time at all)
+* ~~For all new versions of ETips, you can download from http://etipsweb.duapp.com/download/ETips.apk~~
+* ~~The source code and changelog (or update information) will be composed here and http://etipsweb.duapp.com/download/  (not very in time at all)~~
+* All release note and download url will update at once on [ETips Home Page :  http://jayin.github.io/ETips/](http://jayin.github.io/ETips/)   
+
+
+## Thanks the contributors
+* [fritx](https://github.com/fritx)
+* [ade951](https://github.com/ade951)
+
+## ETips 2.3.0 preview
+
+* following the Android design (it could be a huge project)
+* replace the XListView by SwipeRefreshLayout
+* daily notify situation of the course
 
 ## Known Bugs
 

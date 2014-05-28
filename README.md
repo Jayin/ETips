@@ -22,7 +22,14 @@
 * error response in course-list widget (fixed)
 * doublely add data in Jiaowu Tongzhi
 
-## ETips 2.2 Changelog
+## ETips 2.2.3 changelog
+* 修复图书馆无法查询图书
+* 修复课表桌面控件错误响应
+* 修复校园资讯解析错误
+* 最低支持2.3.x系统
+
+
+## ETips 2.2 changelog
 
 本次更新主要一些优化
 

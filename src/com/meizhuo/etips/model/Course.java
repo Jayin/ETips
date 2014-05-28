@@ -17,11 +17,16 @@ import com.meizhuo.etips.common.CourseUtils;
  * @author Jayin Ton
  * 
  */
+@SuppressWarnings("serial")
 public class Course implements Serializable {
 	private List<List<List<Lesson>>> courseList;
 
 	public Course(List<List<List<Lesson>>> course) {
 		this.courseList = course;
+	}
+	
+	public boolean isEmpty(){
+		return courseList == null ||courseList.isEmpty();
 	}
 
 	/**

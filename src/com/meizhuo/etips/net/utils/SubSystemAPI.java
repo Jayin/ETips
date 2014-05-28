@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.http.Header;
 import org.apache.http.HeaderElement;
 import org.apache.http.HttpEntity;
@@ -22,6 +23,9 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
+
+import android.util.Log;
+
 import com.meizhuo.etips.model.ETipsException;
 import com.meizhuo.etips.model.Lesson;
 import com.meizhuo.etips.model.ScoreRecord;
@@ -142,6 +146,7 @@ public class SubSystemAPI {
 		HttpResponse response = client.execute(get);
 		if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 			String html = EntityUtils.toString(response.getEntity(), "gb2312");
+			Log.d("debug",html);
 			client.getConnectionManager().shutdown();
 			return HtmlParser.parseHtmlForLesson(html, map);
 		}

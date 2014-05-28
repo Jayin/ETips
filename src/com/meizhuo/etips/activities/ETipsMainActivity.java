@@ -22,8 +22,6 @@ import com.meizhuo.etips.common.CalendarManager;
 import com.meizhuo.etips.common.CourseUtils;
 import com.meizhuo.etips.common.ETipsContants;
 import com.meizhuo.etips.common.ETipsUtils;
-import com.meizhuo.etips.common.L;
-import com.meizhuo.etips.common.SP;
 import com.meizhuo.etips.common.StringUtils;
 import com.meizhuo.etips.model.Lesson;
 import com.meizhuo.etips.service.ETipsCoreService;
@@ -179,7 +177,6 @@ public class ETipsMainActivity extends BaseUIActivity implements
 
 	// 初始化Flipper
 	private void initFlipper() {
-		LayoutInflater flater = getLayoutInflater();
 		flipper_image.addView(_inflat(R.drawable.pic1));
 		flipper_image.addView(_inflat(R.drawable.pic2));
 		flipper_image.addView(_inflat(R.drawable.pic3));
@@ -202,7 +199,7 @@ public class ETipsMainActivity extends BaseUIActivity implements
 		App = (ETipsApplication) getApplication();
 		current_week = ETipsUtils.getCurrentWeek(this);
 		// 获取Notes
-		SP sp = new SP(ETipsContants.SP_NAME_Notes, this);
+//		SP sp = new SP(ETipsContants.SP_NAME_Notes, this);
 		// notes = (List<MNotes>) sp.toEntityAll(ETipsContants.TYPE_SP_Notes);
 
 		up1 = up2 = down1 = down2 = null;
@@ -286,6 +283,7 @@ public class ETipsMainActivity extends BaseUIActivity implements
 		protected String doInBackground(String... params) {
 			if (!Preferences.isCourseExist(getContext())) {
 				return up1 = "同学\n还没有课表信息哦！\n赶紧点击这里更新课表吧!";
+				//没有课表可以做些清理操作。。
 			}
 			up1 = up2 = down1 = down2 = null;
 			wrapperCourseInfo(CalendarManager.getDayPart());

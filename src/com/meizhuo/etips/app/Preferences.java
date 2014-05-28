@@ -48,7 +48,7 @@ public class Preferences {
 
 	/** 是否有课表,这是触发式的，故省略设置是否存在 */
 	public static boolean isCourseExist(Context context) {
-		return AppInfo.getCourse(context) == null ? false : true;
+		return AppInfo.getCourse(context) == null || AppInfo.getCourse(context).isEmpty()? false : true;
 	}
 
 	public static int getCurrentWeek(Context context) {

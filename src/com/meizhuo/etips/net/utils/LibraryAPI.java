@@ -187,7 +187,9 @@ public class LibraryAPI {
 		List<BookInfo> list = new ArrayList<BookInfo>();
 		String url = PathBuilder.getSearchPath(keyword, page);
 		DefaultHttpClient client = new DefaultHttpClient();
-		HttpResponse response = client.execute(new HttpGet(url));
+		HttpGet get = new HttpGet(url);
+		get.setHeader("Accept-Language", "zh-CN,zh;q=0.8,en;q=0.6,zh-TW;q=0.4");
+		HttpResponse response = client.execute(get);
 		if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 			String html = EntityUtils.toString(response.getEntity(), "utf-8");
 			client.getConnectionManager().shutdown();

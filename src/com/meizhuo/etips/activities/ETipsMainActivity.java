@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -236,6 +237,7 @@ public class ETipsMainActivity extends BaseUIActivity implements
 		case R.id.acty_etips_main_course: // 课表
 			Intent intent;
 			List<List<List<Lesson>>> list = App.getLessonList();
+			Log.d("debug",list.toString());
 			if (list == null || list.size() == 0) {
 				intent = new Intent(ETipsMainActivity.this,
 						SubSystemLoginActivity.class);

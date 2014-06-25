@@ -75,6 +75,10 @@ public class Course implements Serializable {
 				if (!flag)
 					result.add(null);
 			} else {
+				if(getDailyLesson(whichDay, i).size()==0){
+					result.add(null);
+					continue;
+				}
 				if (CourseUtils.isLessonStart(context,
 						getDailyLesson(whichDay, i).get(0))) {
 					result.add(getDailyLesson(whichDay, i).get(0));

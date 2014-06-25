@@ -187,10 +187,11 @@ LoadingDialog dialog;
 						handler.sendEmptyMessage(ETipsContants.Downloading);
 						Map<Integer, Map<Integer, List<Lesson>>> course = api
 								.getLessons();
-						if (course.isEmpty()) {
+						if (course == null || course.isEmpty()) {
 							Message msg = handler.obtainMessage();
 							msg.what = ETipsContants.Fail;
-							msg.obj = "子系统上没有你课程表哦~";
+//							msg.obj = "子系统上没有你课程表哦~";
+							msg.obj = "无法获取课表or课表为空";
 							handler.sendMessage(msg);
 						} else {
 							Message msg = handler.obtainMessage();

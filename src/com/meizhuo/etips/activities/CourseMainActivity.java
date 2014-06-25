@@ -63,19 +63,28 @@ public class CourseMainActivity extends BaseUIActivity {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.acty_course_main);
-		initData();
-		// App.setObject(this); // 这里为了方便跳转！CourseMainActivity-》settingActivity
-		// ->subloginActivity-》CourseMainActivity
-		initLayout();
-		
-		mBroadcastReceiver = new BroadcastReceiver(){
-			@Override
-			public void onReceive(Context context, Intent intent) {
-				// TODO Auto-generated method stub
-				
-			}
-		};
-
+		try{
+			initData();
+			// App.setObject(this); // 这里为了方便跳转！CourseMainActivity-》settingActivity
+			// ->subloginActivity-》CourseMainActivity
+			initLayout();
+			
+			mBroadcastReceiver = new BroadcastReceiver(){
+				@Override
+				public void onReceive(Context context, Intent intent) {
+					// TODO Auto-generated method stub
+					
+				}
+			};
+		}catch(Exception e){
+			e.printStackTrace();
+			//课表异常了
+			this.finish();
+			Intent intent = new Intent(this,
+					SubSystemLoginActivity.class);
+			intent.putExtra("toWhere", "CourseMainActivity");
+			openActivity(intent);
+		}
 	}
 
 	@Override

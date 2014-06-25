@@ -56,7 +56,7 @@ public class NewCourseAppWidget extends AppWidgetProvider {
 					R.layout.widget_course_new);
 			// 更新UI
 			remoteViews.setTextViewText(R.id.tv_weekday, time);
-			if (lessons == null) {
+			if (lessons == null || lessons.size() ==0) {
 				remoteViews.setViewVisibility(R.id.linearlayout_timetable,
 						View.GONE);
 				remoteViews.setViewVisibility(R.id.tv_notify, View.VISIBLE);

@@ -113,7 +113,7 @@ public class SubSystemAPI {
 			} else {
 				client.getConnectionManager().shutdown();
 				System.out.println("code:--"+response.getStatusLine().getStatusCode());
-			  //  System.out.println(EntityUtils.toString(response.getEntity()));
+			    System.out.println(EntityUtils.toString(response.getEntity()));
 				System.out.println("login faild!");
 				return false;
 			}
@@ -151,7 +151,7 @@ public class SubSystemAPI {
 			return HtmlParser.parseHtmlForLesson(html, map);
 		}
 		client.getConnectionManager().shutdown();
-		return map;
+		return null;
 	}
 
 	/**

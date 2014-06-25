@@ -1,4 +1,4 @@
-# ETips
+# ETips [![GitHub version](https://badge.fury.io/gh/Jayin%2FETips.svg)](http://badge.fury.io/gh/Jayin%2FETips)
 
 * ETips is an Android App for the students of Wuyi University
 * If you want to know more about it, click http://www.wandoujia.com/apps/com.meizhuo.etips.activities

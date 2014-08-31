@@ -67,7 +67,8 @@ public class ETipsStartActivity extends BaseUIActivity {
 						openActivity(ETipsGuidePage.class);
 						Preferences.setAppVersion(getContext(), versionName);
 					} else {
-						openActivity(ETipsMainActivity.class);
+//						openActivity(ETipsMainActivity.class);
+						openActivity(ETipsMainActivity2.class);
 					}
 					ETipsStartActivity.this.finish();
 					break;

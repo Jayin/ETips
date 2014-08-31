@@ -3,6 +3,7 @@ package com.meizhuo.etips.activities;
 import java.util.List;
 
 import android.app.Application;
+import butterknife.ButterKnife;
 
 import com.meizhuo.etips.app.AppInfo;
 import com.meizhuo.etips.common.JPushManager;
@@ -31,6 +32,8 @@ public class ETipsApplication extends Application {
 		super.onCreate();
 		JPushManager.init(getApplicationContext());
 //		MobclickAgent.setDebugMode(true);
+		
+		ButterKnife.setDebug(true);
 	}
 	/**
 	 * @return the lessonList

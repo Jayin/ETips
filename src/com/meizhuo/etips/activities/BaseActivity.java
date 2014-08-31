@@ -2,24 +2,37 @@ package com.meizhuo.etips.activities;
 
 import java.io.Serializable;
 
-import android.app.Activity;
+import butterknife.ButterKnife;
+
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Toast;
 /**
  * 所有Activity的基类
  * @author Jayin Ton
  * @version 2.2
  * @since 2014.1.31
+ * 
+ * change a lot
+ * @author Jayin 
+ * @version 3.0.0
  */
-public abstract class BaseActivity extends Activity implements OnClickListener {
+public abstract class BaseActivity extends FragmentActivity {
 	 
 	protected abstract void initData();
 
 	protected abstract void initLayout();
+	
+	protected void onCreate(Bundle savedInstanceState,int layoutResId) {
+		super.onCreate(savedInstanceState);
+		setContentView(layoutResId);
+		ButterKnife.inject(this);
+		initData();
+		initLayout();
+	}
 
 	/**
 	 * 
@@ -47,16 +60,6 @@ public abstract class BaseActivity extends Activity implements OnClickListener {
 	 */
 	public void toast(String content) {
 		Toast.makeText(this, content, Toast.LENGTH_SHORT).show();
-	}
-
-	/**
-	 * 轻量封装findViewById(int id)
-	 * 
-	 * @param id
-	 * @return 
-	 */
-	public View _getView(int id) {
-		return this.findViewById(id);
 	}
 
 	/**
@@ -133,11 +136,6 @@ public abstract class BaseActivity extends Activity implements OnClickListener {
         return getIntent().getStringArrayExtra(name);
     }
 
-	@Override
-	public void onClick(View v) {
-		
-	}
-    
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();

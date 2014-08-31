@@ -3,9 +3,14 @@
     <style name="AppBaseTheme" parent="android:Theme.Light"></style>
 
     <style name="AppTheme" parent="AppBaseTheme">
-        <item name="android:windowNoTitle">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowBackground">@color/black</item>
+        <item name="android:actionBarStyle">@style/ActionBarStyle</item>
+    </style>
+
+    <style name="ActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+        <item name="android:icon">@drawable/icon</item>
+        <item name="android:background">#FF3F9FE0</item>
     </style>
 
     <style name="Theme.left_in_right_out" parent="AppTheme">
@@ -124,7 +129,7 @@
         <item name="android:layout_margin">5dp</item>
         <item name="android:background">@drawable/btn_item_whit2grey</item>
     </style>
-    
+
     <style name="Acty_Course_Setting.about" parent="Acty_Course_Setting.rely">
         <item name="android:layout_margin">0dp</item>
         <item name="android:background">@null</item>

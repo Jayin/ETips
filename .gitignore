@@ -33,6 +33,10 @@ proguard/
 .settings/
 AndroidManifest.xml
 
+#annotation process
+.apt_generated/
+.factorypath
+
 
 
 

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:background="@drawable/ic_bg_item_newfeeds"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/TextView.Base"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="14dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="12dp"
+            android:gravity="left"
+            android:text="工业4.0: 颠覆全球制造业的新思维"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/grey"
+            android:orientation="horizontal"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp" >
+
+            <TextView
+                android:id="@+id/tv_from"
+                style="@style/TextView.Base"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp"
+                android:singleLine="true"
+                android:text="商业评论网"
+                android:textColor="@color/grey_lv_two"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                style="@style/TextView.Base"
+                android:text="2014-08-21"
+                android:textColor="@color/grey_lv_two"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <ImageView
+            style="@style/ImageView.base"
+            android:background="@drawable/ic_line_1" />
+    </LinearLayout>
+
+</LinearLayout>

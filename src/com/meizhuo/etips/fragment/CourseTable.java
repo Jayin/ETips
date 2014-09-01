@@ -20,7 +20,7 @@ public class CourseTable extends BaseFragment {
 	@Override public View onCreateView(LayoutInflater inflater,
 			ViewGroup container, Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState,
-				R.layout.fragment_explore);
+				R.layout.fragment_coursetable);
 		tv.setText("CourseTable");
 		return contentView;
 	}

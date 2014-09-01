@@ -3,7 +3,6 @@ package com.meizhuo.etips.activities;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 import com.meizhuo.etips.fragment.CourseTable;
@@ -70,6 +69,7 @@ public class ETipsMainActivity2 extends BaseActivity {
 			return fragments.get(position);
 		}
 
+		
 	}
 
 }

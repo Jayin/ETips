@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">ETips</string>
+    <string name="acty_setting">设置</string>
     <!--
     string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>

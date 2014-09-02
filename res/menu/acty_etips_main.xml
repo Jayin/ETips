@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/setting"
+        android:icon="@drawable/ic_header_setting"
+        android:showAsAction="always"
+        android:title="设置">
+    </item>
+
+</menu>

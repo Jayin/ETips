@@ -2,6 +2,7 @@ package com.meizhuo.etips.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -22,25 +23,32 @@ import com.umeng.socialize.controller.listener.SocializeListeners.SocializeClien
  */
 public class ETipsMainSettingActivity extends BaseUIActivity implements
 		OnClickListener {
-	private View backBtn, shareBtn, aboutBtn, manualBtn, account, checkSource,
+	private View  shareBtn, aboutBtn, manualBtn, account, checkSource,
 			declaration, cleanAuthorization, currentWeekBtn;// queryClassroom;
 
 	private boolean isETipsAccountLogin = false, isloginTimeOut = false;
 	private TextView tv_AccountInfo, tv_crrentWeek;
 	private DeclarationDialog dialog;
-private SetCurrentWeekDialog setCurrentWeekDialog;
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	private SetCurrentWeekDialog setCurrentWeekDialog;
+
+	@Override protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.acty_etips_main_setting);
 		initData();
 		initLayout();
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
-	@Override
-	protected void initLayout() {
+	@Override public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == android.R.id.home) {
+			closeActivity();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override protected void initLayout() {
 		shareBtn = _getView(R.id.acty_etips_main_setting_rely_share);
-		backBtn = _getView(R.id.acty_etips_main_setting_back);
 		aboutBtn = _getView(R.id.acty_etips_main_setting_rely_aboutus);
 		manualBtn = _getView(R.id.acty_etips_main_setting_rely_manual);
 		account = _getView(R.id.acty_etips_main_setting_rely_account);
@@ -51,7 +59,7 @@ private SetCurrentWeekDialog setCurrentWeekDialog;
 
 		tv_crrentWeek = (TextView) _getView(R.id.tv_currentWeek);
 		tv_AccountInfo = (TextView) _getView(R.id.acty_etips_main_setting_tv_accountInfo);
-		
+
 		if (isETipsAccountLogin) {
 			if (isloginTimeOut) {
 				tv_AccountInfo.setText("ETips账户登录失效，请重新登录");
@@ -61,7 +69,6 @@ private SetCurrentWeekDialog setCurrentWeekDialog;
 		}
 
 		shareBtn.setOnClickListener(this);
-		backBtn.setOnClickListener(this);
 		aboutBtn.setOnClickListener(this);
 		manualBtn.setOnClickListener(this);
 		account.setOnClickListener(this);
@@ -69,22 +76,21 @@ private SetCurrentWeekDialog setCurrentWeekDialog;
 		declaration.setOnClickListener(this);
 		cleanAuthorization.setOnClickListener(this);
 		currentWeekBtn.setOnClickListener(this);
-		
-		setCurrentWeekDialog = new SetCurrentWeekDialog(getContext(),tv_crrentWeek);
+
+		setCurrentWeekDialog = new SetCurrentWeekDialog(getContext(),
+				tv_crrentWeek);
 	}
 
-	@Override
-	protected void initData() {
-//		SharedPreferences sp = this.getSharedPreferences(
-//				ETipsContants.SP_NAME_User, Context.MODE_PRIVATE);
+	@Override protected void initData() {
+		// SharedPreferences sp = this.getSharedPreferences(
+		// ETipsContants.SP_NAME_User, Context.MODE_PRIVATE);
 		isETipsAccountLogin = ETipsUtils.isTweetLogin(this);
 		if (isETipsAccountLogin) {
 			isloginTimeOut = ETipsUtils.isTweetLoginTimeOut(this);
 		}
 	}
 
-	@Override
-	protected void onResume() {
+	@Override protected void onResume() {
 		super.onResume();
 		initData();
 		if (isETipsAccountLogin) {
@@ -96,11 +102,11 @@ private SetCurrentWeekDialog setCurrentWeekDialog;
 		} else {
 			tv_AccountInfo.setText("ETips账户登录");
 		}
-		tv_crrentWeek.setText(ETipsUtils.getCurrentWeek(getContext())+"");
+		tv_crrentWeek.setText(ETipsUtils.getCurrentWeek(getContext()) + "");
 	}
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	@Override protected void onActivityResult(int requestCode, int resultCode,
+			Intent data) {
 		initData();
 		if (isETipsAccountLogin) {
 			if (isloginTimeOut) {
@@ -113,12 +119,8 @@ private SetCurrentWeekDialog setCurrentWeekDialog;
 		}
 	}
 
-	@Override
-	public void onClick(View v) {
+	@Override public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.acty_etips_main_setting_back:
-			this.finish();
-			break;
 		case R.id.acty_etips_main_setting_rely_aboutus:
 			openActivity(AboutActivity.class);
 			break;
@@ -151,7 +153,7 @@ private SetCurrentWeekDialog setCurrentWeekDialog;
 			cleanAuth();
 			break;
 		case R.id.rely_currentWeek:
-			//修改周数
+			// 修改周数
 			setCurrentWeekDialog.show();
 			break;
 		default:
@@ -165,30 +167,25 @@ private SetCurrentWeekDialog setCurrentWeekDialog;
 		ShareManager sm = new ShareManager();
 		sm.cleanSinaOAuth(getContext(), new SocializeClientListener() {
 
-			@Override
-			public void onStart() {
+			@Override public void onStart() {
 
 			}
 
-			@Override
-			public void onComplete(int arg0, SocializeEntity arg1) {
+			@Override public void onComplete(int arg0, SocializeEntity arg1) {
 				toast("已取消新浪微博授权");
 			}
 		});
 	}
 
 	private void share() {
-		ShareManager sm = new ShareManager(
-				getString(R.string.share_content));
+		ShareManager sm = new ShareManager(getString(R.string.share_content));
 		sm.shareToSina(ETipsMainSettingActivity.this, new SnsPostListener() {
 
-			@Override
-			public void onStart() {
+			@Override public void onStart() {
 
 			}
 
-			@Override
-			public void onComplete(SHARE_MEDIA arg0, int arg1,
+			@Override public void onComplete(SHARE_MEDIA arg0, int arg1,
 					SocializeEntity arg2) {
 
 			}

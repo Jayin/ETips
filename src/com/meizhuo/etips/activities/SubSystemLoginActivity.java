@@ -19,7 +19,6 @@ import com.meizhuo.etips.model.Course;
 import com.meizhuo.etips.model.Lesson;
 import com.meizhuo.etips.net.utils.SubSystemAPI;
 import com.meizhuo.etips.ui.dialog.LoadingDialog;
-import com.meizhuo.etips.ui.dialog.WaittingDialog;
 
 /**
  * 登录子系统 登录和登录后的操作应该分离！ 课表那里比较前搞的，所以没有遵循着原则。。。
@@ -74,7 +73,9 @@ public class SubSystemLoginActivity extends BaseUIActivity {
 							Toast.LENGTH_SHORT).show();
 					return;
 				}
-
+				if(toWhere == null){
+					closeActivity();
+				}
 				if (toWhere.equals("CourseMainActivity")) {
 					tag = TAG_Lesson;
 					SSLoginHandler h = new SSLoginHandler();
@@ -100,7 +101,7 @@ public class SubSystemLoginActivity extends BaseUIActivity {
 
 	@Override
 	protected void initData() {
-		toWhere = getIntent().getStringExtra("toWhere").trim();
+		toWhere = getIntent().getStringExtra("toWhere");
 		App = (ETipsApplication) getApplication();
 		api = App.getSubSystemAPI();
 	}

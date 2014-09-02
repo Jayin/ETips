@@ -62,4 +62,6 @@ public class CourseTable extends BaseFragment {
 		intent.putExtra("toWhere", "CourseMainActivity");
 		openActivity(intent);
 	}
+	
+ 
 }

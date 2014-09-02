@@ -1,14 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/grey_lv_two_1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fadingEdge="none"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <!-- 后面的添加直接复制 下面的RelativeLayout即可~ -->
+
+            <RelativeLayout
+                android:id="@+id/btn_message_center"
+                style="@style/Acty_Course_Setting.rely" >
+
+                <TextView
+                    style="@style/TextView.setting"
+                    android:text="消息中心" />
+
+                <ImageView style="@style/Acty_Course_Setting.imageview" />
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/ic_line_1" />
+
+            <RelativeLayout
+                android:id="@+id/btn_wyunews"
+                style="@style/Acty_Course_Setting.rely" >
+
+                <TextView
+                    style="@style/TextView.setting"
+                    android:text="邑大新闻" />
+
+                <ImageView style="@style/Acty_Course_Setting.imageview" />
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/ic_line_1" />
+
+            <RelativeLayout
+                android:id="@+id/btn_library"
+                style="@style/Acty_Course_Setting.rely" >
+
+                <TextView
+                    style="@style/TextView.setting"
+                    android:text="图书馆" />
+
+                <ImageView style="@style/Acty_Course_Setting.imageview" />
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/ic_line_1" />
+
+            <RelativeLayout
+                android:id="@+id/btn_query_classroom"
+                style="@style/Acty_Course_Setting.rely" >
+
+                <TextView
+                    style="@style/TextView.setting"
+                    android:text="教室查询" />
+
+                <ImageView style="@style/Acty_Course_Setting.imageview" />
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/ic_line_1" />
+
+            <RelativeLayout
+                android:id="@+id/btn_check_elcecity"
+                style="@style/Acty_Course_Setting.rely" >
+
+                <TextView
+                    style="@style/TextView.setting"
+                    android:text="用电查询" />
+
+                <ImageView style="@style/Acty_Course_Setting.imageview" />
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/ic_line_1" />
+
+            <RelativeLayout
+                android:id="@+id/btn_notes"
+                style="@style/Acty_Course_Setting.rely" >
+
+                <TextView
+                    style="@style/TextView.setting"
+                    android:text="个人便签" />
+
+                <ImageView style="@style/Acty_Course_Setting.imageview" />
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/ic_line_1" />
+
+            <RelativeLayout
+                android:id="@+id/btn_check_source"
+                style="@style/Acty_Course_Setting.rely" >
+
+                <TextView
+                    style="@style/TextView.setting"
+                    android:text="查询成绩" />
+
+                <ImageView style="@style/Acty_Course_Setting.imageview" />
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/ic_line_1" />
+
+            <RelativeLayout
+                android:id="@+id/btn_manual"
+                style="@style/Acty_Course_Setting.rely" >
+
+                <TextView
+                    style="@style/TextView.setting"
+                    android:text="学生手册" />
+
+                <ImageView style="@style/Acty_Course_Setting.imageview" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

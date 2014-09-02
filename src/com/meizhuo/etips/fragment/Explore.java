@@ -16,13 +16,12 @@ import com.meizhuo.etips.activities.R;
  * 
  */
 public class Explore extends BaseFragment {
-	@InjectView(R.id.textView1) TextView tv;
 
 	@Override public View onCreateView(LayoutInflater inflater,
 			ViewGroup container, Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState,
 				R.layout.fragment_explore);
-		tv.setText("Explore");
+	 
 		return contentView;
 	}
 }

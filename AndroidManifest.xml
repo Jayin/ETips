@@ -160,7 +160,9 @@
         </activity>
         <activity
             android:name=".AboutActivity"
-            android:screenOrientation="portrait" >
+            android:label="@string/acty_about"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.transparent_actionbar" >
         </activity>
         <activity
             android:name=".MsgCenterActivity"
@@ -168,8 +170,8 @@
         </activity>
         <activity
             android:name=".ETipsMainSettingActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/acty_setting" >
+            android:label="@string/acty_setting"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".Notes"

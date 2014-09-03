@@ -13,14 +13,22 @@
         <item name="android:background">#FF3F9FE0</item>
     </style>
 
+    <style name="ActionBarStyle.transparent" parent="ActionBarStyle">
+        <item name="android:background">@drawable/ic_item_gridview_normal</item>
+    </style>
+
     <style name="Theme.left_in_right_out" parent="AppTheme">
-         <item name="android:actionModeCloseDrawable">@drawable/ic_navigation_previous_item</item>
+        <item name="android:actionModeCloseDrawable">@drawable/ic_navigation_previous_item</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:activityOpenEnterAnimation">@anim/push_left_in</item>
         <item name="android:activityOpenExitAnimation">@anim/push_left_out</item>
         <item name="android:activityCloseEnterAnimation">@null</item>
         <item name="android:activityCloseExitAnimation">@anim/push_right_out</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+    </style>
+
+    <style name="Theme.transparent_actionbar" parent="Theme.left_in_right_out">
+        <item name="android:actionBarStyle">@style/ActionBarStyle.transparent</item>
     </style>
 
     <style name="AcivityTheme_start" parent="@android:style/Theme.Black.NoTitleBar.Fullscreen">

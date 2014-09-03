@@ -2,7 +2,6 @@ package com.meizhuo.etips.activities;
 
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 import com.meizhuo.etips.common.AndroidUtils;
@@ -12,7 +11,6 @@ import com.meizhuo.etips.common.AndroidUtils;
  *
  */
 public class AboutActivity extends BaseUIActivity {
-	private View backBtn;
 	private TextView tv_version;
 
 	@Override
@@ -22,19 +20,13 @@ public class AboutActivity extends BaseUIActivity {
 		setContentView(R.layout.acty_about);
 		initData();
 		initLayout();
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 
 	}
 
 	@Override
 	protected void initLayout() {
-		backBtn = this.findViewById(R.id.acty_about_back);
-		backBtn.setOnClickListener(new View.OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				AboutActivity.this.finish();
-			}
-		});
 		tv_version = (TextView) _getView(R.id.tv_version);
 		try {
 			tv_version.setText( AndroidUtils.getAppVersionName(getContext()));

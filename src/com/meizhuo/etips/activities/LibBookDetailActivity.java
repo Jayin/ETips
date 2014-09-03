@@ -10,8 +10,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
@@ -24,30 +25,52 @@ import com.meizhuo.etips.common.SP;
 import com.meizhuo.etips.model.BookInfo;
 import com.meizhuo.etips.model.BookStatus;
 import com.meizhuo.etips.net.utils.LibraryAPI;
+
 /**
  * 图书详情页面
+ * 
  * @author Jayin Ton
- *@version 2.2
+ * @version 2.2
  */
 public class LibBookDetailActivity extends BaseUIActivity {
-	private View backBtn, collect;
 	private ListView lv;
-	private TextView tv_title, tv_press, tv_pressTime, tv_words,tv_headerCollect;
+	private TextView tv_title, tv_press, tv_pressTime, tv_words;// tv_headerCollect;
 	private ProgressBar progressBar;
 	private List<BookStatus> list;
 	private BookInfo bookInfo;
 	private String from;// 从哪个Activity跳转过来
 	private BDListViewAdapter adapter;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	@Override protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.acty_library_bookdetail);
 		initData();
 		initLayout();
 		onWork();
+		setActionBarTitle(bookInfo.getBookName());
+	}
 
+	@Override public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.acty_library_bookdetail, menu);
+
+		if (from.equals("LibSearchResultActivity")) {
+			if (menu.findItem(R.id.star) == null) {
+				debug("mMenu.findItem(R.id.star) is null");
+			}
+			menu.findItem(R.id.star).setTitle("收藏");
+		} else if (from.equals("BookCollection")) {
+			menu.findItem(R.id.star).setTitle("取消收藏");
+		}
+		return true;
+	}
+
+	@Override public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == R.id.star) {
+			star();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	private void onWork() {
@@ -63,13 +86,8 @@ public class LibBookDetailActivity extends BaseUIActivity {
 
 	}
 
-	@Override
-	protected void initLayout() {
-		collect =  this
-				.findViewById(R.id.btn_collect);
-		backBtn = this.findViewById(R.id.btn_back);
-		tv_title = (TextView) this
-				.findViewById(R.id.tv_title_bookname);
+	@Override protected void initLayout() {
+		tv_title = (TextView) this.findViewById(R.id.tv_title_bookname);
 		tv_press = (TextView) this
 				.findViewById(R.id.acty_library_bookdetail_press);
 		tv_pressTime = (TextView) this
@@ -80,74 +98,52 @@ public class LibBookDetailActivity extends BaseUIActivity {
 				.findViewById(R.id.acty_library_bookdetail_progressBar);
 		lv = (ListView) this
 				.findViewById(R.id.acty_library_bookdetail_listview);
-		
-		tv_headerCollect = (TextView)this.findViewById(R.id.tv_collect);
-		if (from.equals("LibSearchResultActivity")) {
-			tv_headerCollect.setText("收藏");
-		} else if (from.equals("BookCollection")) {
-			tv_headerCollect.setText("取消收藏");
-		}
 		tv_title.setText(bookInfo.getBookName());
 		tv_press.setText(bookInfo.getPress());
 		tv_pressTime.setText(bookInfo.getPressTime());
-		backBtn.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				LibBookDetailActivity.this.finish();
-			}
-		});
-		collect.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				SP sp = new SP(ETipsContants.SP_NAME_Book, getContext());
-				ArrayList<BookInfo> bookInfos = AppInfo
-						.getFavouriteBook(getContext());
-				if (from.equals("LibSearchResultActivity")) {
-					// 加入收藏信息
-					bookInfo.setStatus(list);
-					if (bookInfos.contains(bookInfo)) {
-						toast("已收藏");
-					} else {
-						bookInfos.add(bookInfo);
-						if (AppInfo.setFavouriteBook(getContext(), bookInfos)) {
-							toast("收藏成功");
-						} else {
-							toast("收藏失败");
-						}
-					}
-
-				} else if (from.equals("BookCollection")) {
-					for (int i = 0; i < bookInfos.size(); i++) {
-						if (bookInfos.get(i).getBookID()
-								.equals(bookInfo.getBookID())) {
-							bookInfos.remove(i);
-							break;
-						}
-					}
-					if (AppInfo.setFavouriteBook(getContext(), bookInfos)) {
-						toast("删除成功");
-					} else {
-						toast("删除失败");
-					}
-				}
-				closeActivity();
-
-			}
-		});
 
 	}
 
-	@Override
-	protected void initData() {
+	private void star() {
+		SP sp = new SP(ETipsContants.SP_NAME_Book, getContext());
+		ArrayList<BookInfo> bookInfos = AppInfo.getFavouriteBook(getContext());
+		if (from.equals("LibSearchResultActivity")) {
+			// 加入收藏信息
+			bookInfo.setStatus(list);
+			if (bookInfos.contains(bookInfo)) {
+				toast("已收藏");
+			} else {
+				bookInfos.add(bookInfo);
+				if (AppInfo.setFavouriteBook(getContext(), bookInfos)) {
+					toast("收藏成功");
+				} else {
+					toast("收藏失败");
+				}
+			}
+
+		} else if (from.equals("BookCollection")) {
+			for (int i = 0; i < bookInfos.size(); i++) {
+				if (bookInfos.get(i).getBookID().equals(bookInfo.getBookID())) {
+					bookInfos.remove(i);
+					break;
+				}
+			}
+			if (AppInfo.setFavouriteBook(getContext(), bookInfos)) {
+				toast("删除成功");
+			} else {
+				toast("删除失败");
+			}
+		}
+		closeActivity();
+	}
+
+	@Override protected void initData() {
 		bookInfo = (BookInfo) getIntent().getSerializableExtra("BookInfo");
 		from = getIntent().getStringExtra("from");
 	}
 
 	class LibBDHandler extends Handler {
-		@Override
-		public void handleMessage(Message msg) {
+		@Override public void handleMessage(Message msg) {
 			if (msg.what == ETipsContants.Finish) {
 				progressBar.setVisibility(View.GONE);
 				tv_words.setVisibility(View.GONE);
@@ -179,8 +175,7 @@ public class LibBookDetailActivity extends BaseUIActivity {
 			this.handler = handler;
 		}
 
-		@Override
-		public void run() {
+		@Override public void run() {
 			LibraryAPI api = new LibraryAPI();
 			try {
 				list = api.getBookStatus(bookInfo.getBookID());
@@ -201,23 +196,20 @@ public class LibBookDetailActivity extends BaseUIActivity {
 
 	class BDListViewAdapter extends BaseAdapter {
 
-		@Override
-		public int getCount() {
+		@Override public int getCount() {
 			return list.size();
 		}
 
-		@Override
-		public Object getItem(int position) {
+		@Override public Object getItem(int position) {
 			return list.get(position);
 		}
 
-		@Override
-		public long getItemId(int position) {
+		@Override public long getItemId(int position) {
 			return position;
 		}
 
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
+		@Override public View getView(int position, View convertView,
+				ViewGroup parent) {
 			ViewHolder holder;
 			if (convertView == null) {
 				holder = new ViewHolder();

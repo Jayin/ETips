@@ -188,6 +188,7 @@
         </activity>
         <activity
             android:name=".BookCollection"
+            android:label="@string/acty_bookcollection"
             android:screenOrientation="portrait" >
         </activity>
         <activity

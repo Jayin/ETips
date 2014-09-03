@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,16 +22,15 @@ import com.meizhuo.etips.common.ETipsContants;
 import com.meizhuo.etips.model.*;
 import com.meizhuo.etips.net.utils.LibraryAPI;
 import com.meizhuo.etips.ui.dialog.LoadingDialog;
-import com.meizhuo.etips.ui.dialog.WaittingDialog;
 
 public class LibSearchResultActivity extends BaseUIActivity {
 	private String keyword;
 	private int totalPage = -1; // -1 means having not finishing first download
 								// wrok
 	private int page = 1;
-	private TextView tv_title, tv_pageInfo;
+	private TextView tv_pageInfo;
 
-	private View backBtn, prevBtn, nextBtn;
+	private View prevBtn, nextBtn;
 	private ListView lv;
 	private List<BookInfo> list;
 	private String error;
@@ -45,6 +43,7 @@ public class LibSearchResultActivity extends BaseUIActivity {
 		initData();
 		initLayout();
 		onWork();
+		setActionBarTitle(keyword);
 	}
 
 	private void onWork() {
@@ -54,11 +53,8 @@ public class LibSearchResultActivity extends BaseUIActivity {
 
 	@Override
 	protected void initLayout() {
-		tv_title = (TextView) this
-				.findViewById(R.id.acty_library_searchresult_title_tv);
 		tv_pageInfo = (TextView) this
 				.findViewById(R.id.acty_library_searchresult_page);
-		backBtn = this.findViewById(R.id.acty_library_searchresult_back);
 		prevBtn = this.findViewById(R.id.acty_library_searchresult_prev);
 		nextBtn = this.findViewById(R.id.acty_library_searchresult_next);
 		lv = (ListView) this
@@ -75,15 +71,7 @@ public class LibSearchResultActivity extends BaseUIActivity {
 				openActivity(intent);
 			}
 		});
-		tv_title.setText(keyword);
 		setResult(RESULT_OK);
-		backBtn.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				setResult(RESULT_OK);
-				LibSearchResultActivity.this.finish();
-			}
-		});
 
 		prevBtn.setOnClickListener(new OnClickListener() {
 			@Override

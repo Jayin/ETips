@@ -5,6 +5,8 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -22,7 +24,6 @@ import com.meizhuo.etips.model.BookInfo;
  */
 public class BookCollection extends BaseUIActivity {
 	private ListView lv;
-	private View back, deleteAll;
 	private List<BookInfo> list;
 	private LibSearchResultListViewAdapter adapter;
 
@@ -35,29 +36,22 @@ public class BookCollection extends BaseUIActivity {
 		initLayout();
 	}
 
+	
+	@Override public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.acty_bookcollection, menu);
+		return true;
+	}
+
+	@Override public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == R.id.cleanup) {
+			cleanup();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
 	@Override
 	protected void initLayout() {
 		lv = (ListView) _getView(R.id.acty_bookcollection_listview);
-		back = _getView(R.id.acty_bookcollection_back);
-		deleteAll = _getView(R.id.acty_bookcollection_deleteAll);
-
-		back.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				closeActivity();
-			}
-		});
-
-		deleteAll.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				ArrayList<BookInfo> bookInfos = AppInfo
-						.getFavouriteBook(getContext());
-				bookInfos.clear();
-				AppInfo.setFavouriteBook(getContext(), bookInfos);
-				closeActivity();
-			}
-		});
 		adapter = new LibSearchResultListViewAdapter(this, list);
 		lv.setAdapter(adapter);
 		lv.setOnItemClickListener(new OnItemClickListener() {
@@ -73,6 +67,15 @@ public class BookCollection extends BaseUIActivity {
 				openActivity(intent);
 			}
 		});
+	}
+	
+	private void cleanup(){
+		ArrayList<BookInfo> bookInfos = AppInfo
+				.getFavouriteBook(getContext());
+		bookInfos.clear();
+		AppInfo.setFavouriteBook(getContext(), bookInfos);
+		closeActivity();
+		toast("已清空");
 	}
 
 	@Override

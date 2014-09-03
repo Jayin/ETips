@@ -1,75 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/grey"
     android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@color/blue_nav_bg_nomal"
-        android:orientation="horizontal" >
-
-        <RelativeLayout
-            android:id="@+id/btn_back"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/btn_blue"
-            android:clickable="true" >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:src="@drawable/ic_action_back" />
-        </RelativeLayout>
-
-        <ImageView
-            android:layout_width="2px"
-            android:layout_height="match_parent"
-            android:background="@drawable/ic_head_line" />
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4" >
-
-            <TextView
-                style="@style/TextView.header_title"
-                android:layout_centerInParent="true"
-                android:text="图书详情" />
-        </RelativeLayout>
-
-        <ImageView
-            android:layout_width="2px"
-            android:layout_height="match_parent"
-            android:background="@drawable/ic_head_line" />
-
-        <RelativeLayout
-            android:id="@+id/btn_collect"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/btn_blue"
-            android:clickable="true" >
-
-            <TextView
-                android:id="@+id/tv_collect"
-                style="@style/TextView.header_title"
-                android:layout_centerInParent="true"
-                android:text="收藏"
-                android:textSize="14sp" />
-        </RelativeLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical" >
 
         <RelativeLayout
             android:id="@+id/acty_library_bookdetail_re_presstime"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:background="@drawable/btn_setting_sigleitem"
@@ -86,7 +29,7 @@
 
         <RelativeLayout
             android:id="@+id/acty_library_bookdetail_re_presstime"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:background="@drawable/btn_setting_sigleitem"
@@ -113,7 +56,7 @@
 
         <RelativeLayout
             android:id="@+id/acty_library_bookdetail_re_press"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/acty_library_bookdetail_re_presstime"
             android:layout_margin="5dp"
@@ -142,8 +85,8 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:background="@color/lucency_white" >
 
@@ -156,7 +99,8 @@
             <ListView
                 android:id="@+id/acty_library_bookdetail_listview"
                 style="@style/ListView.Base"
-                android:visibility="gone" android:background="@color/lucency_white">
+                android:background="@color/lucency_white"
+                android:visibility="gone" >
             </ListView>
 
             <TextView

@@ -10,6 +10,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
@@ -36,20 +38,34 @@ import com.meizhuo.etips.model.MsgRecord;
  * 
  */
 public class MsgCenterActivity extends BaseUIActivity {
-	private View backBtn, reflushBtn;
 	private ListView lv;
 	private ProgressBar pb;
 	private ArrayList<MsgRecord> list;
-	private boolean hasData = false;
 	private MsgCenterLVAdapter adapter;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	@Override protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.acty_msgcenter);
 		initData(); // 注意更新 用户查看消息的状态
 		initLayout();
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		onWork();
+	}
+
+	@Override public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.acty_msgcenter, menu);
+		return true;
+	}
+
+	@Override public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == android.R.id.home) {
+			closeActivity();
+			return true;
+		}else if(item.getItemId() == R.id.cleanup){
+			clean_up();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	private void onWork() {
@@ -57,65 +73,49 @@ public class MsgCenterActivity extends BaseUIActivity {
 		new MsgCenterThread(handler).start();
 	}
 
-	@Override
-	protected void initLayout() {
-		backBtn = this.findViewById(R.id.acty_msgcenter_back);
-		reflushBtn = this.findViewById(R.id.acty_msgcenter_reflush);
+	@Override protected void initLayout() {
 		lv = (ListView) this.findViewById(R.id.acty_msgcenter_listview);
 		pb = (ProgressBar) this.findViewById(R.id.acty_msgcenter_progressbar);
-		backBtn.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				MsgCenterActivity.this.finish();
-			}
-		});
-		reflushBtn.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if (adapter != null) {
-					final Handler mHandler = new Handler() {
-						@Override
-						public void handleMessage(Message msg) {
-							switch (msg.what) {
-							case ETipsContants.Finish:
-								adapter.notifyDataSetChanged();
-								Toast.makeText(MsgCenterActivity.this, "清空完毕",
-										Toast.LENGTH_SHORT).show();
-								break;
-							}
-						}
-					};
-					new Thread(new Runnable() {
-						@Override
-						public void run() {
-							// 清空
-							list.removeAll(list);
-							if (AppInfo.setMessages(getContext(), list)) {
-								mHandler.sendEmptyMessage(ETipsContants.Finish);
-							}
-						}
-					}).start();
-
+	}
+	
+	@SuppressLint("HandlerLeak") private void clean_up(){
+		if (adapter != null) {
+			final Handler mHandler = new Handler() {
+				@Override public void handleMessage(Message msg) {
+					switch (msg.what) {
+					case ETipsContants.Finish:
+						adapter.notifyDataSetChanged();
+						Toast.makeText(MsgCenterActivity.this, "清空完毕",
+								Toast.LENGTH_SHORT).show();
+						break;
+					}
 				}
-			}
-		});
+			};
+			new Thread(new Runnable() {
+				@Override public void run() {
+					// 清空
+					list.removeAll(list);
+					if (AppInfo.setMessages(getContext(), list)) {
+						mHandler.sendEmptyMessage(ETipsContants.Finish);
+					}
+				}
+			}).start();
+
+		}
 	}
 
-	@Override
-	protected void initData() {
+	@Override protected void initData() {
 		// 注意更新 用户查看消息的状态
 		Preferences.setIsHasMsgToCheck(getContext(), false);
-		//清除notification
-		NotificationManager manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+		// 清除notification
+		NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		manager.cancel(ETipsContants.ID_System);
 		manager.cancel(ETipsContants.ID_Notify);
 		manager.cancel(ETipsContants.ID_Push);
 	}
 
-	@SuppressLint("HandlerLeak")
-	class MsgCenterHandler extends Handler {
-		@Override
-		public void handleMessage(Message msg) {
+	@SuppressLint("HandlerLeak") class MsgCenterHandler extends Handler {
+		@Override public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case ETipsContants.Start:
 				break;
@@ -128,7 +128,6 @@ public class MsgCenterActivity extends BaseUIActivity {
 				lv.setVisibility(View.VISIBLE);
 				adapter = new MsgCenterLVAdapter();
 				lv.setAdapter(adapter);
-				hasData = true;
 				break;
 			case ETipsContants.Fail:
 				break;
@@ -143,8 +142,7 @@ public class MsgCenterActivity extends BaseUIActivity {
 			this.h = h;
 		}
 
-		@Override
-		public void run() {
+		@Override public void run() {
 			// MsgCenterDAO dao = new MsgCenterDAO(MsgCenterActivity.this);
 			// list = dao.queryAll();
 			list = AppInfo.getMessages(getContext());
@@ -169,23 +167,20 @@ public class MsgCenterActivity extends BaseUIActivity {
 
 	class MsgCenterLVAdapter extends BaseAdapter {
 
-		@Override
-		public int getCount() {
+		@Override public int getCount() {
 			return list.size();
 		}
 
-		@Override
-		public Object getItem(int position) {
+		@Override public Object getItem(int position) {
 			return list.get(position);
 		}
 
-		@Override
-		public long getItemId(int position) {
+		@Override public long getItemId(int position) {
 			return position;
 		}
 
-		@Override
-		public View getView(final int position, View convertView, ViewGroup parent) {
+		@Override public View getView(final int position, View convertView,
+				ViewGroup parent) {
 			final ViewHolder holder;
 			if (convertView == null) {
 				holder = new ViewHolder();
@@ -202,35 +197,36 @@ public class MsgCenterActivity extends BaseUIActivity {
 			}
 
 			MsgRecord mr = list.get(position);
-//			holder.tv_time.setText(ETipsUtils.getTimeForm(Long
-//					.parseLong(mr.addTime)));
-			holder.tv_time.setText(CalendarUtils.getTimeFromat(Long.parseLong(mr.getAddTime()), CalendarUtils.TYPE_ONE));
+			// holder.tv_time.setText(ETipsUtils.getTimeForm(Long
+			// .parseLong(mr.addTime)));
+			holder.tv_time.setText(CalendarUtils.getTimeFromat(
+					Long.parseLong(mr.getAddTime()), CalendarUtils.TYPE_ONE));
 			holder.tv_content.setText(StringUtils.wrapText(
 					MsgCenterActivity.this, mr.content));
-           //点击回复
+			// 点击回复
 			holder.tv_content.setOnClickListener(new OnClickListener() {
 
-				@Override
-				public void onClick(View v) {
+				@Override public void onClick(View v) {
 					if (list.get(position).getType()
 							.equals(ETipsContants.TYPE_MsgCenter_Tweet)) {
 						MsgRecord mr = list.get(position);
-						Intent intent = new Intent(getContext(), TweetCompose.class);
+						Intent intent = new Intent(getContext(),
+								TweetCompose.class);
 						intent.putExtra("function", "reply");
 						intent.putExtra("topic_id", mr.getTopic_id());
 						intent.putExtra("article_id", mr.getArticle_id());
 						intent.putExtra("author", mr.getAuthor());
 						intent.putExtra("to_comment_id", mr.getTo_comment_id());
-						intent.putExtra("nickname", mr.isIncognito()?"某同学":mr.getNickname());
+						intent.putExtra("nickname", mr.isIncognito() ? "某同学"
+								: mr.getNickname());
 						openActivity(intent);
 					}
 				}
 			});
-			//长按保存
+			// 长按保存
 			holder.tv_content.setOnLongClickListener(new OnLongClickListener() {
 
-				@Override
-				public boolean onLongClick(View v) {
+				@Override public boolean onLongClick(View v) {
 					Intent intent = new Intent(ETipsContants.Action_Notes);
 					// String content = ((TextView) convertView
 					// .findViewById(R.id.item_dialog_msg_center_common_tv_content))

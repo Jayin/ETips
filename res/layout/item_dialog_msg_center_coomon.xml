@@ -11,7 +11,7 @@
         android:layout_height="48dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/icon" />
+        android:background="@drawable/ic_icon1" />
 
     <TextView
         android:id="@+id/item_dialog_msg_center_common_tv_time"

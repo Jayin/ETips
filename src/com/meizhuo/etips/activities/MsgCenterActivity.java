@@ -48,7 +48,6 @@ public class MsgCenterActivity extends BaseUIActivity {
 		setContentView(R.layout.acty_msgcenter);
 		initData(); // 注意更新 用户查看消息的状态
 		initLayout();
-		getActionBar().setDisplayHomeAsUpEnabled(true);
 		onWork();
 	}
 
@@ -58,10 +57,7 @@ public class MsgCenterActivity extends BaseUIActivity {
 	}
 
 	@Override public boolean onOptionsItemSelected(MenuItem item) {
-		if (item.getItemId() == android.R.id.home) {
-			closeActivity();
-			return true;
-		}else if(item.getItemId() == R.id.cleanup){
+		if(item.getItemId() == R.id.cleanup){
 			clean_up();
 			return true;
 		}

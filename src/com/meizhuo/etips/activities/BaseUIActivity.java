@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -32,6 +33,8 @@ public abstract class BaseUIActivity extends SwipeBackActivity   {
 	 * 初始化数据
 	 */
 	protected abstract void initData();
+	
+	
 
 	@Override
 	protected void onPause() {
@@ -159,10 +162,33 @@ public abstract class BaseUIActivity extends SwipeBackActivity   {
 			mSwipeBackLayout  = getSwipeBackLayout();
 			mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
 		}
+		
+		setEnabledisplayHomeAsUp(true);
+	}
+	
+	public void setActionBarTitle(CharSequence title){
+		if(getActionBar()!=null){
+			getActionBar().setTitle(title);
+		}
 	}
 	
 	public void setEnableSwipBack(boolean enable){
 		this.enableSwipeBack = enable;
+	}
+	
+	public void setEnabledisplayHomeAsUp(boolean enable){
+		if(getActionBar()!=null){
+			getActionBar().setDisplayHomeAsUpEnabled(enable);
+		}
+		
+	}
+	
+	@Override public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == android.R.id.home) {
+			closeActivity();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 	
 }

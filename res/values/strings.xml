@@ -5,6 +5,8 @@
     <string name="acty_setting">设置</string>
     <string name="acty_about">关于</string>
     <string name="acty_message_center">消息中心</string>
+    <string name="acty_wyunews">邑大新闻</string>
+    <string name="acty_manual">学生手册</string>
     <!--
     string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>

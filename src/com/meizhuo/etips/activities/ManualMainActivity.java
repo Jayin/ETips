@@ -4,17 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -26,7 +23,6 @@ import com.meizhuo.etips.common.PathBuilder;
  */
 public class ManualMainActivity extends BaseUIActivity {
 	private ListView lv;
-	private View backBtn;
 	private List<String> list;
 
 	@Override
@@ -40,7 +36,6 @@ public class ManualMainActivity extends BaseUIActivity {
 	@Override
 	protected void initLayout() {
 		lv = (ListView) this.findViewById(R.id.acty_manual_main_listview);
-		backBtn = this.findViewById(R.id.acty_manual_main_back);
 		lv.setAdapter(new ManualContentAdapter());
 		lv.setOnItemClickListener(new OnItemClickListener() {
 
@@ -61,14 +56,6 @@ public class ManualMainActivity extends BaseUIActivity {
 			}
 		});
 
-		backBtn.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				ManualMainActivity.this.finish();
-
-			}
-		});
 	}
 
 	@Override

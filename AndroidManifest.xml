@@ -91,7 +91,8 @@
         </activity>
         <activity
             android:name=".QueryEmptyClassroom"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.no_actionbar" >
         </activity>
         <activity
             android:name=".CourseMainActivity"
@@ -116,7 +117,8 @@
         </activity>
         <activity
             android:name=".LibraryMainActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.no_actionbar" >
         </activity>
         <activity
             android:name=".LibSearchResultActivity"
@@ -143,15 +145,17 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name=".ManualMainActivity"
+            android:label="@string/acty_manual"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name=".ManualDetailActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ManualMainActivity"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
             android:name=".SchoolNewsMainActivity"
+            android:label="@string/acty_wyunews"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -166,9 +170,8 @@
         </activity>
         <activity
             android:name=".MsgCenterActivity"
-            android:screenOrientation="portrait" 
             android:label="@string/acty_message_center"
-            >
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".ETipsMainSettingActivity"

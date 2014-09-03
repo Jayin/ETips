@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -31,7 +33,7 @@ import com.umeng.socialize.media.UMImage;
  */
 public class NotesEdit extends BaseUIActivity implements OnClickListener {
 	private EditText et_content;
-	private View back, save, delete, share;
+	private View save, delete;
 	private TextView tv_time;
 	private String time, content;
 	private SP sp;
@@ -42,29 +44,40 @@ public class NotesEdit extends BaseUIActivity implements OnClickListener {
 	private BaseDialog dialog;
 	private View ok, no; // dialog上的OK and NO
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	@Override protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.acty_notesedit);
 		initData();
 		initLayout();
+
 	}
 
-	@Override
-	protected void initLayout() {
+	@Override public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.acty_notesedit, menu);
+		return true;
+	}
+
+	@Override public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == R.id.share) {
+			shareNote();
+			return true;
+		} else if (item.getItemId() == android.R.id.home) {
+			isExit();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override protected void initLayout() {
 		et_content = (EditText) _getView(R.id.acty_notesedit_et_content);
 		tv_time = (TextView) _getView(R.id.acty_notesedit_time);
-		back = _getView(R.id.btn_back);
 		save = _getView(R.id.acty_notesedit_save);
 		delete = _getView(R.id.acty_notesedit_delete);
-		share = _getView(R.id.acty_notesedit_share);
 
 		font = (LinearLayout) _getView(R.id.acty_notesedit_font);
 
-		back.setOnClickListener(this);
 		save.setOnClickListener(this);
 		delete.setOnClickListener(this);
-		share.setOnClickListener(this);
 		initDialog();
 
 		if (!isNewNote) {
@@ -87,8 +100,7 @@ public class NotesEdit extends BaseUIActivity implements OnClickListener {
 		no.setOnClickListener(this);
 	}
 
-	@Override
-	protected void initData() {
+	@Override protected void initData() {
 		sp = new SP(ETipsContants.SP_NAME_Notes, this);
 		content = getIntent().getStringExtra("content");
 		if (content != null && !content.equals("")) {
@@ -99,30 +111,28 @@ public class NotesEdit extends BaseUIActivity implements OnClickListener {
 		}
 	}
 
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	@Override public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			// 内容编辑了,但是没有按保存就离开
 			isExit();
 			return true;
 		}
 		return super.onKeyUp(keyCode, event);
 	}
 
-	public void isExit(){
-    	// 1.新建了，编辑了 没有保存就 离开 2.已有的打开，内容编辑了,但是没有按保存就离开
-		if (( (content ==null && !"".equals(et_content.getText().toString()))     || (content != null
-				&& !content.equals(et_content.getText().toString()) ) )
-				&& !isSave) {
+	public void isExit() {
+		// 1.新建了，编辑了 没有保存就 离开 2.已有的打开，内容编辑了,但是没有按保存就离开
+		if (((content == null && !"".equals(et_content.getText().toString())) || (content != null && !content
+				.equals(et_content.getText().toString()))) && !isSave) {
 			if (!dialog.isShowing()) {
 				dialog.show();
 			}
-		}else{
+		} else {
 			closeActivity();
 		}
-    }
+	}
 
-	@Override
-	public void onClick(View v) {
+	@Override public void onClick(View v) {
 		Intent intent = new Intent(ETipsContants.Action_Notes);
 		switch (v.getId()) {
 		case R.id.dlg_editsave_ok:
@@ -140,10 +150,6 @@ public class NotesEdit extends BaseUIActivity implements OnClickListener {
 		case R.id.dlg_editsave_no:
 			dialog.dismiss();
 			closeActivity();
-			break;
-		case R.id.btn_back:
-			// 内容编辑了,但是没有按保存就离开
-			isExit();
 			break;
 		case R.id.acty_notesedit_save:
 			if (et_content.getText().toString().trim().equals("")) {
@@ -172,35 +178,34 @@ public class NotesEdit extends BaseUIActivity implements OnClickListener {
 			}
 
 			break;
-		case R.id.acty_notesedit_share:
-			if (et_content.getText().toString().equals("")) {
-				toast("写点东西吧！");
-				return;
-			}
-			share.setVisibility(View.INVISIBLE);
-			font.setVisibility(View.GONE);
-			Bitmap screenPic = AndroidUtils.screenShot(NotesEdit.this);
-			Rect frame = new Rect();
-			NotesEdit.this.getWindow().getDecorView()
-					.getWindowVisibleDisplayFrame(frame);
-			share.setVisibility(View.VISIBLE);
-			font.setVisibility(View.VISIBLE);
-			String content = et_content.getText().toString() + " (分享自ETips客户端)";
-			ShareManager sm = new ShareManager(content, new UMImage(
-					getContext(), screenPic));
-			sm.shareToSina(getContext(), new SnsPostListener() {
-
-				@Override
-				public void onStart() {
-				}
-
-				@Override
-				public void onComplete(SHARE_MEDIA arg0, int arg1,
-						SocializeEntity arg2) {
-				}
-			});
-			break;
 		}
+	}
+
+	public void shareNote() {
+		if (et_content.getText().toString().equals("")) {
+			toast("写点东西吧！");
+			return;
+		}
+		getActionBar().hide();
+		font.setVisibility(View.GONE);
+		Bitmap screenPic = AndroidUtils.screenShot(NotesEdit.this);
+		Rect frame = new Rect();
+		NotesEdit.this.getWindow().getDecorView()
+				.getWindowVisibleDisplayFrame(frame);
+		getActionBar().show();
+		font.setVisibility(View.VISIBLE);
+		String content = et_content.getText().toString() + " (分享自ETips客户端)";
+		ShareManager sm = new ShareManager(content, new UMImage(getContext(),
+				screenPic));
+		sm.shareToSina(getContext(), new SnsPostListener() {
+
+			@Override public void onStart() {
+			}
+
+			@Override public void onComplete(SHARE_MEDIA arg0, int arg1,
+					SocializeEntity arg2) {
+			}
+		});
 	}
 
 }

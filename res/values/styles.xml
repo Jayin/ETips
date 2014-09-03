@@ -31,6 +31,10 @@
         <item name="android:actionBarStyle">@style/ActionBarStyle.transparent</item>
     </style>
 
+    <style name="Theme.no_actionbar" parent="Theme.left_in_right_out">
+        <item name="android:actionBarStyle">@android:style/Theme.NoTitleBar</item>
+    </style>
+
     <style name="AcivityTheme_start" parent="@android:style/Theme.Black.NoTitleBar.Fullscreen">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowContentOverlay">@null</item>

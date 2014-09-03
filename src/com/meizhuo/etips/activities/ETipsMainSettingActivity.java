@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
+
 import com.meizhuo.etips.common.ETipsUtils;
 import com.meizhuo.etips.common.ShareManager;
 import com.meizhuo.etips.ui.dialog.DeclarationDialog;
@@ -16,18 +17,17 @@ import com.umeng.socialize.controller.listener.SocializeListeners.SnsPostListene
 import com.umeng.socialize.controller.listener.SocializeListeners.SocializeClientListener;
 
 /**
- * 主设置页面 写得很粗糙 = =
+ * 主设置页面
  * 
  * @author Jayin Ton
  * 
  */
 public class ETipsMainSettingActivity extends BaseUIActivity implements
 		OnClickListener {
-	private View  shareBtn, aboutBtn, manualBtn, account, checkSource,
-			declaration, cleanAuthorization, currentWeekBtn;// queryClassroom;
+	private View shareBtn, aboutBtn, declaration, cleanAuthorization,
+			currentWeekBtn;// queryClassroom;
 
-	private boolean isETipsAccountLogin = false, isloginTimeOut = false;
-	private TextView tv_AccountInfo, tv_crrentWeek;
+	private TextView tv_crrentWeek;
 	private DeclarationDialog dialog;
 	private SetCurrentWeekDialog setCurrentWeekDialog;
 
@@ -50,29 +50,14 @@ public class ETipsMainSettingActivity extends BaseUIActivity implements
 	@Override protected void initLayout() {
 		shareBtn = _getView(R.id.acty_etips_main_setting_rely_share);
 		aboutBtn = _getView(R.id.acty_etips_main_setting_rely_aboutus);
-		manualBtn = _getView(R.id.acty_etips_main_setting_rely_manual);
-		account = _getView(R.id.acty_etips_main_setting_rely_account);
-		checkSource = _getView(R.id.acty_etips_main_setting_rely_checkSource);
 		declaration = _getView(R.id.acty_etips_main_setting_rely_declaration);
 		cleanAuthorization = _getView(R.id.acty_etips_main_setting_rely_cleanAuthorization);
 		currentWeekBtn = _getView(R.id.rely_currentWeek);
 
 		tv_crrentWeek = (TextView) _getView(R.id.tv_currentWeek);
-		tv_AccountInfo = (TextView) _getView(R.id.acty_etips_main_setting_tv_accountInfo);
-
-		if (isETipsAccountLogin) {
-			if (isloginTimeOut) {
-				tv_AccountInfo.setText("ETips账户登录失效，请重新登录");
-			} else {
-				tv_AccountInfo.setText("已登录ETips账户");
-			}
-		}
 
 		shareBtn.setOnClickListener(this);
 		aboutBtn.setOnClickListener(this);
-		manualBtn.setOnClickListener(this);
-		account.setOnClickListener(this);
-		checkSource.setOnClickListener(this);
 		declaration.setOnClickListener(this);
 		cleanAuthorization.setOnClickListener(this);
 		currentWeekBtn.setOnClickListener(this);
@@ -82,41 +67,19 @@ public class ETipsMainSettingActivity extends BaseUIActivity implements
 	}
 
 	@Override protected void initData() {
-		// SharedPreferences sp = this.getSharedPreferences(
-		// ETipsContants.SP_NAME_User, Context.MODE_PRIVATE);
-		isETipsAccountLogin = ETipsUtils.isTweetLogin(this);
-		if (isETipsAccountLogin) {
-			isloginTimeOut = ETipsUtils.isTweetLoginTimeOut(this);
-		}
+
 	}
 
 	@Override protected void onResume() {
 		super.onResume();
 		initData();
-		if (isETipsAccountLogin) {
-			if (isloginTimeOut) {
-				tv_AccountInfo.setText("ETips账户登录失效，请重新登录");
-			} else {
-				tv_AccountInfo.setText("已登录ETips账户");
-			}
-		} else {
-			tv_AccountInfo.setText("ETips账户登录");
-		}
+
 		tv_crrentWeek.setText(ETipsUtils.getCurrentWeek(getContext()) + "");
 	}
 
 	@Override protected void onActivityResult(int requestCode, int resultCode,
 			Intent data) {
 		initData();
-		if (isETipsAccountLogin) {
-			if (isloginTimeOut) {
-				tv_AccountInfo.setText("ETips账户登录失效，请重新登录");
-			} else {
-				tv_AccountInfo.setText("已登录ETips账户");
-			}
-		} else {
-			tv_AccountInfo.setText("ETips账户登录");
-		}
 	}
 
 	@Override public void onClick(View v) {
@@ -126,20 +89,6 @@ public class ETipsMainSettingActivity extends BaseUIActivity implements
 			break;
 		case R.id.acty_etips_main_setting_rely_share:
 			share();
-			break;
-		case R.id.acty_etips_main_setting_rely_manual:
-			openActivity(ManualMainActivity.class);
-			break;
-		case R.id.acty_etips_main_setting_rely_account:
-			startActivityForResult(wrapIntent(TweetLogin.class), 1);
-			// openActivity(TweetLogin.class);
-			// closeActivity();
-			break;
-		case R.id.acty_etips_main_setting_rely_checkSource:
-			Intent intent = new Intent(getContext(),
-					SubSystemLoginActivity.class);
-			intent.putExtra("toWhere", "ScoreRecordActivity");
-			openActivity(intent);
 			break;
 		case R.id.acty_etips_main_setting_rely_declaration:
 			if (dialog == null) {

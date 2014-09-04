@@ -11,14 +11,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,11 +26,10 @@ import com.meizhuo.etips.model.SchoolNewList;
 import com.meizhuo.etips.model.SchoolNews;
 import com.meizhuo.etips.net.utils.WYUNewsAPI;
 import com.meizhuo.etips.ui.dialog.LoadingDialog;
-import com.meizhuo.etips.ui.dialog.WaittingDialog;
 
 public class SchoolNewsMainActivity extends BaseUIActivity {
 	private int page = 1, totalPage = -1;
-	private View backBtn, nextBtn, prevBtn;
+	private View  nextBtn, prevBtn;
 	private TextView tv_pageInfo;
 	private ListView lv;
 	private List<SchoolNews> list;
@@ -58,14 +54,13 @@ public class SchoolNewsMainActivity extends BaseUIActivity {
 
 	@Override
 	protected void initLayout() {
-		backBtn = this.findViewById(R.id.acty_schoolnews_main_back);
 		nextBtn = this.findViewById(R.id.acty_schoolnews_main_next);
 		prevBtn = this.findViewById(R.id.acty_schoolnews_main_prev);
 		tv_pageInfo = (TextView) this
 				.findViewById(R.id.acty_schoolnews_main_page);
 		lv = (ListView) this.findViewById(R.id.acty_schoolnews_main_listview);
 		final Handler h = new Handler() {
-			public void handleMessage(Message msg) {
+			@SuppressWarnings("unchecked") public void handleMessage(Message msg) {
 				if (totalPage == -1 && (List<SchoolNews>) msg.obj != null) {
 					list = (List<SchoolNews>) msg.obj;
 					lv.setAdapter(new SNAdapter());
@@ -86,14 +81,6 @@ public class SchoolNewsMainActivity extends BaseUIActivity {
 				intent.putExtra("content", list.get(position).content);
 				startActivityForResult(intent,
 						ETipsContants.RequestCode_SchoolNewMain2Detail);
-			}
-		});
-
-		backBtn.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				SchoolNewsMainActivity.this.finish();
 			}
 		});
 

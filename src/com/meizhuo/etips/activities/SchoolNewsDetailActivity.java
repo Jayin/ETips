@@ -4,49 +4,58 @@ import java.io.IOException;
 
 import org.apache.http.client.ClientProtocolException;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.webkit.WebSettings;
 import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.meizhuo.etips.common.ETipsContants;
-import com.meizhuo.etips.common.Elog;
 import com.meizhuo.etips.common.PathBuilder;
 import com.meizhuo.etips.common.ShareManager;
 import com.meizhuo.etips.net.utils.WYUNewsAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.bean.SocializeEntity;
 import com.umeng.socialize.controller.listener.SocializeListeners.SnsPostListener;
-import com.umeng.socialize.media.UMImage;
 
 public class SchoolNewsDetailActivity extends BaseUIActivity {
 	private String linkPath = null, title = null, content = null;
-	private View backBtn, shareBtn;
 	private ProgressBar pb;
 	private WebView webview;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	@Override protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.acty_schoolnew_detail);
 		initData();
 		initLayout();
 		onWork();
+		setActionBarTitle(title);
 	}
 
-	private void initWebView(WebView webview) {
+	@Override public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.acty_schoolnew_detail, menu);
+		return true;
+	}
+
+	@Override public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == R.id.share) {
+			share();
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	@SuppressLint("SetJavaScriptEnabled") private void initWebView(WebView webview) {
 		WebSettings webSettings = webview.getSettings();
 		webSettings.setJavaScriptEnabled(true);
 		webSettings.setSupportZoom(true);
@@ -58,13 +67,12 @@ public class SchoolNewsDetailActivity extends BaseUIActivity {
 		webview.setBackgroundResource(R.color.lightblue);
 		webSettings.setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN); // 自动适配图片大小
 		webview.setWebViewClient(new WebViewClient() {
-			@Override
-			public void onLoadResource(WebView view, String url) {
+			@Override public void onLoadResource(WebView view, String url) {
 
 			}
 
-			@Override
-			public boolean shouldOverrideUrlLoading(WebView view, String url) {
+			@Override public boolean shouldOverrideUrlLoading(WebView view,
+					String url) {
 				Uri uri = Uri.parse(url);
 				Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 				startActivity(intent);
@@ -85,59 +93,41 @@ public class SchoolNewsDetailActivity extends BaseUIActivity {
 		}
 	}
 
-	@Override
-	protected void initLayout() {
-		backBtn = this.findViewById(R.id.acty_schoolnews_detail_back);
-		shareBtn = this.findViewById(R.id.acty_schoolnews_detail_share);
+	@Override protected void initLayout() {
 
 		pb = (ProgressBar) this
 				.findViewById(R.id.acty_schoolnews_detail_progressBar);
 		webview = (WebView) this
 				.findViewById(R.id.acty_schoolnews_detail_webview);
 		initWebView(webview);
-		backBtn.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				SchoolNewsDetailActivity.this.finish();
-			}
-		});
-		shareBtn.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				String content = "#邑大新闻#" + title + " 详情："
-						+ PathBuilder.getSchoolNewsDetailPath(linkPath)
-						+ " (分享自ETips客户端)";
-				ShareManager sm = new ShareManager(content);
-				sm.shareToSina(getContext(), new SnsPostListener() {
-
-					@Override
-					public void onStart() {
-
-					}
-
-					@Override
-					public void onComplete(SHARE_MEDIA arg0, int arg1,
-							SocializeEntity arg2) {
-
-					}
-				});
-			}
-		});
-
 	}
 
-	@Override
-	protected void initData() {
+	private void share() {
+		String content = "#邑大新闻#" + title + " 详情："
+				+ PathBuilder.getSchoolNewsDetailPath(linkPath)
+				+ " (分享自ETips客户端)";
+		ShareManager sm = new ShareManager(content);
+		sm.shareToSina(getContext(), new SnsPostListener() {
+
+			@Override public void onStart() {
+
+			}
+
+			@Override public void onComplete(SHARE_MEDIA arg0, int arg1,
+					SocializeEntity arg2) {
+
+			}
+		});
+	}
+
+	@Override protected void initData() {
 		linkPath = getIntent().getStringExtra("linkPath");
 		title = getIntent().getStringExtra("title");
 		content = getIntent().getStringExtra("content");
 	}
 
 	class SNDHandler extends Handler {
-		@Override
-		public void handleMessage(Message msg) {
+		@Override public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case ETipsContants.Start:
 				pb.setVisibility(View.VISIBLE);
@@ -180,8 +170,7 @@ public class SchoolNewsDetailActivity extends BaseUIActivity {
 			this.handler = handler;
 		}
 
-		@Override
-		public void run() {
+		@Override public void run() {
 			handler.sendEmptyMessage(ETipsContants.Start);
 			Message msg = handler.obtainMessage();
 			WYUNewsAPI api = new WYUNewsAPI();

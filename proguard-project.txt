@@ -153,3 +153,8 @@
 # android's entity
 -keep public class com.meizhuo.etips.model.** {*;}
 -keep public class com.meizhuo.etips.appwidget.** {*;}
+
+#butterknife
+-dontwarn butterknife.internal.**
+-keep class **$$ViewInjector { *; }
+-keepnames class * { @butterknife.InjectView *;}

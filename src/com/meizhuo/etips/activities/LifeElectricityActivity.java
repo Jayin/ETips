@@ -11,8 +11,9 @@ import com.meizhuo.etips.net.utils.LifeServiceAPI;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -24,7 +25,6 @@ import android.widget.Toast;
  *
  */
 public class LifeElectricityActivity extends BaseUIActivity {
-	private View backBtn, checkBtn;
 	private EditText et_falt, et_room;
 	private TextView tv_tip, tv_flat, tv_room, tv_hasUse, tv_left,
 			tv_recordTime;
@@ -39,11 +39,23 @@ public class LifeElectricityActivity extends BaseUIActivity {
 		initData();
 		initLayout();
 	}
+	
+	
+	@Override public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.acty_life_electricity, menu);
+		return true;
+	}
+	
+	@Override public boolean onOptionsItemSelected(MenuItem item) {
+		if(item.getItemId() ==  R.id.query){
+			query();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
 
 	@Override
 	protected void initLayout() {
-		backBtn = this.findViewById(R.id.acty_life_electricity_back);
-		checkBtn = this.findViewById(R.id.acty_life_electricity_check);
 		et_falt = (EditText) this
 				.findViewById(R.id.acty_life_electricity_et_input_flatNum);
 		et_room = (EditText) this
@@ -64,41 +76,28 @@ public class LifeElectricityActivity extends BaseUIActivity {
 		relayout = (RelativeLayout) this
 				.findViewById(R.id.acty_life_electricity_re_electricityInfo);
 
-		backBtn.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				LifeElectricityActivity.this.finish();
-			}
-		});
-
-		checkBtn.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				flagNum = et_falt.getText().toString().trim();
-				if (flagNum == null || flagNum.equals("")) {
-					Toast.makeText(LifeElectricityActivity.this, "公寓名称不能为空！",
-							Toast.LENGTH_SHORT).show();
-					return;
-				}
-				roomNum = et_room.getText().toString().trim();
-				if (roomNum == null || roomNum.equals("")) {
-					Toast.makeText(LifeElectricityActivity.this, "房间编号不能为空！",
-							Toast.LENGTH_SHORT).show();
-					return;
-				}
-				LifeElcHandler handler = new LifeElcHandler();
-				new LifeElcThread(handler).start();
-
-			}
-		});
-
 	}
 
 	@Override
 	protected void initData() {
 
+	}
+	
+	private void query(){
+		flagNum = et_falt.getText().toString().trim();
+		if (flagNum == null || flagNum.equals("")) {
+			Toast.makeText(LifeElectricityActivity.this, "公寓名称不能为空！",
+					Toast.LENGTH_SHORT).show();
+			return;
+		}
+		roomNum = et_room.getText().toString().trim();
+		if (roomNum == null || roomNum.equals("")) {
+			Toast.makeText(LifeElectricityActivity.this, "房间编号不能为空！",
+					Toast.LENGTH_SHORT).show();
+			return;
+		}
+		LifeElcHandler handler = new LifeElcHandler();
+		new LifeElcThread(handler).start();
 	}
 
 	class LifeElcHandler extends Handler {

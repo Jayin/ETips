@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import butterknife.InjectView;
 
+import com.meizhuo.etips.app.Preferences;
 import com.meizhuo.etips.fragment.CourseTable;
 import com.meizhuo.etips.fragment.Explore;
 import com.meizhuo.etips.fragment.NewFeeds;
@@ -63,6 +64,16 @@ public class ETipsMainActivity2 extends BaseActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	@Override protected void onResume() {
+		 
+		super.onResume();
+		int current_week = Preferences.getCurrentWeek(this);
+		if (current_week > 0 && current_week < 21)
+			setActionBarTitle("第" + current_week + "周");
+		else
+			setActionBarTitle("放假ing");
 	}
 
 	public class MyPagerAdapter extends FragmentPagerAdapter {

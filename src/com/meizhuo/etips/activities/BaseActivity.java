@@ -7,7 +7,6 @@ import butterknife.ButterKnife;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.widget.Toast;
 /**
@@ -20,7 +19,7 @@ import android.widget.Toast;
  * @author Jayin 
  * @version 3.0.0
  */
-public abstract class BaseActivity extends FragmentActivity {
+public abstract class BaseActivity extends BaseUIActivity {
 	 
 	protected abstract void initData();
 

@@ -174,14 +174,14 @@ public class CalendarManager {
 
 		Calendar c1 = Calendar.getInstance();// 本年的2月24
 		Calendar c2 = Calendar.getInstance();// 本年的7月15
-		Calendar c3 = Calendar.getInstance();// 本年的9月2
+		Calendar c3 = Calendar.getInstance();// 本年的9月9
 		Calendar c4 = Calendar.getInstance();// 下年年的1月21
 		Calendar c5 = Calendar.getInstance();// 本年的最后12.31
 		int year = c1.get(Calendar.YEAR);
 		int current_week = c1.get(Calendar.WEEK_OF_YEAR);
 		c1.set(year, Calendar.FEBRUARY, 24);
 		c2.set(year, Calendar.JULY, 15);
-		c3.set(year, Calendar.SEPTEMBER, 2);
+		c3.set(year, Calendar.SEPTEMBER, 9);
 		c4.set(year + 1, Calendar.JANUARY, 21);
 		c5.set(year, Calendar.DECEMBER, 31);
 		if (current_week >= c1.get(Calendar.WEEK_OF_YEAR)// 周数处于2.24-7.15为下学期 返回正数

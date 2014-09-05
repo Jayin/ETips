@@ -26,8 +26,8 @@ import com.meizhuo.etips.ui.dialog.LoadingDialog;
  * @author Jayin Ton
  * 
  */
-@SuppressLint("HandlerLeak")
-public class SubSystemLoginActivity extends BaseUIActivity {
+@SuppressLint("HandlerLeak") public class SubSystemLoginActivity extends
+		BaseUIActivity {
 	private String toWhere = null;
 	private String userID, userPSW;
 	private Button loginBtn, cancleBtn;
@@ -37,8 +37,7 @@ public class SubSystemLoginActivity extends BaseUIActivity {
 	private int tag = 0; // design to figure out after Login , sovle what
 	private SubSystemAPI api = null;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	@Override protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.acty_login_subsystem1);
 		initData();
@@ -46,8 +45,7 @@ public class SubSystemLoginActivity extends BaseUIActivity {
 
 	}
 
-	@Override
-	protected void initLayout() {
+	@Override protected void initLayout() {
 		et_userID = (EditText) this
 				.findViewById(R.id.acty_login_subsystem_userID);
 		et_userPSW = (EditText) this
@@ -59,8 +57,7 @@ public class SubSystemLoginActivity extends BaseUIActivity {
 		et_userID.setText(ClientConfig.getUserId(getContext()));
 		loginBtn.setOnClickListener(new View.OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
+			@Override public void onClick(View v) {
 				userID = et_userID.getText().toString();
 				if (userID == null || userID.equals("")) {
 					Toast.makeText(SubSystemLoginActivity.this, "学号不能为空",
@@ -73,10 +70,8 @@ public class SubSystemLoginActivity extends BaseUIActivity {
 							Toast.LENGTH_SHORT).show();
 					return;
 				}
-				if(toWhere == null){
-					closeActivity();
-				}
-				if (toWhere.equals("CourseMainActivity")) {
+				if (toWhere == null || toWhere == ""
+						|| toWhere.equals("CourseMainActivity")) {
 					tag = TAG_Lesson;
 					SSLoginHandler h = new SSLoginHandler();
 					new SSLoginThread(h).start();
@@ -91,26 +86,25 @@ public class SubSystemLoginActivity extends BaseUIActivity {
 
 		cancleBtn.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
+			@Override public void onClick(View v) {
 				SubSystemLoginActivity.this.finish();
 			}
 		});
 
 	}
 
-	@Override
-	protected void initData() {
+	@Override protected void initData() {
+		// NOTE: toWhere=null,"",CourseMainActivity
 		toWhere = getIntent().getStringExtra("toWhere");
 		App = (ETipsApplication) getApplication();
 		api = App.getSubSystemAPI();
 	}
 
 	class SSLoginHandler extends Handler {
-LoadingDialog dialog;
-		@SuppressWarnings("unchecked")
-		@Override
-		public void handleMessage(Message msg) {
+		LoadingDialog dialog;
+
+		@SuppressWarnings("unchecked") @Override public void handleMessage(
+				Message msg) {
 			switch (msg.what) {
 			case ETipsContants.Start:
 				dialog = new LoadingDialog(getContext());
@@ -136,8 +130,10 @@ LoadingDialog dialog;
 					App.setLessonList(course.getCourseList());
 					dialog.dismiss();
 					dialog = null;
-					startActivity(new Intent(SubSystemLoginActivity.this,
-							CourseMainActivity.class));
+					if (toWhere == null || toWhere.equals("")) {
+						startActivity(new Intent(SubSystemLoginActivity.this,
+								CourseMainActivity.class));
+					}
 					SubSystemLoginActivity.this.finish();
 				} else if (tag == TAG_ScoreRecord) {
 					dialog.setLodingText("ETips正在跳转...");
@@ -171,8 +167,7 @@ LoadingDialog dialog;
 			this.handler = h;
 		}
 
-		@Override
-		public void run() {
+		@Override public void run() {
 			if (api == null) {
 				api = new SubSystemAPI(userID, userPSW);
 			}
@@ -191,7 +186,7 @@ LoadingDialog dialog;
 						if (course == null || course.isEmpty()) {
 							Message msg = handler.obtainMessage();
 							msg.what = ETipsContants.Fail;
-//							msg.obj = "子系统上没有你课程表哦~";
+							// msg.obj = "子系统上没有你课程表哦~";
 							msg.obj = "无法获取课表or课表为空";
 							handler.sendMessage(msg);
 						} else {
@@ -220,10 +215,9 @@ LoadingDialog dialog;
 		}
 	}
 
-	@Override
-	protected void onDestroy() {
+	@Override protected void onDestroy() {
 		super.onDestroy();
-		//保存用户账号
+		// 保存用户账号
 		ClientConfig.setUserId(getContext(), et_userID.getText().toString()
 				.trim());
 	}

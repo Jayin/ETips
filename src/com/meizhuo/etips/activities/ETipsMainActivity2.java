@@ -34,7 +34,7 @@ public class ETipsMainActivity2 extends BaseActivity {
 	@Override protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState, R.layout.acty_etips_main_4);
 
-		fragments.add(new NewFeeds());
+//		fragments.add(new NewFeeds());
 		fragments.add(new CourseTable());
 		fragments.add(new Explore());
 
@@ -80,7 +80,8 @@ public class ETipsMainActivity2 extends BaseActivity {
 
 		List<Fragment> fragments;
 
-		private final String[] TITLES = { "新鲜事", "课程表", "发现" };
+//		private final String[] TITLES = { "新鲜事", "课程表", "发现" };
+		private final String[] TITLES = {"课程表", "发现" };
 
 		public MyPagerAdapter(FragmentManager fm, List<Fragment> fragments) {
 			super(fm);

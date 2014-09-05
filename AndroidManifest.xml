@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.meizhuo.etips.activities"
-    android:versionCode="12"
-    android:versionName="2.2.4" >
+    android:versionCode="13"
+    android:versionName="3.0.0" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -75,7 +75,8 @@
         </activity>
         <activity
             android:name=".ETipsGuidePage"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait" 
+            android:theme="@style/Theme.no_actionbar">
         </activity>
         <activity
             android:name=".Browser"
@@ -109,7 +110,8 @@
         </activity>
         <activity
             android:name=".SubSystemLoginActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.no_actionbar" >
         </activity>
         <activity
             android:name=".CourseDetailActivity"

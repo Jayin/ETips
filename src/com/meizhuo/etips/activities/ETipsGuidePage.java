@@ -32,7 +32,8 @@ public class ETipsGuidePage extends BaseUIActivity {
 		ok.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				openActivity(ETipsMainActivity.class);
+//				openActivity(ETipsMainActivity.class);
+				openActivity(ETipsMainActivity2.class);
 				closeActivity();
 			}
 		});

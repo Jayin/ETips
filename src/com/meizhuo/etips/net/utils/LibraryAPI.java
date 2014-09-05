@@ -19,8 +19,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
-
-import com.meizhuo.etips.common.Elog;
 import com.meizhuo.etips.common.PathBuilder;
 import com.meizhuo.etips.model.BookBorrowRecord;
 import com.meizhuo.etips.model.BookInfo;
@@ -123,7 +121,7 @@ public class LibraryAPI {
 		post.setEntity(entity);
 		response = client.execute(post);
 		if (response.getStatusLine().getStatusCode() == 302) { // 重定向,跳转成功说明登录成功
-			String s = EntityUtils.toString(response.getEntity(), "utf-8");
+		 
 			mCookieStore = client.getCookieStore();
 			System.out.println("Library Login successfully");
 			client.getConnectionManager().shutdown();
@@ -230,9 +228,14 @@ public class LibraryAPI {
 	public List<BookStatus> getBookStatus(String bookID)
 			throws ClientProtocolException, IOException {
 		List<BookStatus> list = new ArrayList<BookStatus>();
+		//create request
 		String url = PathBuilder.getBookInfoPath(bookID);
+		HttpGet get = new HttpGet(url);
+		get.addHeader("Accept","text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
+		get.addHeader("Accept-Language","zh-CN,zh;q=0.8,en;q=0.6,zh-TW;q=0.4");
+		get.addHeader("Accept-Encoding","gzip,deflate,sdch");
 		DefaultHttpClient client = new DefaultHttpClient();
-		HttpResponse response = client.execute(new HttpGet(url));
+		HttpResponse response = client.execute(get);
 		if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 			String html = EntityUtils.toString(response.getEntity(), "utf-8");
 			client.getConnectionManager().shutdown();

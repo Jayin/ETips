@@ -92,7 +92,7 @@
         <activity
             android:name=".QueryEmptyClassroom"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.no_actionbar" >
+            >
         </activity>
         <activity
             android:name=".CourseMainActivity"

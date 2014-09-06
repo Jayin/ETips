@@ -1,26 +1,23 @@
 # ETips [![GitHub version](https://badge.fury.io/gh/Jayin%2FETips.svg)](http://badge.fury.io/gh/Jayin%2FETips) ![license](http://img.shields.io/badge/license-MIT-brightgreen.svg) ![platform](http://img.shields.io/badge/platform-Android-blue.svg)
 
 * ETips is an Android App for the students of Wuyi University
-* If you want to know more about it, click http://www.wandoujia.com/apps/com.meizhuo.etips.activities
-* ~~For all new versions of ETips, you can download from http://etipsweb.duapp.com/download/ETips.apk~~
-* ~~The source code and changelog (or update information) will be composed here and http://etipsweb.duapp.com/download/  (not very in time at all)~~
-* All release note and download url will update at once on [ETips Home Page :  http://jayin.github.io/ETips/](http://jayin.github.io/ETips/)   
+* If you want to get the lastest version, click the [ETips Website](http://etips.github.io/) 
+* Want to know more about the development of ETips? See [ETips Organization](https://github.com/ETips)
 
+## Reporting a bug
+1. use [issue](https://github.com/Jayin/ETips/issues)
+2. email me :tonjain@gmail.com
 
 ## Thanks the contributors
 * [fritx](https://github.com/fritx)
 * [ade951](https://github.com/ade951)
 
-## ETips 2.3.0 preview
 
-* following the Android design (it could be a huge project)
-* replace the XListView by SwipeRefreshLayout
-* daily notify situation of the course
-
-## Known Bugs
-
-* error response in course-list widget (fixed)
-* doublely add data in Jiaowu Tongzhi
+## ETips 3.0.0 changelog
+* 最低支持Android4.0, 加入ActionBar
+* 更换扁平一些的LOGO
+* 优化各界面显示
+* 修复获取图书藏书情况闪退 #16
 
 ## ETips 2.2.3 changelog
 * 修复图书馆无法查询图书

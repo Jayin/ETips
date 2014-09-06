@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import butterknife.InjectView;
 import butterknife.OnClick;
 
 import com.meizhuo.etips.activities.LibraryMainActivity;
@@ -16,6 +18,7 @@ import com.meizhuo.etips.activities.QueryEmptyClassroom;
 import com.meizhuo.etips.activities.R;
 import com.meizhuo.etips.activities.SchoolNewsMainActivity;
 import com.meizhuo.etips.activities.SubSystemLoginActivity;
+import com.meizhuo.etips.app.Preferences;
 
 /**
  * 发现
@@ -24,13 +27,23 @@ import com.meizhuo.etips.activities.SubSystemLoginActivity;
  * 
  */
 public class Explore extends BaseFragment {
+	@InjectView(R.id.iv_new_msg) ImageView iv_new_msg;
 
 	@Override public View onCreateView(LayoutInflater inflater,
 			ViewGroup container, Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState,
 				R.layout.fragment_explore);
-	 
+		
 		return contentView;
+	}
+	
+	@Override public void onResume() {
+		super.onResume();
+		if (Preferences.isHasMsgToCheck(getContext())) {
+			iv_new_msg.setVisibility(View.VISIBLE);
+		}else{
+			iv_new_msg.setVisibility(View.INVISIBLE);
+		}
 	}
 	
 	@OnClick(R.id.btn_message_center)

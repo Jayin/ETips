@@ -23,8 +23,16 @@
                 style="@style/Acty_Course_Setting.rely" >
 
                 <TextView
+                    android:id="@+id/tv_msg_center"
                     style="@style/TextView.setting"
                     android:text="消息中心" />
+
+                <ImageView
+                    android:id="@+id/iv_new_msg"
+                    style="@style/ImageView.base"
+                    android:src="@drawable/ic_new_msg"
+                    android:layout_toRightOf="@+id/tv_msg_center"
+                    android:layout_marginTop="8dp" />
 
                 <ImageView style="@style/Acty_Course_Setting.imageview" />
             </RelativeLayout>

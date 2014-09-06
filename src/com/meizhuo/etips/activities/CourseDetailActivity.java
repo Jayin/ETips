@@ -39,11 +39,11 @@ public class CourseDetailActivity extends BaseUIActivity {
 		tv_address = (TextView) _getView(R.id.acty_course_detail_address);
 		tv_teacher = (TextView) _getView(R.id.acty_course_detail_teacher);
 
-		tv_title = (TextView) _getView(R.id.acty_course_detail_tv);
+//		tv_title = (TextView) _getView(R.id.acty_course_detail_tv);
 		tv_tips = (TextView) _getView(R.id.acty_course_detail_tv_tips);
 
-		backBtn = _getView(R.id.acty_course_detail_back);
-		settingBtn = _getView(R.id.acty_course_detail_setting);
+//		backBtn = _getView(R.id.acty_course_detail_back);
+//		settingBtn = _getView(R.id.acty_course_detail_setting);
 		okBtn = _getView(R.id.acty_course_detail_ok);
 		cancleBtn = _getView(R.id.acty_course_detail_cancle);
 
@@ -59,24 +59,24 @@ public class CourseDetailActivity extends BaseUIActivity {
 		tv_address.setText(lesson.address);
 		tv_teacher.setText(lesson.Teacher);
 
-		backBtn.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				CourseDetailActivity.this.finish();
-
-			}
-		});
-		settingBtn.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				if (footView.getVisibility() == View.INVISIBLE) {
-					change2edit();
-				}
-
-			}
-		});
+//		backBtn.setOnClickListener(new View.OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+//				CourseDetailActivity.this.finish();
+//
+//			}
+//		});
+//		settingBtn.setOnClickListener(new View.OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+//				if (footView.getVisibility() == View.INVISIBLE) {
+//					change2edit();
+//				}
+//
+//			}
+//		});
 		cancleBtn.setOnClickListener(new View.OnClickListener() {
 
 			@Override

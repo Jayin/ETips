@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/update" android:title="刷新" android:showAsAction="always" android:icon="@drawable/ic_btn_reflush"></item>
+    
+
+</menu>

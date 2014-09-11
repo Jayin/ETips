@@ -9,10 +9,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -31,10 +32,9 @@ import com.meizhuo.etips.net.utils.SubSystemAPI;
 public class ScoreRecordActivity extends BaseUIActivity {
 	private String userID, userPSW;
 	private ProgressBar pb;
-	private TextView tv_title, tv_error, tv_jidian;
+	private TextView  tv_error, tv_jidian;
 	private ListView lv;
 	private List<ScoreRecord> list;
-	private View backbtn, reflushBtn;
 	private boolean hasData = false; // to define wheather listview's adapter
 										// has date or not
 	private SubSystemAPI api;
@@ -48,6 +48,24 @@ public class ScoreRecordActivity extends BaseUIActivity {
 		initData();
 		initLayout();
 		onWork();
+		setActionBarTitle(userID);
+	}
+	
+	@Override public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.acty_score_record, menu);
+		return true;
+	}
+	
+	@Override public boolean onOptionsItemSelected(MenuItem item) {
+		if(item.getItemId() == R.id.update){
+			if (hasData) {
+				Toast.makeText(ScoreRecordActivity.this, "成绩已经更新！",
+						Toast.LENGTH_SHORT).show();
+			} else {
+				onWork();
+			}
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	private void onWork() {
@@ -62,35 +80,10 @@ public class ScoreRecordActivity extends BaseUIActivity {
 	protected void initLayout() {
 		pb = (ProgressBar) this
 				.findViewById(R.id.acty_score_record_progressBar);
-		tv_title = (TextView) this
-				.findViewById(R.id.acty_score_record_title_tv);
 		tv_error = (TextView) this
 				.findViewById(R.id.acty_score_record_tv_error_scoreRecord);
 		tv_jidian = (TextView) this.findViewById(R.id.acty_score_record_jidian);
 		lv = (ListView) this.findViewById(R.id.acty_score_record_listview);
-		backbtn = this.findViewById(R.id.acty_score_record_back);
-		reflushBtn = this.findViewById(R.id.acty_score_record_reflush);
-
-		tv_title.setText(userID);
-		backbtn.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				ScoreRecordActivity.this.finish();
-			}
-		});
-
-		reflushBtn.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				if (hasData) {
-					Toast.makeText(ScoreRecordActivity.this, "成绩已经更新！",
-							Toast.LENGTH_SHORT).show();
-				} else {
-					onWork();
-				}
-			}
-		});
 	}
 
 	@Override

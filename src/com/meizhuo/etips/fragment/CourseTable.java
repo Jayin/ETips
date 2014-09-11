@@ -59,7 +59,6 @@ public class CourseTable extends BaseFragment {
 	@OnClick(R.id.acty_course_main_login)
 	public void login(){
 		Intent intent =new Intent(getContext(),SubSystemLoginActivity.class);
-		intent.putExtra("toWhere", "CourseMainActivity");
 		openActivity(intent);
 	}
 	

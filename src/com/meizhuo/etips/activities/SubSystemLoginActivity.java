@@ -33,8 +33,6 @@ import com.meizhuo.etips.ui.dialog.LoadingDialog;
 	private Button loginBtn, cancleBtn;
 	private EditText et_userID, et_userPSW;
 	private ETipsApplication App;
-	private final int TAG_ScoreRecord = 21, TAG_Lesson = 22;
-	private int tag = 0; // design to figure out after Login , sovle what
 	private SubSystemAPI api = null;
 
 	@Override protected void onCreate(Bundle savedInstanceState) {
@@ -72,11 +70,9 @@ import com.meizhuo.etips.ui.dialog.LoadingDialog;
 				}
 				if (toWhere == null || toWhere == ""
 						|| toWhere.equals("CourseMainActivity")) {
-					tag = TAG_Lesson;
 					SSLoginHandler h = new SSLoginHandler();
 					new SSLoginThread(h).start();
 				} else if (toWhere.equals("ScoreRecordActivity")) {
-					tag = TAG_ScoreRecord;
 					SSLoginHandler h = new SSLoginHandler();
 					new SSLoginThread(h).start();
 
@@ -122,7 +118,7 @@ import com.meizhuo.etips.ui.dialog.LoadingDialog;
 					break;
 				}
 				dialog.setLodingText("ETips解析数据中...");
-				if (tag == TAG_Lesson) {
+				if(toWhere == null || toWhere.equals("")|| toWhere.equals("CourseMainActivity")){
 					dialog.setLodingText("ETips正在跳转...");
 					// 转换
 					Course course = Course
@@ -130,12 +126,12 @@ import com.meizhuo.etips.ui.dialog.LoadingDialog;
 					App.setLessonList(course.getCourseList());
 					dialog.dismiss();
 					dialog = null;
-					if (toWhere == null || toWhere.equals("")) {
+					if (toWhere.equals("CourseMainActivity")) {
 						startActivity(new Intent(SubSystemLoginActivity.this,
 								CourseMainActivity.class));
 					}
 					SubSystemLoginActivity.this.finish();
-				} else if (tag == TAG_ScoreRecord) {
+				} else if(toWhere.equals("ScoreRecordActivity")){
 					dialog.setLodingText("ETips正在跳转...");
 					Intent intent = new Intent(SubSystemLoginActivity.this,
 							ScoreRecordActivity.class);
@@ -178,7 +174,7 @@ import com.meizhuo.etips.ui.dialog.LoadingDialog;
 				handler.sendEmptyMessage(ETipsContants.Logining);
 				boolean flag = api.login();
 				if (flag) {
-					if (tag == TAG_Lesson) {
+					if(toWhere == null || toWhere.equals("")|| toWhere.equals("CourseMainActivity")){
 						// deal with lesson
 						handler.sendEmptyMessage(ETipsContants.Downloading);
 						Map<Integer, Map<Integer, List<Lesson>>> course = api
@@ -195,7 +191,7 @@ import com.meizhuo.etips.ui.dialog.LoadingDialog;
 							msg.obj = course;
 							handler.sendMessage(msg);
 						}
-					} else if (tag == TAG_ScoreRecord) {
+					} else if (toWhere.equals("ScoreRecordActivity")){
 						// deal with score record
 						handler.sendEmptyMessage(ETipsContants.Finish);
 					}

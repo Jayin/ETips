@@ -30,9 +30,25 @@
                 <ImageView
                     android:id="@+id/iv_new_msg"
                     style="@style/ImageView.base"
-                    android:src="@drawable/ic_new_msg"
+                    android:layout_marginTop="8dp"
                     android:layout_toRightOf="@+id/tv_msg_center"
-                    android:layout_marginTop="8dp" />
+                    android:src="@drawable/ic_new_msg" />
+
+                <ImageView style="@style/Acty_Course_Setting.imageview" />
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/ic_line_1" />
+
+            <RelativeLayout
+                android:id="@+id/btn_course_table"
+                style="@style/Acty_Course_Setting.rely" >
+
+                <TextView
+                    style="@style/TextView.setting"
+                    android:text="课程表" />
 
                 <ImageView style="@style/Acty_Course_Setting.imageview" />
             </RelativeLayout>

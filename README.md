@@ -12,6 +12,9 @@
 * [fritx](https://github.com/fritx)
 * [ade951](https://github.com/ade951)
 
+### ETips 3.0.1 changelog
+* 支持切换课程
+* 优化查询成绩页面
 
 ## ETips 3.0.0 changelog
 * 最低支持Android4.0, 加入ActionBar

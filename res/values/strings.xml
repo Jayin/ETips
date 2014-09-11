@@ -8,6 +8,8 @@
     <string name="acty_wyunews">邑大新闻</string>
     <string name="acty_manual">学生手册</string>
     <string name="acty_bookcollection">图书收藏</string>
+     <string name="acty_coursemain_switch">每日</string>
+      <string name="acty_coursemain_update">更新</string>
 
     <!--
     string name="hello_world">Hello world!</string>

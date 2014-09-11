@@ -126,7 +126,7 @@ import com.meizhuo.etips.ui.dialog.LoadingDialog;
 					App.setLessonList(course.getCourseList());
 					dialog.dismiss();
 					dialog = null;
-					if (toWhere.equals("CourseMainActivity")) {
+					if (toWhere!=null && !toWhere.equals("") && toWhere.equals("CourseMainActivity")) {
 						startActivity(new Intent(SubSystemLoginActivity.this,
 								CourseMainActivity.class));
 					}

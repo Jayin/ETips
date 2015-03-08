@@ -508,7 +508,7 @@ public class HtmlParser {
 		Document doc = Jsoup.parse(html); 
 		Elements elements = doc.getElementsByTag("table");
 	    html = elements.get(2).html();	
-	    sb.append("<html><body>").append(Jsoup.clean(html, new Whitelist().relaxed())).append("</body></html>");
+	    sb.append("<html><head><style>img{ width:100% }</style></head><body>").append(Jsoup.clean(html, new Whitelist().relaxed())).append("</body></html>");
 		return  sb.toString();
 	}
     /**

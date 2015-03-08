@@ -79,7 +79,6 @@ public class WYUNewsAPI {
 		if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 			String html = EntityUtils.toString(response.getEntity(), "gb2312");
 			client.getConnectionManager().shutdown();
-		//	return HtmlParser.parseHtmlForSchoolNewsDetails(html);
 			return HtmlParser.wrapHtmlForSchoolNewsDetails(html);
 		} else {
 			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_FORBIDDEN) {

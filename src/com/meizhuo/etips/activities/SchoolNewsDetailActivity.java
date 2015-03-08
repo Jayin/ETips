@@ -65,7 +65,6 @@ public class SchoolNewsDetailActivity extends BaseUIActivity {
 		webSettings.setSupportMultipleWindows(true);
 		webSettings.setLoadsImagesAutomatically(true); // 自动加载图片
 		webview.setBackgroundResource(R.color.lightblue);
-		webSettings.setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN); // 自动适配图片大小
 		webview.setWebViewClient(new WebViewClient() {
 			@Override public void onLoadResource(WebView view, String url) {
 

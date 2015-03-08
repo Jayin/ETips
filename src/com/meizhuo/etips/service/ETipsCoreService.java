@@ -189,16 +189,39 @@ public class ETipsCoreService extends Service {
 													        		}else{
 													        			Log.i("debug", "ETipsCoreService--->clean Comment faild!");
 													        		}
-													        	};
+													        	}
+
+																@Override public void onFailure(
+																		int arg0,
+																		Header[] arg1,
+																		byte[] arg2,
+																		Throwable arg3) {
+																	//  Auto-generated method stub
+																	
+																};
 													        });
 															 
 														}
                                                       
+													}
+
+													@Override public void onFailure(
+															int arg0,
+															Header[] arg1,
+															byte[] arg2,
+															Throwable arg3) {
+														// TODO Auto-generated method stub
+														
 													};
 												});
 									}
 								}
 							}
+						}
+
+						@Override public void onFailure(int arg0,
+								Header[] arg1, byte[] arg2, Throwable arg3) {
+							// Auto-generated method stub
 						}
 
 					});

@@ -1,11 +1,5 @@
 package com.meizhuo.etips.common;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.StreamCorruptedException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -14,14 +8,10 @@ import java.util.Map;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Base64;
 
 import com.google.gson.Gson;
 import com.meizhuo.etips.model.BookInfo;
-import com.meizhuo.etips.model.Course;
 import com.meizhuo.etips.model.MNotes;
-import com.meizhuo.etips.model.Topic;
-import com.meizhuo.etips.model.Tweet;
 
 /**
  * 小量数据SharedPreference增删查改框架 每增加一个SP
@@ -117,13 +107,6 @@ public class SP {
 		case ETipsContants.TYPE_SP_Book:
 			gson = new Gson();
 			return gson.toJson((BookInfo) obj);
-		case ETipsContants.TYPE_SP_Topic:
-			gson = new Gson();
-			return gson.toJson((Topic) obj);
-		case ETipsContants.TYPE_SP_Tweet:
-			gson = new Gson();
-			return gson.toJson((Tweet) obj);
-	 
 		}
 		return null;
 	}
@@ -145,16 +128,6 @@ public class SP {
 
 		case ETipsContants.TYPE_SP_Notes:
 			gson = new Gson();
-			return gson.fromJson(json, MNotes.class);
-		case ETipsContants.TYPE_SP_Topic:
-			gson = new Gson();
-			return gson.fromJson(json, Topic.class);
-
-		case ETipsContants.TYPE_SP_Tweet:
-			gson = new Gson();
-			return gson.fromJson(json, Tweet.class);
-
-	 
 		}
 		return null;
 	}
@@ -208,48 +181,7 @@ public class SP {
 				}
 			});
 			return notes;
-
-		case ETipsContants.TYPE_SP_Topic:
-			gson = new Gson();
-			List<Topic> topicList = new ArrayList<Topic>();
-			map = sp.getAll();
-			for (String key : map.keySet()) {
-				Topic topic = (Topic) toEntity(ETipsContants.TYPE_SP_Topic,
-						(String) map.get(key));
-				topicList.add(topic);
-			}
-			// 按时间排序，时间越小，越新；因为读入来的时候已经按时间顺序排好)
-			Collections.sort(topicList, new Comparator<Topic>() {
-
-				@Override
-				public int compare(Topic lhs, Topic rhs) {
-					return Integer.parseInt(lhs.getId()) > Integer.parseInt(rhs
-							.getId()) ? 1 : -1;
-				}
-			});
-			return topicList;
-
-		case ETipsContants.TYPE_SP_Tweet:
-			gson = new Gson();
-			List<Tweet> tweetList = new ArrayList<Tweet>();
-			map = sp.getAll();
-			for (String key : map.keySet()) {
-				Tweet t = (Tweet) toEntity(ETipsContants.TYPE_SP_Tweet,
-						(String) map.get(key));
-				tweetList.add(t);
-			}
-			// 同样地以Tweet发布时间排序 ，时间越大 越新
-			Collections.sort(tweetList, new Comparator<Tweet>() {
-				@Override
-				public int compare(Tweet lhs, Tweet rhs) {
-					return lhs.getSendTime() > rhs.getSendTime() ? -1 : 1;
-				}
-			});
-
-			return tweetList;
-			
 		}
-
 		return null;
 	}
 

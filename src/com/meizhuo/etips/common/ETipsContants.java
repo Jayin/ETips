@@ -59,8 +59,6 @@ public class ETipsContants {
 	 */
 	public static final int TYPE_SP_Book = 0x0000001;
 	public static final int TYPE_SP_Notes = 0x0000002;
-	public static final int TYPE_SP_Topic = 0x0000003;
-	public static final int TYPE_SP_Tweet = 0x0000004;
 	// public static final int TYPE_SP_Course = 0x0000005;
 	/**
 	 * 定义一个每日提醒课程闹钟requestCode(ID)
@@ -90,7 +88,6 @@ public class ETipsContants {
 	 * Service 的action
 	 */
 	public final static String Action_Service_Download_Pic = "download_pic";
-	public final static String Action_Service_Check_Comment = "check_comment";
 	/**
 	 * TweetAPI 状态码
 	 */

@@ -46,7 +46,6 @@
     <application
         android:name="ETipsApplication"
         android:allowBackup="true"
-        android:debuggable="false"
         android:icon="@drawable/ic_icon1"
         android:label="@string/app_name"
         android:theme="@style/Theme.left_in_right_out" >
@@ -65,11 +64,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".TweetLogin"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
             android:name=".Regist"
             android:screenOrientation="portrait" >
         </activity>
@@ -83,14 +77,6 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".RegistIdentity"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name=".ETipsMainActivity"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
             android:name=".QueryEmptyClassroom"
             android:screenOrientation="portrait"
             >
@@ -98,10 +84,6 @@
         <activity
             android:name=".CourseMainActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name=".TweetCompose"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -136,10 +118,6 @@
         </activity>
         <activity
             android:name=".LibUserInfoActivity"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name=".TweetDetail"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -185,20 +163,12 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".TopicList"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
             android:name=".BookCollection"
             android:label="@string/acty_bookcollection"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".NotesEdit"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name=".TweetList"
             android:screenOrientation="portrait" >
         </activity>
         <activity

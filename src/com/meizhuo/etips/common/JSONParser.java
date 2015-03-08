@@ -6,12 +6,7 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import android.util.Log;
-
 import com.meizhuo.etips.model.Comment;
-import com.meizhuo.etips.model.Topic;
-import com.meizhuo.etips.model.Tweet;
 
 /**
  * JSON解析器
@@ -125,92 +120,6 @@ public class JSONParser {
 			e.printStackTrace();
 		}
 		return null;
-	}
-
-	/**
-	 * 解析获取话题列表
-	 * 
-	 * @param json
-	 * @return List<Topic>
-	 */
-	public static List<Topic> parseTopicList(String json) {
-		List<Topic> list = new ArrayList<Topic>();
-		JSONArray jsonArray = getResponse(json);
-		if (jsonArray == null)
-			return list;
-		for (int i = 0; i < jsonArray.length(); i++) {
-			try {
-				JSONObject obj = jsonArray.getJSONObject(i);
-				String id = obj.getString("topic_id");
-				String name = obj.getString("topic_name");
-				String description = obj.getString("description");
-				int enableIncognito = obj.getString("enableIncognito").equals(
-						"1") ? 1 : 0;
-				int click_amount = obj.getInt("click_amount");
-				Elog.i("i =" + i + "--->d" + description + "--->inco"
-						+ enableIncognito);
-				list.add(new Topic(name, id, description, enableIncognito,
-						click_amount));
-			} catch (JSONException e) {
-				e.printStackTrace();
-				continue;
-			}
-		}
-		return list;
-	}
-
-	/**
-	 * 解析获取帖子Tweet列表 Note: 这里的解析的时候并没有确定Tweet所在的话题id 手动加入方法 吐槽：智峣
-	 * 
-	 * @see #addTweetTopicID(List)
-	 * @param json
-	 * @return List<Tweet>
-	 */
-	public static List<Tweet> parseTweetList(String json) {
-		List<Tweet> list = new ArrayList<Tweet>();
-		JSONArray jsonArray = getResponse(json);
-		if (jsonArray == null)
-			Elog.i("jsonArray---is null" + jsonArray);
-		if (jsonArray == null)
-			return null; // jsonArray response null!!
-		for (int i = 0; i < jsonArray.length(); i++) {
-			try {
-				JSONObject obj = jsonArray.getJSONObject(i);
-				String article_id = obj.getString("article_id");
-				// Elog.i("article_id---"+article_id);
-				long sendTime = Long.parseLong(obj.getString("sendTime"));
-				// Elog.i("sendTime---"+sendTime);
-				String author = obj.getString("author");
-				// Elog.i("author---"+author);
-				int incognito = Integer.parseInt(obj.getString("incognito"));
-				// Elog.i("incognito---"+incognito);
-				int comments = Integer.parseInt(obj.getString("comments"));
-				// Elog.i("comments---"+comments);
-				String content = obj.getString("content");
-				// Elog.i("content---"+content);
-				String nickname = obj.getString("nickname");
-				list.add(new Tweet(article_id, sendTime, author, incognito,
-						content, comments,nickname));
-			} catch (JSONException e) {
-				e.printStackTrace();
-				continue;
-			}
-		}
-		return list;
-	}
-
-	/**
-	 * 整体添加topic id
-	 * 
-	 * @param list
-	 * @param topicID
-	 * @return
-	 */
-	public static List<Tweet> addTweetTopicID(List<Tweet> list, String topicID) {
-		for (Tweet t : list) {
-			t.setTopicID(topicID);
-		}
-		return list;
 	}
 
 	/**

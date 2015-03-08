@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -199,26 +198,7 @@ public class MsgCenterActivity extends BaseUIActivity {
 					Long.parseLong(mr.getAddTime()), CalendarUtils.TYPE_ONE));
 			holder.tv_content.setText(StringUtils.wrapText(
 					MsgCenterActivity.this, mr.content));
-			// 点击回复
-			holder.tv_content.setOnClickListener(new OnClickListener() {
-
-				@Override public void onClick(View v) {
-					if (list.get(position).getType()
-							.equals(ETipsContants.TYPE_MsgCenter_Tweet)) {
-						MsgRecord mr = list.get(position);
-						Intent intent = new Intent(getContext(),
-								TweetCompose.class);
-						intent.putExtra("function", "reply");
-						intent.putExtra("topic_id", mr.getTopic_id());
-						intent.putExtra("article_id", mr.getArticle_id());
-						intent.putExtra("author", mr.getAuthor());
-						intent.putExtra("to_comment_id", mr.getTo_comment_id());
-						intent.putExtra("nickname", mr.isIncognito() ? "某同学"
-								: mr.getNickname());
-						openActivity(intent);
-					}
-				}
-			});
+		
 			// 长按保存
 			holder.tv_content.setOnLongClickListener(new OnLongClickListener() {
 

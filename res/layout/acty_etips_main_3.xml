@@ -314,7 +314,6 @@
                     android:src="@drawable/ic_bg_main_note" />
 
                 <TextView
-                    android:id="@+id/textView2"
                     style="@style/Better_TextView_ETipsMain"
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="5dp"

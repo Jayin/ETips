@@ -9,8 +9,8 @@
 	<classpathentry kind="lib" path="libs/gson-2.2.4.jar"/>
 	<classpathentry kind="lib" path="libs/umeng_sdk.jar"/>
 	<classpathentry kind="lib" path="libs/libammsdk.jar"/>
-	<classpathentry kind="lib" path="libs/butterknife-5.1.2.jar"/>
 	<classpathentry kind="lib" path="libs/android-async-http-1.4.6.jar"/>
+	<classpathentry kind="lib" path="libs/butterknife-6.1.0.jar"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="src" path=".apt_generated">
 		<attributes>
